@@ -8,6 +8,7 @@ public class ServiceFacade {
 	public static void main(String []args){
 		Logger logger = LogManager.getLogger();
 		logger.debug("Test");
+		logger.debug("Test2");
 		}
 
 }
