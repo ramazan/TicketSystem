@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	background: url("http://i.istockimg.com/file_thumbview_approve/53484464/3/stock-photo-53484464-light-striped-brown-pattern-repeat-background.jpg");
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #111;
+}
+.form{
+padding: 25px;
+}
+
+#heading{
+padding: 15px;
+font-size: 25px;
+}
+
+.log-btn{
+margin-left: 25px;
+}
+
+</style>
+</head>
+<body>
+<div class=navbar>
+<ul>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#list">List All Tickets</a></li>
+  <li><a href="#controlpanel">Control Panel</a></li>
+</ul></div>
+<p id="heading">User Adding Form</p>
+<form action="" class="form">
+Name:
+<div class="name"><input type="text" class="title" id="name" ></div>
+Surname:
+<div class="surname"><input type="text" class="title" ></div>
+Company:
+<div class="company"><input type="text" class="title" ></div>
+Mail Address:
+<div class="mail"><input type="text" class="title" ></div>
+Password:
+<div class="password"><input type="text" class="title" ></div>
+<br>
+<form>
+  <input type="radio" name="role" value="Admin" checked> Admin<br>
+  <input type="radio" name="role" value="Supporter "> Supporter <br>
+  <input type="radio" name="role" value="Client"> Client
+</form>
+<button type="button" class="log-btn" >Send the Form</button>
+</form>
+
+
+</body>
+</html>
