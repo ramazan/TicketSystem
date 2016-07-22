@@ -14,11 +14,11 @@
 <%
 
 	if(request.isUserInRole("admin"))
-		 response.setHeader("Refresh", "5;url=./rest/admin/ControlPanel.html");	
+		response.setHeader("Refresh", "2;url=./admin/ControlPanel.html");	
 	else if(request.isUserInRole("supporter"))
-		response.sendRedirect("./rest/supporter/ControlPanel.html");
+		response.setHeader("Refresh", "2;url=./supporter/ControlPanel.html");
 	else if(request.isUserInRole("client"))
-		response.sendRedirect("./rest/client/ControlPanel.html");
+		response.setHeader("Refresh", "2;url=./client/ControlPanel.html");
 
 %>
 
