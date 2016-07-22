@@ -54,8 +54,6 @@
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
    	    	<url-pattern>/redirect.jsp</url-pattern>
-   	    	<http-method>GET</http-method>
-            <http-method>POST</http-method>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
@@ -63,6 +61,44 @@
 			<role-name>customer</role-name>
     	</auth-constraint>
 	</security-constraint>
+
+  	<security-constraint>
+    	<display-name>Ticket System</display-name>
+    	<web-resource-collection>
+        	<web-resource-name>Ticket System</web-resource-name>
+			<!-- Restricting access only to this URL for the GET method -->
+   	    	<url-pattern>/rest/admin/*</url-pattern>
+  		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+    	</auth-constraint>
+	</security-constraint>
+
+  	<security-constraint>
+    	<display-name>Ticket System</display-name>
+    	<web-resource-collection>
+        	<web-resource-name>Ticket System</web-resource-name>
+			<!-- Restricting access only to this URL for the GET method -->
+   	    	<url-pattern>/rest/client/*</url-pattern>
+  		</web-resource-collection>
+		<auth-constraint>
+			<role-name>client</role-name>
+    	</auth-constraint>
+	</security-constraint>
+
+  	<security-constraint>
+    	<display-name>Ticket System</display-name>
+    	<web-resource-collection>
+        	<web-resource-name>Ticket System</web-resource-name>
+			<!-- Restricting access only to this URL for the GET method -->
+   	    	<url-pattern>/rest/supporter/*</url-pattern>
+  		</web-resource-collection>
+		<auth-constraint>
+			<role-name>supporter</role-name>
+    	</auth-constraint>
+	</security-constraint>
+
+
 	<!-- Using Basic authentication -->
 	<login-config>
  		<auth-method>FORM</auth-method>  

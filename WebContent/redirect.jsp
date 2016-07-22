@@ -4,9 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Redirect</title>
 </head>
 <body>
+
+<h1>Welcome : <%=request.getRemoteUser()%> </h1>
+<h1> Redirecting... </h1>
+
+<%
+
+	if(request.isUserInRole("admin"))
+		 response.setHeader("Refresh", "5;url=./rest/admin/ControlPanel.html");	
+	else if(request.isUserInRole("supporter"))
+		response.sendRedirect("./rest/supporter/ControlPanel.html");
+	else if(request.isUserInRole("client"))
+		response.sendRedirect("./rest/client/ControlPanel.html");
+
+%>
 
 </body>
 </html>
