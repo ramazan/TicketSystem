@@ -63,7 +63,6 @@
 			<role-name>officer</role-name>
     	</auth-constraint>
 	</security-constraint>
-	
 	<!-- Using Basic authentication -->
 	<login-config>
  		<auth-method>FORM</auth-method>  
@@ -72,7 +71,6 @@
 			<form-error-page>/LoginError.html</form-error-page>
  		</form-login-config>
 	</login-config> 
-
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

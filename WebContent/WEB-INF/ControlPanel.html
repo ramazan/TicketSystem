@@ -1,7 +1,7 @@
-<!DOCTYPE html> <!-- This is for only admins -->
+<!DOCTYPE html>
+<!-- This page will be shown by all of the roles -->
 <html>
-<head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<head><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -35,25 +35,16 @@ li a {
 li a:hover{
     background-color: #111;
 }
-.form{
-padding: 25px;
-}
-
-#heading{
-padding: 15px;
-font-size: 25px;
-}
-
-.log-btn{
-margin-left: 25px;
-}
-
 .container{
 background: #B7AFA3;
 width: 350px;
 padding: 40px 30px;
+margin-top: 75px;
 border-radius: 10px;
  }
+ #heading{
+font-size: 25px;
+}
 </style>
 </head>
 <body>
@@ -61,30 +52,22 @@ border-radius: 10px;
 <ul>
   <li><a href="#home">Home</a></li>
   <li><a href="#list">List All Tickets</a></li>
+  <li><a href="#addticket">Add New Ticket</a></li>
   <li><a href="#controlpanel">Control Panel</a></li>
 </ul></div>
 <div class="container">
-<p id="heading">Register Form</p>
+
+<p id="heading">Personal Information</p>
+<p id="inf">This panel will be used to change your authorization settings.</p>
 <form action="" class="form">
-Name:
-<div class="name"><input type="text" class="title" id="name" ></div>
-Surname:
-<div class="surname"><input type="text" class="title" ></div>
-Company:
-<div class="company"><input type="text" class="title" ></div>
 Mail Address:
 <div class="mail"><input type="text" class="title" ></div>
 Password:
 <div class="password"><input type="text" class="title" ></div>
 <br>
-<form>
-  <input type="radio" name="role" value="Admin" checked> Admin<br>
-  <input type="radio" name="role" value="Supporter "> Supporter <br>
-  <input type="radio" name="role" value="Client"> Client
-</form>
-<button type="button" class="log-btn" >Send the Form</button>
-</form>
-</div>
 
+<button type="button" class="log-btn" >Save the Changes</button>
+</div>
+</form>
 </body>
 </html>
