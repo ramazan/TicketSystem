@@ -2,59 +2,44 @@ package com.j32bit.ticket.bean;
 
 public class Client {
 
-	private String Name;
-	private String Surname;
-	private String Company;
-	private String Mail;
-	private String Password; 
+	private String name;
+	private String surname;
+	private String company;
+	private String email;
+	private String password;
 	
-	public Client(String Name, String Surname, String Company, String Mail, String Password){
-		this.Name=Name;
-		this.Surname=Surname;
-		this.Company=Company;
-		this.Mail=Mail;
-		this.Password=Password;
+	public String getName() {
+		return name;
 	}
-	
-	public Client(){}
-	
-	public String getName(){
-		return Name;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public String getSurname(){
-		return Surname;
+	public String getSurname() {
+		return surname;
 	}
-	
-	public String getCompany(){
-		return Company;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
-	
-	public String getMail(){
-		return Mail;
+	public String getCompany() {
+		return company;
 	}
-	
-	public String getPassword(){
-		return Password;
+	public void setCompany(String company) {
+		this.company = company;
 	}
-	
-	public void setName(String newName){
-		this.Name = newName;
+	public String getEmail() {
+		return email;
 	}
-	
-	public void setSurname(String newSurname){
-		this.Surname = newSurname;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	public void setCompany(String newCompany){
-		this.Company = newCompany;
+	public String getPassword() {
+		return password;
 	}
+	public void setPassword(String password) {
+		this.password = password;
+	} 
 	
-	public void setMail(String newMail){
-		this.Mail = newMail;
-	}
 	
-	public void setPassword(String newPassword){
-		this.Password = newPassword;
-	}
+	
+	
 }
