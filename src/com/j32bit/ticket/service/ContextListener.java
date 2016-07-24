@@ -1,10 +1,9 @@
-//ServiceFacade'dan sonra tekrar düzenlenecek
+//ServiceFacade'dan sonra tekrar düzenlenecek.
 package com.j32bit.ticket.service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.apache.logging.log4j.Logger;
