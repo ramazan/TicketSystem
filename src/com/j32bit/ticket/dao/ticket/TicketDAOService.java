@@ -13,20 +13,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Ticket;
-import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
 
-public class TicketDAOService extends ConnectionHelper{
+public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);
 
-	public void init(Properties prop){
+	public void init(Properties prop) {
 		super.init(prop);
 	}
-	
-	public void getTicket(){
-		
-		}
-	
+
+	public void getTicket() {
+
+	}
+
 	public void storeTicket(Ticket ticket) {
 
 		logger.debug("storeTicket is started");
@@ -42,20 +41,20 @@ public class TicketDAOService extends ConnectionHelper{
 			pst.setString(2, ticket.getMessage());
 			pst.executeUpdate();
 			closeResultSet(rs);
-			closeStatement(pst);
+			closePreparedStatement(pst);
 			closeConnection(con);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 		}
 		logger.debug("storeTicket is finished");
 	}
-	
-	public void deleteTicket(){
-		
+
+	public void deleteTicket() {
+
 	}
-	
-	public Ticket updateTicket(Ticket ticket) {
+
+	public void updateTicket(Ticket ticket) {
 
 		logger.debug("updateTicket is started");
 
@@ -69,21 +68,22 @@ public class TicketDAOService extends ConnectionHelper{
 			con = getConnection();
 			pst = con.prepareStatement(query);
 
-			pst.setString(1, ticket.getTitle()());
+			pst.setString(1, ticket.getTitle());
 			pst.setString(2, ticket.getMessage());
-			pst.setString(3, ticket.getNumber()); //PK ayarlandıktan sonra
+			// pst.setString(3, ticket.getNumber()); //TODO:PK ayarlandıktan
+			// sonra
 			pst.executeUpdate();
 
 			closeResultSet(rs);
-			closeStatement(st);
+			closePreparedStatement(pst);
 			closeConnection(con);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 		}
 
 		logger.debug("updateTicket is finished");
-		
-	}
 
 	}
+
+}
