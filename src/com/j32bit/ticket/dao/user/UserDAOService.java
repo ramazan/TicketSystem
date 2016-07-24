@@ -10,7 +10,6 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.j32bit.bean.Person;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
 
@@ -50,14 +49,9 @@ public class UserDAOService extends ConnectionHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
 				closeResultSet(rs);
-				closeStatement(pst);
+				closePreparedStatement(pst);
 				closeConnection(con);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		logger.debug("getUser is finished");
 		return user;
@@ -84,9 +78,9 @@ public class UserDAOService extends ConnectionHelper {
 			pst.executeUpdate();
 			// pst.executeQuery();
 			closeResultSet(rs);
-			closeStatement(pst);
+			closePreparedStatement(pst);
 			closeConnection(con);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 		}
@@ -110,9 +104,9 @@ public class UserDAOService extends ConnectionHelper {
 			pst.executeUpdate();
 
 			closeResultSet(rs);
-			closeStatement(st);
+			closePreparedStatement(pst);
 			closeConnection(con);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 		}
@@ -120,7 +114,7 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("deleteUser is finished");
 	}
 	
-	public User updateUser(User user) {
+	public void updateUser(User user) {
 
 		logger.debug("updateUser is started");
 
@@ -140,9 +134,9 @@ public class UserDAOService extends ConnectionHelper {
 			pst.executeUpdate();
 
 			closeResultSet(rs);
-			closeStatement(st);
+			closePreparedStatement(pst);
 			closeConnection(con);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException  e) {
 			e.printStackTrace();
 		} finally {
 		}
