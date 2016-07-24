@@ -1,6 +1,6 @@
 package com.j32bit.ticket.bean;
 
-public class Client {
+public class User {
 
 	private String name;
 	private String surname;
