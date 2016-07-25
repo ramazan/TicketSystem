@@ -7,6 +7,9 @@ import javax.ws.rs.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.User;
+import com.j32bit.ticket.service.ServiceFacade;
+
 @Path("/")
 public class AdminRestful {
 	
@@ -16,7 +19,9 @@ public class AdminRestful {
 	@GET
 	@RolesAllowed("admin")
 	public void test(){
-		logger.debug("test completed");
+		
+		User user = ServiceFacade.getInstance().getUser("hm");
+		System.out.println("Test User: "+user);
 		
 	}
 

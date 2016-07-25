@@ -98,6 +98,10 @@
     	</auth-constraint>
 	</security-constraint>
 
+	<!-- ContextListener -->
+	<listener>
+		<listener-class>com.j32bit.ticket.listener.ContextListener</listener-class>
+	</listener>
 
 	<!-- Using Basic authentication -->
 	<login-config>

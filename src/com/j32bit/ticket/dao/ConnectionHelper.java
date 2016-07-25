@@ -27,6 +27,7 @@ public class ConnectionHelper {
 			// TODO MYSQL DATASOURCE CONNECTION POOL?
 			// BURAK ABIIIII
 		}
+		logger.debug("initialize finished");
 	}
 	
 	public Connection getConnection(){

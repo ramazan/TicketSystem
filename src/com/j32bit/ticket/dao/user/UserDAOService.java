@@ -16,9 +16,15 @@ import com.j32bit.ticket.dao.ConnectionHelper;
 public class UserDAOService extends ConnectionHelper {
 	
 	private Logger logger = LogManager.getLogger(UserDAOService.class);
+	
+	public UserDAOService(){
+		logger.debug("constructed");
+	}
 
 	public void init(Properties prop){
+		logger.debug("initialize started");
 		super.init(prop);
+		logger.debug("initialize finished");
 	}
 
 	public User getUser(String email) {
@@ -32,17 +38,17 @@ public class UserDAOService extends ConnectionHelper {
 
 		try {
 			user = new User();
-			String query = "SELECT * FROM USERS WHERE EMAIL=?";
+			String query = "SELECT * FROM users WHERE EMAIL=?";
 			con = getConnection();
 			pst = con.prepareStatement(query);
 			pst.setString(1, email);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				user.setName("NAME");
-				user.setSurname("SURNAME");
-				user.setCompany("COMPANY");
-				user.setEmail("EMAIL");
-				user.setPassword("PASSWORD");
+				user.setName(rs.getString("name"));
+				user.setSurname(rs.getString("surname"));
+				user.setCompany(rs.getString("company"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
 	
 			}
 

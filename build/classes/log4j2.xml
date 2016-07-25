@@ -4,13 +4,13 @@
   <Appenders>
 	<!-- PRINT LOGS TO CONSOLE -->
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+      <PatternLayout pattern="%d %p %c{3} - %m%n"/>
     </Console>
 	
 	<!-- PRINT LOGS TO FILE -->
-	<RollingFile name="FileWriter" fileName="log4j2Test.log" filePattern="log4j2Test-%d{MM-dd-yyyy}-%i.log" >
+	<RollingFile name="FileWriter" fileName="./log4j2Test.log" filePattern="log4j2Test-%d{MM-dd-yyyy}-%i.log" >
 		<PatternLayout>
-        	<Pattern>%d %p %c [%t] %m%n</Pattern>
+        	<Pattern>%d %p %c{3} %m%n</Pattern>
         </PatternLayout>
         <Policies>
         	<TimeBasedTriggeringPolicy />
@@ -23,7 +23,7 @@
 
   <Loggers>
 
-	<Logger name="com.j32bit.ticket.service.ServiceFacade" level="debug" additivity="false">
+	<Logger name="com.j32bit.ticket" level="debug" additivity="false">
 		<appender-ref ref="FileWriter" level="debug"/>
 		<appender-ref ref="Console" level="debug"/>		
 	</Logger>
