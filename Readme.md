@@ -28,10 +28,9 @@
 6. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
 
 #### Test Kullanıcıları
-> admin :   *email*: **hm** *password*:**1**
-> client :   *email*: **c** *password*:**1**
-> supporter :   *email*: **s** *password*:**1**
-
+> admin :   *email*: **hm** *password*:**1**  
+> client :   *email*: **c** *password*:**1**  
+> supporter :   *email*: **s** *password*:**1**  
 
 ### Katkıda Bulunanlar
 > Hasan Men - GTU  

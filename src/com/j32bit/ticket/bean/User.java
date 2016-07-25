@@ -9,6 +9,20 @@ public class User {
 	private String password;
 	private String role;
 	
+	public User(){
+		// no parameter constructor
+	}
+	
+	public User(String name, String surname, String company, String email, String password, String role) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.company = company;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -40,16 +54,6 @@ public class User {
 		this.password = password;
 	}
 	
-
-	public User(String name, String surname, String company, String email, String password, String role) {
-		super();
-		this.name = name;
-		this.surname = surname;
-		this.company = company;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
 	public String getRole() {
 		return role;
 	}

@@ -23,8 +23,6 @@ public class AdminRestful {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
 	public void addUser(User user){
-		
-		User user1 = new User("t","t","t","t","t","t");
 		ServiceFacade.getInstance().addUser(user);
 		logger.debug("User added: "+user);
 	}
