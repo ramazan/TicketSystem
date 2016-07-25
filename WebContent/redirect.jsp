@@ -9,12 +9,12 @@
 <body>
 
 <h1>Welcome : <%=request.getRemoteUser()%> </h1>
-<h1> Redirecting... </h1>
+<h1> Redirecting in 2sec ... </h1>
 
 <%
 
 	if(request.isUserInRole("admin"))
-		response.setHeader("Refresh", "2;url=./admin/ControlPanel.html");	
+		response.setHeader("Refresh", "2;url=./pages/admin/ControlPanel.html");	
 	else if(request.isUserInRole("supporter"))
 		response.setHeader("Refresh", "2;url=./supporter/ControlPanel.html");
 	else if(request.isUserInRole("client"))

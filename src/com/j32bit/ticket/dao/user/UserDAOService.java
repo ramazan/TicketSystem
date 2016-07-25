@@ -26,6 +26,35 @@ public class UserDAOService extends ConnectionHelper {
 		super.init(prop);
 		logger.debug("initialize finished");
 	}
+	
+	public void addUser(User user){
+		
+		Connection con=null;
+		PreparedStatement pst=null;
+		
+		try{
+			String addUserQuery = "INSERT INTO users (email,password,name,surname,company,role) values (?,?,?,?,?,?)";
+			
+			con = getConnection();
+			pst = con.prepareStatement(addUserQuery);
+			pst.setString(1, user.getEmail());
+			pst.setString(2, user.getPassword());
+			pst.setString(3, user.getName());
+			pst.setString(4, user.getSurname());
+			pst.setString(5, user.getCompany());
+			pst.setString(6, user.getRole());
+			pst.executeUpdate(); // to insert, update,delete and return nothings			
+		}catch(Exception e){
+			logger.debug("addUser error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			closePreparedStatement(pst);
+			closeConnection(con);			
+		}
+		logger.debug("addUser completed");
+	}
+	
+	/* 
 
 	public User getUser(String email) {
 
@@ -150,6 +179,6 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("updateUser is finished");
 		
 	}
-
+*/
 	
 }

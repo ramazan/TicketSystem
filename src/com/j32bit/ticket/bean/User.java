@@ -7,6 +7,7 @@ public class User {
 	private String company;
 	private String email;
 	private String password;
+	private String role;
 	
 	public String getName() {
 		return name;
@@ -38,13 +39,27 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public User(String name, String surname, String company, String email, String password, String role) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.company = company;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", surname=" + surname + ", company=" + company + ", email=" + email
-				+ ", password=" + password + "]";
-	} 
-	
-	
-	
+				+ ", password=" + password + ", role=" + role + "]";
+	}
 	
 }

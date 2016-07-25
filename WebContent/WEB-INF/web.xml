@@ -67,7 +67,7 @@
     	<web-resource-collection>
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
-   	    	<url-pattern>/admin/*</url-pattern>
+   	    	<url-pattern>/pages/admin/*</url-pattern>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
@@ -79,7 +79,7 @@
     	<web-resource-collection>
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
-   	    	<url-pattern>/client/*</url-pattern>
+   	    	<url-pattern>/pages/client/*</url-pattern>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>client</role-name>
@@ -91,7 +91,7 @@
     	<web-resource-collection>
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
-   	    	<url-pattern>/supporter/*</url-pattern>
+   	    	<url-pattern>/pages/supporter/*</url-pattern>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>supporter</role-name>

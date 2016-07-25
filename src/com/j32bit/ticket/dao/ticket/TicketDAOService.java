@@ -21,7 +21,7 @@ public class TicketDAOService extends ConnectionHelper {
 	public void init(Properties prop) {
 		super.init(prop);
 	}
-
+/*
 	public void getTicket() {
 
 	}
@@ -84,6 +84,6 @@ public class TicketDAOService extends ConnectionHelper {
 
 		logger.debug("updateTicket is finished");
 
-	}
+	}*/
 
 }

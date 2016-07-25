@@ -1,8 +1,11 @@
 package com.j32bit.ticket.rest;
 
+
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,19 +13,20 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
 
-@Path("/")
+@Path("/admin")
 public class AdminRestful {
 	
 	private static Logger logger = LogManager.getLogger();
 	
-	@Path("/test")
-	@GET
+	@Path("/addUser")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void test(){
+	public void addUser(User user){
 		
-		User user = ServiceFacade.getInstance().getUser("hm");
-		System.out.println("Test User: "+user);
-		
+		User user1 = new User("t","t","t","t","t","t");
+		ServiceFacade.getInstance().addUser(user);
+		logger.debug("User added: "+user);
 	}
 
 }

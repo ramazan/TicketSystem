@@ -40,11 +40,12 @@ public class ServiceFacade {
 		logger.debug("initialize finished");
 	}
 	
-	// this is a test
-	public User getUser(String email){
-		User user = userService.getUser(email);
-		return user;
+	
+	public void addUser(User user){
+		userService.addUser(user);
 	}
+	
+	
 	
 
 }
