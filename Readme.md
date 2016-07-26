@@ -27,6 +27,8 @@
 
 6. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
 
+#####NOT: Log dosyasi home dizininde oluşturulur.
+
 #### Test Kullanıcıları
 > admin :   *email*: **hm** *password*:**1**  
 > client :   *email*: **c** *password*:**1**  
