@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,8 +33,9 @@ public class ConnectionHelper {
 		logger.debug("initialize finished");
 	}
 	
-	public Connection getConnection(){
-		
+	public Connection getConnection() throws NamingException, SQLException{
+		return getConnectionFromPool();
+		/*
 		Connection connection=null;
 		
 		logger.debug("getConnection started");
@@ -44,7 +48,17 @@ public class ConnectionHelper {
 		}
 		
 		logger.debug("getConnection finished");
-		return connection;
+		return connection;*/
+	}
+	
+	private Connection getConnectionFromPool() throws NamingException, SQLException {
+		logger.debug("DataSource java:comp/env/jdbc/TicketDB");
+		Context envCtx = (Context) new InitialContext();
+		// Look up our data source
+		DataSource ds = (DataSource) envCtx.lookup("java:comp/env/jdbc/TicketDB");
+		Connection conn = ds.getConnection();
+		logger.debug("Connection taken");
+		return conn;
 	}
 	
 

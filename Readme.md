@@ -24,7 +24,31 @@
 	userNameCol="email"  
 	userRoleTable="users"  
 	roleNameCol="role"  />
-
+6. Connection Pool ayarlar için aşağıyı takip edin.
+	* Tomcat **contex.xml** dosyasina aşağıdaki kodları ekleyin.
+> < ResourceLink type="javax.sql.DataSource"
+                name="jdbc/TicketDB"
+                global="jdbc/TicketDB"/>
+	* Tomcat **server.xml** dosyasina aşağıdaki kodları ekleyin.
+> < Resource type="javax.sql.DataSource"
+			auth="Container"
+            name="jdbc/TicketDB"
+            driverClassName="com.mysql.jdbc.Driver"
+			factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            url="jdbc:mysql://127.0.0.1:3306/TicketDB"
+            username="testUser"
+            password="testUser"
+			initialSize="10"
+            maxActive="20"
+            maxIdle="10"
+            minIdle="5"/>
+	* Son olarak **web.xml** dosyasina bunları ekleyinn.
+> < resource-ref>
+		<description>Ticket DB Connecion Pool Source</description>
+		<res-ref-name>jdbc/TicketDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref> 
 6. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
 
 #####NOT: Log dosyasi home dizininde oluşturulur.
