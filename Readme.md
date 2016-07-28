@@ -42,14 +42,8 @@
             maxActive="20"
             maxIdle="10"
             minIdle="5"/>
-	* Son olarak **web.xml** dosyasina bunları ekleyinn.
-> < resource-ref>
-		<description>Ticket DB Connecion Pool Source</description>
-		<res-ref-name>jdbc/TicketDB</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<res-auth>Container</res-auth>
-	</resource-ref> 
-6. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
+	
+7. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
 
 #####NOT: Log dosyasi home dizininde oluşturulur.
 
