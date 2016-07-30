@@ -38,7 +38,6 @@ public class ContextListener implements ServletContextListener {
 			prop.load(input);
 		} catch (Exception e) {
 			logger.error("Properties file reading error : " + e.getMessage());
-			e.printStackTrace();
 		}
 		logger.debug("Reading properties file completed");
 

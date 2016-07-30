@@ -42,7 +42,7 @@ public class UserDAOService extends ConnectionHelper {
 			pst.setString(3, user.getName());
 			pst.setString(4, user.getSurname());
 			pst.setString(5, user.getCompany());
-			pst.setString(6, user.getRole());
+//			pst.setString(6, user.getRole());TODO roller ayrı tabloda değilmiydi ? bu user kaydı nasıl bir şey anlamadım .
 			pst.executeUpdate(); // to insert, update,delete and return nothings			
 		}catch(Exception e){
 			logger.debug("addUser error:"+e.getMessage());
