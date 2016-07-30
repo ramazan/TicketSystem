@@ -1,6 +1,5 @@
 package com.j32bit.ticket.rest;
 
-
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

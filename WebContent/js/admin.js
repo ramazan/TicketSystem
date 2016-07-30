@@ -6,7 +6,7 @@ function addUser(){
 	var newPassword = $('#password').val();
 
 	if(newName=="" || newSurname=="" || newEmail=="" || newCompany=="" || newPassword==""){
-		alert("Please fill all boxes");
+		$("#message-box").text("Please fill all boxes");
 	}else{
 		var newRole;
 		if($('#adminRole').is(':checked')){
@@ -23,7 +23,7 @@ function addUser(){
 					password: newPassword,
 					company: newCompany,
 					role: newRole};
-		
+
 		$.ajax({
 			  type: "POST",
 			  url: '/Ticket_System/rest/admin/addUser',
@@ -32,7 +32,7 @@ function addUser(){
 			  data : JSON.stringify(person),
 			  success : function(){
 				  alert("User added");
-		        }
-			});	
+		      }
+			});
 	}
 }

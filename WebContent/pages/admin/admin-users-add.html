@@ -1,0 +1,97 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Ticket System</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ui.jqgrid-bootstrap.css"/>
+      <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JAVASCRIPT SOURCES -->
+    <script type="text/javascript" src="../../js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/i18n/grid.locale-en.js"></script>
+    <script type="text/javascript" src="../../js/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="../../js/admin.js"></script>
+    <script>
+  		$.jgrid.defaults.width = 780;
+  		$.jgrid.defaults.styleUI = 'Bootstrap';
+  	</script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">TicketSystem</a>
+          </div>
+          <div class="collapse navbar-collapse" >
+            <ul class="nav navbar-nav">
+              <li><a href="admin-dashboard.html">Dashboard</a></1i>
+              <li><a href="admin-tickets.html">Tickets</a></1i>
+              <li class="active"><a href="admin-users.html">Users</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                role="button" aria-haspopup="true"
+                aria-expanded="false">UserName<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">My Preferences</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div> <!--navbar collapse -->
+        </div><!-- navbar container -->
+      </nav>
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a id="allUsers" href="admin-users.html">All Users</a></li>
+            <li class="active"><a id="addUser" href="admin-users-add.html">Add User</a></li>
+          </ul>
+        </div>
+      </nav> <!-- mini ticket navbar-->
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <p id="message-box"></p>
+          <form>
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input class="form-control" type="text" id="name" required/>
+            </div>
+            <div class="form-group">
+              <label for="surname">Surname:</label>
+              <input class="form-control" type="text" id="surname" required/>
+            </div>
+            <div class="form-group">
+              <label>Company:</label>
+              <input class="form-control" type="text" id="company" required/>
+            </div>
+            <div class="form-group">
+              <label>E-Mail:</label>
+              <input class="form-control" type="text" id="email" required/>
+            </div>
+            <div class="form-group">
+              <label>Password:</label>
+              <input class="form-control" type="text" id="password" required/>
+            </div>
+            <div class="checkbox">
+              <label><input type="radio" name="role" id="adminRole" checked>Admin</label>
+              <label><input type="radio" name="role" id="supporterRole" >Supporter</label>
+              <label><input type="radio" name="role" id="clientRole">Client</label>
+            </div>
+            <button type="submit" onclick="addUser()" class="btn btn-default" >Submit</button>
+          </form>
+        </div>
+      </div><!-- row -- >
+
+
+    </div> <!-- main container fluid-->
+  </body>
+</html>

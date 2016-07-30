@@ -1,6 +1,5 @@
 package com.j32bit.ticket.service;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
