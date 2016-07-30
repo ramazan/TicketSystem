@@ -44,6 +44,12 @@ public class ServiceFacade {
 		userService.addUser(user);
 	}
 	
+	public User[] getAllUsers(){
+		User[] users = userService.getAllUsers();
+		logger.info("GET-USER # "+users.length);
+		return users;
+	}
+	
 	
 	
 

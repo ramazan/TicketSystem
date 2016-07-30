@@ -2,6 +2,9 @@ package com.j32bit.ticket.dao.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -59,6 +62,63 @@ public class UserDAOService extends ConnectionHelper {
 			logger.debug("addUser completed");
 		}
 	}
+	
+	
+	public User[] getAllUsers(){
+		
+		Connection con=null;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		ResultSet roleResultSet=null;
+		
+		ArrayList<User> users = new ArrayList<>();
+		
+		
+		try{
+			
+			con = getConnection();
+			String query = "SELECT * FROM users";
+			
+			pst = con.prepareStatement(query);
+			rs = pst.executeQuery();
+			
+			while(rs.next()){
+				
+				String name=rs.getString("name");
+				String surname=rs.getString("surname");
+				String email=rs.getString("email");
+				String password=rs.getString("password");
+				String company = rs.getString("company");
+				
+				query = "SELECT * FROM user_roles WHERE email=\""+email+"\"";
+				pst = con.prepareStatement(query);
+				roleResultSet = pst.executeQuery();
+				
+				List<String> roles = new ArrayList<>();
+				String[] rolesArr;
+				while(roleResultSet.next()){
+					roles.add(roleResultSet.getString("role"));					
+				}
+				
+				rolesArr = roles.toArray(new String[roles.size()]);
+				User user = new User(name,surname,company,email,password,rolesArr);
+				
+				users.add(user);	
+			}	
+		}catch(Exception e){
+			logger.debug("getAllUser error occured");
+			e.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		
+		return users.toArray(new User[users.size()]);
+	}
+	
+	
+	
 	
 	/* 
 
