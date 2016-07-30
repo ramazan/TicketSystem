@@ -1,6 +1,7 @@
 package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,61 +15,72 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 public class ConnectionHelper {
 
 	private final static Logger logger = LogManager.getLogger();
-	
-	private DataSource dataSource;
+	private boolean useDataPool;
+	private String JDBCDriverName;
+	private String JDBCURL;
+	private String dbUser;
+	private String dbPassword;
+	private String JNDIName;
 
 	public void init(Properties properties) {
-		
-		if(properties!=null){
-			dataSource = getMysqlDataSource(properties);
-		}else{
-			// TODO MYSQL DATASOURCE CONNECTION POOL?
-			// BURAK ABIIIII
-		}
-		logger.debug("initialize finished");
+		logger.info("ConnectionHelper initializing");
+		useDataPool = properties.getProperty("database.use.pool", "false").equalsIgnoreCase("true");
+		JDBCDriverName = properties.getProperty("database.jdbc.driver");
+		JDBCURL = properties.getProperty("database.jdbc.url");
+		dbUser = properties.getProperty("database.username");
+		dbPassword = properties.getProperty("database.password");
+		JNDIName = properties.getProperty("database.jndi.name");
+		logger.info("initialize initialized");
 	}
-	
-	public Connection getConnection() throws NamingException, SQLException{
-		return getConnectionFromPool();
-		/*
-		Connection connection=null;
-		
-		logger.debug("getConnection started");
-		
-		try {
-			connection = dataSource.getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		logger.debug("getConnection finished");
-		return connection;*/
+
+	public Connection getConnection() throws Exception {
+		if (useDataPool)
+			return getConnectionFromDatasource();
+		else
+			return getConnectionLocal();
 	}
-	
-	private Connection getConnectionFromPool() throws NamingException, SQLException {
-		logger.debug("DataSource java:comp/env/jdbc/TicketDB");
-		Context envCtx = (Context) new InitialContext();
-		// Look up our data source
-		DataSource ds = (DataSource) envCtx.lookup("java:comp/env/jdbc/TicketDB");
-		Connection conn = ds.getConnection();
-		logger.debug("Connection taken");
+
+	public Connection getConnectionLocal() throws Exception {
+		Connection newConn = null;
+		Class.forName(JDBCDriverName).newInstance();
+		newConn = DriverManager.getConnection(JDBCURL, dbUser, dbPassword);
+		logger.trace("Connection taken :" + newConn.getAutoCommit());
+		return newConn;
+	}
+
+	public Connection getTransactionalConnection() throws Exception {
+		Connection conn = getConnection();
+		if (conn != null && !conn.isClosed()) {
+			if (conn.getAutoCommit()) {
+				conn.setAutoCommit(false);
+			} else {
+				// Devam eden transaction varsa roolback yapalim.
+				logger.warn("Transaction is already active. Rollbacking active transaction");
+				conn.rollback();
+			}
+		}
 		return conn;
 	}
-	
+
+	private Connection getConnectionFromDatasource() throws NamingException, SQLException {
+		logger.trace("DataSource " + JNDIName);
+		Context envCtx = (Context) new InitialContext();
+		DataSource ds = (DataSource) envCtx.lookup(JNDIName);
+		Connection conn = ds.getConnection();
+		logger.trace("Connection taken");
+		return conn;
+	}
 
 	public void closeConnection(Connection con) {
 		try {
 			if (con != null)
 				con.close();
-			logger.debug("Connection closed");
+			logger.trace("Connection closed");
 		} catch (Exception e) {
-			logger.debug("Connection close error: " + e.getMessage());
+			logger.trace("Connection close error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -77,9 +89,9 @@ public class ConnectionHelper {
 		try {
 			if (rs != null)
 				rs.close();
-			logger.debug("ResultSet closed");
+			logger.trace("ResultSet closed");
 		} catch (Exception e) {
-			logger.debug("ResultSet close error: " + e.getMessage());
+			logger.trace("ResultSet close error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -88,37 +100,10 @@ public class ConnectionHelper {
 		try {
 			if (pst != null)
 				pst.close();
-			logger.debug("PreparedStatement closed");
+			logger.trace("PreparedStatement closed");
 		} catch (Exception e) {
-			logger.debug("PreparedStatement close error: " + e.getMessage());
+			logger.trace("PreparedStatement close error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-
-	private MysqlDataSource getMysqlDataSource(Properties prop) {
-
-		MysqlDataSource mysqlDS = null;
-
-		logger.debug("Started to create mysqlds from properties");
-		String dbUsername = prop.getProperty("dbUsername");
-		String dbPassword = prop.getProperty("dbPassword");
-		int dbPort = Integer.parseInt(prop.getProperty("dbPort"));
-		String dbServerName = prop.getProperty("dbServerName");
-		String dbName = prop.getProperty("dbName");
-
-		if (dbServerName == null || dbName == null || dbPassword == null || dbName == null) {
-			logger.debug("Properties file reading implementation error");
-		} else {
-			mysqlDS = new MysqlDataSource();
-			mysqlDS.setUser(dbUsername);
-			mysqlDS.setPassword(dbPassword);
-			mysqlDS.setPort(dbPort);
-			mysqlDS.setDatabaseName(dbName);
-			mysqlDS.setServerName(dbServerName);
-			logger.debug("mysql datasource created.");
-		}
-
-		return mysqlDS;
-	}
-
 }
