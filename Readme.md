@@ -22,7 +22,7 @@
 	userTable="users"  
 	userCredCol="password"  
 	userNameCol="email"  
-	userRoleTable="users"  
+	userRoleTable="user_roles"  
 	roleNameCol="role"  />
 6. Connection Pool ayarlar için aşağıyı takip edin.
 	* Tomcat **contex.xml** dosyasina aşağıdaki kodları ekleyin.
