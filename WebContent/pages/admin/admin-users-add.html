@@ -29,8 +29,8 @@
           </div>
           <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
-              <li><a href="admin-dashboard.html">Dashboard</a></1i>
-              <li><a href="admin-tickets.html">Tickets</a></1i>
+              <li><a href="admin-dashboard.html">Dashboard</a></li>
+              <li><a href="admin-tickets.html">Tickets</a></li>
               <li class="active"><a href="admin-users.html">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -46,7 +46,7 @@
               </li>
             </ul>
           </div> <!--navbar collapse -->
-        </div><!-- navbar container -->
+        </div> <!-- navbar container -->
       </nav>
 
       <nav class="navbar navbar-default">
@@ -81,17 +81,16 @@
               <label>Password:</label>
               <input class="form-control" type="text" id="password" required/>
             </div>
-            <div class="checkbox">
-              <label><input type="radio" name="role" id="adminRole" checked>Admin</label>
-              <label><input type="radio" name="role" id="supporterRole" >Supporter</label>
-              <label><input type="radio" name="role" id="clientRole">Client</label>
-            </div>
+			<div class="checkbox">
+              <label class="checkbox-inline" ><input type="checkbox" name="role" id="adminRole" checked>Admin</label>
+              <label class="checkbox-inline" ><input type="checkbox" name="role" id="supporterRole" >Supporter</label>
+              <label class="checkbox-inline" ><input type="checkbox" name="role" id="clientRole">Client</label>
+        	</div>
             <button type="submit" onclick="addUser()" class="btn btn-default" >Submit</button>
           </form>
         </div>
-      </div><!-- row -- >
+      </div><!-- row -->
 
-
-    </div> <!-- main container fluid-->
+    </div> <!-- main container fluid -->
   </body>
 </html>

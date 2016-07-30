@@ -75,12 +75,16 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder userDetail = new StringBuilder();
-		userDetail.append("name").append(name).append("\n");//TODO şeklinde olmalı
+		userDetail.append("name").append(name).append("\n");
 		userDetail.append("surname").append(surname).append("\n");
+		userDetail.append("email").append(email).append("\n");
+		userDetail.append("password").append(password).append("\n");
+		for(int i=0;i<userRoles.length;++i){
+			userDetail.append("role").append(i).append("=").append(userRoles[i]).append("\n");
+		}
 		
 		return userDetail.toString();
-//		return "User [name=" + name + ", surname=" + surname + ", company=" + company + ", email=" + email
-//				+ ", password=" + password + ", userRoles=" + role + "]";
+
 	}
 
 }

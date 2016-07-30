@@ -30,7 +30,7 @@ public class UserDAOService extends ConnectionHelper {
 		PreparedStatement pst=null;
 		
 		try{
-			String addUserQuery = "INSERT INTO users (email,password,name,surname,company,role) values (?,?,?,?,?,?)";
+			String addUserQuery = "INSERT INTO users (email,password,name,surname,company) values (?,?,?,?,?)";
 			
 			con = getConnection();
 			pst = con.prepareStatement(addUserQuery);
@@ -39,16 +39,25 @@ public class UserDAOService extends ConnectionHelper {
 			pst.setString(3, user.getName());
 			pst.setString(4, user.getSurname());
 			pst.setString(5, user.getCompany());
-//			pst.setString(6, user.getRole());TODO roller ayrı tabloda değilmiydi ? bu user kaydı nasıl bir şey anlamadım .
-			pst.executeUpdate(); // to insert, update,delete and return nothings			
+			pst.executeUpdate(); // to insert, update,delete and return nothings	
+			
+			int roleSize = user.getUserRoles().length;
+			for(int i=0;i!=roleSize;++i){
+				String addRoleQuery = "INSERT INTO user_roles (email,role) values (?,?)";
+				pst = con.prepareStatement(addRoleQuery);
+				pst.setString(1, user.getEmail());
+				pst.setString(2, user.getUserRoles()[i]);
+				pst.executeUpdate();
+			}
+	
 		}catch(Exception e){
 			logger.debug("addUser error:"+e.getMessage());
 			e.printStackTrace();
 		}finally{
 			closePreparedStatement(pst);
-			closeConnection(con);			
+			closeConnection(con);	
+			logger.debug("addUser completed");
 		}
-		logger.debug("addUser completed");
 	}
 	
 	/* 

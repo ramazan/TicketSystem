@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tickets`
+-- Table structure for table `user_roles`
 --
 
-DROP TABLE IF EXISTS `tickets`;
+DROP TABLE IF EXISTS `user_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tickets` (
-  `title` varchar(100) NOT NULL,
-  `message` varchar(1000) NOT NULL,
-  `id` int(11) NOT NULL,
-  `department` varchar(45) NOT NULL,
-  `sender` varchar(45) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `user_roles` (
+  `email` varchar(45) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  KEY `index1` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tickets`
+-- Dumping data for table `user_roles`
 --
 
-LOCK TABLES `tickets` WRITE;
-/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES ('dn1','deneme',0,'','','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
+LOCK TABLES `user_roles` WRITE;
+/*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
+INSERT INTO `user_roles` VALUES ('hm','admin'),('sd','admin'),('c','client'),('s','supporter');
+/*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

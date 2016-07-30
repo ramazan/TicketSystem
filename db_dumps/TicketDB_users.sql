@@ -28,7 +28,6 @@ CREATE TABLE `users` (
   `company` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +38,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('as','as','as','as','as','admin'),('asd','asd','asd','asd','asd','supporter'),('client1','client1','gtu','c','1','client'),('hasan','men','32bit','hm','1','admin'),('supporter1','supporter1','32bit','s','1','supporter'),('sinem','dere','itu','sd','1','admin');
+INSERT INTO `users` VALUES ('client1','client1','gtu','c','1'),('hasan','men','32bit','hm','1'),('qwe','qwe','qwe','qwe','qwe'),('supporter1','supporter1','32bit','s','1'),('sinem','dere','itu','sd','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-28 21:09:40
+-- Dump completed on 2016-07-30 20:31:47

@@ -8,13 +8,15 @@ function addUser(){
 	if(newName=="" || newSurname=="" || newEmail=="" || newCompany=="" || newPassword==""){
 		$("#message-box").text("Please fill all boxes");
 	}else{
-		var newRole;
+		var newRoles = [];
 		if($('#adminRole').is(':checked')){
-			newRole="admin";
-		}else if($('#supporterRole').is(':checked')){
-			newRole="supporter";
-		}else{
-			newRole="client";
+			newRoles.push("admin");
+		}
+		if($('#supporterRole').is(':checked')){
+			newRoles.push("supporter");
+		}
+		if($('#clientRole').is(':checked')){
+			newRoles.push("client");
 		}
 
 		var person = {name:newName,
@@ -22,7 +24,7 @@ function addUser(){
 					email: newEmail,
 					password: newPassword,
 					company: newCompany,
-					role: newRole};
+					userRoles: newRoles};
 
 		$.ajax({
 			  type: "POST",
