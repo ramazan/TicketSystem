@@ -19,6 +19,12 @@
   		$.jgrid.defaults.styleUI = 'Bootstrap';
   	</script>
   </head>
+     <style>
+  body {
+	background: url("http://i.istockimg.com/file_thumbview_approve/53484464/3/stock-photo-53484464-light-striped-brown-pattern-repeat-background.jpg");
+}
+
+  </style>
   <body>
     <div class="container-fluid">
       <nav class="navbar navbar-default">
@@ -38,7 +44,7 @@
                 role="button" aria-haspopup="true"
                 aria-expanded="false">UserName<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">My Preferences</a></li>
+                  <li><a href="admin-controlpanel.html">My Preferences</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Logout</a></li>
                 </ul>
@@ -54,14 +60,15 @@
             <li><a id="allTickets" href="#">All Tickets</a></li>
             <li><a id="openedTickets" href="#">Opened Tickets</a></li>
             <li><a id="closedTickets" href="#">Closed Tickets</a></li>
-            <li><a id="newTicket" href="#">New Ticket</a></li>
+            <li><a id="newTicket" href="admin-tickets-add.html">New Ticket</a></li>
           </ul>
         </div>
       </nav> <!-- mini ticket navbar-->
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-
+   
           <!-- JQGRID Test -->
+                  <div class="col-md-8 col-md-offset-2">
+          
+          <div class="table">
           <table id="jqGrid"></table>
           <div id="jqGridPager" style="height:36px"></div>
 
@@ -106,5 +113,6 @@
 
 
     </div> <!-- main container fluid-->
+    </div>
   </body>
 </html>

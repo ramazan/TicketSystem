@@ -19,6 +19,12 @@
   		$.jgrid.defaults.styleUI = 'Bootstrap';
   	</script>
   </head>
+     <style>
+  body {
+	background: url("http://i.istockimg.com/file_thumbview_approve/53484464/3/stock-photo-53484464-light-striped-brown-pattern-repeat-background.jpg");
+}
+  
+  </style>
   <body>
     <div class="container-fluid">
       <nav class="navbar navbar-default">
@@ -38,7 +44,7 @@
                 role="button" aria-haspopup="true"
                 aria-expanded="false">UserName<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">My Preferences</a></li>
+                  <li><a href="admin-controlpanel.html">My Preferences</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Logout</a></li>
                 </ul>
@@ -65,7 +71,7 @@
           <script type="text/javascript">
               $(document).ready(function () {
                 $("#jqGrid").jqGrid({
-                  caption: "User list",
+                  caption: "USER LIST",
                   url: "/Ticket_System/rest/admin/getAllUsers",
                   mtype: "GET",
                   datatype: "json",

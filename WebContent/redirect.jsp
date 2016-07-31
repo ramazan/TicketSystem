@@ -16,9 +16,9 @@
 	if(request.isUserInRole("admin"))
 		response.setHeader("Refresh", "1;url=./pages/admin/admin-dashboard.html");	
 	else if(request.isUserInRole("supporter"))
-		response.setHeader("Refresh", "2;url=./supporter/ControlPanel.html");
+		response.setHeader("Refresh", "2;url=./pages/supporter/supporter-dashboard.html");
 	else if(request.isUserInRole("client"))
-		response.setHeader("Refresh", "2;url=./client/ControlPanel.html");
+		response.setHeader("Refresh", "2;url=./pages/client/client-dashboard.html");
 
 %>
 
