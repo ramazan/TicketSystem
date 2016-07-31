@@ -58,7 +58,7 @@
 		<auth-constraint>
 			<role-name>admin</role-name>
 			<role-name>client</role-name>
-			<role-name>customer</role-name>
+			<role-name>supporter</role-name>
     	</auth-constraint>
 	</security-constraint>
 
