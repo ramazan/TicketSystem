@@ -12,10 +12,8 @@
 		<%
 		session.invalidate();
 	%>
-	<br>
+	
 		<a href="http://localhost:8080/Ticket_System">Click Here to Login</a>
-	
-	
 
 		
 		
