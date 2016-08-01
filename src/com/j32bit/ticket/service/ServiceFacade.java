@@ -50,6 +50,10 @@ public class ServiceFacade {
 		return users;
 	}
 	
+	public User getUser(String userEmail){
+		return userService.getUser(userEmail);
+	}
+	
 	
 	
 

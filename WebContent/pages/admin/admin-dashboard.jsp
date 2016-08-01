@@ -13,7 +13,7 @@
   body {
 	background: url("http://i.istockimg.com/file_thumbview_approve/53484464/3/stock-photo-53484464-light-striped-brown-pattern-repeat-background.jpg");
 }
-  
+
   </style>
   <body>
     <div class="container-fluid">
@@ -32,7 +32,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                 role="button" aria-haspopup="true"
-                aria-expanded="false">UserName<span class="caret"></span></a>
+                aria-expanded="false"><span id="userName">UserName</span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="admin-controlpanel.html">My Preferences</a></li>
                   <li role="separator" class="divider"></li>
@@ -48,4 +48,8 @@
   </body>
   <script type="text/javascript" src="../../js/jquery-3.0.0.min.js"></script>
   <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script>
+    var name = '<%= session.getAttribute("LOGIN_USER") %>';
+    $("#userName").html(name);
+  </script>
 </html>

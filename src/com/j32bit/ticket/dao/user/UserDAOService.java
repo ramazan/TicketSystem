@@ -82,6 +82,7 @@ public class UserDAOService extends ConnectionHelper {
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
 			
+			
 			while(rs.next()){
 				
 				String name=rs.getString("name");
@@ -90,9 +91,11 @@ public class UserDAOService extends ConnectionHelper {
 				String password=rs.getString("password");
 				String company = rs.getString("company");
 				
-				query = "SELECT * FROM user_roles WHERE email=\""+email+"\"";
+				query = "SELECT * FROM user_roles WHERE email=?";
 				pst = con.prepareStatement(query);
+				pst.setString(1, email);
 				roleResultSet = pst.executeQuery();
+				
 				
 				List<String> roles = new ArrayList<>();
 				String[] rolesArr;
@@ -110,11 +113,65 @@ public class UserDAOService extends ConnectionHelper {
 			e.printStackTrace();
 		}finally{
 			closeResultSet(rs);
+			closeResultSet(roleResultSet);
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
 		
 		return users.toArray(new User[users.size()]);
+	}
+	
+public User getUser(String userEmail){
+		logger.debug("getUser started for email:"+userEmail);
+		
+		Connection con=null;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		
+		User user = null;
+		
+		try{
+			
+			con = getConnection();
+			String query ="SELECT * FROM users WHERE email=?";
+			pst = con.prepareStatement(query);
+			pst.setString(1, userEmail);
+			rs = pst.executeQuery();
+			
+			rs.next();
+			String name=rs.getString("name");
+			String surname=rs.getString("surname");
+			String email=rs.getString("email");
+			String password=rs.getString("password");
+			String company = rs.getString("company");
+			
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			query = "SELECT role FROM user_roles WHERE email=?";
+			pst = con.prepareStatement(query.toString());
+			pst.setString(1,userEmail);
+			rs = pst.executeQuery();
+			
+			List<String> roles = new ArrayList<>();
+			String[] rolesArr;
+			while(rs.next()){
+				roles.add(rs.getString("role"));					
+			}
+			
+			rolesArr = roles.toArray(new String[roles.size()]);
+			user = new User(name,surname,company,email,password,rolesArr);
+					
+			logger.debug("getUser completed User:"+user);
+		}catch(Exception e){
+			logger.debug("getUser error occured");
+			e.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		
+		return user;
 	}
 	
 	

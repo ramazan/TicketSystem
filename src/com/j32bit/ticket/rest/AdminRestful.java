@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
 
+
+
 @Path("/admin")
 @RolesAllowed("admin")
 public class AdminRestful {
@@ -36,5 +38,6 @@ public class AdminRestful {
 	public User[] getAllUsers(){
 		return ServiceFacade.getInstance().getAllUsers();
 	}
+	
 
 }
