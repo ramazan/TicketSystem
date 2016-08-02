@@ -9,11 +9,11 @@
 </head>
 <body>
 
-<h1>Welcome : <%=request.getRemoteUser()%> </h1>
 
 <%
+	String id = request.getRemoteUser();
 
-	response.setHeader("Refresh", "1;url=./rest/session/login?email=hm");
+	response.setHeader("Refresh", "1;url=./rest/session/login?email="+id);
 
 	/*
 
