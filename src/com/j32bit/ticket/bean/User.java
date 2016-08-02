@@ -11,6 +11,7 @@ public class User {
 
 	public User() {
 		// no parameter constructor
+
 	}
 
 	public User(String name, String surname, String company, String email, String password, String[] userRoles) {
@@ -75,12 +76,12 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder userDetail = new StringBuilder();
-		userDetail.append("name").append(name).append("\n");
-		userDetail.append("surname").append(surname).append("\n");
-		userDetail.append("email").append(email).append("\n");
-		userDetail.append("password").append(password).append("\n");
+		userDetail.append("name : ").append(name).append("\n");
+		userDetail.append("surname : ").append(surname).append("\n");
+		userDetail.append("email : ").append(email).append("\n");
+		userDetail.append("password : ").append(password).append("\n");
 		for(int i=0;i<userRoles.length;++i){
-			userDetail.append("role").append(i).append("=").append(userRoles[i]).append("\n");
+			userDetail.append("role").append(i).append(" = ").append(userRoles[i]).append("\n");
 		}
 		
 		return userDetail.toString();

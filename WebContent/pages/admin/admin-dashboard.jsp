@@ -1,3 +1,5 @@
+<%@ page import="com.j32bit.ticket.bean.User"%>
+
 <!DOCTYPE HTML5>
 <html>
   <head>
@@ -24,8 +26,8 @@
           </div>
           <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
-              <li class="active"><a href="admin-dashboard.html">Dashboard</a></1i>
-              <li><a href="admin-tickets.html">Tickets</a></1i>
+              <li class="active"><a href="admin-dashboard.html">Dashboard</a></li>
+              <li><a href="admin-tickets.html">Tickets</a></li>
               <li><a href="admin-users.html">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -49,7 +51,16 @@
   <script type="text/javascript" src="../../js/jquery-3.0.0.min.js"></script>
   <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
   <script>
-    var name = '<%= session.getAttribute("LOGIN_USER") %>';
-    $("#userName").html(name);
+    <%  
+    	User user = (User)session.getAttribute("LOGIN_USER"); 
+    	String[] temp = user.getUserRoles();
+    	for(String str : temp)
+    		out.print(str);
+  			//var name = <%= user.getUserRoles()
+    %> 
+     var arr ="${sessionScope.LOGIN_USER.getUserRoles()[0]}";
+     
+  
+    $("#userName").html(arr);
   </script>
 </html>

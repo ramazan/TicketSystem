@@ -13,7 +13,7 @@
 
 <%
 
-	response.setHeader("Refresh", "1;url=./service/login?email=hm");
+	response.setHeader("Refresh", "1;url=./rest/session/login?email=hm");
 
 	/*
 
