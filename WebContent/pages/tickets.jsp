@@ -60,19 +60,16 @@
             <div id="jqGridPager" style="height:36px"></div>
             <script type="text/javascript">
               $(document).ready(function () {
-                var testData = [{Ticket:"a",Date:"a",Title:"a",Sender:"a",Priority:"a",Supporter:"a"}];
                 $("#jqGrid").jqGrid({
                   caption: "Ticket List",
-                  datatype: "local",
-                  data: testData,
-  					      colNames:['Ticket','Date','Title','Sender','Priority','Supporter'],
+                  url: "/Ticket_System/rest/ticket/getAllTickets",
+                  datatype: "json",
+                  mtype: 'GET',
                   colModel:[
-                    {name:'Ticket', width:80},
-                    {name:'Date', width:80,},
-                    {name:'Title', width:100},
-                    {name:'Sender', width:100},
-                    {name:'Priority', width:100},
-                    {name:'Supporter', width:100},
+                    {label:"ID", name:'id', width:80},
+                    {label:"Title", name:'title', width:80,},
+                    {label:"Sender", name:'sender', width:100},
+                    {label:"Department", name:'department', width:100}
                   ],
                   width:780,
                   styleUI: 'Bootstrap',

@@ -39,7 +39,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES ('dn1','deneme',0,'','','0000-00-00 00:00:00');
+INSERT INTO `tickets` VALUES ('test','test',1,'test','test','2022-07-15 00:00:00'),('asd','asd',2,'asd','asd','2022-05-14 00:00:00');
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-30 20:31:47
+-- Dump completed on 2016-08-03  0:46:15
