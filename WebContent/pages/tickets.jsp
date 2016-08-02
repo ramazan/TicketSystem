@@ -19,13 +19,13 @@
     <div class="container-fluid">
       <nav class="navbar navbar-default">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">TicketSystem</a>
+            <a class="navbar-brand" href="dashboard.jsp">TicketSystem</a>
           </div>
           <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
               <li><a href="dashboard.jsp">Dashboard</a></1i>
-              <li class="active"><a href="tickets.html">Tickets</a></1i>
-              <li><a href="users.html">Users</a></li>
+              <li class="active"><a href="tickets.jsp">Tickets</a></1i>
+              <li><a href="users.jsp">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
@@ -33,7 +33,7 @@
                 role="button" aria-haspopup="true"
                 aria-expanded="false">user_email<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="profile.html">My Profile</a></li>
+                  <li><a href="profile.jsp">My Profile</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="logout.jsp">Logout</a></li>
                 </ul>
@@ -45,10 +45,10 @@
       <nav class="navbar navbar-default">
         <div class="container-fluid collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a id="allTickets" href="#">All Tickets</a></li>
+            <li class="active"><a id="allTickets" href="tickets.jsp">All Tickets</a></li>
             <li><a id="openedTickets" href="#">Opened Tickets</a></li>
             <li><a id="closedTickets" href="#">Closed Tickets</a></li>
-            <li><a id="newTicket" href="tickets_add.html">New Ticket</a></li>
+            <li><a id="newTicket" href="tickets_add.jsp">New Ticket</a></li>
           </ul>
         </div>
       </nav> <!-- mini ticket navbar-->

@@ -28,13 +28,13 @@
     <div class="container-fluid">
       <nav class="navbar navbar-default">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">TicketSystem</a>
+          <a class="navbar-brand" href="dashboard.jsp">TicketSystem</a>
         </div>
         <div class="collapse navbar-collapse" >
           <ul class="nav navbar-nav">
             <li><a href="dashboard.jsp">Dashboard</a></li>
-            <li><a href="tickets.html">Tickets</a></li>
-            <li class="active"><a href="users.html">Users</a></li>
+            <li><a href="tickets.jsp">Tickets</a></li>
+            <li class="active"><a href="users.jsp">Users</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -42,7 +42,7 @@
               role="button" aria-haspopup="true"
               aria-expanded="false">user_email<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="profile.jsp">My Profile</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="logout.jsp">Logout</a></li>
               </ul>
@@ -54,8 +54,8 @@
       <nav class="navbar navbar-default">
         <div class="container-fluid collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a id="allUsers" href="users.html">All Users</a></li>
-            <li class="active"><a id="addUser" href="users_add.html">Add User</a></li>
+            <li><a id="allUsers" href="users.jsp">All Users</a></li>
+            <li class="active"><a id="addUser" href="users_add.jsp">Add User</a></li>
           </ul>
         </div>
       </nav> <!-- mini ticket navbar-->

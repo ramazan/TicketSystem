@@ -19,13 +19,13 @@
     <div class="container-fluid">
       <nav class="navbar navbar-default">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">TicketSystem</a>
+            <a class="navbar-brand" href="dashboard.jsp">TicketSystem</a>
           </div>
           <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
               <li class="active"><a href="dashboard.jsp">Dashboard</a></li>
-              <li><a href="tickets.html">Tickets</a></li>
-              <li><a href="users.html">Users</a></li>
+              <li><a href="tickets.jsp">Tickets</a></li>
+              <li><a href="users.jsp">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
@@ -33,7 +33,7 @@
                 role="button" aria-haspopup="true"
                 aria-expanded="false"><span id="userName">UserName</span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="profile.html">My Preferences</a></li>
+                  <li><a href="profile.jsp">My Preferences</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="logout.jsp">Logout</a></li>
                 </ul>
