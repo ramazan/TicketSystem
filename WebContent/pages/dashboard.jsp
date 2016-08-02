@@ -31,7 +31,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                 role="button" aria-haspopup="true"
-                aria-expanded="false"><span id="userName">UserName</span><span class="caret"></span></a>
+                aria-expanded="false"><b id="user_email" >user_email</b><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="profile.jsp">My Preferences</a></li>
                   <li role="separator" class="divider"></li>
@@ -43,19 +43,10 @@
       </nav>
     </div>
 
+    <script>
+       var arr ="${sessionScope.LOGIN_USER.email}";
+       $("#user_email").html(arr);
+    </script>
+
   </body>
-
-  <script>
-    <%
-    /*	User user = (User)session.getAttribute("LOGIN_USER");
-    	String[] temp = user.getUserRoles();
-    	for(String str : temp)
-    		out.print(str);
-  			//var name = <%= user.getUserRoles()
-    */%>
-     var arr ="${sessionScope.LOGIN_USER.getUserRoles()[0]}";
-
-
-    $("#userName").html(arr);
-  </script>
 </html>

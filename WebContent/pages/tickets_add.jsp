@@ -32,9 +32,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a id="user_email" href="#" class="dropdown-toggle" data-toggle="dropdown"
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
               role="button" aria-haspopup="true"
-              aria-expanded="false">user_email<span class="caret"></span></a>
+              aria-expanded="false"><b id="user_email" >user_email</b><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="profile.jsp">My Profile</a></li>
                 <li role="separator" class="divider"></li>
@@ -105,7 +105,10 @@
       </div>
 
 
-
+      <script>
+         var arr ="${sessionScope.LOGIN_USER.email}";
+         $("#user_email").html(arr);
+      </script>
 
     </div>
   </body>
