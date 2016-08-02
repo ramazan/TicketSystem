@@ -4,13 +4,18 @@ package com.j32bit.ticket.dao.ticket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
 
 public class TicketDAOService extends ConnectionHelper {
@@ -97,4 +102,58 @@ public class TicketDAOService extends ConnectionHelper {
 
 	}
 
+	
+	
+	public Ticket[] getAllTickets(){
+		
+		Connection con=null;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		ResultSet ticketsResultSet=null;
+		
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		String[] ticketsArr;
+		
+		try{
+			
+			con = getConnection();
+			String query = "SELECT * FROM tickets";
+			
+			pst = con.prepareStatement(query);
+			rs = pst.executeQuery();
+			
+			
+			while(rs.next()){
+				
+				String title=rs.getString("title");
+				String message=rs.getString("message");
+				int id=rs.getInt("id");
+				String department=rs.getString("department");
+				String sender = rs.getString("sender");
+				Date date = rs.getDate("date");
+
+				
+				query = "SELECT * FROM tickets WHERE id=?";
+				pst = con.prepareStatement(query);
+				pst.setInt(1, id);
+				ticketsResultSet = pst.executeQuery();
+				
+			}	
+		}catch(Exception e){
+			logger.debug("getAllTickets error occured");
+			e.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeResultSet(ticketsResultSet);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		
+		ticketsArr = tickets.toArray(new Ticket[tickets.size()]);
+		Ticket ticket = new Ticket(title,message,id,department,sender,date);
+		
+		return tickets.toArray(new Ticket[tickets.size()]);
+
+	}
+	
 }

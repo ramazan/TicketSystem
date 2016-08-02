@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ticket.TicketDAOService;
 import com.j32bit.ticket.dao.user.UserDAOService;
@@ -48,6 +49,12 @@ public class ServiceFacade {
 		User[] users = userService.getAllUsers();
 		logger.info("GET-USER # "+users.length);
 		return users;
+	}
+	
+	public Ticket[] getAllTickets(){
+		Ticket[] tickets = ticketService.getAllTickets();
+		logger.info("GET-TICKET # "+tickets.length);
+		return tickets;
 	}
 	
 	public User getUser(String userEmail){
