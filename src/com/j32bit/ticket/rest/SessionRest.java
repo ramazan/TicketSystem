@@ -1,10 +1,8 @@
 package com.j32bit.ticket.rest;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Path("/session")
 public class SessionRest {
@@ -27,7 +24,7 @@ public class SessionRest {
 	private static Logger logger = LogManager.getLogger();
 	
 	@Path("/login")
-	@RolesAllowed("admin")
+	@PermitAll
 	@GET
 	public void loginUser(@QueryParam("email") String email, @Context HttpServletRequest request,
 				@Context HttpServletResponse response)
@@ -38,8 +35,8 @@ public class SessionRest {
 		HttpSession session = request.getSession();
 		session.setAttribute("LOGIN_USER", user);
 		
-		response.sendRedirect("/Ticket_System/pages/admin/admin-dashboard.jsp");
-		logger.debug("user saved in session:"+user);		
+		response.sendRedirect("/Ticket_System/pages/dashboard.jsp");
+		logger.debug("user saved in session:"+user);
 	}
 
 }
