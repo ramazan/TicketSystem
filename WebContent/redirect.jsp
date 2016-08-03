@@ -13,7 +13,7 @@
 <%
 	String id = request.getRemoteUser();
 
-	response.setHeader("Refresh", "1;url=./rest/session/login?email="+id);
+	response.setHeader("Refresh", "1;url=/Ticket_System/sessionLogin?email="+id);
 
 	/*
 

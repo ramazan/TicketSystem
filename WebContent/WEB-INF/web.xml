@@ -4,12 +4,12 @@
 
 	<!-- Login Servlet-->
 	<servlet>
-		<servlet-name>Login Servlet</servlet-name>
-		<servlet-class>com.j32bit.ticket.servlet.LoginServlet</servlet-class>
+		<servlet-name>Session Servlet</servlet-name>
+		<servlet-class>com.j32bit.ticket.servlet.SessionLogin</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Login Servlet</servlet-name>
-		<url-pattern>/service/login</url-pattern>
+		<servlet-name>Session Servlet</servlet-name>
+		<url-pattern>/sessionLogin</url-pattern>
 	</servlet-mapping>
 	
 	
