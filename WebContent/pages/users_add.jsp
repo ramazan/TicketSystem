@@ -32,15 +32,15 @@
         </div>
         <div class="collapse navbar-collapse" >
           <ul class="nav navbar-nav">
-            <li><a href="dashboard.jsp">Dashboard</a></li>
-            <li><a href="tickets.jsp">Tickets</a></li>
-            <li class="active"><a href="users.jsp">Users</a></li>
+            <li id="nav_dash" ><a href="dashboard.jsp">Dashboard</a></1i>
+            <li id="nav_tickets"><a href="tickets.jsp">Tickets</a></1i>
+            <li id="nav_users"  class="active"><a href="users.jsp">Users</a></1i>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"
               role="button" aria-haspopup="true"
-              aria-expanded="false"><b id="user_email" >user_email</b><span class="caret"></span></a>
+              aria-expanded="false"><b id="nickname" >nickname</b><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="profile.jsp">My Profile</a></li>
                 <li role="separator" class="divider"></li>
@@ -94,9 +94,12 @@
         </div>
       </div><!-- row -->
     </div> <!-- main container fluid -->
-    <script>
-       var arr ="${sessionScope.LOGIN_USER.email}";
-       $("#user_email").html(arr);
+
+    <!-- prepare page -->
+    <script type="text/javascript" src="../js/ticket_security.js"></script>
+    <script type="text/javascript">
+      var arr ="${sessionScope.LOGIN_USER.email}";
+      $("#nickname").html(arr);
     </script>
   </body>
 </html>

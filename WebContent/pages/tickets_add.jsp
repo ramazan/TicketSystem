@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
+
     <style>
       .new-ticket{
         width:700px;
@@ -26,15 +27,15 @@
         </div>
         <div class="collapse navbar-collapse" >
           <ul class="nav navbar-nav">
-            <li><a href="dashboard.jsp">Dashboard</a></1i>
-            <li class="active"><a href="tickets.jsp">Tickets</a></1i>
-            <li><a href="users.jsp">Users</a></1i>
+            <li id="nav_dash" ><a href="dashboard.jsp">Dashboard</a></1i>
+            <li id="nav_tickets" class="active"><a href="tickets.jsp">Tickets</a></1i>
+            <li id="nav_users" ><a href="users.jsp">Users</a></1i>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"
               role="button" aria-haspopup="true"
-              aria-expanded="false"><b id="user_email" >user_email</b><span class="caret"></span></a>
+              aria-expanded="false"><b id="nickname" >nickname</b><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="profile.jsp">My Profile</a></li>
                 <li role="separator" class="divider"></li>
@@ -103,13 +104,14 @@
           <button class="btn btn-success center-block" onclick="#">Send Ticket</button>
         </div>
       </div>
-
-
-      <script>
-         var arr ="${sessionScope.LOGIN_USER.email}";
-         $("#user_email").html(arr);
-      </script>
-
     </div>
+
+
+    <!-- prepare page -->
+    <script type="text/javascript" src="../js/ticket_security.js"></script>
+    <script type="text/javascript">
+      var arr ="${sessionScope.LOGIN_USER.email}";
+      $("#nickname").html(arr);
+    </script> 
   </body>
 </html>
