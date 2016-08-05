@@ -6,18 +6,18 @@
 2. **Eclipse** üzerinden aşağıdaki adımlarla projeyi import edin.
 >File -> import -> General -> Existing Project  
 
-3. Proje klasöründe **db_dumps** içindeki database yedeklerini Mysql workbench üzerinden import edin.
-	* Database adının **TicketDB** olduğuna dikkat edin.
+3. Database uzak sunucuya kurulmuştur. IP bilgileri aşağıda mevcuttur.
 
-4.  Database bağlantısı için tüm yetkilere sakip bir kullanıcı oluşturun.
-> username : testUser
-> password : testUser
+4. (Seçenek) MySQL workbench üzerinden db ye ulaşmak için aşağıdaki bilgileri kullanbilirsiniz.
+> url : 188.213.175.52:3306
+> username : ticket
+> password : Ticket32++
 
 5. Tomcat **server.xml** dosyasına aşağıdaki _realm_ bilgilerini ekleyin.
->< Realm className="org.apache.catalina.realm.JDBCRealm"  
-	connectionName="testUser"  
-	connectionPassword="testUser"  
-	connectionURL="jdbc:mysql://127.0.0.1:3306/TicketDB"  
+>     <Realm className="org.apache.catalina.realm.JDBCRealm"  
+	connectionName="ticket"  
+	connectionPassword="Ticket32++"  
+	connectionURL="jdbc:mysql://188.213.175.52:3306/TICKET"  
 	driverName="org.gjt.mm.mysql.Driver"  
 	userTable="users"  
 	userCredCol="password"  
@@ -26,16 +26,16 @@
 	roleNameCol="role"  />
 6. Connection Pool ayarlar için aşağıyı takip edin.
 	* Tomcat **contex.xml** dosyasina aşağıdaki kodları ekleyin.
-> < ResourceLink type="javax.sql.DataSource"
+>     <ResourceLink type="javax.sql.DataSource"
                 name="jdbc/TicketDB"
                 global="jdbc/TicketDB"/>
 	* Tomcat **server.xml** dosyasina aşağıdaki kodları ekleyin.
-> < Resource type="javax.sql.DataSource"
+>     <Resource type="javax.sql.DataSource"
 			auth="Container"
             name="jdbc/TicketDB"
             driverClassName="com.mysql.jdbc.Driver"
 			factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-            url="jdbc:mysql://127.0.0.1:3306/TicketDB"
+            url="jdbc:mysql://188.213.175.52:3306/TICKET"
             username="testUser"
             password="testUser"
 			initialSize="10"
@@ -48,7 +48,7 @@
 #####NOT: Log dosyasi home dizininde oluşturulur.
 
 #### Test Kullanıcıları
-> admin :   *email*: **hm** *password*:**1**  
+> admin :   *email*: **a** *password*:**1**  
 > client :   *email*: **c** *password*:**1**  
 > supporter :   *email*: **s** *password*:**1**  
 
