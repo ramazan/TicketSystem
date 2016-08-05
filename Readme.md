@@ -36,9 +36,9 @@
             driverClassName="com.mysql.jdbc.Driver"
 			factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
             url="jdbc:mysql://188.213.175.52:3306/TICKET"
-            username="testUser"
-            password="testUser"
-			initialSize="10"
+            username="ticket"
+            password="Ticket32++"
+			initialSize="5"
             maxActive="20"
             maxIdle="10"
             minIdle="5"/>
