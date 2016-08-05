@@ -39,31 +39,29 @@ public class ServiceFacade {
 		ticketService.init(prop);
 		logger.debug("initialize finished");
 	}
-	
-	
-	public void addUser(User user){
+
+	public void addUser(User user) {
 		userService.addUser(user);
 	}
-	
-	public User[] getAllUsers(){
+
+	public User[] getAllUsers() {
 		User[] users = userService.getAllUsers();
-		logger.info("GET-USER # "+users.length);
+		logger.info("GET-USER # " + users.length);
 		return users;
 	}
-	
-	public Ticket[] getAllTickets(){
+
+	public Ticket[] getAllTickets() {
 		Ticket[] tickets = ticketService.getAllTickets();
-		logger.info("GET-TICKET # "+tickets.length);
+		logger.info("GET-TICKET # " + tickets.length);
 		return tickets;
 	}
-	
-	public User getUser(String userEmail){
+
+	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);
 	}
-	
-	public void storeTicket(Ticket ticket) throws Exception{
+
+	public void storeTicket(Ticket ticket) throws Exception {
 		ticketService.storeTicket(ticket);
 	}
-	
 
 }
