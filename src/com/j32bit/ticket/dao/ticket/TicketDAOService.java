@@ -98,9 +98,9 @@ public class TicketDAOService extends ConnectionHelper {
 				String message = rs.getString("message");
 				int id = rs.getInt("id");
 				String department = rs.getString("department");
-				String sender = rs.getString("sender");
+				String from = rs.getString("from");
 				Date date = rs.getDate("date");
-				ticketsArr[i] = new Ticket(id,null, sender, department, message,title,Priority.LOW);
+				ticketsArr[i] = new Ticket(id,null, from, department, message,title,Priority.LOW);
 				++i;
 			}
 		} catch (Exception e) {

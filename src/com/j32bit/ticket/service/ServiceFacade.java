@@ -61,7 +61,9 @@ public class ServiceFacade {
 		return userService.getUser(userEmail);
 	}
 	
-	
+	public void storeTicket(Ticket ticket) throws Exception{
+		ticketService.storeTicket(ticket);
+	}
 	
 
 }
