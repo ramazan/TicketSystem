@@ -42,7 +42,7 @@
     </div>
 
     <!-- prepare page -->
-    <script type="text/javascript" src="../js/ticket_security.js"></script>
+    <script type="text/javascript" src="../js/core.js"></script>
     <script type="text/javascript">
       var arr ="${sessionScope.LOGIN_USER.email}";
       $("#nickname").html(arr);
