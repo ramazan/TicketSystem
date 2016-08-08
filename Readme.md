@@ -9,11 +9,12 @@
 3. Database uzak sunucuya kurulmuştur. IP bilgileri aşağıda mevcuttur.
 
 4. (Seçenek) MySQL workbench üzerinden db ye ulaşmak için aşağıdaki bilgileri kullanbilirsiniz.
-> url : 188.213.175.52:3306
-> username : ticket
-> password : Ticket32++
+> url : 188.213.175.52:3306  
+> username : ticket  
+> password : Ticket32++  
 
-5. Tomcat **server.xml** dosyasına aşağıdaki _realm_ bilgilerini ekleyin.
+6. ***Buradan sonrası seçmelidir. ServerFiles dizinindeki contex.xml ve server.xml dosyalarını server dizinine atın yada aşağıdaki adımlar ile tek tek ekleme yapım.***
+7. Tomcat **server.xml** dosyasına aşağıdaki _realm_ bilgilerini ekleyin.
 >     <Realm className="org.apache.catalina.realm.JDBCRealm"  
 	connectionName="ticket"  
 	connectionPassword="Ticket32++"  
@@ -24,7 +25,7 @@
 	userNameCol="email"  
 	userRoleTable="user_roles"  
 	roleNameCol="role"  />
-6. Connection Pool ayarlar için aşağıyı takip edin.
+8. Connection Pool ayarlar için aşağıyı takip edin.
 	* Tomcat **contex.xml** dosyasina aşağıdaki kodları ekleyin.
 >     <ResourceLink type="javax.sql.DataSource"
                 name="jdbc/TicketDB"
@@ -43,7 +44,7 @@
             maxIdle="10"
             minIdle="5"/>
 	
-7. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
+9. Projeyi çalıştırıp tarayıcı aracılığıyla testleri yapabilirsiniz.
 
 #####NOT: Log dosyasi home dizininde oluşturulur.
 

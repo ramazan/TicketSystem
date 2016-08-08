@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger();
 
 	public void init() {
-		logger.debug("session login servlet initialized");
+		logger.debug("login servlet initialized");
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("LOGIN_USER", authenticatedUser);
 
 		try {
-			response.sendRedirect("/Ticket_System/pages/dashboard.jsp");
+			response.sendRedirect("/Ticket_System/pages/dashboard.html");
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
