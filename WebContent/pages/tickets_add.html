@@ -11,6 +11,7 @@
 
     <!-- core js -->
     <script type="text/javascript" src="../js/core.js"></script>
+    <script type="text/javascript" src="../js/ticket.js"></script>
 
     <style>
       .new-ticket{
@@ -69,7 +70,7 @@
                 <tr>
                   <td>Deparment:</td>
                   <td>
-                    <select id="ticket-deparment">
+                    <select id="ticket_deparment">
                       <option value="dep_sale">Sale</option>
                       <option value="dep_support">Support</option>
                       <option value="dep_accounting">Accounting</option>
@@ -80,10 +81,10 @@
                   <td>Priority:</td>
                   <td>
                     <select id="ticket_priority">
-                      <option value="prio_low">Low</option>
-                      <option value="prio_normal">Normal</option>
-                      <option value="prio_high">High</option>
-                      <option value="prio_emergency">Emergency</option>
+                      <option value="prio_low">LOW</option>
+                      <option value="prio_normal">NORMAL</option>
+                      <option value="prio_high">HIGH</option>
+                      <option value="prio_emergency">EMERGENCY</option>
                     </select>
                   </td>
                 </tr>
@@ -103,9 +104,10 @@
               </tbody>
             </table>
           </div>
-          <button class="btn btn-success center-block" onclick="#">Send Ticket</button>
+          <button class="btn btn-success center-block" onclick="addTicket()">Send Ticket</button>
+          <p id="error_message"></p>
         </div>
-      </div>
+      </div><!-- div row -->
     </div>
 
   </body>

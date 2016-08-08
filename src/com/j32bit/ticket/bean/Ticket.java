@@ -6,7 +6,7 @@ public class Ticket {
 
 	private Date time;
 	private int id;
-	private String from;
+	private String sender;
 	private String department;
 	private String message;
 	private String title;
@@ -14,24 +14,24 @@ public class Ticket {
 
 	public Ticket() {
 	}
-	public Ticket(int id, Date time, String from, String department, String message, String title,
+	public Ticket(int id, Date time, String sender, String department, String message, String title,
 			Priority priority) {
 		super();
 		this.id = id;
 		this.time = time;
-		this.from = from;
+		this.sender = sender;
 		this.department = department;
 		this.message = message;
 		this.title = title;
 		this.priority = priority;
 	}
 
-	public String getFrom() {
-		return from;
+	public String getSender() {
+		return sender;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setSender(String from) {
+		this.sender = from;
 	}
 
 	public String getDepartment() {
@@ -81,6 +81,7 @@ public class Ticket {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	
 	
 

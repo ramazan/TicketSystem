@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Ticket System</title>
+    <title>Users</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/ui.jqgrid-bootstrap.css"/>
     <!-- JAVASCRIPT SOURCES -->
@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
 
     <!-- core js -->
+    <script type="text/javascript" src="../js/user.js"></script>
     <script type="text/javascript" src="../js/core.js"></script>
 
   </head>
@@ -56,43 +57,14 @@
         <div class="col-md-8 col-md-offset-2">
           <table id="jqGrid"></table>
           <div id="jqGridPager" style="height:36px"></div>
-          <script type="text/javascript">
-            $(document).ready(function () {
-              $("#jqGrid").jqGrid({
-                caption: "USER LIST",
-                url: "/Ticket_System/rest/admin/getAllUsers",
-                mtype: "GET",
-                datatype: "json",
-                colModel:[
-                  {label:"Name", name:'name', width:80},
-                  {label:"Surname", name:'surname', width:80,},
-                  {label:"E-Mail", name:'email', width:100},
-                  {label:"Password", name:'password', width:100},
-                  {label:"Company", name:'company', width:100},
-                ],
-                viewrecords: true,
-                height: 150,
-                width:780,
-                styleUI: 'Bootstrap',
-                rowNum: 10,
-                pager: "#jqGridPager"
-              });
-
-              $('#jqGrid').navGrid('#jqGridPager',
-               {
-                   edit: false,
-                   add: false,
-                   del: false,
-                   search: true,
-                   refresh: true,
-                   view: true,
-                   position: "left",
-                   cloneToTop: false
-               });
-            });
-         </script>
         </div>
       </div><!-- row -->
     </div> <!-- main container fluid-->
+
+    <script>
+      $(document).ready(function(){
+        getAllUsers();
+      });
+    </script>
   </body>
 </html>

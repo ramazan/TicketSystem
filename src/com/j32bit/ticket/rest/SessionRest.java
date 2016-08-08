@@ -61,9 +61,8 @@ public class SessionRest {
 	@PermitAll
 	public void logout(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 
-		HttpSession session = request.getSession();
-		session.invalidate();
+		request.getSession().invalidate();
 		logger.debug("logout status : success");
-		
+
 	}
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Ticket System</title>
+    <title>Tickets</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/ui.jqgrid-bootstrap.css"/>
 
@@ -15,6 +15,7 @@
 
     <!-- core js -->
     <script type="text/javascript" src="../js/core.js"></script>
+    <script type="text/javascript" src="../js/ticket.js"></script>
 
   </head>
 
@@ -61,43 +62,14 @@
           <div class="col-md-8 col-md-offset-2">
             <table id="jqGrid"></table>
             <div id="jqGridPager" style="height:36px"></div>
-            <script type="text/javascript">
-              $(document).ready(function () {
-                $("#jqGrid").jqGrid({
-                  caption: "Ticket List",
-                  url: "/Ticket_System/rest/ticket/getAllTickets",
-                  datatype: "json",
-                  mtype: 'GET',
-                  colModel:[
-                    {label:"ID", name:'id', width:80},
-                    {label:"Title", name:'title', width:80,},
-                    {label:"Sender", name:'sender', width:100},
-                    {label:"Department", name:'department', width:100}
-                  ],
-                  width:780,
-                  styleUI: 'Bootstrap',
-                  viewrecords: true,
-                  height: 150,
-                  rowNum: 10,
-                  pager: "#jqGridPager"
-                });
-
-                $('#jqGrid').navGrid('#jqGridPager',
-                 {
-                   edit: false,
-                   add: false,
-                   del: false,
-                   search: true,
-                   refresh: true,
-                   view: true,
-                   position: "left",
-                   cloneToTop: false
-                 });
-              });
-            </script>
           </div><!-- com-md -->
       </div><!-- row -- >
     </div> <!-- main container fluid-->
 
+    <script>
+      $(document).ready(function(){
+        getAllTickets();
+      });
+    </script>
   </body>
 </html>
