@@ -6,15 +6,17 @@ function getAllTickets(){
     datatype: "json",
     mtype: 'GET',
     colModel:[
-      {label:"ID", name:'id', width:25},
-      {label:"DATE", name:'date', width:60, formatter:'date',formatoptions: {srcformat:'Y-m-d H:i:s', newformat:'M d g:i A'}},
+      {label:"ID", name:'id', width:25, formatter:'showlink',formatoptions:{baseLinkUrl:'###', idName:'ticketID'}},
+      {label:"Date", name:'date', width:60, formatter:'date',formatoptions: {srcformat:'Y-m-d H:i:s', newformat:'M d g:i A'}},
       {label:"Title", name:'title', width:100},
       {label:"Sender", name:'sender', width:100},
       {label:"Department", name:'department', width:80}
     ],
     width:780,
     styleUI: 'Bootstrap',
+    responsive: true,
     viewrecords: true,
+    multiselect: true,
     height: 150,
     rowNum: 10,
     pager: "#jqGridPager"
