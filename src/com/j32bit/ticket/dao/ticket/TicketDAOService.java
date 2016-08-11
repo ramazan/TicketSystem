@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.Priority;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.dao.ConnectionHelper;
-import com.sun.jmx.snmp.Timestamp;
+//import com.sun.jmx.snmp.Timestamp;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);

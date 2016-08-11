@@ -1,0 +1,43 @@
+1 - yanlış loginlerde yeni bir sayfa değil aynı sayfa üzerinde hata verilmeli
+
+
+/********************************************************************/
+
+
+2-
+ add user da submit yapınca bir alksiyon gelmiyor ekledimni eklemedi mi anlaşılmıyor
+ core.js te satır 11 de 
+Regex
+
+Hide network messages
+All
+Errors
+Warnings
+Info
+Logs
+Debug
+Handled
+
+
+core.js:11 Uncaught TypeError: Cannot read property 'name' of undefined
+
+
+/********************************************************************/
+
+3 - DB Türkçe karakter desteği yok
+
+/********************************************************************/
+
+
+4 - Dashboard sayfasına suanlık boş oraya neler gelecek konuşulmalı
+
+/********************************************************************/
+
+
+5  -  Önyüz geliştirmesi Angular 2 ile yapılmalı 
+
+/********************************************************************/
+
+6-  TicketDAOService  sınıfında  import com.sun.jmx.snmp.Timestamp;  bölümünde hata var !  o yüzden yorum satırı haline getirdim.
+
+/********************************************************************/
