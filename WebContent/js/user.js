@@ -8,7 +8,7 @@ function getAllUsers() {
       {label:"Name", name:'name', width:80},
       {label:"E-Mail", name:'email', width:100},
       {label:"Password", name:'password', width:100},
-      {label:"Company", name:'company', width:100},
+      {label:"Company", name:'company.name', width:100},
     ],
     viewrecords: true,
     height: 150,
@@ -74,4 +74,57 @@ function addUser(){
 		      }
 			});
 	}
+}
+
+
+
+loadCompanies();
+function loadCompanies(){
+
+  // TODO: Bu veriler db ten cekilecek !!!
+  var comps = [{id:0,name:"32bit"},{id:1,name:"akbank"},{id:2,name:"isbank"}];
+
+  $.each(comps,function(key,value){
+    // key == value.id db te id sutunu tutuyoruz...
+    $('#user_company')
+       .append($("<option></option>")
+       .attr("value",key)
+       .text(value.name));
+  });
+}
+
+function addNewCompany(){
+
+  var cEmail=$("#comp_email").val();
+  var cName=$("#comp_name").val();
+  var cPhone=$("#comp_phone").val();
+  var cFax=$("#comp_fax").val();
+  var cAddress=$("#comp_address").val();
+
+  if(cEmail=="" || cName==""){
+    $("#modal_message").text("You have to fill required places");
+  }else{
+
+    var company = {email:cEmail,name:cName,phone:cPhone,fax:cFax,address:cAddress};
+
+    $.ajax({
+        type: "POST",
+        url: '/Ticket_System/rest/company/addNewCompany',
+        contentType : "application/json",
+        mimeType: "application/json",
+        data : JSON.stringify(company),
+        success : function(){
+            $("#modal_message").text("Company added. Close Window.");
+            $('#user_company')
+               .append($("<option></option>")
+               .attr("value",cName)
+               .attr("selected",true)
+               .text(cName)
+              );
+        },
+        error: function(){
+          alert("adding error");
+        }
+      });
+  }
 }

@@ -10,8 +10,8 @@
 <body>
 
 <%
-	String id = request.getRemoteUser();
-	response.setHeader("Refresh", "1;url=/Ticket_System/rest/session/login?email="+id);
+	String email = request.getRemoteUser();
+	response.setHeader("Refresh", "1;url=/Ticket_System/rest/session/login?email="+email);
 %>
 </body>
 </html>

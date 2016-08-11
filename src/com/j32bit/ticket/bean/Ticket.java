@@ -6,41 +6,45 @@ public class Ticket {
 
 	private Date time;
 	private int id;
-	private String sender;
-	private String department;
+	private String from;
+	private Department department;
 	private String message;
 	private String title;
 	private Priority priority;
+	private int status;
 
 	public Ticket() {
 	}
-	public Ticket(int id, Date time, String sender, String department, String message, String title,
-			Priority priority) {
-		super();
-		this.id = id;
-		this.time = time;
-		this.sender = sender;
-		this.department = department;
-		this.message = message;
-		this.title = title;
-		this.priority = priority;
+
+	
+	public String getFrom() {
+		return from;
 	}
 
-	public String getSender() {
-		return sender;
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
-	public void setSender(String from) {
-		this.sender = from;
-	}
-
-	public String getDepartment() {
+	
+	public Department getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(String department) {
+
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 
 	public Date getTime() {
 		return time;
@@ -81,8 +85,5 @@ public class Ticket {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -35,7 +36,7 @@ public class SessionRest {
 		session.setAttribute("LOGIN_USER", authenticatedUser);
 
 		try {
-			response.sendRedirect("/Ticket_System/pages/dashboard.html");
+			response.sendRedirect("/Ticket_System/pages/tickets.html");
 			logger.debug("user login successful. User:" + authenticatedUser);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -44,7 +45,7 @@ public class SessionRest {
 	}
 
 	@Path("/getAuthenticatedUser")
-	@GET
+	@POST
 	@PermitAll
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getAuthenticatedUser(@Context HttpServletRequest request) {

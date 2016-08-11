@@ -10,297 +10,234 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.Error;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
 
 public class UserDAOService extends ConnectionHelper {
-	
+
 	private Logger logger = LogManager.getLogger(UserDAOService.class);
-	
-	public UserDAOService(){
+
+	public UserDAOService() {
 		logger.debug("constructed");
 	}
 
-	public void init(Properties prop){
+	public void init(Properties prop) {
 		logger.debug("initialize started");
 		super.init(prop);
 		logger.debug("initialize finished");
 	}
-	
-	public void addUser(User user){
-		
-		Connection con=null;
-		PreparedStatement pst=null;
-		
-		try{
-			String addUserQuery = "INSERT INTO users (email,password,name,company) values (?,?,?,?,?)";
-			
+
+	public Error addUser(User user) {
+		logger.debug("addUser started");
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		Error result = Error.SUCCESS;
+
+		// TODO : USER check edilecek, ayni kisi eklenmesine karsin
+
+		try {
+			String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY) values (?,?,?,?)";
+
 			con = getConnection();
 			pst = con.prepareStatement(addUserQuery);
-			pst.setString(1, user.getEmail());
-			pst.setString(2, user.getPassword());
-			pst.setString(3, user.getName());
-			pst.setString(4, user.getCompany());
-			pst.executeUpdate(); // to insert, update,delete and return nothings	
-			
+			pst.setString(1, user.getName());
+			pst.setString(2, user.getEmail());
+			pst.setString(3, user.getPassword());
+			pst.setInt(4, user.getCompany().getId());
+			pst.executeUpdate(); // to insert, update,delete and return nothings
+
 			int roleSize = user.getUserRoles().length;
-			for(int i=0;i!=roleSize;++i){
-				String addRoleQuery = "INSERT INTO user_roles (email,role) values (?,?)";
+			for (int i = 0; i != roleSize; ++i) {
+				String addRoleQuery = "INSERT INTO user_roles (EMAIL,ROLE) values (?,?)";
 				pst = con.prepareStatement(addRoleQuery);
 				pst.setString(1, user.getEmail());
 				pst.setString(2, user.getUserRoles()[i]);
 				pst.executeUpdate();
 			}
-	
-		}catch(Exception e){
-			logger.debug("addUser error:"+e.getMessage());
+
+		} catch (Exception e) {
+			// ERROR STATUSU DEGISTIRILECEK
+			logger.debug("addUser error:" + e.getMessage());
 			e.printStackTrace();
-		}finally{
+		} finally {
 			closePreparedStatement(pst);
-			closeConnection(con);	
+			closeConnection(con);
 			logger.debug("addUser completed");
 		}
+		return result;
 	}
-	
-	
-	public User[] getAllUsers(){
-		
-		Connection con=null;
-		PreparedStatement pst=null;
+
+	public User[] getAllUsers() {
+		logger.debug("getAllUser started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet userRS = null;
 		ResultSet rs=null;
-		ResultSet roleResultSet=null;
-		
+		User user;
+
 		ArrayList<User> users = new ArrayList<>();
-		
-		
-		try{
-			
+
+		try {
+
 			con = getConnection();
 			String query = "SELECT * FROM users";
-			
+
 			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-			
-			
-			while(rs.next()){
-				
-				String name=rs.getString("FULL_NAME");
-				//String surname=rs.getString("surname");
-				String email=rs.getString("EMAIL");
-				String password=rs.getString("PASSWORD");
-				String company = rs.getString("COMPANY_ID");
-				
-				query = "SELECT * FROM user_roles WHERE email=?";
-				pst = con.prepareStatement(query);
-				pst.setString(1, email);
-				roleResultSet = pst.executeQuery();
-				
-				
+			userRS = pst.executeQuery();
+
+			while (userRS.next()) {
+
+				int userID = userRS.getInt("ID");
+				String userName = userRS.getString("FULL_NAME");
+				String userEmail = userRS.getString("EMAIL");
+				String userPassword = userRS.getString("PASSWORD");
+				int userCompanyID = userRS.getInt("COMPANY_ID");
+
+
+				// GET ROLE
+				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
+				pst = con.prepareStatement(query.toString());
+				pst.setString(1, userEmail);
+				rs = pst.executeQuery();
+
 				List<String> roles = new ArrayList<>();
-				String[] rolesArr;
-				while(roleResultSet.next()){
-					roles.add(roleResultSet.getString("role"));					
+				String[] userRolesArr;
+				while (rs.next()) {
+					roles.add(rs.getString("ROLE"));
 				}
-				
-				rolesArr = roles.toArray(new String[roles.size()]);
-				User user = new User(name,company,email,password,rolesArr);
-				
-				users.add(user);	
-			}	
-		}catch(Exception e){
+				userRolesArr = roles.toArray(new String[roles.size()]);
+				logger.info("getAllUser role:" + userRolesArr);
+
+				// GET COMPANY
+				closeResultSet(rs);
+				closePreparedStatement(pst);
+
+				Company company = new Company(0); // bos company olustur
+				if (userCompanyID != 0) { // company bos yani yoksa
+					query = "SELECT * FROM companies WHERE ID=?";
+					pst = con.prepareStatement(query.toString());
+					pst.setInt(1, userCompanyID);
+					rs = pst.executeQuery();
+
+					String companyEmail = null;
+					String companyName = null;
+					String companyAddress = null;
+					String companyPhone = null;
+					String companyFax = null;
+					while (rs.next()) {
+						companyEmail = rs.getString("EMAIL");
+						companyName = rs.getString("NAME");
+						companyAddress = rs.getString("ADDRESS");
+						companyPhone = rs.getString("NAME");
+						companyFax = rs.getString("FAX");
+					}
+
+					company = new Company(userCompanyID, companyName, companyEmail, companyPhone, companyFax,
+							companyAddress);
+					logger.info("getAllUser company:" + company);
+				}
+				user = new User(userID, userName, userEmail, userPassword, company, userRolesArr);
+				logger.info("getAllUser user:"+user);
+				users.add(user);
+			}
+		} catch (Exception e) {
 			logger.debug("getAllUser error occured");
 			e.printStackTrace();
-		}finally{
+		} finally {
 			closeResultSet(rs);
-			closeResultSet(roleResultSet);
+			closeResultSet(userRS);
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		
+		logger.debug("getAllUser finished");
 		return users.toArray(new User[users.size()]);
 	}
-	
-public User getUser(String userEmail){
-		logger.debug("getUser started for email:"+userEmail);
-		
-		Connection con=null;
-		PreparedStatement pst=null;
-		ResultSet rs=null;
-		
+
+	public User getUser(String userEmail) {
+		logger.debug("getUser with email started:" + userEmail);
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		User user = null;
-		
-		try{
-			
+
+		try {
+
+			// GET USER
 			con = getConnection();
-			String query ="SELECT * FROM users WHERE email=?";
+			String query = "SELECT * FROM users WHERE EMAIL=?";
 			pst = con.prepareStatement(query);
 			pst.setString(1, userEmail);
 			rs = pst.executeQuery();
-			
+
 			rs.next();
-			String name=rs.getString("name");
-			String surname=rs.getString("surname");
-			String email=rs.getString("email");
-			String password=rs.getString("password");
-			String company = rs.getString("company");
-			
+			int userID = rs.getInt("ID");
+			String userName = rs.getString("FULL_NAME");
+			String userPassword = rs.getString("PASSWORD");
+			int companyID = rs.getInt("COMPANY_ID");
+
 			closeResultSet(rs);
 			closePreparedStatement(pst);
-			query = "SELECT role FROM user_roles WHERE email=?";
+
+			// GET ROLE
+			query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 			pst = con.prepareStatement(query.toString());
-			pst.setString(1,userEmail);
+			pst.setString(1, userEmail);
 			rs = pst.executeQuery();
-			
+
 			List<String> roles = new ArrayList<>();
-			String[] rolesArr;
-			while(rs.next()){
-				roles.add(rs.getString("role"));					
+			String[] userRolesArr;
+			while (rs.next()) {
+				roles.add(rs.getString("ROLE"));
 			}
-			
-			rolesArr = roles.toArray(new String[roles.size()]);
-			user = new User(name,company,email,password,rolesArr);
-					
-			logger.debug("getUser completed User:"+user);
-		}catch(Exception e){
-			logger.debug("getUser error occured");
-			e.printStackTrace();
-		}finally{
+			userRolesArr = roles.toArray(new String[roles.size()]);
+			logger.info("getUser role:" + userRolesArr);
+
+			// GET COMPANY
 			closeResultSet(rs);
 			closePreparedStatement(pst);
-			closeConnection(con);
-		}
-		
-		return user;
-	}
-	
-	
-	
-	
-	/* 
 
-	public User getUser(String email) {
+			Company company = new Company(0);
+			if (companyID != 0) {
+				query = "SELECT * FROM companies WHERE ID=?";
+				pst = con.prepareStatement(query.toString());
+				pst.setInt(1, companyID);
+				rs = pst.executeQuery();
 
-		logger.debug("getUser is started");
-		User user = null;
+				String companyEmail = null;
+				String companyName = null;
+				String companyAddress = null;
+				String companyPhone = null;
+				String companyFax = null;
+				while (rs.next()) {
+					companyEmail = rs.getString("EMAIL");
+					companyName = rs.getString("NAME");
+					companyAddress = rs.getString("ADDRESS");
+					companyPhone = rs.getString("NAME");
+					companyFax = rs.getString("FAX");
+				}
+				company = new Company(companyID, companyName, companyEmail, companyPhone, companyFax, companyAddress);
 
-		Connection con = null;
-		ResultSet rs = null;
-		PreparedStatement pst = null;
-
-		try {
-			user = new User();
-			String query = "SELECT * FROM users WHERE EMAIL=?";
-			con = getConnection();
-			pst = con.prepareStatement(query);
-			pst.setString(1, email);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				user.setName(rs.getString("name"));
-				user.setSurname(rs.getString("surname"));
-				user.setCompany(rs.getString("company"));
-				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("password"));
-	
 			}
+
+			logger.info("getAllUser company:" + company);
+
+			user = new User(userID, userName, userEmail, userPassword, company, userRolesArr);
 
 		} catch (Exception e) {
+			logger.debug("getUser error occured");
 			e.printStackTrace();
 		} finally {
-				closeResultSet(rs);
-				closePreparedStatement(pst);
-				closeConnection(con);
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
 		}
-		logger.debug("getUser is finished");
+		logger.debug("getUser completed User:" + user);
 		return user;
 	}
-	
-	
-	public void storeUser(User user) {
-
-		logger.debug("storeUser is started");
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		String query = "INSERT INTO USERS (NAME,SURNAME,COMPANY,EMAIL,PASSWORD) VALUES(?,?,?,?,?)";
-
-		try {
-			con = getConnection();
-			pst = con.prepareStatement(query);
-			pst.setString(1, user.getName());
-			// System.out.println(person.getTC()+person.getName()+person.getPhone());
-			pst.setString(2, user.getSurname());
-			pst.setString(3, user.getCompany());
-			pst.setString(4, user.getEmail());
-			pst.setString(5, user.getPassword());
-			pst.executeUpdate();
-			// pst.executeQuery();
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-			closeConnection(con);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-		}
-		logger.debug("storeUser is finished");
-	}
-
-	public void deleteUser(String email) {
-
-		logger.debug("deleteUser is started");
-
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-		PreparedStatement pst = null;
-		String query = "DELETE FROM USERS WHERE EMAIL=?";
-
-		try {
-			con = getConnection();
-			pst = con.prepareStatement(query);
-			pst.setString(1, email);
-			pst.executeUpdate();
-
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-			closeConnection(con);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-		}
-
-		logger.debug("deleteUser is finished");
-	}
-	
-	public void updateUser(User user) {
-
-		logger.debug("updateUser is started");
-
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-		String query = "UPDATE USERS SET EMAIL=?, PASSWORD=? WHERE EMAIL=?";
-		PreparedStatement pst = null;
-
-		try {
-			con = getConnection();
-			pst = con.prepareStatement(query);
-
-			pst.setString(1, user.getEmail());
-			pst.setString(2, user.getPassword());
-			pst.setString(3, user.getEmail());
-			pst.executeUpdate();
-
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-			closeConnection(con);
-		} catch (SQLException  e) {
-			e.printStackTrace();
-		} finally {
-		}
-
-		logger.debug("updateUser is finished");
-		
-	}
-*/
-	
 }

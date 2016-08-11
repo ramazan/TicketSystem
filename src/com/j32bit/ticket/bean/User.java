@@ -2,23 +2,33 @@ package com.j32bit.ticket.bean;
 
 public class User {
 
+	private int id;
 	private String name;
-	private String company;
 	private String email;
 	private String password;
+	private Company company;
 	private String[] userRoles;
 
 	public User() {
 		// no parameter constructor
-
 	}
 
-	public User(String name , String company, String email, String password, String[] userRoles) {
+	public User(int id, String name, String email, String password, Company company, String[] userRoles) {
+		super();
+		this.id = id;
 		this.name = name;
-		this.company = company;
 		this.email = email;
 		this.password = password;
+		this.company = company;
 		this.userRoles = userRoles;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -29,11 +39,11 @@ public class User {
 		this.name = name;
 	}
 
-	public String getCompany() {
+	public Company getCompany() {
 		return company;
 	}
 
-	public void setCompany(String company) {
+	public void setCompany(Company company) {
 		this.company = company;
 	}
 
@@ -53,8 +63,6 @@ public class User {
 		this.password = password;
 	}
 
-	
-	
 	public String[] getUserRoles() {
 		return userRoles;
 	}
@@ -69,12 +77,11 @@ public class User {
 		userDetail.append("name : ").append(name).append("\n");
 		userDetail.append("email : ").append(email).append("\n");
 		userDetail.append("password : ").append(password).append("\n");
-		for(int i=0;i<userRoles.length;++i){
+		for (int i = 0; i < userRoles.length; ++i) {
 			userDetail.append("role").append(i).append(" = ").append(userRoles[i]).append("\n");
 		}
-		
-		return userDetail.toString();
 
+		return userDetail.toString();
 	}
 
 }
