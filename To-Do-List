@@ -5,21 +5,22 @@
 
 
 2-
- add user da submit yapınca bir alksiyon gelmiyor ekledimni eklemedi mi anlaşılmıyor
- core.js te satır 11 de 
-Regex
-
-Hide network messages
-All
-Errors
-Warnings
-Info
-Logs
-Debug
-Handled
-
-
-core.js:11 Uncaught TypeError: Cannot read property 'name' of undefined
+ 	add user da submit yapınca bir alksiyon gelmiyor ekledimni eklemedi mi anlaşılmıyor
+	
+	core.js te satır 11 de 
+	Regex
+	
+	Hide network messages
+	All
+	Errors
+	Warnings
+	Info
+	Logs
+	Debug
+	Handled
+	
+	
+	core.js:11 Uncaught TypeError: Cannot read property 'name' of undefined
 
 
 /********************************************************************/
@@ -41,3 +42,19 @@ core.js:11 Uncaught TypeError: Cannot read property 'name' of undefined
 6-  TicketDAOService  sınıfında  import com.sun.jmx.snmp.Timestamp;  bölümünde hata var !  o yüzden yorum satırı haline getirdim.
 
 /********************************************************************/
+
+ 7 - Db'deki users tablosuna user id eklenmeli mi?
+ 	  gerekli olan diğer tablolar için hem primary key olarak id hemde 
+ 	  diğer tablolarla gerekli bağlantılar için foreign key olarak id ne kadar gerekli konuşulmalı
+ 	  
+
+/********************************************************************/
+
+
+8 -  	opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
+
+
+/********************************************************************/
+
+
+9 -  Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli

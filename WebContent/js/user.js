@@ -6,7 +6,6 @@ function getAllUsers() {
     datatype: "json",
     colModel:[
       {label:"Name", name:'name', width:80},
-      {label:"Surname", name:'surname', width:80,},
       {label:"E-Mail", name:'email', width:100},
       {label:"Password", name:'password', width:100},
       {label:"Company", name:'company', width:100},

@@ -33,15 +33,14 @@ public class UserDAOService extends ConnectionHelper {
 		PreparedStatement pst=null;
 		
 		try{
-			String addUserQuery = "INSERT INTO users (email,password,name,surname,company) values (?,?,?,?,?)";
+			String addUserQuery = "INSERT INTO users (email,password,name,company) values (?,?,?,?,?)";
 			
 			con = getConnection();
 			pst = con.prepareStatement(addUserQuery);
 			pst.setString(1, user.getEmail());
 			pst.setString(2, user.getPassword());
 			pst.setString(3, user.getName());
-			pst.setString(4, user.getSurname());
-			pst.setString(5, user.getCompany());
+			pst.setString(4, user.getCompany());
 			pst.executeUpdate(); // to insert, update,delete and return nothings	
 			
 			int roleSize = user.getUserRoles().length;
@@ -85,11 +84,11 @@ public class UserDAOService extends ConnectionHelper {
 			
 			while(rs.next()){
 				
-				String name=rs.getString("name");
-				String surname=rs.getString("surname");
-				String email=rs.getString("email");
-				String password=rs.getString("password");
-				String company = rs.getString("company");
+				String name=rs.getString("FULL_NAME");
+				//String surname=rs.getString("surname");
+				String email=rs.getString("EMAIL");
+				String password=rs.getString("PASSWORD");
+				String company = rs.getString("COMPANY_ID");
 				
 				query = "SELECT * FROM user_roles WHERE email=?";
 				pst = con.prepareStatement(query);
@@ -104,7 +103,7 @@ public class UserDAOService extends ConnectionHelper {
 				}
 				
 				rolesArr = roles.toArray(new String[roles.size()]);
-				User user = new User(name,surname,company,email,password,rolesArr);
+				User user = new User(name,company,email,password,rolesArr);
 				
 				users.add(user);	
 			}	
@@ -159,7 +158,7 @@ public User getUser(String userEmail){
 			}
 			
 			rolesArr = roles.toArray(new String[roles.size()]);
-			user = new User(name,surname,company,email,password,rolesArr);
+			user = new User(name,company,email,password,rolesArr);
 					
 			logger.debug("getUser completed User:"+user);
 		}catch(Exception e){

@@ -85,7 +85,7 @@ public class TicketDAOService extends ConnectionHelper {
 		try {
 
 			con = getConnection();
-			String query = "SELECT COUNT(id) FROM tickets";
+			String query = "SELECT COUNT(ID) FROM tickets";
 
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
@@ -103,12 +103,12 @@ public class TicketDAOService extends ConnectionHelper {
 			int i = 0;
 			while (rs.next()) {
 
-				String title = rs.getString("title");
-				String message = rs.getString("message");
-				int id = rs.getInt("id");
-				String department = rs.getString("department");
-				String sender = rs.getString("sender");
-				Date date = rs.getDate("date");
+				String title = rs.getString("TITLE");
+				String message = rs.getString("MESSAGE");
+				int id = rs.getInt("ID");
+				String department = rs.getString("DEPARTMENT");
+				String sender = rs.getString("FROM");
+				Date date = rs.getDate("DATE");
 				Priority priority=null; // TODO: BURASI DB DEN ALINIP YAPILACAK
 				ticketsArr[i] = new Ticket(id,date, sender, department, message,title,Priority.LOW);
 				++i;

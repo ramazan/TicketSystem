@@ -3,7 +3,6 @@ package com.j32bit.ticket.bean;
 public class User {
 
 	private String name;
-	private String surname;
 	private String company;
 	private String email;
 	private String password;
@@ -14,9 +13,8 @@ public class User {
 
 	}
 
-	public User(String name, String surname, String company, String email, String password, String[] userRoles) {
+	public User(String name , String company, String email, String password, String[] userRoles) {
 		this.name = name;
-		this.surname = surname;
 		this.company = company;
 		this.email = email;
 		this.password = password;
@@ -29,14 +27,6 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getCompany() {
@@ -77,7 +67,6 @@ public class User {
 	public String toString() {
 		StringBuilder userDetail = new StringBuilder();
 		userDetail.append("name : ").append(name).append("\n");
-		userDetail.append("surname : ").append(surname).append("\n");
 		userDetail.append("email : ").append(email).append("\n");
 		userDetail.append("password : ").append(password).append("\n");
 		for(int i=0;i<userRoles.length;++i){
