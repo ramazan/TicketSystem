@@ -15,6 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application -->
+
 <Context>
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
@@ -22,16 +23,13 @@
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
-  <ResourceLink type="javax.sql.DataSource"
-                name="jdbc/TicketDB"
-                global="jdbc/TicketDB"/>
-
-
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
     -->
-
+	<ResourceLink type="javax.sql.DataSource"
+                name="jdbc/TicketDB"
+                global="jdbc/TicketDB"/>
     <!-- Uncomment this to enable Comet connection tacking (provides events
          on session expiration as well as webapp lifecycle) -->
     <!--
