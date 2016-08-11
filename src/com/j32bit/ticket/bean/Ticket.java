@@ -7,7 +7,7 @@ public class Ticket {
 	private Date time;
 	private int id;
 	private String from;
-	private Department department;
+	private String departmentName;
 	private String message;
 	private String title;
 	private Priority priority;
@@ -16,7 +16,18 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	
+	public Ticket(int id, Date time, String from, String departmentName, String title, String message,
+			Priority priority, int status) {
+		this.id = id;
+		this.time = time;
+		this.from = from;
+		this.departmentName = departmentName;
+		this.title = title;
+		this.message = message;
+		this.priority = priority;
+		this.status = status;
+	}
+
 	public String getFrom() {
 		return from;
 	}
@@ -25,26 +36,21 @@ public class Ticket {
 		this.from = from;
 	}
 
-	
-	public Department getDepartment() {
-		return department;
+	public String getDepartmentName() {
+		return departmentName;
 	}
 
-
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
-
 
 	public int getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
 
 	public Date getTime() {
 		return time;

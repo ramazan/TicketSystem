@@ -27,9 +27,9 @@ public class TicketDAOService extends ConnectionHelper {
 		super.init(prop);
 		logger.info("TicketDAOService service is initialized");
 	}
-
+/*
 	public void storeTicket(Ticket ticket) throws Exception {
-		
+
 		logger.debug("storeTicket is started");
 		Connection conn = null;
 		PreparedStatement pStmt = null;
@@ -45,7 +45,6 @@ public class TicketDAOService extends ConnectionHelper {
 			conn = getConnection();
 
 			pStmt = conn.prepareStatement(queryString);
-			
 
 			if (logger.isTraceEnabled()) {
 				querylog.append("Query : ").append(queryString).append("\n");
@@ -72,7 +71,7 @@ public class TicketDAOService extends ConnectionHelper {
 		} finally {
 		}
 		logger.debug("storeTicket is finished");
-	}
+	}*/
 
 	public Ticket[] getAllTickets() {
 
@@ -80,7 +79,7 @@ public class TicketDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		Ticket[] ticketsArr=null;
+		Ticket[] ticketsArr = null;
 
 		try {
 
@@ -102,15 +101,17 @@ public class TicketDAOService extends ConnectionHelper {
 
 			int i = 0;
 			while (rs.next()) {
-
-				String title = rs.getString("TITLE");
-				String message = rs.getString("MESSAGE");
 				int id = rs.getInt("ID");
-				String department = rs.getString("DEPARTMENT");
-				String sender = rs.getString("FROM");
 				Date date = rs.getDate("DATE");
-				Priority priority=null; // TODO: BURASI DB DEN ALINIP YAPILACAK
-				ticketsArr[i] = new Ticket(id,date, sender, department, message,title,Priority.LOW);
+				int senderID = rs.getInt("SENDER_ID");
+				String title = rs.getString("TITLE");
+				int status = rs.getInt("STATUS");
+				int departmentID = rs.getInt("DEPARTMENT_ID");
+				String message = rs.getString("MESSAGE");
+
+				Priority priority = null; // TODO: BURASI DB DEN ALINIP
+											// YAPILACAK
+				ticketsArr[i] = new Ticket(id, date, "FROM", "DEPARTMENT", title, title, Priority.LOW, 5);
 				++i;
 			}
 		} catch (Exception e) {

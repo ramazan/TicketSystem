@@ -10,7 +10,7 @@ function getAllTickets(){
       {label:"Date", name:'date', width:60, formatter:'date',formatoptions: {srcformat:'Y-m-d H:i:s', newformat:'M d g:i A'}},
       {label:"Title", name:'title', width:100},
       {label:"From", name:'from', width:100},
-      {label:"Department", name:'department', width:80}
+      {label:"Department", name:'departmentName', width:80}
     ],
     width:780,
     styleUI: 'Bootstrap',
@@ -38,8 +38,6 @@ function getAllTickets(){
 
 
 function addTicket(){
-
-
   var newTitle = $("#ticket_subject").val();
   var newMessage = $("#ticket_message").val();
   if(newTitle=="" || newMessage==""){

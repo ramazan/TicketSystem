@@ -1,5 +1,5 @@
 # bu klasorleri takip etme
-/build
+build/
  
 
 # bu uzantilara sahip dosyalari takip etme
@@ -8,10 +8,7 @@
 *.project 
 *.settings 
  
- 
-# Mobile Tools for Java (J2ME) 
-.mtj.tmp/ 
- 
+
 # Package Files # 
 *.jar 
 *.war 

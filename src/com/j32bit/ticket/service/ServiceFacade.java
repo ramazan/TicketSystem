@@ -60,8 +60,9 @@ public class ServiceFacade {
 		return userService.getUser(userEmail);
 	}
 
+	//TODO: STORE TICKET DUZENLENECEK
 	public void storeTicket(Ticket ticket) throws Exception {
-		ticketService.storeTicket(ticket);
+		//ticketService.storeTicket(ticket);
 	}
 
 }
