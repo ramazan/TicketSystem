@@ -35,6 +35,7 @@
 -- ticketlere priority int olarak eklendi 1-5 arası değer tutabiliriz. enum vardı zaten
 -- departmanlar için denum olusturulacak. 1.enum yazılım departmanı olsun (enum 1den baslamalı)
 -- Departmanı olmayan kişiler için departman 0 olarak tutulacak taloda default olarak
+-- Login hatalı oldugunda loginError.html sayfasına yönlendirme olmamalı sadece uyarı mesajı vermeli
 -- 
 -- ve beyin koşarak uzaklaşır. Geri kalanını yarın skype üzerinden hallederiz. Sinem ede bir kısmı vericez.
 -- Kolay gelsin :D

@@ -1,6 +1,6 @@
 //Date ve Ticket Sayısı(PK) eklendikten sonra komutlar düzenlenecek. 
 
-package com.j32bit.ticket.dao.ticket;
+package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

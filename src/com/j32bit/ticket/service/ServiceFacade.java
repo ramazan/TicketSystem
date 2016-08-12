@@ -5,10 +5,12 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.bean.User;
-import com.j32bit.ticket.dao.ticket.TicketDAOService;
-import com.j32bit.ticket.dao.user.UserDAOService;
+import com.j32bit.ticket.dao.CompanyDAOService;
+import com.j32bit.ticket.dao.TicketDAOService;
+import com.j32bit.ticket.dao.UserDAOService;
 
 public class ServiceFacade {
 
@@ -18,6 +20,7 @@ public class ServiceFacade {
 
 	private UserDAOService userService = null;
 	private TicketDAOService ticketService = null;
+	private CompanyDAOService companyService = null;
 
 	private ServiceFacade() {
 		logger.debug("ServiceFacade constructed");
@@ -60,9 +63,13 @@ public class ServiceFacade {
 		return userService.getUser(userEmail);
 	}
 
-	//TODO: STORE TICKET DUZENLENECEK
+	// TODO: STORE TICKET DUZENLENECEK
 	public void storeTicket(Ticket ticket) throws Exception {
-		//ticketService.storeTicket(ticket);
+		// ticketService.storeTicket(ticket);
+	}
+
+	public void addCompany(Company company) {
+		companyService.addCompany(company);
 	}
 
 }

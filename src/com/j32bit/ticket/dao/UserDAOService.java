@@ -1,4 +1,4 @@
-package com.j32bit.ticket.dao.user;
+package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

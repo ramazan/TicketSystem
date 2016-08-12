@@ -18,12 +18,6 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
 
-/**
- * @author burak UserResource
- *
- *         This class is used for backend of User.js
- *
- */
 @Path("/user")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -42,7 +36,7 @@ public class UserRest {
 	@Path("/addUser")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+//	@RolesAllowed("admin")
 	public void addUser(User user) {
 		ServiceFacade.getInstance().addUser(user);
 		logger.debug("User added: " + user);

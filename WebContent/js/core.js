@@ -8,7 +8,7 @@ $(document).ready(function(){
 			contentType : "application/json",
 			mimeType: "application/json",
 			success : function(data){
-				console.log("user email:"+data.email+" name:"+data.name);
+				console.log("user email:" + data.email+" name:"+data.name);
 				$("#nickname").text(data.email);
 				}
 		});
