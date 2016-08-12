@@ -6,47 +6,16 @@
 
 2-
  	add user da submit yapınca bir alksiyon gelmiyor ekledimni eklemedi mi anlaşılmıyor
-	
-	core.js te satır 11 de 
-	Regex
-	
-	Hide network messages
-	All
-	Errors
-	Warnings
-	Info
-	Logs
-	Debug
-	Handled
-	
-	
-	core.js:11 Uncaught TypeError: Cannot read property 'name' of undefined
 
-
-/********************************************************************/
-
-3 - DB Türkçe karakter desteği yok
-
-/********************************************************************/
-
-
-4 - Dashboard sayfasına suanlık boş oraya neler gelecek konuşulmalı
 
 /********************************************************************/
 
 
 5  -  Önyüz geliştirmesi Angular 2 ile yapılmalı 
 
-/********************************************************************/
-
-6-  TicketDAOService  sınıfında  import com.sun.jmx.snmp.Timestamp;  bölümünde hata var !  o yüzden yorum satırı haline getirdim.
 
 /********************************************************************/
-
- 7 - Db'deki users tablosuna user id eklenmeli mi?
- 	  gerekli olan diğer tablolar için hem primary key olarak id hemde 
- 	  diğer tablolarla gerekli bağlantılar için foreign key olarak id ne kadar gerekli konuşulmalı
- 	  
+  
 
 /********************************************************************/
 
@@ -58,3 +27,14 @@
 
 
 9 -  Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli
+
+-- Departman tablosu eklendi ama ticket tablosunda departmant_id fk hata verdi
+-- ticket tablosunda cogu sey ıd oldu, gereken durumlarda id üzeirnden diğer tabloalrdan bilgi alınacak
+-- departman ekleme kısmına eklemeler yapıldı. JS metodunun cogu yazıldı ama java kısmı duruyor
+-- tickeet gösterme ekranında date göstermiyor? denedim olmadı
+-- ticketlere priority int olarak eklendi 1-5 arası değer tutabiliriz. enum vardı zaten
+-- departmanlar için denum olusturulacak. 1.enum yazılım departmanı olsun (enum 1den baslamalı)
+-- Departmanı olmayan kişiler için departman 0 olarak tutulacak taloda default olarak
+-- 
+-- ve beyin koşarak uzaklaşır. Geri kalanını yarın skype üzerinden hallederiz. Sinem ede bir kısmı vericez.
+-- Kolay gelsin :D
