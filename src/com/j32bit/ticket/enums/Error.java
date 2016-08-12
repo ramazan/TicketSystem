@@ -1,4 +1,4 @@
-package com.j32bit.ticket.bean;
+package com.j32bit.ticket.enums;
 
 public enum Error {
 	SUCCESS,

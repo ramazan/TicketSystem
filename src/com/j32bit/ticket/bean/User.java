@@ -6,20 +6,20 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private Company company;
+	private int companyID;
 	private String[] userRoles;
 
 	public User() {
 		// no parameter constructor
 	}
 
-	public User(int id, String name, String email, String password, Company company, String[] userRoles) {
+	public User(int id, String name, String email, String password, int companyID, String[] userRoles) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.company = company;
+		this.companyID = companyID;
 		this.userRoles = userRoles;
 	}
 
@@ -39,12 +39,13 @@ public class User {
 		this.name = name;
 	}
 
-	public Company getCompany() {
-		return company;
+
+	public int getCompanyID() {
+		return companyID;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
 	}
 
 	public String getEmail() {

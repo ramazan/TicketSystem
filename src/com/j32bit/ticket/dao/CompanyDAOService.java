@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
-import com.j32bit.ticket.bean.Error;
+import com.j32bit.ticket.enums.Error;
 
 public class CompanyDAOService extends ConnectionHelper {
 

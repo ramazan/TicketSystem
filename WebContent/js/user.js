@@ -43,11 +43,10 @@ function getAllUsers() {
 
 function addUser() {
 
-	var newName = $("#user_name").val();
-	var newSurname = $('#user_surname').val();
-	var newEmail = $('#user_email').val();
-	var newCompany = $('#user_company').val();
-	var newPassword = $('#user_password').val();
+	var newName = $("#userFullName").val();
+	var newEmail = $('#userEmail').val();
+	var newCompany = $('#userCompany').val();
+	var newPassword = $('#userPassword').val();
 
 	var newRoles = [];
 	if ($('#adminRole').is(':checked')) {
@@ -60,18 +59,17 @@ function addUser() {
 		newRoles.push("client");
 	}
 
-	if (newRoles.length == 0 || newName == "" || newSurname == ""
-			|| newEmail == "" || newCompany == "" || newPassword == "") {
+	if (newRoles.length == 0 || newName == "" || newEmail == ""
+	 							|| newCompany == "" || newPassword == "") {
 		console.log("error: fill all boxes");
-		$("#message-box").html("Please fill all boxes");
+		$("#modalAddUserMessage").html("Please fill all boxes");
 	} else {
 
 		var person = {
 			name : newName,
-			surname : newSurname,
 			email : newEmail,
 			password : newPassword,
-			company : newCompany,
+			companyID : newCompany,
 			userRoles : newRoles
 		};
 
@@ -100,18 +98,18 @@ function loadCompanies() {
 	// TODO: Bu veriler db ten cekilecek !!!
 	var comps = [ {
 		id : 0,
-		name : "32bit"
+		name : "no company"
 	}, {
 		id : 1,
-		name : "akbank"
+		name : "32bit"
 	}, {
 		id : 2,
-		name : "isbank"
+		name : "akbank"
 	} ];
 
 	$.each(comps, function(key, value) {
 		// key == value.id db te id sutunu tutuyoruz...
-		$('#user_company').append(
+		$('#userCompany').append(
 				$("<option></option>").attr("value", key).text(value.name));
 	});
 }

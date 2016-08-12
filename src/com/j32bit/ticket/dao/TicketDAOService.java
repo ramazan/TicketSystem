@@ -11,9 +11,9 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.j32bit.ticket.bean.Priority;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.dao.ConnectionHelper;
+import com.j32bit.ticket.enums.Priority;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);

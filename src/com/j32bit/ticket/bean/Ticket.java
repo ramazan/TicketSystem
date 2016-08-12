@@ -2,6 +2,8 @@ package com.j32bit.ticket.bean;
 
 import java.util.Date;
 
+import com.j32bit.ticket.enums.Priority;
+
 public class Ticket {
 
 	private Date time;

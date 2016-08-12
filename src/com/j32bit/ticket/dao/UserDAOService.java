@@ -11,9 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
-import com.j32bit.ticket.bean.Error;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
+import com.j32bit.ticket.enums.Error;
 
 public class UserDAOService extends ConnectionHelper {
 
@@ -40,14 +40,14 @@ public class UserDAOService extends ConnectionHelper {
 		// TODO : USER check edilecek, ayni kisi eklenmesine karsin
 
 		try {
-			String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY) values (?,?,?,?)";
+			String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID) values (?,?,?,?)";
 
 			con = getConnection();
 			pst = con.prepareStatement(addUserQuery);
 			pst.setString(1, user.getName());
 			pst.setString(2, user.getEmail());
 			pst.setString(3, user.getPassword());
-			pst.setInt(4, user.getCompany().getId());
+			pst.setInt(4, user.getCompanyID());
 			pst.executeUpdate(); // to insert, update,delete and return nothings
 
 			int roleSize = user.getUserRoles().length;
@@ -97,7 +97,6 @@ public class UserDAOService extends ConnectionHelper {
 				String userPassword = userRS.getString("PASSWORD");
 				int userCompanyID = userRS.getInt("COMPANY_ID");
 
-
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pst = con.prepareStatement(query.toString());
@@ -111,36 +110,8 @@ public class UserDAOService extends ConnectionHelper {
 				}
 				userRolesArr = roles.toArray(new String[roles.size()]);
 				logger.info("getAllUser role:" + userRolesArr);
-
-				// GET COMPANY
-				closeResultSet(rs);
-				closePreparedStatement(pst);
-
-				Company company = new Company(0); // bos company olustur
-				if (userCompanyID != 0) { // company bos yani yoksa
-					query = "SELECT * FROM companies WHERE ID=?";
-					pst = con.prepareStatement(query.toString());
-					pst.setInt(1, userCompanyID);
-					rs = pst.executeQuery();
-
-					String companyEmail = null;
-					String companyName = null;
-					String companyAddress = null;
-					String companyPhone = null;
-					String companyFax = null;
-					while (rs.next()) {
-						companyEmail = rs.getString("EMAIL");
-						companyName = rs.getString("NAME");
-						companyAddress = rs.getString("ADDRESS");
-						companyPhone = rs.getString("NAME");
-						companyFax = rs.getString("FAX");
-					}
-
-					company = new Company(userCompanyID, companyName, companyEmail, companyPhone, companyFax,
-							companyAddress);
-					logger.info("getAllUser company:" + company);
-				}
-				user = new User(userID, userName, userEmail, userPassword, company, userRolesArr);
+				
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
 				logger.info("getAllUser user:"+user);
 				users.add(user);
 			}
@@ -179,7 +150,7 @@ public class UserDAOService extends ConnectionHelper {
 			int userID = rs.getInt("ID");
 			String userName = rs.getString("FULL_NAME");
 			String userPassword = rs.getString("PASSWORD");
-			int companyID = rs.getInt("COMPANY_ID");
+			int userCompanyID = rs.getInt("COMPANY_ID");
 
 			closeResultSet(rs);
 			closePreparedStatement(pst);
@@ -198,7 +169,7 @@ public class UserDAOService extends ConnectionHelper {
 			userRolesArr = roles.toArray(new String[roles.size()]);
 			logger.info("getUser role:" + userRolesArr);
 
-			// GET COMPANY
+			/*// GET COMPANY
 			closeResultSet(rs);
 			closePreparedStatement(pst);
 
@@ -223,11 +194,9 @@ public class UserDAOService extends ConnectionHelper {
 				}
 				company = new Company(companyID, companyName, companyEmail, companyPhone, companyFax, companyAddress);
 
-			}
+			}*/
 
-			logger.info("getAllUser company:" + company);
-
-			user = new User(userID, userName, userEmail, userPassword, company, userRolesArr);
+			user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
 
 		} catch (Exception e) {
 			logger.debug("getUser error occured");

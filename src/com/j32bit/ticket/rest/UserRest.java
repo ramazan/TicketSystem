@@ -36,7 +36,7 @@ public class UserRest {
 	@Path("/addUser")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-//	@RolesAllowed("admin")
+	@RolesAllowed("admin")
 	public void addUser(User user) {
 		ServiceFacade.getInstance().addUser(user);
 		logger.debug("User added: " + user);
