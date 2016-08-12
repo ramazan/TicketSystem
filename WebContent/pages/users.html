@@ -48,7 +48,9 @@
         <div class="container-fluid collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a id="allUsers" href="users.html">All Users</a></li>
-            <li><a id="addUser" href="users_add.html">Add User</a></li>
+            <li><a data-toggle="modal" data-target="#myUserModal">Add User</a></li>
+<!--               <button class="btn btn-info" data-toggle="modal" data-target="#myUserModal">Add New User</button> -->
+
           </ul>
         </div>
       </nav> <!-- mini ticket navbar-->
@@ -59,6 +61,111 @@
         </div>
       </div><!-- row -->
     </div> <!-- main container fluid-->
+    
+<!-- Add User Modal -->
+   <div id="myUserModal" class="modal fade" role="dialog">
+     <div class="modal-dialog">
+       <!-- Modal content-->
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Add New User</h4>
+         </div>
+         <div class="modal-body">
+           <p id="message-box" class="text-center text-warning lead"></p>
+             
+             <div class="form-group">
+               <label>Full Name:</label>
+               <input class="form-control" type="text" id="user_name" required/>
+             </div>
+                          
+             <div class="form-group">
+               <label>E-Mail:</label>
+               <input class="form-control" type="text" id="user_email" required/>
+             </div>
+             
+             <div class="form-group">
+               <label>Password:</label>
+               <input class="form-control" type="text" id="user_password" required/>
+             </div>
+             
+             <div class="form-group">
+               <label>Company:</label>
+               <select id="user_company"></select>
+               <button class="btn btn-info" data-toggle="modal" data-target="#myModalAddCompany">Add New Company</button>
+             </div>
+             
+             <div class="checkbox">
+               <label class="checkbox-inline" ><input type="checkbox" name="role" id="adminRole" checked>Admin</label>
+               <label class="checkbox-inline" ><input type="checkbox" name="role" id="supporterRole" >Supporter</label>
+               <label class="checkbox-inline" ><input type="checkbox" name="role" id="clientRole">Client</label>
+             </div>
+      
+         </div>
+         <div class="modal-footer">
+<!--               <button onclick="addUser()" class="btn btn-default btn-block">Submit</button> -->
+
+           <button class="btn btn-success" onclick="addUser()" data-dismiss="modal">Add User</button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+       </div><!-- modal content -->
+     </div> <!-- modal-dialog-->
+   </div>
+    <!-- Add User Modal -->
+    
+    
+    
+     <!-- Add Company Modal -->
+    <div id="myModalAddCompany" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add New Company</h4>
+          </div>
+          <div class="modal-body">
+            <p id="modal_message">Please fill boxes to add new company.</p>
+            <div class="form-group">
+              <label>Name:<span class="text-danger">*</span></label>
+              <input class="form-control" type="text" id="comp_name" required/>
+            </div>
+            <div class="form-group">
+              <label>E-Mail:<span class="text-danger">*</span></label>
+              <input class="form-control" type="text" id="comp_email" required/>
+            </div>
+            <div class="form-group">
+              <label>Phone:</label>
+              <input class="form-control" type="text" id="comp_phone"/>
+            </div>
+            <div class="form-group">
+              <label>Fax:</label>
+              <input class="form-control" type="text" id="comp_fax"/>
+            </div>
+            <div class="form-group">
+              <label>Address:</label>
+              <input class="form-control" type="text" id="comp_address"/>
+            </div>
+            <p><span class="text-danger lead">*: Required</span></p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="addNewCompany()" data-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- modal content -->
+      </div> <!-- modal-dialog-->
+    </div>
+    <!-- Add Company Modal -->
+    
+    
+    
+    <!-- core js -->
+    <script type="text/javascript" src="../js/user.js"></script>
+    <script type="text/javascript" src="../js/core.js"></script>
+    
+    
+    
+    
 
     <script>
       $(document).ready(function(){

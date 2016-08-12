@@ -28,7 +28,7 @@
 
 9 -  Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli
 
--- Departman tablosu eklendi ama ticket tablosunda departmant_id fk hata verdi
+-- ///HALLEDİLDİ -- Departman tablosu eklendi ama ticket tablosunda departmant_id fk hata verdi
 -- ticket tablosunda cogu sey ıd oldu, gereken durumlarda id üzeirnden diğer tabloalrdan bilgi alınacak
 -- departman ekleme kısmına eklemeler yapıldı. JS metodunun cogu yazıldı ama java kısmı duruyor
 -- tickeet gösterme ekranında date göstermiyor? denedim olmadı

@@ -70,6 +70,8 @@ function addUser(){
 			  mimeType: "application/json",
 			  data : JSON.stringify(person),
 			  success : function(){
+				  
+			alert("User Added Succesfully")	  
           console.log("user added")
 		      }
 			});
@@ -121,6 +123,9 @@ function addNewCompany(){
                .attr("selected",true)
                .text(cName)
               );
+            
+            alert("Company added succesfully!");
+
         },
         error: function(){
           alert("adding error");
