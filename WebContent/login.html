@@ -10,17 +10,17 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <style>
-  .container-fluid{
-    padding-top: 5%;
-    width:300px;
-  }
-
+    .container-fluid{
+      padding-top: 5%;
+      width:300px;
+    }
   </style>
 
   </head>
 
   <body>
     <div class="container-fluid">
+      <p class="text-danger text-center lead"id="errorMessage"></p>
       <h1 class="text-center">Ticket System Login</h1>
       <form method="POST" action="j_security_check">
         <div class="form-group">
@@ -36,5 +36,17 @@
         </div>
       </form>
     </div>
+    <script>
+      function checkPath(){
+        var query = window.location.pathname; // /Ticket_System/j_security_check
+        var vars = query.split("/");
+
+        if(vars[2]=="j_security_check"){
+          console.log("invalid login");
+          $("#errorMessage").text("Invalid email or password.");
+        }
+      }
+      checkPath();
+    </script>
   </body>
 </html>

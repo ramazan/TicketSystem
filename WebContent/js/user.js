@@ -17,8 +17,8 @@ function getAllUsers() {
 			name : 'password',
 			width : 100
 		}, {
-			label : "Company",
-			name : 'company.name',
+			label : "CompanyID",
+			name : 'companyID',
 			width : 100
 		}, ],
 		viewrecords : true,
@@ -80,7 +80,6 @@ function addUser() {
 			mimeType : "application/json",
 			data : JSON.stringify(person),
 			success : function() {
-
 				alert("User Added Succesfully")
 				console.log("user added")
 			},
