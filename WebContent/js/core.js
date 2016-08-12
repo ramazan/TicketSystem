@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-	var authenticatedUser;
-
 	$.ajax({
 			type: "POST",
 			url: '/Ticket_System/rest/session/getAuthenticatedUser',

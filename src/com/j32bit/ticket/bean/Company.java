@@ -71,6 +71,7 @@ public class Company {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Company name: ").append(name).append("\n");
+		sb.append("id: ").append(id).append("\n");
 		sb.append("email: ").append(email).append("\n");
 		sb.append("phone: ").append(phone).append("\n");
 		sb.append("fax: ").append(fax).append("\n");

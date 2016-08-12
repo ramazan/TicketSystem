@@ -91,66 +91,6 @@ function addUser() {
 	}
 }
 
-loadCompanies();
-function loadCompanies() {
-
-	// TODO: Bu veriler db ten cekilecek !!!
-	var comps = [ {
-		id : 0,
-		name : "no company"
-	}, {
-		id : 1,
-		name : "32bit"
-	}, {
-		id : 2,
-		name : "akbank"
-	} ];
-
-	$.each(comps, function(key, value) {
-		// key == value.id db te id sutunu tutuyoruz...
-		$('#userCompany').append(
-				$("<option></option>").attr("value", key).text(value.name));
-	});
-}
-
-function addNewCompany() {
-
-	var cEmail = $("#comp_email").val();
-	var cName = $("#comp_name").val();
-	var cPhone = $("#comp_phone").val();
-	var cFax = $("#comp_fax").val();
-	var cAddress = $("#comp_address").val();
-
-	if (cEmail == "" || cName == "") {
-		$("#modal_message").text("You have to fill required places");
-	} else {
-
-		var company = {
-			email : cEmail,
-			name : cName,
-			phone : cPhone,
-			fax : cFax,
-			address : cAddress
-		};
-
-		$.ajax({
-			type : "POST",
-			url : '/Ticket_System/rest/company/addNewCompany',
-			contentType : "application/json",
-			mimeType : "application/json",
-			data : JSON.stringify(company),
-			success : function() {
-				$("#modal_message").text("Company added. Close Window.");
-				$('#user_company').append(
-						$("<option></option>").attr("value", cName).attr(
-								"selected", true).text(cName));
-
-				alert("Company added succesfully!");
-
-			},
-			error : function() {
-				alert("adding error");
-			}
-		});
-	}
-}
+$(document).ready(function(){
+	//getAllUsers(); TODO: HIZ KAZANMAK ICIN SUAN KAPALI
+});

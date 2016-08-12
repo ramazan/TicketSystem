@@ -56,3 +56,4 @@
 ### Katkıda Bulunanlar
 > Hasan Men - GTU  
 > Nur Sinem Dere - ITU
+> Ramazan Demir - KOÜ

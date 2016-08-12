@@ -12,10 +12,6 @@
     <script type="text/javascript" src="../js/i18n/grid.locale-en.js"></script>
     <script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
 
-    <!-- core js -->
-    <script type="text/javascript" src="../js/user.js"></script>
-    <script type="text/javascript" src="../js/core.js"></script>
-
   </head>
 
   <body>
@@ -61,7 +57,7 @@
     </div> <!-- main container fluid-->
 
 
-<!-- Add User Modal -->
+    <!-- Add User Modal -->
    <div id="myUserModal" class="modal fade" role="dialog">
      <div class="modal-dialog">
        <!-- Modal content-->
@@ -110,7 +106,6 @@
     <!-- Add User Modal -->
 
 
-
      <!-- Add Company Modal -->
     <div id="myModalAddCompany" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -121,52 +116,41 @@
             <h4 class="modal-title">Add New Company</h4>
           </div>
           <div class="modal-body">
-            <p id="modal_message">Please fill boxes to add new company.</p>
+            <p class="text-center text-danger lead" id="addCompanyModalMessage"></p>
             <div class="form-group">
               <label>Name:<span class="text-danger">*</span></label>
-              <input class="form-control" type="text" id="comp_name" required/>
+              <input class="form-control" type="text" id="compName" required/>
             </div>
             <div class="form-group">
               <label>E-Mail:<span class="text-danger">*</span></label>
-              <input class="form-control" type="text" id="comp_email" required/>
+              <input class="form-control" type="text" id="compEmail" required/>
             </div>
             <div class="form-group">
               <label>Phone:</label>
-              <input class="form-control" type="text" id="comp_phone"/>
+              <input class="form-control" type="text" id="compPhone"/>
             </div>
             <div class="form-group">
               <label>Fax:</label>
-              <input class="form-control" type="text" id="comp_fax"/>
+              <input class="form-control" type="text" id="compFax"/>
             </div>
             <div class="form-group">
               <label>Address:</label>
-              <input class="form-control" type="text" id="comp_address"/>
+              <input class="form-control" type="text" id="compAddress"/>
             </div>
             <p><span class="text-danger lead">*: Required</span></p>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" onclick="addNewCompany()" data-dismiss="modal">Add</button>
+            <button class="btn btn-success" onclick="addCompany()">Add</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div><!-- modal content -->
       </div> <!-- modal-dialog-->
     </div>
-    <!-- Add Company Modal -->
-
-
 
     <!-- core js -->
     <script type="text/javascript" src="../js/user.js"></script>
     <script type="text/javascript" src="../js/core.js"></script>
+    <script type="text/javascript" src="../js/company.js"></script>
 
-
-
-
-
-    <script>
-      $(document).ready(function(){
-        getAllUsers();
-      });
-    </script>
   </body>
 </html>

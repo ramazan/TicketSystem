@@ -11,6 +11,7 @@ import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.CompanyDAOService;
 import com.j32bit.ticket.dao.TicketDAOService;
 import com.j32bit.ticket.dao.UserDAOService;
+import com.j32bit.ticket.enums.Status;
 
 public class ServiceFacade {
 
@@ -40,6 +41,8 @@ public class ServiceFacade {
 		userService.init(prop);
 		ticketService = new TicketDAOService();
 		ticketService.init(prop);
+		companyService = new CompanyDAOService();
+		companyService.init(prop);
 		logger.debug("initialize finished");
 	}
 
@@ -68,8 +71,15 @@ public class ServiceFacade {
 		// ticketService.storeTicket(ticket);
 	}
 
-	public void addCompany(Company company) {
-		companyService.addCompany(company);
+	public Status addCompany(Company company) {
+		logger.debug("addCompany for company:"+company);
+		Status status = companyService.addCompany(company);
+		logger.debug("addCompany status:"+status);
+		return status;
+	}
+	
+	public Company [] getAllCompanies(){
+		return companyService.getAllcompanies();
 	}
 
 }

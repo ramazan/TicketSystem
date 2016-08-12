@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.ConnectionHelper;
-import com.j32bit.ticket.enums.Error;
+import com.j32bit.ticket.enums.Status;
 
 public class UserDAOService extends ConnectionHelper {
 
@@ -29,13 +29,13 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("initialize finished");
 	}
 
-	public Error addUser(User user) {
+	public Status addUser(User user) {
 		logger.debug("addUser started");
 
 		Connection con = null;
 		PreparedStatement pst = null;
 
-		Error result = Error.SUCCESS;
+		Status result = Status.SUCCESS;
 
 		// TODO : USER check edilecek, ayni kisi eklenmesine karsin
 
