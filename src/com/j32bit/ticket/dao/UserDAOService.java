@@ -37,36 +37,39 @@ public class UserDAOService extends ConnectionHelper {
 
 		Status result = Status.SUCCESS;
 
-		// TODO : USER check edilecek, ayni kisi eklenmesine karsin
+		if (getUser(user.getEmail())!=null) {
+			result = Status.USER_EXIST;
+		} else {
+			try {
+				String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID) values (?,?,?,?)";
 
-		try {
-			String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID) values (?,?,?,?)";
+				con = getConnection();
+				pst = con.prepareStatement(addUserQuery);
+				pst.setString(1, user.getName());
+				pst.setString(2, user.getEmail());
+				pst.setString(3, user.getPassword());
+				pst.setInt(4, user.getCompanyID());
+				pst.executeUpdate(); // to insert, update,delete and return
+										// nothings
 
-			con = getConnection();
-			pst = con.prepareStatement(addUserQuery);
-			pst.setString(1, user.getName());
-			pst.setString(2, user.getEmail());
-			pst.setString(3, user.getPassword());
-			pst.setInt(4, user.getCompanyID());
-			pst.executeUpdate(); // to insert, update,delete and return nothings
+				int roleSize = user.getUserRoles().length;
+				for (int i = 0; i != roleSize; ++i) {
+					String addRoleQuery = "INSERT INTO user_roles (EMAIL,ROLE) values (?,?)";
+					pst = con.prepareStatement(addRoleQuery);
+					pst.setString(1, user.getEmail());
+					pst.setString(2, user.getUserRoles()[i]);
+					pst.executeUpdate();
+				}
 
-			int roleSize = user.getUserRoles().length;
-			for (int i = 0; i != roleSize; ++i) {
-				String addRoleQuery = "INSERT INTO user_roles (EMAIL,ROLE) values (?,?)";
-				pst = con.prepareStatement(addRoleQuery);
-				pst.setString(1, user.getEmail());
-				pst.setString(2, user.getUserRoles()[i]);
-				pst.executeUpdate();
+			} catch (Exception e) {
+				// ERROR STATUSU DEGISTIRILECEK
+				logger.debug("addUser error:" + e.getMessage());
+				e.printStackTrace();
+			} finally {
+				closePreparedStatement(pst);
+				closeConnection(con);
+				logger.debug("addUser completed");
 			}
-
-		} catch (Exception e) {
-			// ERROR STATUSU DEGISTIRILECEK
-			logger.debug("addUser error:" + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			closePreparedStatement(pst);
-			closeConnection(con);
-			logger.debug("addUser completed");
 		}
 		return result;
 	}
@@ -76,7 +79,7 @@ public class UserDAOService extends ConnectionHelper {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet userRS = null;
-		ResultSet rs=null;
+		ResultSet rs = null;
 		User user;
 
 		ArrayList<User> users = new ArrayList<>();
@@ -110,9 +113,9 @@ public class UserDAOService extends ConnectionHelper {
 				}
 				userRolesArr = roles.toArray(new String[roles.size()]);
 				logger.info("getAllUser role:" + userRolesArr);
-				
+
 				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
-				logger.info("getAllUser user:"+user);
+				logger.info("getAllUser user:" + user);
 				users.add(user);
 			}
 		} catch (Exception e) {
@@ -167,34 +170,6 @@ public class UserDAOService extends ConnectionHelper {
 				roles.add(rs.getString("ROLE"));
 			}
 			userRolesArr = roles.toArray(new String[roles.size()]);
-			logger.info("getUser role:" + userRolesArr);
-
-			/*// GET COMPANY
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-
-			Company company = new Company(0);
-			if (companyID != 0) {
-				query = "SELECT * FROM companies WHERE ID=?";
-				pst = con.prepareStatement(query.toString());
-				pst.setInt(1, companyID);
-				rs = pst.executeQuery();
-
-				String companyEmail = null;
-				String companyName = null;
-				String companyAddress = null;
-				String companyPhone = null;
-				String companyFax = null;
-				while (rs.next()) {
-					companyEmail = rs.getString("EMAIL");
-					companyName = rs.getString("NAME");
-					companyAddress = rs.getString("ADDRESS");
-					companyPhone = rs.getString("NAME");
-					companyFax = rs.getString("FAX");
-				}
-				company = new Company(companyID, companyName, companyEmail, companyPhone, companyFax, companyAddress);
-
-			}*/
 
 			user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
 

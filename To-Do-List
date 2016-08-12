@@ -1,43 +1,21 @@
-1 - yanlış loginlerde yeni bir sayfa değil aynı sayfa üzerinde hata verilmeli
+/********************************************************************/
+Önyüz geliştirmesi Angular 2 ile yapılmalı 
+/********************************************************************/
+opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
+/********************************************************************/
+Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli
+/********************************************************************/
+tickeet gösterme ekranında date göstermiyor?
+/********************************************************************/
+Supporter olarak eklenen kişi hangi departmana supporter ? 
+/********************************************************************/
 
+/********************************************************************/
+
+/********************************************************************/
+
+/********************************************************************/
 
 /********************************************************************/
 
 
-2-
- 	add user da submit yapınca bir alksiyon gelmiyor ekledimni eklemedi mi anlaşılmıyor
-
-
-/********************************************************************/
-
-
-5  -  Önyüz geliştirmesi Angular 2 ile yapılmalı 
-
-
-/********************************************************************/
-  
-
-/********************************************************************/
-
-
-8 -  	opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
-
-
-/********************************************************************/
-
-
-9 -  Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli
-
--- ticket tablosunda cogu sey ıd oldu, gereken durumlarda id üzeirnden diğer tabloalrdan bilgi alınacak
--- departman ekleme kısmına eklemeler yapıldı. JS metodunun cogu yazıldı ama java kısmı duruyor
--- tickeet gösterme ekranında date göstermiyor? denedim olmadı
--- ticketlere priority int olarak eklendi 1-5 arası değer tutabiliriz. enum vardı zaten
--- departmanlar için denum olusturulacak. 1.enum yazılım departmanı olsun (enum 1den baslamalı)
--- Departmanı olmayan kişiler için departman 0 olarak tutulacak taloda default olarak
--- Login hatalı oldugunda loginError.html sayfasına yönlendirme olmamalı sadece uyarı mesajı vermeli
--- 
--- ve beyin koşarak uzaklaşır. Geri kalanını yarın skype üzerinden hallederiz. Sinem ede bir kısmı vericez.
--- Kolay gelsin :D
-
-
--- COMPANYDAO EKLENMIS AMA INITIALIZE EDILMEMIS. HALLEDILDI

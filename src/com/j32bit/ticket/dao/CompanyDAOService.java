@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.Result;
 import com.j32bit.ticket.enums.Status;
 
 public class CompanyDAOService extends ConnectionHelper {
@@ -28,16 +28,19 @@ public class CompanyDAOService extends ConnectionHelper {
 		logger.debug("initialize finished");
 	}
 
-	public Status addCompany(Company company) {
+	public Result addCompany(Company company) {
 		logger.debug("addCompany started");
 
 		Connection con = null;
 		PreparedStatement pst = null;
 
-		Status result = Status.SUCCESS;
+		Result result = new Result();
 		
-		if(isCompanyExist(company)==true){
-			result = Status.COMPANY_EXIST;
+		int companyID = getCompanyID(company);
+		
+		if(companyID!=0){ // company varsa
+			result.status = Status.COMPANY_EXIST;
+			result.companyID = companyID;
 		}else{
 			try {
 				String addcompanyQuery = "INSERT INTO companies (NAME,ADDRESS,EMAIL,PHONE,FAX) values (?,?,?,?,?)";
@@ -51,6 +54,8 @@ public class CompanyDAOService extends ConnectionHelper {
 				pst.setString(5, company.getFax());
 				pst.executeUpdate(); // to insert, update,delete and return nothings
 	
+				result.companyID = getCompanyID(company);
+				result.status = Status.SUCCESS;
 			} catch (Exception e) {
 				// ERROR STATUSU DEGISTIRILECEK
 				logger.debug("addcompany error:" + e.getMessage());
@@ -64,7 +69,11 @@ public class CompanyDAOService extends ConnectionHelper {
 		return result;
 	}
 	
-	public boolean isCompanyExist(Company company){
+	/*
+	 * @param company
+	 * @return company yoksa 0 return eder
+	 */
+	public int getCompanyID(Company company){
 		
 		Connection con=null;
 		PreparedStatement pst=null;
@@ -92,7 +101,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			closeConnection(con);			
 		}
 		
-		return companyID==0?false:true; // company varsa false yoksa true
+		return companyID;
 	}
 
 	public Company[] getAllcompanies() {

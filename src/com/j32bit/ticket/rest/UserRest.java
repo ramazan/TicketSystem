@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.User;
+import com.j32bit.ticket.enums.Status;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/user")
@@ -23,7 +24,6 @@ import com.j32bit.ticket.service.ServiceFacade;
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 public class UserRest {
 	private static Logger logger = LogManager.getLogger();
-
 
 	@GET
 	public User getUserDetails(@Context HttpServletRequest request) throws Exception {
@@ -37,9 +37,10 @@ public class UserRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void addUser(User user) {
-		ServiceFacade.getInstance().addUser(user);
-		logger.debug("User added: " + user);
+	public Status addUser(User user) {
+		Status status = ServiceFacade.getInstance().addUser(user);
+		logger.debug("addUser status: " + status);
+		return status;
 	}
 
 	@Path("/getAllUsers")

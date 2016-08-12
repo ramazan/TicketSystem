@@ -79,9 +79,14 @@ function addUser() {
 			contentType : "application/json",
 			mimeType : "application/json",
 			data : JSON.stringify(person),
-			success : function() {
-				alert("User Added Succesfully")
-				console.log("user added")
+			success : function(status) {
+				if(status=="SUCCESS"){
+					$("#modalAddUserMessage").text("User added. Close Window.");
+				}else if(status=="USER_EXIST"){
+					$("#modalAddUserMessage").text("User exist!! Email must be unique.");
+				}else{
+					$("#modalAddUserMessage").text("Error occured!. Open a ticket.");
+				}
 			},
 
 			error : function() {
@@ -92,5 +97,5 @@ function addUser() {
 }
 
 $(document).ready(function(){
-	//getAllUsers(); TODO: HIZ KAZANMAK ICIN SUAN KAPALI
+	getAllUsers();
 });

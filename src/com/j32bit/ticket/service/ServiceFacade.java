@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.Result;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.CompanyDAOService;
@@ -46,8 +47,8 @@ public class ServiceFacade {
 		logger.debug("initialize finished");
 	}
 
-	public void addUser(User user) {
-		userService.addUser(user);
+	public Status addUser(User user) {
+		return userService.addUser(user);
 	}
 
 	public User[] getAllUsers() {
@@ -71,11 +72,11 @@ public class ServiceFacade {
 		// ticketService.storeTicket(ticket);
 	}
 
-	public Status addCompany(Company company) {
+	public Result addCompany(Company company) {
 		logger.debug("addCompany for company:"+company);
-		Status status = companyService.addCompany(company);
-		logger.debug("addCompany status:"+status);
-		return status;
+		Result result = companyService.addCompany(company);
+		logger.debug("addCompany status:"+result.status);
+		return result;
 	}
 	
 	public Company [] getAllCompanies(){

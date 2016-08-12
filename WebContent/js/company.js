@@ -12,7 +12,7 @@ function loadCompanies() {
       $.each(companies, function(key, value) {
         // key == value.id db te id sutunu tutuyoruz...
         $('#userCompany').append(
-            $("<option></option>").attr("value", key).text(value.name));
+            $("<option></option>").attr("value", value.id).text(value.name));
       });
     },
     error : function() {
@@ -47,13 +47,13 @@ function addCompany() {
 			contentType : "application/json",
 			mimeType : "application/json",
 			data : JSON.stringify(company),
-			success : function(status) {
-        if(status == "SUCCESS"){
+			success : function(result) {
+        if(result.status == "SUCCESS"){
           $("#addCompanyModalMessage").text("Company added. Close Window.");
   				$('#userCompany').append(
-  						$("<option></option>").attr("value", cName).attr(
+  						$("<option></option>").attr("value", result.companyID).attr(
   								"selected", true).text(cName));
-        }else if(status=="COMPANY_EXIST"){
+        }else if(result.status=="COMPANY_EXIST"){
           $("#addCompanyModalMessage").text("Company name exist!!");
         }else{
           $("#addCompanyModalMessage").text("Error occured");
