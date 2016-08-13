@@ -8,12 +8,13 @@ public class User {
 	private String password;
 	private int companyID;
 	private String[] userRoles;
+	private int departmentID;
 
 	public User() {
 		// no parameter constructor
 	}
 
-	public User(int id, String name, String email, String password, int companyID, String[] userRoles) {
+	public User(int id, String name, String email, String password, int companyID,int departmentID, String[] userRoles) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -21,6 +22,17 @@ public class User {
 		this.password = password;
 		this.companyID = companyID;
 		this.userRoles = userRoles;
+		this.departmentID = departmentID;
+	}
+	
+	
+
+	public int getDepartmentID() {
+		return departmentID;
+	}
+
+	public void setDepartmentID(int departmentID) {
+		this.departmentID = departmentID;
 	}
 
 	public int getId() {

@@ -49,11 +49,14 @@ function addUser() {
 	var newPassword = $('#userPassword').val();
 
 	var newRoles = [];
+	var userDepartmentID = 0;
 	if ($('#adminRole').is(':checked')) {
 		newRoles.push("admin");
 	}
 	if ($('#supporterRole').is(':checked')) {
 		newRoles.push("supporter");
+		userDepartmentID = $("#userDepartment").val();
+		console.log("department:"+userDepartmentID);
 	}
 	if ($('#clientRole').is(':checked')) {
 		newRoles.push("client");
@@ -70,7 +73,8 @@ function addUser() {
 			email : newEmail,
 			password : newPassword,
 			companyID : newCompany,
-			userRoles : newRoles
+			userRoles : newRoles,
+			departmentID : userDepartmentID
 		};
 
 		$.ajax({
@@ -83,7 +87,6 @@ function addUser() {
 						if (status == "SUCCESS") {
 							$("#modalAddUserMessage").text(
 									"User added. Close Window.");
-
 							// Kullancı başarıyla eklendiğinde gridi refresh
 							// ediyorum.
 							$('#jqGrid').trigger('reloadGrid');

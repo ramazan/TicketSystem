@@ -40,7 +40,7 @@ public class UserDAOService extends ConnectionHelper {
 			result = Status.USER_EXIST;
 		} else {
 			try {
-				String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID) values (?,?,?,?)";
+				String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID,DEPARTMENT_ID) values (?,?,?,?,?)";
 
 				con = getConnection();
 				pst = con.prepareStatement(addUserQuery);
@@ -48,6 +48,7 @@ public class UserDAOService extends ConnectionHelper {
 				pst.setString(2, user.getEmail());
 				pst.setString(3, user.getPassword());
 				pst.setInt(4, user.getCompanyID());
+				pst.setInt(5, user.getDepartmentID());
 				pst.executeUpdate(); // to insert, update,delete and return
 										// nothings
 
@@ -98,6 +99,7 @@ public class UserDAOService extends ConnectionHelper {
 				String userEmail = userRS.getString("EMAIL");
 				String userPassword = userRS.getString("PASSWORD");
 				int userCompanyID = userRS.getInt("COMPANY_ID");
+				int userDepartmentID = userRS.getInt("DEPARTMENT_ID");
 
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
@@ -113,7 +115,7 @@ public class UserDAOService extends ConnectionHelper {
 				userRolesArr = roles.toArray(new String[0]); // bu daha performanslı + test sonuclarina bakildi
 				logger.info("getAllUser role #" + userRolesArr.length);
 
-				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID,userDepartmentID, userRolesArr);
 				logger.info("getAllUser user:" + user);
 				users.add(user);
 			}
@@ -153,6 +155,7 @@ public class UserDAOService extends ConnectionHelper {
 				String userName = rs.getString("FULL_NAME");
 				String userPassword = rs.getString("PASSWORD");
 				int userCompanyID = rs.getInt("COMPANY_ID");
+				int userDepartmentID = rs.getInt("DEPARTMENT_ID");
 			
 				closeResultSet(rs);
 				closePreparedStatement(pst);
@@ -170,7 +173,7 @@ public class UserDAOService extends ConnectionHelper {
 				}
 				userRolesArr = roles.toArray(new String[roles.size()]);
 	
-				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userDepartmentID,userRolesArr);
 			}
 		} catch (Exception e) {
 			logger.debug("getUser error occured");
