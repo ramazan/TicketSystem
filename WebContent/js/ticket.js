@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  getAllTickets();
+	getAllTickets();
 });
 function getAllTickets() {
 	$("#jqGrid").jqGrid({
@@ -38,25 +38,32 @@ function getAllTickets() {
 			name : 'departmentName',
 			width : 80
 		} ],
-		width : 780,
-		styleUI : 'Bootstrap',
-		responsive : true,
+		 responsive : true,
+		 multiselect : true,
 		viewrecords : true,
-		multiselect : true,
-		height : 150,
+		height : 400,
+		width : 750,
+		styleUI : 'Bootstrap',
 		rowNum : 10,
 		pager : "#jqGridPager"
+
 	});
 
 	$('#jqGrid').navGrid('#jqGridPager', {
-		edit : true,
-		add : true,
-		del : true,
+		edit : false,
+		add : false,
+		del : false,
 		search : true,
 		refresh : true,
 		view : true,
 		position : "left",
 		cloneToTop : false
+	}).navButtonAdd('#jqGridPager', {
+		caption : "Add",
+		buttonicon : "ui-icon-add",
+		onClickButton : function() {
+			$('#myModalNewTicket').modal('show');
+		}
 	});
 }
 
