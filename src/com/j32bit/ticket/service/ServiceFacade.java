@@ -6,10 +6,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.Result;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.CompanyDAOService;
+import com.j32bit.ticket.dao.DepartmentDAOService;
 import com.j32bit.ticket.dao.TicketDAOService;
 import com.j32bit.ticket.dao.UserDAOService;
 import com.j32bit.ticket.enums.Status;
@@ -23,6 +25,7 @@ public class ServiceFacade {
 	private UserDAOService userService = null;
 	private TicketDAOService ticketService = null;
 	private CompanyDAOService companyService = null;
+	private DepartmentDAOService departmentDAOService = null;
 
 	private ServiceFacade() {
 		logger.debug("ServiceFacade constructed");
@@ -40,10 +43,15 @@ public class ServiceFacade {
 		logger.debug("initialize started");
 		userService = new UserDAOService();
 		userService.init(prop);
+		
 		ticketService = new TicketDAOService();
 		ticketService.init(prop);
+		
 		companyService = new CompanyDAOService();
 		companyService.init(prop);
+		
+		departmentDAOService = new DepartmentDAOService();
+		departmentDAOService.init(prop);
 		logger.debug("initialize finished");
 	}
 
@@ -81,6 +89,10 @@ public class ServiceFacade {
 	
 	public Company [] getAllCompanies(){
 		return companyService.getAllcompanies();
+	}
+
+	public Department[] getAllDepartments() {
+		return departmentDAOService.getAllDepartments();
 	}
 
 }

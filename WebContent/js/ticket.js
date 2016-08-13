@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  getAllTickets();
+  loadDepartments();
+});
 
 function getAllTickets(){
   $("#jqGrid").jqGrid({
@@ -57,7 +61,28 @@ function addTicket(){
           console.log("ticket add ajax called")
           }
       });
-
-
   }
+}
+
+
+function loadDepartments{
+
+  $.ajax({
+    type : "POST",
+    url : '/Ticket_System/rest/department/getAllDeparments',
+    contentType : "application/json",
+    mimeType : "application/json",
+    success : function(departments) {
+      $.each(departments, function(key, value) {
+        $('#ticketDepartment').append(
+            $("<option></option>").attr("value", key+1).text(value));
+      });
+    },
+    error : function() {
+      console.log("getAllDeparments error");
+    }
+  });
+
+
+
 }

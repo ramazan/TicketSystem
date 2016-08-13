@@ -14,10 +14,6 @@
 <script type="text/javascript" src="../js/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
 
-<!-- core js -->
-<script type="text/javascript" src="../js/core.js"></script>
-<script type="text/javascript" src="../js/ticket.js"></script>
-
 </head>
 
 <body>
@@ -29,7 +25,7 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li id="nav_tickets" class="active"><a href="tickets.html">Tickets</a></1i>
-					
+
 					<li id="nav_users"><a href="users.html">Users</a></1i>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -58,96 +54,75 @@
 						data-target="#myModalNewTicket">New Ticket</a></li>
 				</ul>
 			</div>
-		</nav>
-		<!-- mini ticket navbar-->
+		</nav><!-- mini ticket navbar-->
 
-		<!-- JQGRID Test -->
+		<!-- JQGRID  -->
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<table id="jqGrid"></table>
 				<div id="jqGridPager" style="height: 36px"></div>
-			</div>
-			<!-- com-md -->
+			</div><!-- com-md -->
 		</div>
 		<!-- row -- >
-    </div> <!-- main container fluid-->
-
-
-
+  </div> <!-- main container fluid-->
 
 		<!--    Add Tickets Modal -->
-		<div id="myModalNewTicket" class="modal fade" role="dialog">
-		
-			<div class="modal-dialog">
-			
-				<!-- Modal content-->
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">New Ticket</h4>
-					</div>
-					
-					<div class="modal-body">
-						<p class="text-center text-danger lead" id="error_message"></p>
-						<!--                       <p id="error_message"></p> -->
-						<div class="row">
-							<div class="new-ticket table-responsive">
-								<table class="table table-bordered">
-									<tbody>
-										<tr>
-											<td>Deparment:</td>
-											<td><select id="ticket_deparment">
-													<option value="dep_sale">Sale</option>
-													<option value="dep_support">Support</option>
-													<option value="dep_accounting">Accounting</option>
-											</select></td>
-										</tr>
-										<tr>
-											<td>Priority:</td>
-											<td><select id="ticket_priority">
-													<option value="prio_low">LOW</option>
-													<option value="prio_normal">NORMAL</option>
-													<option value="prio_high">HIGH</option>
-													<option value="prio_emergency">EMERGENCY</option>
-											</select></td>
-										</tr>
-<!-- 										<th colspan="2">Issue:</th> -->
-										<tr>
-											<td>Subject:</td>
-											<td><input type="text" cols="50" id="ticket_subject"></input>
-											</td>
-										</tr>
-										<tr>
-											<td>Message:</td>
-											<td><textarea rows="9" cols="50" id="ticket_message"></textarea>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+	<div id="myModalNewTicket" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<p class="text-center text-danger lead" id="addTicketModalMessage"></p>
+					<div class="row">
+						<div class="addTicketTable table-responsive">
+							<table class="table table-bordered table-condensed">
+								<tbody>
+									<tr>
+										<td>Deparment:</td>
+										<td><select id="ticketDepartment">
+												<!--  load departments from db-->
+										</select></td>
+									</tr>
+									<tr>
+										<td>Priority:</td>
+										<td><select id="ticketPriority">
+												<option value="prioLow">LOW</option>
+												<option value="prioNormal">NORMAL</option>
+												<option value="prioHigh">HIGH</option>
+										</select></td>
+									</tr>
+										<th colspan="2">Issue:</th>
+									<tr>
+										<td>Subject:</td>
+										<td><input type="text" cols="50" id="ticketTitle"></input>
+										</td>
+									</tr>
+									<tr>
+										<td>Message:</td>
+										<td><textarea rows="9" cols="40" id="ticketMessage"></textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<!-- div row -->
-					</div>
-					
-					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addTicket()">Send
-							Ticket</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
+					</div><!-- div row -->
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" onclick="addTicket()">Send
+						Ticket</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div> <!-- modal content -->
+		</div> 	<!-- modal-dialog-->
+	</div>   <!--    Add Tickets Modal -->
 
-				</div> <!-- modal content -->
-				
-				
-			</div> 	<!-- modal-dialog-->
-		
-		</div>   <!--    Add Tickets Modal -->
+	<!-- core js -->
+	<script type="text/javascript" src="../js/core.js"></script>
+	<script type="text/javascript" src="../js/ticket.js"></script>
 
-
-		<script>
-			$(document).ready(function() {
-				getAllTickets();
-			});
-		</script>
 </body>
 </html>

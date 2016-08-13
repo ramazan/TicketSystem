@@ -10,9 +10,7 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.User;
-import com.j32bit.ticket.dao.ConnectionHelper;
 import com.j32bit.ticket.enums.Status;
 
 public class UserDAOService extends ConnectionHelper {
@@ -111,8 +109,8 @@ public class UserDAOService extends ConnectionHelper {
 				while (rs.next()) {
 					roles.add(rs.getString("ROLE"));
 				}
-				userRolesArr = roles.toArray(new String[roles.size()]);
-				logger.info("getAllUser role:" + userRolesArr);
+				userRolesArr = roles.toArray(new String[0]); // bu daha performanslı + test sonuclarina bakildi
+				logger.info("getAllUser role #" + userRolesArr.length);
 
 				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
 				logger.info("getAllUser user:" + user);
