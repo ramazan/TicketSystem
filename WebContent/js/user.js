@@ -30,9 +30,9 @@ function getAllUsers() {
 	});
 
 	$('#jqGrid').navGrid('#jqGridPager', {
-		edit : false,
-		add : false,
-		del : false,
+		edit : true,
+		add : true,
+		del : true,
 		search : true,
 		refresh : true,
 		view : true,
