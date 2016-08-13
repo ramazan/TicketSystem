@@ -1,26 +1,14 @@
 package com.j32bit.ticket.bean;
 
 public class Company {
-	private int id;
+	private long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String address;
 	private String fax;
 	
-	public Company(){
-	
-	}
-	
-	public Company(int id){
-		// eger compnay yok ise defauly kullansın.
-		// ID=0 olacak
-		this.id=id;
-		this.name="no company";
-		this.email="no company";
-	}
-	
-	public Company(int id, String name, String email, String phone, String fax, String address) {
+	public Company(long id, String name, String email, String phone, String fax, String address) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -35,7 +23,7 @@ public class Company {
 		this.email = email;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public void setId(int id) {
