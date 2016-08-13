@@ -116,7 +116,7 @@ public class UserDAOService extends ConnectionHelper {
 				logger.info("getAllUser role #" + userRolesArr.length);
 
 				user = new User(userID, userName, userEmail, userPassword, userCompanyID,userDepartmentID, userRolesArr);
-				logger.info("getAllUser user:" + user);
+				logger.info("getAllUser user:" + user.getName());
 				users.add(user);
 			}
 		} catch (Exception e) {
@@ -129,7 +129,7 @@ public class UserDAOService extends ConnectionHelper {
 			closeConnection(con);
 		}
 		logger.debug("getAllUser finished");
-		return users.toArray(new User[users.size()]);
+		return users.toArray(new User[0]);
 	}
 
 	public User getUser(String userEmail) {
