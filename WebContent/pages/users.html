@@ -33,7 +33,7 @@
               <ul class="dropdown-menu">
                 <li><a href="profile.html">My Profile</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#" onclick="logout()">Logout</a></li>
+                <li><a onclick="logout()">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -94,6 +94,15 @@
                <label class="checkbox-inline" ><input type="checkbox" name="userRole" id="supporterRole" >Supporter</label>
                <label class="checkbox-inline" ><input type="checkbox" name="userRole" id="clientRole">Client</label>
              </div>
+             
+             
+             <div class="form-group" style="display:none;" id="departmentFade">
+				<label for="ticketDepartment">Department:</label>
+				<select class="form-control" id="usersDepartment">
+					<!-- departmanlar db den yüklenecek -->
+				</select>
+			</div>
+             
 
          </div>
          <div class="modal-footer">

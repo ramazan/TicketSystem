@@ -14,6 +14,10 @@
 <script type="text/javascript" src="../js/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
 
+<!-- core js -->
+<script type="text/javascript" src="../js/core.js"></script>
+<script type="text/javascript" src="../js/ticket.js"></script>
+
 </head>
 
 <body>
@@ -25,6 +29,7 @@
 				<ul class="nav navbar-nav">
 					<li id="nav_tickets" class="active"><a href="tickets.html">Tickets</a></1i>
 
+					
 					<li id="nav_users"><a href="users.html">Users</a></1i>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -53,17 +58,21 @@
 						data-target="#myModalNewTicket">New Ticket</a></li>
 				</ul>
 			</div>
-		</nav><!-- mini ticket navbar-->
+		</nav>
+		<!-- mini ticket navbar-->
 
-		<!-- JQGRID  -->
+		<!-- JQGRID Test -->
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<table id="jqGrid"></table>
 				<div id="jqGridPager" style="height: 36px"></div>
-			</div><!-- com-md -->
+			</div>
+			<!-- com-md -->
 		</div>
 		<!-- row -- >
-  </div> <!-- main container fluid-->
+    </div> <!-- main container fluid-->
+
+
 
 		<!--    Add Tickets Modal -->
 		<div id="myModalNewTicket" class="modal fade" role="dialog">
@@ -77,39 +86,58 @@
 					<div class="modal-body">
 						<p id="error_message" class="text-center text-warning lead"></p>
 
+
+						<label>Department:</label>
 						<div class="form-group">
-							<label for="ticketDepartment">Department:</label>
-							<select class="form-control" id="ticketDepartment">
-								<!-- departmanlar db den yüklenecek -->
+							<select id="ticket_deparment">
+								<option value="dep_sale">Sale</option>
+								<option value="dep_support">Support</option>
+								<option value="dep_accounting">Accounting</option>
 							</select>
 						</div>
-            <div class="form-group">
-							<label for="ticketPriority">Priority:</label>
-              <select class="form-control" id="ticketPriority">
-                <option value="0">LOW</option>
-                <option value="1">NORMAL</option>
-                <option value="2">HIGH</option>
-              </select>
-            </div>
-            <div class="form-group">
-							<label for="ticketTitle">Subject:</label>
-              <input class="form-control" type="text" size="40" id="ticketTitle"></input>
-            </div>
-            <div class="form-group">
-							<label for="ticketMessage" >Message:</label>
-              <textarea class="form-control" rows="9" cols="50" id="ticketMessage"></textarea>
-            </div>
+
+
+						<label>Priority:</label>
+						<div class="form-group">
+							<select id="ticket_priority">
+								<option value="prio_low">LOW</option>
+								<option value="prio_normal">NORMAL</option>
+								<option value="prio_high">HIGH</option>
+								<option value="prio_emergency">EMERGENCY</option>
+							</select>
+						</div>
+
+
+						<label>Subject:</label>
+						<div class="form-group">
+							<input type="text" size="40" id="ticket_subject"></input>
+						</div>
+
+
+						<label>Message:</label>
+						<div class="form-group">
+							<textarea rows="9" cols="60" id="ticket_message"></textarea>
+						</div>
+
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addTicket()">Send Ticket</button>
+						<button class="btn btn-success" onclick="addTicket()">Send
+							Ticket</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
+				<!-- modal content -->
 			</div>
+			<!-- modal-dialog-->
 		</div>
-	<!-- core js -->
-	<script type="text/javascript" src="../js/core.js"></script>
-	<script type="text/javascript" src="../js/ticket.js"></script>
+		<!--    Add Tickets Modal -->
 
+
+
+		<script>
+			$(document).ready(function() {
+				getAllTickets();
+			});
+		</script>
 </body>
 </html>

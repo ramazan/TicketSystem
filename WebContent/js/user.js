@@ -106,5 +106,14 @@ function addUser() {
 }
 
 $(document).ready(function() {
+	
+	  $('#supporterRole').change(function(){
+	        if(this.checked)
+	            $('#departmentFade').fadeIn();
+	        else
+	            $('#departmentFade').fadeOut();
+
+	    });
+	  
 	getAllUsers();
 });
