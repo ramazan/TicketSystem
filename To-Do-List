@@ -9,9 +9,9 @@ tickeet gösterme ekranında date göstermiyor?
 /********************************************************************/
 Supporter olarak eklenen kişi hangi departmana supporter ? 
 /********************************************************************/
-
+rest/getAllUsers bazen boş dönüyor , giriş yapılsada auth işleminde bazen hata olabiliyor kontrol edilmeli 
 /********************************************************************/
-
+user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçekleştirilebilmeli
 /********************************************************************/
 
 /********************************************************************/
