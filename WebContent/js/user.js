@@ -20,6 +20,10 @@ function getAllUsers() {
 			label : "CompanyID",
 			name : 'companyID',
 			width : 60
+		}, {
+			label : "DepartmentID",
+			name : 'departmentID',
+			width : 60
 		}, ],
 		viewrecords : true,
 		height : 550,
@@ -30,15 +34,30 @@ function getAllUsers() {
 	});
 
 	$('#jqGrid').navGrid('#jqGridPager', {
-		edit : true,
-		add : true,
-		del : true,
+		edit : false,
+		add : false,
+		del : false,
 		search : true,
 		refresh : true,
 		view : true,
 		position : "left",
 		cloneToTop : false
-	});
+	}).navButtonAdd('#jqGridPager',{
+		   caption:"Add", 
+		   buttonicon:"ui-icon-add", 
+		   onClickButton: function(){ 
+			   $('#myUserModal').modal('show'); 
+			 }, 
+		   position:"last"
+		})
+		.navButtonAdd('#jqGridPager',{
+		   caption:"Del", 
+		   buttonicon:"ui-icon-del", 
+		   onClickButton: function(){ 
+		      alert("Deleting Row");
+		   }, 
+		   position:"last"
+		});;
 }
 
 function addUser() {
