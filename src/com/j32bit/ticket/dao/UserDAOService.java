@@ -29,6 +29,7 @@ public class UserDAOService extends ConnectionHelper {
 
 	public Status addUser(User user) {
 		logger.debug("addUser started");
+		logger.info("addUser user :"+user);
 
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -147,30 +148,30 @@ public class UserDAOService extends ConnectionHelper {
 			pst.setString(1, userEmail);
 			rs = pst.executeQuery();
 
-			rs.next();
-			int userID = rs.getInt("ID");
-			String userName = rs.getString("FULL_NAME");
-			String userPassword = rs.getString("PASSWORD");
-			int userCompanyID = rs.getInt("COMPANY_ID");
-
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-
-			// GET ROLE
-			query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-			pst = con.prepareStatement(query.toString());
-			pst.setString(1, userEmail);
-			rs = pst.executeQuery();
-
-			List<String> roles = new ArrayList<>();
-			String[] userRolesArr;
-			while (rs.next()) {
-				roles.add(rs.getString("ROLE"));
+			while(rs.next()){
+				int userID = rs.getInt("ID");
+				String userName = rs.getString("FULL_NAME");
+				String userPassword = rs.getString("PASSWORD");
+				int userCompanyID = rs.getInt("COMPANY_ID");
+			
+				closeResultSet(rs);
+				closePreparedStatement(pst);
+	
+				// GET ROLE
+				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
+				pst = con.prepareStatement(query.toString());
+				pst.setString(1, userEmail);
+				rs = pst.executeQuery();
+	
+				List<String> roles = new ArrayList<>();
+				String[] userRolesArr;
+				while (rs.next()) {
+					roles.add(rs.getString("ROLE"));
+				}
+				userRolesArr = roles.toArray(new String[roles.size()]);
+	
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
 			}
-			userRolesArr = roles.toArray(new String[roles.size()]);
-
-			user = new User(userID, userName, userEmail, userPassword, userCompanyID, userRolesArr);
-
 		} catch (Exception e) {
 			logger.debug("getUser error occured");
 			e.printStackTrace();

@@ -13,8 +13,6 @@ rest/getAllUsers bazen boş dönüyor , giriş yapılsada auth işleminde bazen 
 /********************************************************************/
 user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçekleştirilebilmeli
 /********************************************************************/
-user ekleme esnasında turkce karakter sorunu cıkarıyor. DB te sorun yok!
-/********************************************************************/
 
 /********************************************************************/
 

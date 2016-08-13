@@ -41,7 +41,7 @@
 	            name="jdbc/TicketDB"
 	            driverClassName="com.mysql.jdbc.Driver"
 				factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-	            url="jdbc:mysql://188.213.175.52:3306/TICKET"
+	            url="jdbc:mysql://188.213.175.52:3306/TICKET?useUnicode=true&amp;characterEncoding=utf8"
 	            username="ticket"
 	            password="Ticket32++"
 				initialSize="2"
