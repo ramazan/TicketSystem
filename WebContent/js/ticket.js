@@ -1,6 +1,5 @@
 $(document).ready(function() {
   getAllTickets();
-  loadDepartments();
 });
 function getAllTickets() {
 	$("#jqGrid").jqGrid({

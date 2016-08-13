@@ -106,7 +106,7 @@ function addUser() {
 }
 
 $(document).ready(function() {
-	
+
 	  $('#supporterRole').change(function(){
 	        if(this.checked)
 	            $('#departmentFade').fadeIn();
@@ -114,6 +114,7 @@ $(document).ready(function() {
 	            $('#departmentFade').fadeOut();
 
 	    });
-	  
-	getAllUsers();
+
+	 getAllUsers();
+	 getAllDepartments();
 });
