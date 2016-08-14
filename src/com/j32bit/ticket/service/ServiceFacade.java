@@ -1,5 +1,6 @@
 package com.j32bit.ticket.service;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Department;
-import com.j32bit.ticket.bean.Result;
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.CompanyDAOService;
@@ -80,14 +80,11 @@ public class ServiceFacade {
 		// ticketService.storeTicket(ticket);
 	}
 
-	public Result addCompany(Company company) {
-		logger.debug("addCompany for company:"+company);
-		Result result = companyService.addCompany(company);
-		logger.debug("addCompany status:"+result.status);
-		return result;
+	public void addCompany(Company company) {
+		companyService.addCompany(company);
 	}
 	
-	public Company [] getAllCompanies(){
+	public ArrayList<Company> getAllCompanies(){
 		return companyService.getAllcompanies();
 	}
 
