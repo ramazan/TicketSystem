@@ -46,22 +46,22 @@ function getAllUsers() {
 		view : true,
 		position : "left",
 		cloneToTop : false
-	}).navButtonAdd('#jqGridPager',{
-		   caption:"Add",
-		   buttonicon:"ui-icon-add",
-		   onClickButton: function(){
-			   $('#myUserModal').modal('show');
-			 },
-		   position:"last"
-		})
-		.navButtonAdd('#jqGridPager',{
-		   caption:"Del",
-		   buttonicon:"ui-icon-del",
-		   onClickButton: function(){
-		      alert("Deleting Row");
-		   },
-		   position:"last"
-		});;
+	}).navButtonAdd('#jqGridPager', {
+		caption : "Add",
+		buttonicon : "ui-icon-add",
+		onClickButton : function() {
+			$('#myUserModal').modal('show');
+		},
+		position : "last"
+	}).navButtonAdd('#jqGridPager', {
+		caption : "Del",
+		buttonicon : "ui-icon-del",
+		onClickButton : function() {
+			alert("Deleting Row");
+		},
+		position : "last"
+	});
+	;
 }
 
 function addUser() {
@@ -79,7 +79,7 @@ function addUser() {
 	if ($('#supporterRole').is(':checked')) {
 		newRoles.push("supporter");
 		userDepartmentID = $("#userDepartment").val();
-		console.log("department:"+userDepartmentID);
+		console.log("department:" + userDepartmentID);
 	}
 	if ($('#clientRole').is(':checked')) {
 		newRoles.push("client");
@@ -101,46 +101,34 @@ function addUser() {
 		};
 
 		$.ajax({
-					type : "POST",
-					url : '/Ticket_System/rest/user/addUser',
-					contentType : "application/json",
-					mimeType : "application/json",
-					data : JSON.stringify(person),
-					success : function(status) {
-						if (status == "SUCCESS") {
-							$("#modalAddUserMessage").text(
-									"User added. Close Window.");
-							// Kullancı başarıyla eklendiğinde gridi refresh
-							// ediyorum.
-							$('#jqGrid').trigger('reloadGrid');
-
-							console.log("grid reloadeded")
-						} else if (status == "USER_EXIST") {
-							$("#modalAddUserMessage").text(
-									"User exist!! Email must be unique.");
-						} else {
-							$("#modalAddUserMessage").text(
-									"Error occured!. Open a ticket.");
-						}
-					},
-
-					error : function() {
-						alert("User cannot added please try again. ");
-					}
-				});
+			type : "POST",
+			url : '/Ticket_System/rest/user/addUser',
+			contentType : "application/json",
+			mimeType : "application/json",
+			data : JSON.stringify(person),
+			success : function() {
+				$("#modalAddUserMessage").text("User added. Close Window.");  // başarılı mesajını set et
+				$('#jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
+				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
+				$('input').val('');   								       // inputları temizle.
+			},
+			error : function() {
+				alert("User cannot added please try again. ");
+			}
+		});
 	}
 }
 
 $(document).ready(function() {
 
-	  $('#supporterRole').change(function(){
-	        if(this.checked)
-	            $('#departmentFade').fadeIn();
-	        else
-	            $('#departmentFade').fadeOut();
+	$('#supporterRole').change(function() {
+		if (this.checked)
+			$('#departmentFade').fadeIn();
+		else
+			$('#departmentFade').fadeOut();
 
-	    });
+	});
 
-	 getAllUsers();
-	 getAllDepartments();
+	getAllUsers();
+	getAllDepartments();
 });
