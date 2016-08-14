@@ -48,13 +48,17 @@ function addCompany() {
 			mimeType : "application/json",
 			data : JSON.stringify(company),
 			success : function(result) {
-          $("#addCompanyModalMessage").text("Company added. Close Window.");
+          $("#addCompanyModalMessage").text("Company added. Closing Window..");
   				$('#userCompany').append(
   						$("<option></option>").attr("value", result.id).attr(
   								"selected", true).text(result.name));
+  				
+  				setTimeout(function() { $('#myModalAddCompany').modal('hide'); }, 3000);
+  				
+
 			},
 			error : function() {
-				alert("adding error");
+		          $("#addCompanyModalMessage").text("Company can't added. Please try again..");
 			}
 		});
 	}
