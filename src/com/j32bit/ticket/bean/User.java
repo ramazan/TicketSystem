@@ -1,6 +1,6 @@
 package com.j32bit.ticket.bean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class User {
 
@@ -8,32 +8,12 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private long companyID;
-	private List<String> userRoles;
-	private long departmentID;
+	private String companyName;
+	private String departmentName;
+	private ArrayList<String> userRoles;
 
 	public User() {
 		// no parameter constructor
-	}
-
-	public User(long id, String name, String email, String password, long companyID,long departmentID, List<String> userRoles) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.companyID = companyID;
-		this.userRoles = userRoles;
-		this.departmentID = departmentID;
-	}
-	
-	
-
-	public long getDepartmentID() {
-		return departmentID;
-	}
-
-	public void setDepartmentID(int departmentID) {
-		this.departmentID = departmentID;
 	}
 
 	public long getId() {
@@ -52,15 +32,6 @@ public class User {
 		this.name = name;
 	}
 
-
-	public long getCompanyID() {
-		return companyID;
-	}
-
-	public void setCompanyID(long companyID) {
-		this.companyID = companyID;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -77,12 +48,28 @@ public class User {
 		this.password = password;
 	}
 
-	public List<String> getUserRoles() {
+	public ArrayList<String> getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(List<String> userRoles) {
+	public void setUserRoles(ArrayList<String> userRoles) {
 		this.userRoles = userRoles;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 	@Override
@@ -91,8 +78,10 @@ public class User {
 		userDetail.append("name : ").append(name).append("\n");
 		userDetail.append("email : ").append(email).append("\n");
 		userDetail.append("password : ").append(password).append("\n");
+		userDetail.append("departmentName : ").append(departmentName).append("\n");
+		userDetail.append("companyName : ").append(companyName).append("\n");
 		userDetail.append("role").append(userRoles.toString()).append("\n");
-	
+
 		return userDetail.toString();
 	}
 

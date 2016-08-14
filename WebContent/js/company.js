@@ -1,8 +1,6 @@
 loadCompanies();
 function loadCompanies() {
 
-  $('#userCompany').append(
-      $("<option></option>").attr("value", 0).text("No Company"));
   $.ajax({
     type : "POST",
     url : '/Ticket_System/rest/company/getAllCompanies',
@@ -52,10 +50,8 @@ function addCompany() {
   				$('#userCompany').append(
   						$("<option></option>").attr("value", result.id).attr(
   								"selected", true).text(result.name));
-  				
-  				setTimeout(function() { $('#myModalAddCompany').modal('hide'); }, 2000);
-  				
 
+  				setTimeout(function() { $('#myModalAddCompany').modal('hide'); }, 2000);
 			},
 			error : function() {
 		          $("#addCompanyModalMessage").text("Company can't added. Please try again..");

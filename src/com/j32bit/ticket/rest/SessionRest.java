@@ -37,11 +37,11 @@ public class SessionRest {
 
 		try {
 			response.sendRedirect("/Ticket_System/pages/tickets.html");
-			logger.debug("user login successful. userEmail:" + authenticatedUser.getEmail());
+			
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-
+		logger.debug("login completed. userEmail:" + authenticatedUser.getEmail());
 	}
 
 	@Path("/getAuthenticatedUser")

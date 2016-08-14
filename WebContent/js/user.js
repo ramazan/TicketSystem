@@ -15,19 +15,19 @@ function getAllUsers() {
 		}, {
 			label : "E-Mail",
 			name : 'email',
-			width : 125
+			width : 110
 		}, {
 			label : "Password",
 			name : 'password',
 			width : 70
 		}, {
-			label : "CompanyID",
-			name : 'companyID',
-			width : 60
+			label : "Company",
+			name : 'companyName',
+			width : 80
 		}, {
-			label : "DepartmentID",
-			name : 'departmentID',
-			width : 60
+			label : "Department",
+			name : 'departmentName',
+			width : 80
 		}, ],
 		viewrecords : true,
 		height : 500,
