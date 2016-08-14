@@ -59,7 +59,6 @@ public class ServiceFacade {
 		 try {
 			userService.addUser(user);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -80,7 +79,7 @@ public class ServiceFacade {
 		return userService.getUser(userEmail);
 	}
 
-	// TODO: STORE TICKET DUZENLENECEK
+	// TODO: SONRADAN ACILACAK!!
 	public void storeTicket(Ticket ticket) throws Exception {
 		// ticketService.storeTicket(ticket);
 	}
@@ -93,7 +92,7 @@ public class ServiceFacade {
 		return companyService.getAllcompanies();
 	}
 
-	public Department[] getAllDepartments() {
+	public ArrayList<Department> getAllDepartments() {
 		return departmentDAOService.getAllDepartments();
 	}
 

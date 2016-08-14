@@ -18,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.User;
-import com.j32bit.ticket.enums.Status;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/user")

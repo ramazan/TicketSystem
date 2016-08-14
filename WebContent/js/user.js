@@ -5,6 +5,10 @@ function getAllUsers() {
 		mtype : "GET",
 		datatype : "json",
 		colModel : [ {
+			label : "ID",
+			name : 'id',
+			width : 40
+		}, {
 			label : "Name",
 			name : 'name',
 			width : 80

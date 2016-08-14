@@ -3,6 +3,7 @@ package com.j32bit.ticket.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -51,7 +52,7 @@ public class UserDAOService extends ConnectionHelper {
 
 				con = getConnection();
 
-				pstAddUser = con.prepareStatement(queryString);
+				pstAddUser = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
 
 				pstAddUser.setString(1, user.getName());
 				pstAddUser.setString(2, userEmail);
@@ -73,7 +74,7 @@ public class UserDAOService extends ConnectionHelper {
 
 				rs = pstAddUser.getGeneratedKeys();
 				if (rs.next()) {
-					recordID = rs.getLong("ID");   /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM BULAMADIM 
+					recordID = rs.getLong(1);   /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM BULAMADIM 
 					logger.debug("Record ID : "+recordID);
 					user.setId(recordID);
 				}

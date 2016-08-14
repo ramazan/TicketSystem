@@ -37,7 +37,7 @@ public class SessionRest {
 
 		try {
 			response.sendRedirect("/Ticket_System/pages/tickets.html");
-			logger.debug("user login successful. User:" + authenticatedUser);
+			logger.debug("user login successful. userEmail:" + authenticatedUser.getEmail());
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
@@ -53,7 +53,7 @@ public class SessionRest {
 		HttpSession session = request.getSession();
 		User authenticatedUser = (User) session.getAttribute("LOGIN_USER");
 
-		logger.debug("getAuthenticatedUser finished. User:" + authenticatedUser);
+		logger.debug("getAuthenticatedUser finished. userEmail:" + authenticatedUser.getEmail());
 		return authenticatedUser;
 	}
 
@@ -63,7 +63,6 @@ public class SessionRest {
 	public void logout(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 
 		request.getSession().invalidate();
-		logger.debug("logout status : success");
-
+		logger.debug("logout completed");
 	}
 }

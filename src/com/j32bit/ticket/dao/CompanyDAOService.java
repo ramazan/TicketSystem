@@ -32,23 +32,45 @@ public class CompanyDAOService extends ConnectionHelper {
 		Connection con = null;
 		ResultSet rs = null;
 		PreparedStatement pst = null;
+		StringBuilder query = new StringBuilder();
+		StringBuilder queryLog = new StringBuilder();
 		long recordId = 0;
-		checkSimilarCompanyRecord(company);
+		
+		checkSimilarCompanyRecord(company); // TODO : ?????? EXCEPTIONLARDAN SONRA TEKRAR BAKILACAK
+		
 		try {
-			String addcompanyQuery = "INSERT INTO companies (NAME,ADDRESS,EMAIL,PHONE,FAX) values (?,?,?,?,?)";
-
+			
+			query.append("INSERT INTO companies ");
+			query.append("(NAME,ADDRESS,EMAIL,PHONE,FAX) ");
+			query.append("values (?,?,?,?,?)");
+			String queryString = query.toString();
+			
 			con = getConnection();
-			pst = con.prepareStatement(addcompanyQuery, Statement.RETURN_GENERATED_KEYS);
+			// auto incremenet index leri almak icin 2.parametre lazim
+			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+			
 			pst.setString(1, company.getName());
 			pst.setString(2, company.getAddress());
 			pst.setString(3, company.getEmail());
 			pst.setString(4, company.getPhone());
 			pst.setString(5, company.getFax());
+			
+			if(logger.isTraceEnabled()){ // trace bas sonra calistir
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("Name : ").append(company.getName()).append("\n");
+				queryLog.append("Address : ").append(company.getAddress()).append("\n");
+				queryLog.append("Email : ").append(company.getEmail()).append("\n");
+				queryLog.append("Phone : ").append(company.getPhone()).append("\n");
+				queryLog.append("Fax : ").append(company.getFax()).append("\n");
+				logger.trace(queryLog.toString());				
+			}
+			
 			pst.executeUpdate();
 
 			rs = pst.getGeneratedKeys();
 			if (rs.next()) {
-				recordId = rs.getLong(1);
+				recordId = rs.getLong("ID"); // id icin uretilen keyler
 				company.setId(recordId);
 			}
 

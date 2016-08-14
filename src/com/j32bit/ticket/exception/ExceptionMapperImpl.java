@@ -18,5 +18,4 @@ public class ExceptionMapperImpl implements ExceptionMapper<Exception> {
 		};
 		return Response.status(400).entity(entity).build();
 	}
-
 }

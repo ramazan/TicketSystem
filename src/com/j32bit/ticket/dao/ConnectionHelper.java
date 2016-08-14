@@ -33,7 +33,7 @@ public class ConnectionHelper {
 		dbUser = properties.getProperty("database.username");
 		dbPassword = properties.getProperty("database.password");
 		JNDIName = properties.getProperty("database.jndi.name");
-		logger.info("initialize initialized");
+		logger.info("ConnectionHelper initialized");
 	}
 
 	public Connection getConnection() throws Exception {
