@@ -45,8 +45,8 @@ function getAllTickets() {
 		width : 750,
 		styleUI : 'Bootstrap',
 		rowNum : 10,
-		pager : "#jqGridPager"
-
+		pager : "#jqGridPager",
+		emptyrecords: "Nothing to display"
 	});
 
 	$('#jqGrid').navGrid('#jqGridPager', {

@@ -53,7 +53,7 @@ function addCompany() {
   						$("<option></option>").attr("value", result.id).attr(
   								"selected", true).text(result.name));
   				
-  				setTimeout(function() { $('#myModalAddCompany').modal('hide'); }, 3000);
+  				setTimeout(function() { $('#myModalAddCompany').modal('hide'); }, 2000);
   				
 
 			},

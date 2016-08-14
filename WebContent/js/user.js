@@ -15,11 +15,11 @@ function getAllUsers() {
 		}, {
 			label : "E-Mail",
 			name : 'email',
-			width : 120
+			width : 125
 		}, {
 			label : "Password",
 			name : 'password',
-			width : 60
+			width : 70
 		}, {
 			label : "CompanyID",
 			name : 'companyID',
@@ -30,11 +30,12 @@ function getAllUsers() {
 			width : 60
 		}, ],
 		viewrecords : true,
-		height : 400,
-		width : 750,
+		height : 500,
+		width : 850,
 		styleUI : 'Bootstrap',
-		rowNum : 10,
-		pager : "#jqGridPager"
+		pager : "#jqGridPager",
+		emptyrecords: "Nothing to display"
+
 	});
 
 	$('#jqGrid').navGrid('#jqGridPager', {
@@ -107,10 +108,11 @@ function addUser() {
 			mimeType : "application/json",
 			data : JSON.stringify(person),
 			success : function() {
-				$("#modalAddUserMessage").text("User added. Close Window.");  // başarılı mesajını set et
+				$("#modalAddUserMessage").text("User added. Closing Window..");  // başarılı mesajını set et
 				$('#jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
 				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
 				$('input').val('');   								       // inputları temizle.
+  				setTimeout(function() { $('#myUserModal').modal('hide'); }, 2000);
 			},
 			error : function() {
 				alert("User cannot added please try again. ");
