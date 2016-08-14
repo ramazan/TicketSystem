@@ -18,8 +18,8 @@ public class CompanyRest {
 	@Path("/addCompany")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void addCompany(Company company) throws Exception {
-		ServiceFacade.getInstance().addCompany(company);
+	public Company addCompany(Company company) throws Exception {
+		return ServiceFacade.getInstance().addCompany(company);
 	}
 
 	@POST

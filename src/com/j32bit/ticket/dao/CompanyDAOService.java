@@ -70,15 +70,15 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.getGeneratedKeys();
 			if (rs.next()) {
-				recordId = rs.getLong("ID"); // id icin uretilen keyler
+				recordId = rs.getLong("ID"); // id icin uretilen AI keyler
 				company.setId(recordId);
 			}
 
 		} catch (Exception e) {
 			logger.error("addcompany error:" + e.getMessage());
 		} finally {
-			closePreparedStatement(pst);
 			closeResultSet(rs);
+			closePreparedStatement(pst);
 			closeConnection(con);
 		}
 		logger.debug("addCompany finished ID : " + recordId);
@@ -97,8 +97,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			con = getConnection();
 			pst = con.prepareStatement(query);
 			pst.setString(1, company.getName());
-			// TODO dao methodlarınız KAPATILAN storeTicket METHODU GİBİ OLMALI
-			// !
+
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				throw new Exception("Similar record founds. Company Name :" + rs.getString("NAME"));
@@ -124,14 +123,20 @@ public class CompanyDAOService extends ConnectionHelper {
 		try {
 			
 			String query = "SELECT * FROM companies";
-			
+			logger.debug("sql query created : "+query);
 			con = getConnection();
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				company = new Company( rs.getLong("ID"), rs.getString("NAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("FAX"), rs.getString("ADDRESS"));
-				companies.add(company);//TODO beanlerin setter ları kullanılır ise hata okunaklı bir kod olur. 
+				company = new Company();
+				company.setId(rs.getLong("ID"));
+				company.setName(rs.getString("NAME"));
+				company.setEmail(rs.getString("EMAIL"));
+				company.setPhone(rs.getString("PHONE"));
+				company.setFax(rs.getString("FAX"));
+				company.setAddress(rs.getString("ADDRESS"));
+				companies.add(company);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -140,7 +145,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		logger.debug("getAllcompany finished. List size : "+companies.size());
+		logger.debug("getAllcompany finished. company#: "+companies.size());
 		return companies;
 	}
 }

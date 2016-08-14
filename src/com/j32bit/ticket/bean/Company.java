@@ -8,6 +8,10 @@ public class Company {
 	private String address;
 	private String fax;
 	
+	public Company(){
+		
+	}
+	
 	public Company(long id, String name, String email, String phone, String fax, String address) {
 		this.id = id;
 		this.name = name;

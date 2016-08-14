@@ -14,7 +14,6 @@ import com.j32bit.ticket.dao.CompanyDAOService;
 import com.j32bit.ticket.dao.DepartmentDAOService;
 import com.j32bit.ticket.dao.TicketDAOService;
 import com.j32bit.ticket.dao.UserDAOService;
-import com.j32bit.ticket.enums.Status;
 
 public class ServiceFacade {
 
@@ -84,8 +83,8 @@ public class ServiceFacade {
 		// ticketService.storeTicket(ticket);
 	}
 
-	public void addCompany(Company company) {
-		companyService.addCompany(company);
+	public Company addCompany(Company company) {
+		return companyService.addCompany(company);
 	}
 	
 	public ArrayList<Company> getAllCompanies(){

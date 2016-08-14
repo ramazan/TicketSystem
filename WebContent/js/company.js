@@ -48,16 +48,10 @@ function addCompany() {
 			mimeType : "application/json",
 			data : JSON.stringify(company),
 			success : function(result) {
-        if(result.status == "SUCCESS"){
           $("#addCompanyModalMessage").text("Company added. Close Window.");
   				$('#userCompany').append(
   						$("<option></option>").attr("value", result.companyID).attr(
-  								"selected", true).text(cName));
-        }else if(result.status=="COMPANY_EXIST"){
-          $("#addCompanyModalMessage").text("Company name exist!!");
-        }else{
-          $("#addCompanyModalMessage").text("Error occured");
-        }
+  								"selected", true).text(result.name));
 			},
 			error : function() {
 				alert("adding error");
