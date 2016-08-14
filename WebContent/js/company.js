@@ -50,7 +50,7 @@ function addCompany() {
 			success : function(result) {
           $("#addCompanyModalMessage").text("Company added. Close Window.");
   				$('#userCompany').append(
-  						$("<option></option>").attr("value", result.companyID).attr(
+  						$("<option></option>").attr("value", result.id).attr(
   								"selected", true).text(result.name));
 			},
 			error : function() {

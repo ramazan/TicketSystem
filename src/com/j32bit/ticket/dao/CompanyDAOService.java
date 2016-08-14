@@ -70,7 +70,7 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.getGeneratedKeys();
 			if (rs.next()) {
-				recordId = rs.getLong("ID"); // id icin uretilen AI keyler
+				recordId = rs.getLong(1); // id icin uretilen AI keyler
 				company.setId(recordId);
 			}
 
@@ -91,7 +91,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		String query = "SELECT NAME FROM companies WHERE NAME like %?%";
+		String query = "SELECT NAME FROM companies WHERE NAME=?";
 
 		try {
 			con = getConnection();
