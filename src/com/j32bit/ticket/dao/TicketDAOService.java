@@ -47,16 +47,16 @@ public class TicketDAOService extends ConnectionHelper {
 				querylog.append("Parameters : ").append("\n");
 				querylog.append("TITLE : ").append(ticket.getTitle()).append("\n");
 				querylog.append("MESSAGE : ").append(ticket.getMessage()).append("\n");
-				querylog.append("SENDER : ").append(ticket.getSender()).append("\n");
+				querylog.append("SENDER : ").append(ticket.getFrom()).append("\n");
 				querylog.append("PRIORITY : ").append(ticket.getPriority()).append("\n");
-				querylog.append("DEPARTMENT : ").append(ticket.getDepartment()).append("\n");
+				querylog.append("DEPARTMENT : ").append(ticket.getDepartmentName()).append("\n");
 				logger.trace(querylog.toString());
 			}
 
-			pStmt.setString(1, ticket.getSender());
+			pStmt.setString(1, ticket.getFrom());
 			pStmt.setString(2, ticket.getTitle());
 			pStmt.setString(3, ticket.getPriority().toString());
-			pStmt.setString(4, ticket.getDepartment());
+			pStmt.setString(4, ticket.getDepartmentName());
 			pStmt.setString(5, ticket.getMessage());
 
 			pStmt.execute();

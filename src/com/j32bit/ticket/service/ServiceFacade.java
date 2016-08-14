@@ -55,13 +55,18 @@ public class ServiceFacade {
 		logger.debug("initialize finished");
 	}
 
-	public Status addUser(User user) {
-		return userService.addUser(user);
+	public void addUser(User user) {
+		 try {
+			userService.addUser(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public User[] getAllUsers() {
-		User[] users = userService.getAllUsers();
-		logger.info("GET-USER # " + users.length);
+	public ArrayList<User> getAllUsers() {
+		ArrayList<User> users = userService.getAllUsers();
+		logger.info("GET-USER # " + users.size());
 		return users;
 	}
 

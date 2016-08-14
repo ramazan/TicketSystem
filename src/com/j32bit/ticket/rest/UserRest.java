@@ -1,5 +1,7 @@
 package com.j32bit.ticket.rest;
 
+import java.util.ArrayList;
+
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -37,17 +39,15 @@ public class UserRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public Status addUser(User user) {
-		Status status = ServiceFacade.getInstance().addUser(user);
-		logger.debug("addUser status: " + status);
-		return status;
+	public void addUser(User user) {
+		ServiceFacade.getInstance().addUser(user);
 	}
 
 	@Path("/getAllUsers")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public User[] getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 		return ServiceFacade.getInstance().getAllUsers();
 	}
 

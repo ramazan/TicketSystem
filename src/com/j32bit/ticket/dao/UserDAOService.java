@@ -73,7 +73,8 @@ public class UserDAOService extends ConnectionHelper {
 
 				rs = pstAddUser.getGeneratedKeys();
 				if (rs.next()) {
-					recordID = rs.getLong("ID");
+					recordID = rs.getLong("ID");   /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM BULAMADIM 
+					logger.debug("Record ID : "+recordID);
 					user.setId(recordID);
 				}
 
