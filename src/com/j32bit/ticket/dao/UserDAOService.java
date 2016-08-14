@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.User;
-import com.j32bit.ticket.enums.Status;
 
 public class UserDAOService extends ConnectionHelper {
 
@@ -27,61 +26,102 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("initialize finished");
 	}
 
-	public Status addUser(User user) {
+	public void addUser(User user) throws Exception {
 		logger.debug("addUser started");
-		logger.info("addUser user :"+user);
 
 		Connection con = null;
-		PreparedStatement pst = null;
+		PreparedStatement pstAddUser = null;
+		PreparedStatement pstAddRole = null;
+		ResultSet rs = null;
+		StringBuilder queryAddUser = new StringBuilder();
+		StringBuilder queryAddRole = new StringBuilder();
+		StringBuilder queryLog = new StringBuilder();
+		long recordID = 0;
 
-		Status result = Status.SUCCESS;
+		String userEmail = user.getEmail();
 
-		if (getUser(user.getEmail())!=null) {
-			result = Status.USER_EXIST;
+		if (getUser(userEmail) != null) {
+			throw new Exception("User Exist"); // TEST
 		} else {
 			try {
-				String addUserQuery = "INSERT INTO users (FULL_NAME,EMAIL,PASSWORD,COMPANY_ID,DEPARTMENT_ID) values (?,?,?,?,?)";
+				queryAddUser.append("INSERT INTO users ");
+				queryAddUser.append("(FULL_NAME,EMAIL,PASSWORD,COMPANY_ID,DEPARTMENT_ID)");
+				queryAddUser.append("values (?,?,?,?,?)");
+				String queryString = queryAddUser.toString();
 
 				con = getConnection();
-				pst = con.prepareStatement(addUserQuery);
-				pst.setString(1, user.getName());
-				pst.setString(2, user.getEmail());
-				pst.setString(3, user.getPassword());
-				pst.setInt(4, user.getCompanyID());
-				pst.setInt(5, user.getDepartmentID());
-				pst.executeUpdate(); // to insert, update,delete and return
-										// nothings
 
-				int roleSize = user.getUserRoles().length;
-				for (int i = 0; i != roleSize; ++i) {
-					String addRoleQuery = "INSERT INTO user_roles (EMAIL,ROLE) values (?,?)";
-					pst = con.prepareStatement(addRoleQuery);
-					pst.setString(1, user.getEmail());
-					pst.setString(2, user.getUserRoles()[i]);
-					pst.executeUpdate();
+				pstAddUser = con.prepareStatement(queryString);
+
+				pstAddUser.setString(1, user.getName());
+				pstAddUser.setString(2, userEmail);
+				pstAddUser.setString(3, user.getPassword());
+				pstAddUser.setLong(4, user.getCompanyID());
+				pstAddUser.setLong(5, user.getDepartmentID());
+				pstAddUser.executeUpdate();
+
+				if (logger.isTraceEnabled()) {
+					queryLog.append("Query : ").append(queryString).append("\n");
+					queryLog.append("Parameters : ").append("\n");
+					queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
+					queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
+					queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
+					queryLog.append("COMPANY_ID : ").append(user.getCompanyID()).append("\n");
+					queryLog.append("DEPARTMENT_ID : ").append(user.getDepartmentID()).append("\n");
+					logger.trace(queryLog.toString());
+				}
+
+				rs = pstAddUser.getGeneratedKeys();
+				if (rs.next()) {
+					recordID = rs.getLong("ID");
+					user.setId(recordID);
+				}
+
+				queryAddRole.append("INSERT INTO user_roles ");
+				queryAddRole.append("(EMAIL,ROLE) values (?,?)");
+				queryString = queryAddRole.toString();
+
+				pstAddRole = con.prepareStatement(queryString);
+
+				List<String> userRoles = user.getUserRoles();
+				for (String role : userRoles) {
+					pstAddRole.setString(1, userEmail);
+					pstAddRole.setString(2, role);
+					pstAddRole.executeUpdate();
+
+					if (logger.isTraceEnabled()) {
+						queryLog = new StringBuilder();
+						queryLog.append("Query : ").append(queryString).append("\n");
+						queryLog.append("Parameters : ").append("\n");
+						queryLog.append("EMAIL : ").append(userEmail).append("\n");
+						queryLog.append("ROLE : ").append(role).append("\n");
+						logger.trace(queryLog.toString());
+					}
 				}
 
 			} catch (Exception e) {
-				// ERROR STATUSU DEGISTIRILECEK
-				logger.debug("addUser error:" + e.getMessage());
+				logger.debug("addUser error");
 				e.printStackTrace();
 			} finally {
-				closePreparedStatement(pst);
+				closePreparedStatement(pstAddRole);
+				closePreparedStatement(pstAddUser);
+				closeResultSet(rs);
 				closeConnection(con);
-				logger.debug("addUser completed");
 			}
 		}
-		return result;
+		logger.debug("addUser completed");
 	}
 
-	public User[] getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 		logger.debug("getAllUser started");
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet userRS = null;
-		ResultSet rs = null;
-		User user;
 
+		Connection con = null;
+		PreparedStatement pstUsers = null;
+		PreparedStatement pstRoles = null;
+		ResultSet rsUsers = null;
+		ResultSet rsRoles = null;
+
+		User user;
 		ArrayList<User> users = new ArrayList<>();
 
 		try {
@@ -89,47 +129,45 @@ public class UserDAOService extends ConnectionHelper {
 			con = getConnection();
 			String query = "SELECT * FROM users";
 
-			pst = con.prepareStatement(query);
-			userRS = pst.executeQuery();
+			pstUsers = con.prepareStatement(query);
+			rsUsers = pstUsers.executeQuery();
 
-			while (userRS.next()) {
+			while (rsUsers.next()) {
 
-				int userID = userRS.getInt("ID");
-				String userName = userRS.getString("FULL_NAME");
-				String userEmail = userRS.getString("EMAIL");
-				String userPassword = userRS.getString("PASSWORD");
-				int userCompanyID = userRS.getInt("COMPANY_ID");
-				int userDepartmentID = userRS.getInt("DEPARTMENT_ID");
+				long userID = rsUsers.getLong("ID");
+				String userName = rsUsers.getString("FULL_NAME");
+				String userEmail = rsUsers.getString("EMAIL");
+				String userPassword = rsUsers.getString("PASSWORD");
+				long userCompanyID = rsUsers.getLong("COMPANY_ID");
+				long userDepartmentID = rsUsers.getLong("DEPARTMENT_ID");
 
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-				pst = con.prepareStatement(query.toString());
-				pst.setString(1, userEmail);
-				rs = pst.executeQuery();
+				pstRoles = con.prepareStatement(query.toString());
+				pstRoles.setString(1, userEmail);
+				rsRoles = pstRoles.executeQuery();
 
-				List<String> roles = new ArrayList<>();
-				String[] userRolesArr;
-				while (rs.next()) {
-					roles.add(rs.getString("ROLE"));
+				ArrayList<String> roles = new ArrayList<>();
+				while (rsRoles.next()) {
+					roles.add(rsRoles.getString("ROLE"));
 				}
-				userRolesArr = roles.toArray(new String[0]); // bu daha performanslı + test sonuclarina bakildi
-				logger.info("getAllUser role #" + userRolesArr.length);
 
-				user = new User(userID, userName, userEmail, userPassword, userCompanyID,userDepartmentID, userRolesArr);
-				logger.info("getAllUser user:" + user.getName());
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userDepartmentID, roles);
+
 				users.add(user);
 			}
 		} catch (Exception e) {
 			logger.debug("getAllUser error occured");
 			e.printStackTrace();
 		} finally {
-			closeResultSet(rs);
-			closeResultSet(userRS);
-			closePreparedStatement(pst);
+			closeResultSet(rsRoles);
+			closeResultSet(rsUsers);
+			closePreparedStatement(pstRoles);
+			closePreparedStatement(pstUsers);
 			closeConnection(con);
 		}
 		logger.debug("getAllUser finished");
-		return users.toArray(new User[0]);
+		return users;
 	}
 
 	public User getUser(String userEmail) {
@@ -150,30 +188,27 @@ public class UserDAOService extends ConnectionHelper {
 			pst.setString(1, userEmail);
 			rs = pst.executeQuery();
 
-			while(rs.next()){
+			while (rs.next()) {
 				int userID = rs.getInt("ID");
 				String userName = rs.getString("FULL_NAME");
 				String userPassword = rs.getString("PASSWORD");
 				int userCompanyID = rs.getInt("COMPANY_ID");
 				int userDepartmentID = rs.getInt("DEPARTMENT_ID");
-			
+
 				closeResultSet(rs);
 				closePreparedStatement(pst);
-	
+
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pst = con.prepareStatement(query.toString());
 				pst.setString(1, userEmail);
 				rs = pst.executeQuery();
-	
+
 				List<String> roles = new ArrayList<>();
-				String[] userRolesArr;
 				while (rs.next()) {
 					roles.add(rs.getString("ROLE"));
 				}
-				userRolesArr = roles.toArray(new String[roles.size()]);
-	
-				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userDepartmentID,userRolesArr);
+				user = new User(userID, userName, userEmail, userPassword, userCompanyID, userDepartmentID, roles);
 			}
 		} catch (Exception e) {
 			logger.debug("getUser error occured");

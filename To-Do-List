@@ -15,5 +15,10 @@ user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçe
 /********************************************************************/
 
 /********************************************************************/
+########################## ONEMLI ##################################
 
+tablolardaki int degerler biginte cevirilecek.
+FKler habire ismizi uzatılaro gercekten gerek varmı? nerede kullanıcaz?
+addUser burak abinin dedigi gibi yapıldı ama exception sınıflarını push etmemis ornek icin
+YARIN ZOR OLACAK. ERKEN KALKACAM BENDE HALLETMEMIZ LAZIM HEPSNI. DEDIGI DUZENLEMELERI 1GUNDE YAPARIZ
 
