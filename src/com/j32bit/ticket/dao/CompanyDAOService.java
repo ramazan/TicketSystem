@@ -102,7 +102,7 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if(rs.next()) {
-				throw new Exception("Similar record founds. Company Name :" + rs.getString("NAME"));
+				throw new Exception("Similar record founds. Company Name :" + rs.getString("COMPANY_NAME"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

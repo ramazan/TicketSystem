@@ -101,4 +101,8 @@ public class ServiceFacade {
 		return departmentDAOService.getDepartment(departmentID);
 	}
 
+	public Department addDeparment(Department department) {
+		return departmentDAOService.addDepartment(department);
+	}
+
 }

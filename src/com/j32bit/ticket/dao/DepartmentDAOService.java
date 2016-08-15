@@ -3,12 +3,14 @@ package com.j32bit.ticket.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Department;
 
 public class DepartmentDAOService extends ConnectionHelper {
@@ -107,4 +109,49 @@ public class DepartmentDAOService extends ConnectionHelper {
 		return department;
 	}
 
+	
+	public Department addDepartment(Department department) {
+		logger.debug("adddepartment started");
+
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		StringBuilder query = new StringBuilder();
+		StringBuilder queryLog = new StringBuilder();
+		
+
+		try {
+
+			query.append("INSERT INTO departments ");
+			query.append("(DEPARTMENT_NAME)");
+			query.append("values (?)");
+			String queryString = query.toString();
+			logger.debug("sql query created :"+queryString);
+
+			con = getConnection();
+			pst = con.prepareStatement(queryString);
+
+			pst.setString(1, department.getName());
+
+
+			if (logger.isTraceEnabled()) { 
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("Name : ").append(department.getName()).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			logger.error("adddepartment error:" + e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		logger.debug("adddepartment finished");
+		return department;
+	}
+	
 }
