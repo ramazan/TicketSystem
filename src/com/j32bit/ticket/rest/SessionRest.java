@@ -36,7 +36,7 @@ public class SessionRest {
 		session.setAttribute("LOGIN_USER", authenticatedUser);
 
 		try {
-			response.sendRedirect("/Ticket_System/pages/tickets.html");
+			response.sendRedirect("/Ticket_System/pages/index.html");
 			
 		} catch (IOException e) {
 			logger.error(e.getMessage());

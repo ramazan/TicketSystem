@@ -1,5 +1,5 @@
 function getAllUsers() {
-	$("#jqGrid").jqGrid({
+	$("#Users_jqGrid").jqGrid({
 		caption : "USER LIST",
 		url : "/Ticket_System/rest/user/getAllUsers",
 		mtype : "GET",
@@ -38,7 +38,7 @@ function getAllUsers() {
 
 	});
 
-	$('#jqGrid').navGrid('#jqGridPager', {
+	$('#Users_jqGrid').navGrid('#Users_jqGridPager', {
 		edit : false,
 		add : false,
 		del : false,

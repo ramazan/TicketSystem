@@ -2,7 +2,7 @@ $(document).ready(function() {
 	getAllTickets();
 });
 function getAllTickets() {
-	$("#jqGrid").jqGrid({
+	$("#Ticket_jqGrid").jqGrid({
 		caption : "Ticket List",
 		url : "/Ticket_System/rest/ticket/getAllTickets",
 		datatype : "json",
@@ -41,15 +41,15 @@ function getAllTickets() {
 		 responsive : true,
 		 multiselect : true,
 		viewrecords : true,
-		height : 400,
-		width : 750,
+		height : 500,
+		width : 850,
 		styleUI : 'Bootstrap',
 		rowNum : 10,
 		pager : "#jqGridPager",
 		emptyrecords: "Nothing to display"
 	});
 
-	$('#jqGrid').navGrid('#jqGridPager', {
+	$('#Ticket_jqGrid').navGrid('#Ticket_jqGridPager', {
 		edit : false,
 		add : false,
 		del : false,
@@ -95,4 +95,14 @@ function addTicket() {
 		});
 
 	}
+}
+
+function hideTickets(){
+	$('#users').show();
+	$('#Tickets').hide();
+}
+
+function hideUsers(){
+	$('#users').hide();
+	$('#Tickets').show();
 }
