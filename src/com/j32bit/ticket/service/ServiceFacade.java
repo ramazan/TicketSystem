@@ -27,7 +27,7 @@ public class ServiceFacade {
 	private DepartmentDAOService departmentDAOService = null;
 
 	private ServiceFacade() {
-		logger.debug("ServiceFacade constructed");
+		logger.info("ServiceFacade constructed");
 	} // singleton protect
 
 	public static ServiceFacade getInstance() {
@@ -39,7 +39,7 @@ public class ServiceFacade {
 	}
 
 	public void init(Properties prop) {
-		logger.debug("initialize started");
+		logger.info("initialize started");
 		userService = new UserDAOService();
 		userService.init(prop);
 		
@@ -51,7 +51,7 @@ public class ServiceFacade {
 		
 		departmentDAOService = new DepartmentDAOService();
 		departmentDAOService.init(prop);
-		logger.debug("initialize finished");
+		logger.info("initialize finished");
 	}
 
 	public void addUser(User user) {

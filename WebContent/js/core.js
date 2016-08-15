@@ -17,7 +17,21 @@ $(document).ready(function(){
 	  console.log("nav-user is hided");
 	  $("#nav_users").hide();
 	}
+
+
+	$('#supporterRole').change(function() {
+		if (this.checked)
+			$('#departmentFade').fadeIn();
+		else
+			$('#departmentFade').fadeOut();
+	});
+
+
 });
+
+
+function login(){
+}
 
 function logout(){
 	$.get("/Ticket_System/rest/session/logout");
@@ -26,6 +40,10 @@ function logout(){
 
 
 function hideTickets(){
+	getAllUsers();
+	getAllDepartments();
+	getAllCompanies();
+
 	$('#userLink').addClass("active");
 	$("#ticketLink").removeClass("active");
 	$('#users').show();
@@ -33,6 +51,8 @@ function hideTickets(){
 }
 
 function hideUsers(){
+	getAllTickets();
+
 	$('#userLink').removeClass("active");
 	$("#ticketLink").addClass("active");
 	$('#users').hide();

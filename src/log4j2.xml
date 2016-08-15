@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="ERROR"> <!-- log4j sistem errorlari -->
+<Configuration status="DEBUG"> <!-- log4j sistem errorlari -->
 
   <Appenders>
 	<!-- PRINT LOGS TO CONSOLE -->
@@ -8,9 +8,9 @@
     </Console>
 	
 	<!-- PRINT LOGS TO FILE -->
-	<RollingFile name="FileWriter" fileName="./log4j2Test.log" filePattern="log4j2Test-%d{MM-dd-yyyy}-%i.log" >
+	<RollingFile name="FileWriter" fileName="log4j2Test.log" filePattern="log4j2Test-%d{MM-dd-yyyy}-%i.log" >
 		<PatternLayout>
-        	<Pattern>%d %p %c{4} %m%n</Pattern>
+        	<Pattern>%d %p %c{3} %m%n</Pattern>
         </PatternLayout>
         <Policies>
         	<TimeBasedTriggeringPolicy />

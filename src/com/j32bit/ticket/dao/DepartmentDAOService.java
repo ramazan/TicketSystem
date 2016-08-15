@@ -14,6 +14,10 @@ import com.j32bit.ticket.bean.Department;
 public class DepartmentDAOService extends ConnectionHelper {
 
 	private static Logger logger = LogManager.getLogger();
+	
+	public DepartmentDAOService(){
+		logger.info("DepartmentDAOService constructed");
+	}
 
 	public void init(Properties prop) {
 		logger.info("DepartmentDAOService service is initializing");

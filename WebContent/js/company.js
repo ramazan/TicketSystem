@@ -1,5 +1,4 @@
-loadCompanies();
-function loadCompanies() {
+function getAllCompanies() {
 
   $.ajax({
     type : "POST",

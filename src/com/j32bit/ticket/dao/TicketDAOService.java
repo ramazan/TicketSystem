@@ -15,6 +15,10 @@ import com.j32bit.ticket.bean.Ticket;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);
+	
+	public TicketDAOService(){
+		logger.info("TicketDAOService constructed");
+	}
 
 	public void init(Properties prop) {
 		logger.info("TicketDAOService service is initializing");

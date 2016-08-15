@@ -16,14 +16,14 @@ public class ContextListener implements ServletContextListener {
 	private final static Logger logger = LogManager.getLogger();
 
 	public void contextInitialized(ServletContextEvent e) {
-		logger.debug("ContextListener has started");
+		logger.info("ContextListener has started");
 		Properties prop = readPropertiesFromFile("ticket.properties");
 		ServiceFacade.getInstance().init(prop);
-		logger.debug("ContextListener has finished");
+		logger.info("ContextListener has finished");
 	}
 
 	public void contextDestroyed(ServletContextEvent e) {
-		logger.debug("ContextListener has destroyed");
+		logger.info("ContextListener has destroyed");
 	}
 
 	private Properties readPropertiesFromFile(String filePath) {

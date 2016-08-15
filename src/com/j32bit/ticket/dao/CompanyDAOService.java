@@ -17,13 +17,13 @@ public class CompanyDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(CompanyDAOService.class);
 
 	public CompanyDAOService() {
-		logger.debug("COMPANY DAOSERVICE constructed");
+		logger.info("CompanyDAOService constructed");
 	}
 
 	public void init(Properties prop) {
-		logger.debug("CompanyDAOService initialize started");
+		logger.info("CompanyDAOService initialize started");
 		super.init(prop);
-		logger.debug("CompanyDAOService initialize finished");
+		logger.info("CompanyDAOService initialize finished");
 	}
 
 	public Company addCompany(Company company) {

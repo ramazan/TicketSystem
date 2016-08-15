@@ -1,4 +1,5 @@
 function getAllUsers() {
+
 	$("#users_jqGrid").jqGrid({
 		caption : "USER LIST",
 		url : "/Ticket_System/rest/user/getAllUsers",
@@ -121,17 +122,3 @@ function addUser() {
 		});
 	}
 }
-
-$(document).ready(function() {
-
-	$('#supporterRole').change(function() {
-		if (this.checked)
-			$('#departmentFade').fadeIn();
-		else
-			$('#departmentFade').fadeOut();
-
-	});
-
-	getAllUsers();
-	getAllDepartments();
-});

@@ -21,13 +21,13 @@ public class UserDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(UserDAOService.class);
 
 	public UserDAOService() {
-		logger.debug("constructed");
+		logger.info("constructed");
 	}
 
 	public void init(Properties prop) {
-		logger.debug("initialize started");
+		logger.info("initialize started");
 		super.init(prop);
-		logger.debug("initialize finished");
+		logger.info("initialize finished");
 	}
 
 	public void addUser(User user) throws Exception {
