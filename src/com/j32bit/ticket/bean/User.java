@@ -8,8 +8,8 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private String companyName;
-	private String departmentName;
+	private Department department;
+	private Company company;
 	private ArrayList<String> userRoles;
 
 	public User() {
@@ -56,20 +56,22 @@ public class User {
 		this.userRoles = userRoles;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	
+
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	@Override
@@ -78,8 +80,8 @@ public class User {
 		userDetail.append("name : ").append(name).append("\n");
 		userDetail.append("email : ").append(email).append("\n");
 		userDetail.append("password : ").append(password).append("\n");
-		userDetail.append("departmentName : ").append(departmentName).append("\n");
-		userDetail.append("companyName : ").append(companyName).append("\n");
+		userDetail.append("departmentName : ").append(department.getName()).append("\n");
+		userDetail.append("companyName : ").append(company.getName()).append("\n");
 		userDetail.append("role").append(userRoles.toString()).append("\n");
 
 		return userDetail.toString();

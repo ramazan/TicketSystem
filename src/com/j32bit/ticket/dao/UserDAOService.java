@@ -11,7 +11,10 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.User;
+import com.j32bit.ticket.service.ServiceFacade;
 
 public class UserDAOService extends ConnectionHelper {
 
@@ -150,8 +153,14 @@ public class UserDAOService extends ConnectionHelper {
 				user.setEmail(rsUsers.getString("EMAIL"));
 				user.setName(rsUsers.getString("FULL_NAME"));
 				user.setPassword(rsUsers.getString("PASSWORD"));
-				user.setCompanyName("Test Company");
-				user.setDepartmentName("Test Department");
+				
+				long departmentID = rsUsers.getLong("DEPARTMENT_ID");
+				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
+				user.setDepartment(department);
+				
+				long companyID = rsUsers.getLong("COMPANY_ID");
+				Company company = ServiceFacade.getInstance().getCompany(companyID);
+				user.setCompany(company);
 				
 				// TODO : id lere karsilik gelen isimler okunacak
 				//long userCompanyID = rsUsers.getLong("COMPANY_ID");
@@ -210,6 +219,7 @@ public class UserDAOService extends ConnectionHelper {
 			// GET USER
 			con = getConnection();
 			String query = "SELECT * FROM users WHERE EMAIL=?";
+			logger.debug("sql query created : "+query);
 
 			pstUser = con.prepareStatement(query);
 			pstUser.setString(1, userEmail);
@@ -230,8 +240,14 @@ public class UserDAOService extends ConnectionHelper {
 				user.setName(rsUser.getString("FULL_NAME"));
 				user.setPassword(rsUser.getString("PASSWORD"));
 				user.setEmail(rsUser.getString("EMAIL"));
-				user.setDepartmentName("Test Dep");
-				user.setCompanyName("Test Comp");
+				
+				long departmentID = rsUser.getLong("DEPARTMENT_ID");
+				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
+				user.setDepartment(department);
+				
+				long companyID = rsUser.getLong("COMPANY_ID");
+				Company company = ServiceFacade.getInstance().getCompany(companyID);
+				user.setCompany(company);
 
 				// TODO: company id ler in isimleri alinacak
 				// long userCompanyID = rsUser.getLong("COMPANY_ID");
@@ -256,7 +272,6 @@ public class UserDAOService extends ConnectionHelper {
 				while (rsRole.next()) {
 					roles.add(rsRole.getString(1));
 				}
-
 			}
 		} catch (Exception e) {
 			logger.debug("getUser error occured");
@@ -265,6 +280,7 @@ public class UserDAOService extends ConnectionHelper {
 			closeResultSet(rsRole);
 			closeResultSet(rsUser);
 			closePreparedStatement(pstUser);
+			closePreparedStatement(pstRole);
 			closeConnection(con);
 		}
 		logger.debug("getUser completed.");

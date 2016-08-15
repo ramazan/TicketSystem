@@ -3,6 +3,7 @@ package com.j32bit.ticket.rest;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,6 +28,13 @@ public class CompanyRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Company> getAllCompanies() {
 		return ServiceFacade.getInstance().getAllCompanies();
+	}
+
+	@GET
+	@Path("/getCompany")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Company getCompany(long companyID) {
+		return ServiceFacade.getInstance().getCompany(companyID);
 	}
 
 }

@@ -60,11 +60,12 @@ public class TicketDAOService extends ConnectionHelper {
 			pStmt.setString(5, ticket.getMessage());
 
 			pStmt.execute();
-			closePreparedStatement(pStmt);
-			closeConnection(conn);
+
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
 		} finally {
+			closePreparedStatement(pStmt);
+			closeConnection(conn);
 		}
 		logger.debug("storeTicket is finished");
 	}

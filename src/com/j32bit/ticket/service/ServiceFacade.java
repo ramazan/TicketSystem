@@ -87,12 +87,20 @@ public class ServiceFacade {
 		return companyService.addCompany(company);
 	}
 	
+	public Company getCompany(long id){
+		return companyService.getCompany(id);
+	}
+	
 	public ArrayList<Company> getAllCompanies(){
 		return companyService.getAllcompanies();
 	}
 
 	public ArrayList<Department> getAllDepartments() {
 		return departmentDAOService.getAllDepartments();
+	}
+	
+	public Department getDepartment(long departmentID){
+		return departmentDAOService.getDepartment(departmentID);
 	}
 
 }

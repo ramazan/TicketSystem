@@ -35,27 +35,28 @@ public class CompanyDAOService extends ConnectionHelper {
 		StringBuilder query = new StringBuilder();
 		StringBuilder queryLog = new StringBuilder();
 		long recordId = 0;
-		
-		checkSimilarCompanyRecord(company); // TODO : ?????? EXCEPTIONLARDAN SONRA TEKRAR BAKILACAK
-		
+
+		checkSimilarCompanyRecord(company); // TODO : ?????? EXCEPTIONLARDAN
+											// SONRA TEKRAR BAKILACAK
+
 		try {
-			
+
 			query.append("INSERT INTO companies ");
 			query.append("(NAME,ADDRESS,EMAIL,PHONE,FAX) ");
 			query.append("values (?,?,?,?,?)");
 			String queryString = query.toString();
-			
+
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
 			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-			
+
 			pst.setString(1, company.getName());
 			pst.setString(2, company.getAddress());
 			pst.setString(3, company.getEmail());
 			pst.setString(4, company.getPhone());
 			pst.setString(5, company.getFax());
-			
-			if(logger.isTraceEnabled()){ // trace bas sonra calistir
+
+			if (logger.isTraceEnabled()) { // trace bas sonra calistir
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("Name : ").append(company.getName()).append("\n");
@@ -63,9 +64,9 @@ public class CompanyDAOService extends ConnectionHelper {
 				queryLog.append("Email : ").append(company.getEmail()).append("\n");
 				queryLog.append("Phone : ").append(company.getPhone()).append("\n");
 				queryLog.append("Fax : ").append(company.getFax()).append("\n");
-				logger.trace(queryLog.toString());				
+				logger.trace(queryLog.toString());
 			}
-			
+
 			pst.executeUpdate();
 
 			rs = pst.getGeneratedKeys();
@@ -119,11 +120,11 @@ public class CompanyDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Company company;
-		
+
 		try {
-			
+
 			String query = "SELECT * FROM companies";
-			logger.debug("sql query created : "+query);
+			logger.debug("sql query created : " + query);
 			con = getConnection();
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
@@ -131,7 +132,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			while (rs.next()) {
 				company = new Company();
 				company.setId(rs.getLong("ID"));
-				company.setName(rs.getString("NAME"));
+				company.setName(rs.getString("COMPANY_NAME"));
 				company.setEmail(rs.getString("EMAIL"));
 				company.setPhone(rs.getString("PHONE"));
 				company.setFax(rs.getString("FAX"));
@@ -145,7 +146,57 @@ public class CompanyDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		logger.debug("getAllcompany finished. company#: "+companies.size());
+		logger.debug("getAllcompany finished. company#: " + companies.size());
 		return companies;
+	}
+
+	public Company getCompany(long companyID) {
+		logger.debug("getCompany started");
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		Company company = null;
+
+		String query = "SELECT * FROM companies WHERE ID=?";
+		logger.debug("sql query created : " + query);
+
+		try {
+			con = getConnection();
+
+			pst = con.prepareStatement(query);
+			pst.setLong(1, companyID);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(query).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("ID : ").append(companyID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				company = new Company();
+				company.setName(rs.getString("COMPANY_NAME"));
+				company.setId(companyID);
+				company.setEmail("EMAIL");
+				company.setFax("FAX");
+				company.setPhone("PHONE");
+				company.setAddress("ADDRESS");
+			} else {
+				throw new Exception("Company not found!!!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		logger.debug("getCompany finished");
+		return company;
 	}
 }

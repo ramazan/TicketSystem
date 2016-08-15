@@ -2,7 +2,11 @@ package com.j32bit.ticket.bean;
 
 public class Department {
 	private String name;
-	private int id;
+	private long id;
+	
+	public Department(){
+		
+	}
 	
 	public Department(String name, int id) {
 		super();
@@ -15,10 +19,10 @@ public class Department {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

@@ -45,7 +45,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 			while (rs.next()) {
 
-				String depName = rs.getString("NAME");
+				String depName = rs.getString("DEPARTMENT_NAME");
 				int depID = rs.getInt("ID");
 				Department department = new Department(depName, depID);
 
@@ -59,6 +59,52 @@ public class DepartmentDAOService extends ConnectionHelper {
 			e.printStackTrace();
 		}
 		return departments;
+	}
+	
+	public Department getDepartment(long departmentID) {
+		logger.debug("getDepartment started");
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		Department department = new Department();
+
+		String query = "SELECT * FROM departments WHERE ID=?";
+		logger.debug("sql query created : " + query);
+
+		try {
+			con = getConnection();
+
+			pst = con.prepareStatement(query);
+			pst.setLong(1, departmentID);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(query).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("ID : ").append(departmentID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				department.setName(rs.getString("DEPARTMENT_NAME"));
+				department.setId(departmentID);
+			} else {
+				department.setName("NO DEPARTMENT");
+				department.setId(0);				
+			}
+		} catch (Exception e) {
+			//e.printStackTrace();
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		logger.debug("getDepartment finished");
+		return department;
 	}
 
 }

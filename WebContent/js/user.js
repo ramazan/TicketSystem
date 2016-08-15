@@ -22,11 +22,11 @@ function getAllUsers() {
 			width : 70
 		}, {
 			label : "Company",
-			name : 'companyName',
+			name : 'company.name',
 			width : 80
 		}, {
 			label : "Department",
-			name : 'departmentName',
+			name : 'department.name',
 			width : 80
 		}, ],
 		viewrecords : true,
