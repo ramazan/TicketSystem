@@ -69,7 +69,7 @@ function addUser() {
 
 	var newName = $("#userFullName").val();
 	var newEmail = $('#userEmail').val();
-	var newCompany = $('#userCompany').val();
+	var newCompanyID = $('#userCompany').val();
 	var newPassword = $('#userPassword').val();
 
 	var newRoles = [];
@@ -87,7 +87,7 @@ function addUser() {
 	}
 
 	if (newRoles.length == 0 || newName == "" || newEmail == ""
-			|| newCompany == "" || newPassword == "") {
+			|| newCompanyID == "" || newPassword == "") {
 		console.log("error: fill all boxes");
 		$("#modalAddUserMessage").html("Please fill all boxes");
 	} else {
@@ -96,9 +96,9 @@ function addUser() {
 			name : newName,
 			email : newEmail,
 			password : newPassword,
-			companyID : newCompany,
+			company : { id:newCompanyID},
 			userRoles : newRoles,
-			departmentID : userDepartmentID
+			department : {id:userDepartmentID}
 		};
 
 		$.ajax({
