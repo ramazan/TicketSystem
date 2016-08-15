@@ -1,5 +1,5 @@
 function getAllUsers() {
-	$("#Users_jqGrid").jqGrid({
+	$("#users_jqGrid").jqGrid({
 		caption : "USER LIST",
 		url : "/Ticket_System/rest/user/getAllUsers",
 		mtype : "GET",
@@ -33,12 +33,12 @@ function getAllUsers() {
 		height : 500,
 		width : 850,
 		styleUI : 'Bootstrap',
-		pager : "#jqGridPager",
+		pager : "#users_jqGridPager",
 		emptyrecords: "Nothing to display"
 
 	});
 
-	$('#Users_jqGrid').navGrid('#Users_jqGridPager', {
+	$('#users_jqGrid').navGrid('#users_jqGridPager', {
 		edit : false,
 		add : false,
 		del : false,
@@ -47,14 +47,14 @@ function getAllUsers() {
 		view : true,
 		position : "left",
 		cloneToTop : false
-	}).navButtonAdd('#jqGridPager', {
+	}).navButtonAdd('#users_jqGridPager', {
 		caption : "Add",
 		buttonicon : "ui-icon-add",
 		onClickButton : function() {
 			$('#myUserModal').modal('show');
 		},
 		position : "last"
-	}).navButtonAdd('#jqGridPager', {
+	}).navButtonAdd('#users_jqGridPager', {
 		caption : "Del",
 		buttonicon : "ui-icon-del",
 		onClickButton : function() {
