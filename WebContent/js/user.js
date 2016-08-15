@@ -11,7 +11,7 @@ function getAllUsers() {
 		}, {
 			label : "Name",
 			name : 'name',
-			width : 80
+			width : 85
 		}, {
 			label : "E-Mail",
 			name : 'email',
@@ -23,11 +23,11 @@ function getAllUsers() {
 		}, {
 			label : "Company",
 			name : 'company.name',
-			width : 80
+			width : 85
 		}, {
 			label : "Department",
 			name : 'department.name',
-			width : 80
+			width : 85
 		}, ],
 		viewrecords : true,
 		height : 400,
@@ -110,7 +110,7 @@ function addUser() {
 			data : JSON.stringify(person),
 			success : function() {
 				$("#modalAddUserMessage").text("User added. Closing Window..");  // başarılı mesajını set et
-				$('#jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
+				$('#users_jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
 				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
 				$('input').val('');   								       // inputları temizle.
   				setTimeout(function() { $('#myUserModal').modal('hide'); }, 2000);
