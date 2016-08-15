@@ -42,9 +42,10 @@ public class CompanyDAOService extends ConnectionHelper {
 		try {
 
 			query.append("INSERT INTO companies ");
-			query.append("(NAME,ADDRESS,EMAIL,PHONE,FAX) ");
+			query.append("(COMPANY_NAME,ADDRESS,EMAIL,PHONE,FAX) ");
 			query.append("values (?,?,?,?,?)");
 			String queryString = query.toString();
+			logger.debug("sql query created :"+queryString);
 
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
@@ -92,7 +93,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		String query = "SELECT NAME FROM companies WHERE NAME=?";
+		String query = "SELECT COMPANY_NAME FROM companies WHERE COMPANY_NAME=?";
 
 		try {
 			con = getConnection();
@@ -100,7 +101,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			pst.setString(1, company.getName());
 
 			rs = pst.executeQuery();
-			while (rs.next()) {
+			if(rs.next()) {
 				throw new Exception("Similar record founds. Company Name :" + rs.getString("NAME"));
 			}
 		} catch (Exception e) {

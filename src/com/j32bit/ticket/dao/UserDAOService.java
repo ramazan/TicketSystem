@@ -61,8 +61,8 @@ public class UserDAOService extends ConnectionHelper {
 				pstAddUser.setString(1, user.getName());
 				pstAddUser.setString(2, userEmail);
 				pstAddUser.setString(3, user.getPassword());
-				pstAddUser.setLong(4, user.getCompanyID());
-				pstAddUser.setLong(5, user.getDepartmentID());
+				pstAddUser.setLong(4, user.getCompany().getId());
+				pstAddUser.setLong(5, user.getDepartment().getId());
 				pstAddUser.executeUpdate();
 
 				if (logger.isTraceEnabled()) {
@@ -71,8 +71,8 @@ public class UserDAOService extends ConnectionHelper {
 					queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
 					queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
 					queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
-					queryLog.append("COMPANY_ID : ").append(user.getCompanyID()).append("\n");
-					queryLog.append("DEPARTMENT_ID : ").append(user.getDepartmentID()).append("\n");
+					queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
+					queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
 					logger.trace(queryLog.toString());
 				}
 
@@ -87,6 +87,7 @@ public class UserDAOService extends ConnectionHelper {
 				queryAddRole.append("INSERT INTO user_roles ");
 				queryAddRole.append("(EMAIL,ROLE) values (?,?)");
 				queryString = queryAddRole.toString();
+				logger.debug("sql query created : "+queryString);
 
 				pstAddRole = con.prepareStatement(queryString);
 
@@ -94,8 +95,7 @@ public class UserDAOService extends ConnectionHelper {
 				for (String role : userRoles) {
 					pstAddRole.setString(1, userEmail);
 					pstAddRole.setString(2, role);
-					pstAddRole.executeUpdate();
-
+					
 					if (logger.isTraceEnabled()) {
 						queryLog = new StringBuilder();
 						queryLog.append("Query : ").append(queryString).append("\n");
@@ -104,6 +104,8 @@ public class UserDAOService extends ConnectionHelper {
 						queryLog.append("ROLE : ").append(role).append("\n");
 						logger.trace(queryLog.toString());
 					}
+					
+					pstAddRole.executeUpdate();
 				}
 
 			} catch (Exception e) {

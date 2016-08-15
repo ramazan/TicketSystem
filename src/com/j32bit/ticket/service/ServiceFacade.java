@@ -68,10 +68,8 @@ public class ServiceFacade {
 		return users;
 	}
 
-	public Ticket[] getAllTickets() {
-		Ticket[] tickets = ticketService.getAllTickets();
-		logger.info("GET-TICKET # " + tickets.length);
-		return tickets;
+	public ArrayList<Ticket> getAllTickets() {
+		return ticketService.getAllTickets();
 	}
 
 	public User getUserDetailWithEmail(String userEmail) {

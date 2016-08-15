@@ -4,16 +4,14 @@ package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Ticket;
-import com.j32bit.ticket.enums.Priority;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);
@@ -70,35 +68,24 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("storeTicket is finished");
 	}
 
-	public Ticket[] getAllTickets() {
-
-		Connection con = null;
+	public ArrayList<Ticket> getAllTickets() {
+		logger.debug("getAllTickets started");
+		/*Connection con = null;
 		PreparedStatement pst = null;
-		ResultSet rs = null;
+		ResultSet rs = null;*/
 
-		Ticket[] ticketsArr = null;
-
-		try {
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		/*try {
+			String query = "SELECT * FROM tickets";
+			logger.debug("sql query created : "+query);
 
 			con = getConnection();
-			String query = "SELECT COUNT(ID) FROM tickets";
-
+			
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
 
-			rs.next();
-			int recordNumber = rs.getInt(1);
-
-			ticketsArr = new Ticket[recordNumber];
-			closePreparedStatement(pst);
-			closeResultSet(rs);
-			query = "SELECT * FROM tickets";
-			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-
-			int i = 0;
 			while (rs.next()) {
-				int id = rs.getInt("ID");
+				long id = rs.getLong("ID");
 				Date date = rs.getDate("DATE");
 				int senderID = rs.getInt("SENDER_ID");
 				String title = rs.getString("TITLE");
@@ -106,10 +93,9 @@ public class TicketDAOService extends ConnectionHelper {
 				int departmentID = rs.getInt("DEPARTMENT_ID");
 				String message = rs.getString("MESSAGE");
 
-				Priority priority = null; // TODO: BURASI DB DEN ALINIP
-											// YAPILACAK
-				ticketsArr[i] = new Ticket(id, date, "FROM", "DEPARTMENT", title, title, Priority.LOW, 5);
-				++i;
+				Priority priority = null; // TODO: BURASI DB DEN ALINACAK
+				Ticket ticket = new Ticket();
+				ticket.setId(id);
 			}
 		} catch (Exception e) {
 			logger.debug("getAllTickets error occured");
@@ -118,7 +104,7 @@ public class TicketDAOService extends ConnectionHelper {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
 			closeConnection(con);
-		}
-		return ticketsArr;
+		}*/
+		return tickets;
 	}
 }

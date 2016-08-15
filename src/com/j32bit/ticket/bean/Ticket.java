@@ -7,27 +7,25 @@ import com.j32bit.ticket.enums.Priority;
 public class Ticket {
 
 	private Date time;
-	private int id;
+	private long id;
 	private String from;
 	private String departmentName;
 	private String message;
 	private String title;
 	private Priority priority;
-	private int status;
+	private boolean status;
+	
+	
 
-	public Ticket() {
+	public boolean isStatus() {
+		return status;
 	}
 
-	public Ticket(int id, Date time, String from, String departmentName, String title, String message,
-			Priority priority, int status) {
-		this.id = id;
-		this.time = time;
-		this.from = from;
-		this.departmentName = departmentName;
-		this.title = title;
-		this.message = message;
-		this.priority = priority;
+	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public Ticket() {
 	}
 
 	public String getFrom() {
@@ -46,13 +44,6 @@ public class Ticket {
 		this.departmentName = departmentName;
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
 
 	public Date getTime() {
 		return time;
@@ -86,11 +77,11 @@ public class Ticket {
 		this.priority = priority;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

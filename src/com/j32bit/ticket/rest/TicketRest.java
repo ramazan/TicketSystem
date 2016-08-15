@@ -1,5 +1,7 @@
 package com.j32bit.ticket.rest;
 
+import java.util.ArrayList;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -32,9 +34,8 @@ public class TicketRest {
 	@Path("/getAllTickets")
 	@GET
 	@RolesAllowed("admin")
-	public Ticket[] getAllTickets() {
-		Ticket[] tickets = ServiceFacade.getInstance().getAllTickets();
-		return tickets;
+	public ArrayList<Ticket> getAllTickets() {
+		return  ServiceFacade.getInstance().getAllTickets();
 	}
 
 }

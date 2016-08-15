@@ -33,6 +33,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 		try {
 
 			String query = "SELECT * FROM departments";
+			logger.debug("sql query created : " + query);
 
 			con = getConnection();
 
@@ -55,12 +56,11 @@ public class DepartmentDAOService extends ConnectionHelper {
 			logger.debug("getAllDepartments completed. dep#" + departments.size());
 
 		} catch (Exception e) {
-			logger.error("getAllDepartments error:");
-			e.printStackTrace();
+			logger.error("getAllDepartments error: " + e.getMessage());
 		}
 		return departments;
 	}
-	
+
 	public Department getDepartment(long departmentID) {
 		logger.debug("getDepartment started");
 
@@ -94,10 +94,10 @@ public class DepartmentDAOService extends ConnectionHelper {
 				department.setId(departmentID);
 			} else {
 				department.setName("NO DEPARTMENT");
-				department.setId(0);				
+				department.setId(0);
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
