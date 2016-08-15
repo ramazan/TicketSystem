@@ -41,7 +41,7 @@ function getAllTickets() {
 		 responsive : true,
 		 multiselect : true,
 		viewrecords : true,
-		height : 500,
+		height : 450,
 		width : 850,
 		styleUI : 'Bootstrap',
 		rowNum : 10,
@@ -95,14 +95,4 @@ function addTicket() {
 		});
 
 	}
-}
-
-function hideTickets(){
-	$('#users').show();
-	$('#Tickets').hide();
-}
-
-function hideUsers(){
-	$('#users').hide();
-	$('#Tickets').show();
 }

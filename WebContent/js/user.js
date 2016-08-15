@@ -30,8 +30,9 @@ function getAllUsers() {
 			width : 80
 		}, ],
 		viewrecords : true,
-		height : 500,
+		height : 400,
 		width : 850,
+		rowNum : 10,
 		styleUI : 'Bootstrap',
 		pager : "#users_jqGridPager",
 		emptyrecords: "Nothing to display"

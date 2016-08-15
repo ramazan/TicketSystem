@@ -3,14 +3,12 @@ package com.j32bit.ticket.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Department;
 
 public class DepartmentDAOService extends ConnectionHelper {

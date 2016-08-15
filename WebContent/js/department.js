@@ -21,7 +21,6 @@ function getAllDepartments(){
 }
 
 
-
 function addDepartment() {
 
 	var dName = $("#departmentName").val();
@@ -32,7 +31,6 @@ function addDepartment() {
 
 		var company = {
 				name : dName,
-	
 		};
 
 		$.ajax({
@@ -55,4 +53,3 @@ function addDepartment() {
 		});
 	}
 }
-

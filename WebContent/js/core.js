@@ -23,3 +23,18 @@ function logout(){
 	$.get("/Ticket_System/rest/session/logout");
 	window.location="/Ticket_System";
 }
+
+
+function hideTickets(){
+	$('#userLink').addClass("active");
+	$("#ticketLink").removeClass("active");
+	$('#users').show();
+	$('#tickets').hide();
+}
+
+function hideUsers(){
+	$('#userLink').removeClass("active");
+	$("#ticketLink").addClass("active");
+	$('#users').hide();
+	$('#tickets').show();
+}
