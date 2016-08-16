@@ -8,6 +8,10 @@ $(document).ready(function(){
 			success : function(data){
 				console.log("user email:" + data.email+" name:"+data.name);
 				$("#nickname").text(data.email);
+				$("#user_email").text(data.email);
+				$("#user_name").val(data.name);
+				$("#user_company").text(data.company.name);
+				$("#user_roles").text(data.userRoles);
 				}
 		});
 

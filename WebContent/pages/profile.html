@@ -9,8 +9,8 @@
 <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
-    <!-- core js -->
-    <script type="text/javascript" src="../js/core.js"></script>
+<!-- core js -->
+<script type="text/javascript" src="../js/core.js"></script>
 
 
 </head>
@@ -25,7 +25,8 @@
 
 				<li id="ticketLink"><a href="index.html" onclick="hideUsers()">Tickets</a></li>
 
-				<li id="userLink"><a href="index.html" onclick="hideTickets()">Users</a></li>  <!-- DÜZENLEME GEREK -->
+				<li id="userLink"><a href="index.html" onclick="hideTickets()">Users</a></li>
+				<!-- DÜZENLEME GEREK -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -54,24 +55,21 @@
 					</thead>
 					<tbody>
 						<tr>
+							<td>Name:</td>
+							<td><input id="user_name" type="text"></input></td>
+						</tr>
+						<tr>
 							<td>E-mail:</td>
-							<td><b id="user_email">TestEmail</b></td>
+							<td><b id="user_email"></b></td>
 						</tr>
 						<tr>
 							<td>Roles:</td>
 							<td><b id="user_roles">rolesHere</b></td>
 						</tr>
+
 						<tr>
-							<td>Name:</td>
-							<td><input id="user_name" type="text" value="testName"></td>
-						</tr>
-						<tr>
-							<td>Surname:</td>
-							<td><input id="user_surname" type="text" value="testSurname"></td>
-						</tr>
-						<tr>
-							<td>Phone:</td>
-							<td><input id="user_phone" type="text" value="testPhone"></td>
+							<td>Company:</td>
+							<td><b id="user_company"></b></td>
 						</tr>
 						<tr>
 							<th colspan="2"><b>Password</b></th>
