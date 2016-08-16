@@ -71,32 +71,7 @@ public class TicketDAOService extends ConnectionHelper {
 
 	public ArrayList<Ticket> getAllTickets() {
 		logger.debug("getAllTickets started");
-		/*
-		 * Connection con = null; PreparedStatement pst = null; ResultSet rs =
-		 * null;
-		 */
-
-		ArrayList<Ticket> tickets = new ArrayList<>();
-		/*
-		 * try { String query = "SELECT * FROM tickets";
-		 * logger.debug("sql query created : "+query);
-		 * 
-		 * con = getConnection();
-		 * 
-		 * pst = con.prepareStatement(query); rs = pst.executeQuery();
-		 * 
-		 * while (rs.next()) { long id = rs.getLong("ID"); Date date =
-		 * rs.getDate("DATE"); int senderID = rs.getInt("SENDER_ID"); String
-		 * title = rs.getString("TITLE"); int status = rs.getInt("STATUS"); int
-		 * departmentID = rs.getInt("DEPARTMENT_ID"); String message =
-		 * rs.getString("MESSAGE");
-		 * 
-		 * Priority priority = null; // TODO: BURASI DB DEN ALINACAK Ticket
-		 * ticket = new Ticket(); ticket.setId(id); } } catch (Exception e) {
-		 * logger.debug("getAllTickets error occured"); e.printStackTrace(); }
-		 * finally { closeResultSet(rs); closePreparedStatement(pst);
-		 * closeConnection(con); }
-		 */
-		return tickets;
+		
+		return null;
 	}
 }

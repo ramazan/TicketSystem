@@ -12,10 +12,10 @@ $(document).ready(function(){
 				userID = data.id;
 				$("#nickname").text(data.email);
 				authenticatedUserID = data.id;
-				$("#user_email").text(data.email);
-				$("#user_name").val(data.name);
-				$("#user_company").text(data.company.name);
-				$("#user_roles").text(data.userRoles);
+				$("#userEmail").text(data.email);
+				$("#userName").text(data.name);
+				$("#userCompany").text(data.company.name);
+				$("#userRoles").text(data.userRoles);
 				}
 		});
 
@@ -66,45 +66,4 @@ function hideUsers(){
 	$("#ticketLink").addClass("active");
 	$('#users').hide();
 	$('#tickets').show();
-}
-
-// / Profile sayfasındaki şifre eşleşme kontrolü
-
-function validate() {
-	var password1 = $("#user_new_pass").val();
-	var password2 = $("#user_new_pass2").val();
-
-	if (password1 == password2 && password1 != "" && password2 != "") {
-		$("#validate-status").text("Şifreler eşleşti!");
-		// document.getElementById("ProfileSaveButton").enabled = true;
-		$("#ProfileSaveButton").removeAttr('disabled');
-
-	} else {
-		$("#validate-status").text("Şifreler eşleşmiyor!");
-		$("#ProfileSaveButton").prop("disabled", true);
-
-	}
-
-}
-
-function updateProfile() {
-
-	var password = $("#user_new_pass").val();
-	alert("şifre " + password);
-
-	$.ajax({
-		type : "POST",
-		url : '/Ticket_System/rest/user/updateUser',
-		contentType : "application/json",
-		mimeType : "application/json",
-		data :JSON.stringify(password),
-		success : function(data) {
-//			alert("Şifre değişimi başarılı" + data);
-
-		},
-		error : function() {
-			alert("User cannot added please try again. ");
-		}
-	});
-
 }

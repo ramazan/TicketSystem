@@ -64,7 +64,6 @@ function getAllUsers() {
 		},
 		position : "last"
 	});
-	;
 }
 
 function addUser() {
@@ -121,4 +120,43 @@ function addUser() {
 			}
 		});
 	}
+}
+
+// / Profile sayfasındaki şifre eşleşme kontrolü
+
+function validate() {
+	var password1 = $("#userNewPass").val();
+	var password2 = $("#userNewPassConfirm").val();
+
+	if (password1 == password2 && password1 != "" && password2 != "") {
+		$("#validateStatus").text("Şifreler eşleşti!");
+		// document.getElementById("ProfileSaveButton").enabled = true;
+		$("#ProfileSaveButton").removeAttr('disabled');
+
+	} else {
+		$("#validateStatus").text("Şifreler eşleşmiyor!");
+		$("#ProfileSaveButton").prop("disabled", true);
+
+	}
+
+}
+
+function updateProfile() {
+
+	var password = $("#userNewPass").val();
+
+	$.ajax({
+		type : "POST",
+		url : '/Ticket_System/rest/user/updateUser',
+		contentType : "application/json",
+		mimeType : "application/json",
+		data :password,
+		success : function(data) {
+			console.log("password changed");
+		},
+		error : function() {
+			alert("User cannot added please try again. ");
+		}
+	});
+
 }
