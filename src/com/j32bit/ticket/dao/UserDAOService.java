@@ -123,14 +123,79 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("addUser completed");
 	}
 
+	/*
+	 * public ArrayList<User> getAllUsers() {
+	 * logger.debug("getAllUser started");
+	 * 
+	 * Connection con = null; PreparedStatement pstUsers = null;
+	 * PreparedStatement pstRoles = null; ResultSet rsUsers = null; ResultSet
+	 * rsRoles = null;
+	 * 
+	 * User user; ArrayList<User> userList = new ArrayList<>();
+	 * 
+	 * try {
+	 * 
+	 * con = getConnection(); String query = "SELECT * FROM users";
+	 * logger.debug("sql query created : " + query);
+	 * 
+	 * pstUsers = con.prepareStatement(query);
+	 * 
+	 * if (logger.isTraceEnabled()) { StringBuilder queryLog = new
+	 * StringBuilder();
+	 * queryLog.append("Query created : ").append(query).append("\n");
+	 * logger.trace(queryLog.toString()); }
+	 * 
+	 * rsUsers = pstUsers.executeQuery();
+	 * 
+	 * while (rsUsers.next()) { user = new User();
+	 * user.setId(rsUsers.getLong("ID"));
+	 * user.setEmail(rsUsers.getString("EMAIL"));
+	 * user.setName(rsUsers.getString("FULL_NAME"));
+	 * user.setPassword(rsUsers.getString("PASSWORD"));
+	 * 
+	 * long departmentID = rsUsers.getLong("DEPARTMENT_ID"); // Department
+	 * department = new Department(); Department department =
+	 * ServiceFacade.getInstance().getDepartment(departmentID);
+	 * user.setDepartment(department);
+	 * 
+	 * long companyID = rsUsers.getLong("COMPANY_ID"); // Company company = new
+	 * Company(); Company company =
+	 * ServiceFacade.getInstance().getCompany(companyID);
+	 * 
+	 * user.setCompany(company);
+	 * 
+	 * // GET ROLE // /* // * query =
+	 * "SELECT ROLE FROM user_roles WHERE EMAIL=?"; pstRoles // * =
+	 * con.prepareStatement(query.toString()); // * // * if
+	 * (logger.isTraceEnabled()) { StringBuilder queryLog = new // *
+	 * StringBuilder(); // *
+	 * queryLog.append("Query created : ").append(query).append("\n" // * );
+	 * queryLog.append("Parameters : \n"); // *
+	 * queryLog.append("EMAIL : ").append(user.getEmail()).append( // * "\n");
+	 * logger.trace(queryLog.toString()); } // * pstRoles.setString(1,
+	 * user.getEmail()); // * // * rsRoles = pstRoles.executeQuery(); // * // *
+	 * ArrayList<String> userRoles = new ArrayList<>(); while // *
+	 * (rsRoles.next()) { userRoles.add(rsRoles.getString("ROLE")); // * }
+	 * user.setUserRoles(userRoles); // *
+	 * 
+	 * userList.add(user); } } catch (Exception e) {
+	 * logger.debug("getAllUser error occured"); e.printStackTrace(); } finally
+	 * { closeResultSet(rsRoles); closeResultSet(rsUsers);
+	 * closePreparedStatement(pstRoles); closePreparedStatement(pstUsers);
+	 * closeConnection(con); } logger.debug("getAllUser finished. Total#" +
+	 * userList.size()); return userList; }
+	 */
+
 	public ArrayList<User> getAllUsers() {
 		logger.debug("getAllUser started");
 
 		Connection con = null;
+
 		PreparedStatement pstUsers = null;
 		PreparedStatement pstRoles = null;
 		ResultSet rsUsers = null;
 		ResultSet rsRoles = null;
+		StringBuilder query = new StringBuilder();
 
 		User user;
 		ArrayList<User> userList = new ArrayList<>();
@@ -138,16 +203,14 @@ public class UserDAOService extends ConnectionHelper {
 		try {
 
 			con = getConnection();
-			String query = "SELECT * FROM users";
-			logger.debug("sql query created : " + query);
+			query.append("SELECT users.*, companies.COMPANY_NAME,companies.EMAIL AS COMPANY_EMAIL,");
+			query.append("companies.ADDRESS, companies.PHONE, companies.FAX ");
+			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID");
 
-			pstUsers = con.prepareStatement(query);
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
 
-			if (logger.isTraceEnabled()) {
-				StringBuilder queryLog = new StringBuilder();
-				queryLog.append("Query created : ").append(query).append("\n");
-				logger.trace(queryLog.toString());
-			}
+			pstUsers = con.prepareStatement(queryString);
 
 			rsUsers = pstUsers.executeQuery();
 
@@ -158,34 +221,45 @@ public class UserDAOService extends ConnectionHelper {
 				user.setName(rsUsers.getString("FULL_NAME"));
 				user.setPassword(rsUsers.getString("PASSWORD"));
 
-				long departmentID = rsUsers.getLong("DEPARTMENT_ID");
-				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
+				// long departmentID = rsUsers.getLong("DEPARTMENT_ID");
+				Department department = new Department();
+				// Department department =
+				// ServiceFacade.getInstance().getDepartment(departmentID);
 				user.setDepartment(department);
 
-				long companyID = rsUsers.getLong("COMPANY_ID");
-				Company company = ServiceFacade.getInstance().getCompany(companyID);
+				// long companyID = rsUsers.getLong("COMPANY_ID");
+				// Company company =
+				// ServiceFacade.getInstance().getCompany(companyID);
+
+				Company company = new Company();
+				company.setAddress(rsUsers.getString("ADDRESS"));
+				company.setEmail(rsUsers.getString("COMPANY_EMAIL"));
+				company.setFax(rsUsers.getString("FAX"));
+				company.setId(rsUsers.getLong("COMPANY_ID"));
+				company.setName(rsUsers.getString("COMPANY_NAME"));
+				company.setPhone("PHONE");
+
 				user.setCompany(company);
 
 				// GET ROLE
-				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-				pstRoles = con.prepareStatement(query.toString());
-
-				if (logger.isTraceEnabled()) {
-					StringBuilder queryLog = new StringBuilder();
-					queryLog.append("Query created : ").append(query).append("\n");
-					queryLog.append("Parameters : \n");
-					queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
-					logger.trace(queryLog.toString());
-				}
-				pstRoles.setString(1, user.getEmail());
-
-				rsRoles = pstRoles.executeQuery();
-
-				ArrayList<String> userRoles = new ArrayList<>();
-				while (rsRoles.next()) {
-					userRoles.add(rsRoles.getString("ROLE"));
-				}
-				user.setUserRoles(userRoles);
+				/*
+				 * query = "SELECT ROLE FROM user_roles WHERE EMAIL=?"; pstRoles
+				 * = con.prepareStatement(query.toString());
+				 * 
+				 * if (logger.isTraceEnabled()) { StringBuilder queryLog = new
+				 * StringBuilder();
+				 * queryLog.append("Query created : ").append(query).append("\n"
+				 * ); queryLog.append("Parameters : \n");
+				 * queryLog.append("EMAIL : ").append(user.getEmail()).append(
+				 * "\n"); logger.trace(queryLog.toString()); }
+				 * pstRoles.setString(1, user.getEmail());
+				 * 
+				 * rsRoles = pstRoles.executeQuery();
+				 * 
+				 * ArrayList<String> userRoles = new ArrayList<>(); while
+				 * (rsRoles.next()) { userRoles.add(rsRoles.getString("ROLE"));
+				 * } user.setUserRoles(userRoles);
+				 */
 
 				userList.add(user);
 			}

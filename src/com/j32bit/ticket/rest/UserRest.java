@@ -22,7 +22,7 @@ import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/user")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML ,MediaType.TEXT_PLAIN})
+@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
 public class UserRest {
 	private static Logger logger = LogManager.getLogger();
 
@@ -48,16 +48,21 @@ public class UserRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
 	public ArrayList<User> getAllUsers() {
-		return ServiceFacade.getInstance().getAllUsers();
+		long t1 = System.currentTimeMillis();
+		
+		ArrayList<User> users = ServiceFacade.getInstance().getAllUsers();
+		long t2 = System.currentTimeMillis();
+		long res = t2-t1;
+		System.out.println("TIME"+res);
+		return users;
 	}
-	
+
 	@Path("/updateUser")
 	@POST
-	public void updateUser(String password,@Context HttpServletRequest request) {
+	public void updateUser(String password, @Context HttpServletRequest request) {
 		User authenticatedUserDetails = (User) request.getSession().getAttribute("LOGIN_USER");
-		String email=authenticatedUserDetails.getEmail();
-		ServiceFacade.getInstance().updateUser(password,email);
+		String email = authenticatedUserDetails.getEmail();
+		ServiceFacade.getInstance().updateUser(password, email);
 	}
-	
 
 }

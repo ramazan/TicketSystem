@@ -61,8 +61,13 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 		} catch (Exception e) {
 			logger.error("getAllDepartments error: " + e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
 		}
 		return departments;
+
 	}
 
 	public Department getDepartment(long departmentID) {
@@ -128,14 +133,14 @@ public class DepartmentDAOService extends ConnectionHelper {
 			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
-			
+
 			if (logger.isTraceEnabled()) {
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("Name : ").append(department.getName()).append("\n");
 				logger.trace(queryLog.toString());
 			}
-			
+
 			pst = con.prepareStatement(queryString);
 			pst.setString(1, department.getName());
 
