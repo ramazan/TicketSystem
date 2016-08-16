@@ -56,7 +56,7 @@
 					<tbody>
 						<tr>
 							<td>Name:</td>
-							<td><input id="user_name" type="text"></input></td>
+							<td><b id="user_name"></b></td>
 						</tr>
 						<tr>
 							<td>E-mail:</td>
@@ -75,10 +75,6 @@
 							<th colspan="2"><b>Password</b></th>
 						</tr>
 						<tr>
-							<td>Current Password:</td>
-							<td><input id="user_curr_pass" type="password"></td>
-						</tr>
-						<tr>
 							<td>New Password:</td>
 							<td><input id="user_new_pass" type="password"></td>
 						</tr>
@@ -86,6 +82,11 @@
 							<td>Confirm New Password:</td>
 							<td><input id="user_new_pass2" type="password"></td>
 						</tr>
+						<tr>
+							<td></td>
+							<td><b><p id="validate-status" style="color:red;"></p></b></td>
+						</tr>
+
 					</tbody>
 				</table>
 			</div>
@@ -94,10 +95,10 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
-			<button class="btn btn-success btn-block" onclick="changeUserInf()">Save</button>
+			<button id="ProfileSaveButton" class="btn btn-success btn-block"
+				onclick="updateProfile()" disabled>Save</button>
 		</div>
 	</div>
-
 
 </body>
 </html>

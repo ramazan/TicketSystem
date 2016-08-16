@@ -45,7 +45,7 @@ public class UserDAOService extends ConnectionHelper {
 		String userEmail = user.getEmail();
 
 		if (getUser(userEmail) != null) {
-			throw new Exception("User Exist"); // TEST
+			throw new Exception("User Exist");   // TEST
 		} else {
 			try {
 				queryAddUser.append("INSERT INTO users ");
@@ -78,8 +78,8 @@ public class UserDAOService extends ConnectionHelper {
 
 				rs = pstAddUser.getGeneratedKeys();
 				if (rs.next()) {
-					recordID = rs.getLong(1); /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM
-												/// BULAMADIM
+					recordID = rs.getLong(1);     //PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM
+												   // BULAMADIM
 					logger.debug("Record ID : " + recordID);
 					user.setId(recordID);
 				}
@@ -164,11 +164,11 @@ public class UserDAOService extends ConnectionHelper {
 				Company company = ServiceFacade.getInstance().getCompany(companyID);
 				user.setCompany(company);
 				
-				// TODO : id lere karsilik gelen isimler okunacak
-				//long userCompanyID = rsUsers.getLong("COMPANY_ID");
-				//long userDepartmentID = rsUsers.getLong("DEPARTMENT_ID");
+				   //TODO : id lere karsilik gelen isimler okunacak
+				  long userCompanyID = rsUsers.getLong("COMPANY_ID");
+				  long userDepartmentID = rsUsers.getLong("DEPARTMENT_ID");
 
-				// GET ROLE
+				  // GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pstRoles = con.prepareStatement(query.toString());
 				pstRoles.setString(1, user.getEmail());
@@ -206,6 +206,7 @@ public class UserDAOService extends ConnectionHelper {
 	}
 
 	public User getUser(String userEmail) {
+
 		logger.debug("getUser started.");
 
 		Connection con = null;
@@ -218,7 +219,7 @@ public class UserDAOService extends ConnectionHelper {
 
 		try {
 
-			// GET USER
+			  /// GET USER
 			con = getConnection();
 			String query = "SELECT * FROM users WHERE EMAIL=?";
 			logger.debug("sql query created : "+query);
@@ -251,11 +252,11 @@ public class UserDAOService extends ConnectionHelper {
 				Company company = ServiceFacade.getInstance().getCompany(companyID);
 				user.setCompany(company);
 
-				// TODO: company id ler in isimleri alinacak
-				// long userCompanyID = rsUser.getLong("COMPANY_ID");
-				// long userDepartmentID = rsUser.getLong("DEPARTMENT_ID");
+				  // TODO: company id ler in isimleri alinacak
+				   long userCompanyID = rsUser.getLong("COMPANY_ID");
+				   long userDepartmentID = rsUser.getLong("DEPARTMENT_ID");
 
-				// GET ROLE
+				 //  GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pstRole = con.prepareStatement(query.toString());
 				pstRole.setString(1, userEmail);
@@ -289,4 +290,58 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("getUser completed.");
 		return user;
 	}
+
+	public void updateUser(String password,String email) throws Exception{
+		
+		
+		logger.debug("updateUser started");
+		logger.debug("new password : " + password);
+		logger.debug("mail : " +email);
+		
+
+  
+    		Connection con = null;
+    		PreparedStatement pstUpdateUser = null;
+    		ResultSet rs = null;
+    		StringBuilder queryUpdateUser = new StringBuilder();
+    		StringBuilder queryLog = new StringBuilder();
+    
+    
+    			try {
+    				queryUpdateUser.append("UPDATE users SET PASSWORD=? WHERE EMAIL=?");
+//    				queryUpdateUser.append(" );
+//    				queryUpdateUser.append);
+    				String queryString = queryUpdateUser.toString();
+    				logger.debug("sql query created : "+queryString);
+
+    
+    				con = getConnection();
+    
+    				pstUpdateUser = con.prepareStatement(queryString);
+    				pstUpdateUser.setString(1, password);
+    				pstUpdateUser.setString(2, email);
+
+    				logger.debug("pstUpdateUser : "+pstUpdateUser.toString());
+
+    				
+    				pstUpdateUser.executeUpdate();
+
+   
+
+    					
+    				
+    
+    			} catch (Exception e) {
+    				logger.debug("UpdateUser error");
+    				e.printStackTrace();
+    			} finally {
+    				closePreparedStatement(pstUpdateUser);
+    				closeResultSet(rs);
+    				closeConnection(con);
+    			}
+    		
+    		logger.debug("UpdateUser completed");
+	}
+
+
 }
