@@ -56,7 +56,6 @@ public class UserRest {
 	public void updateUser(String password,@Context HttpServletRequest request) {
 		User authenticatedUserDetails = (User) request.getSession().getAttribute("LOGIN_USER");
 		String email=authenticatedUserDetails.getEmail();
-		logger.debug("update  user service password "+ password);
 		ServiceFacade.getInstance().updateUser(password,email);
 	}
 	

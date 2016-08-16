@@ -56,7 +56,7 @@ public class UserDAOService extends ConnectionHelper {
 
 				con = getConnection();
 				pstAddUser = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-				
+
 				if (logger.isTraceEnabled()) {
 					queryLog.append("Query : ").append(queryString).append("\n");
 					queryLog.append("Parameters : ").append("\n");
@@ -94,7 +94,7 @@ public class UserDAOService extends ConnectionHelper {
 
 				List<String> userRoles = user.getUserRoles();
 				for (String role : userRoles) {
-					
+
 					if (logger.isTraceEnabled()) {
 						queryLog = new StringBuilder();
 						queryLog.append("Query : ").append(queryString).append("\n");
@@ -103,7 +103,7 @@ public class UserDAOService extends ConnectionHelper {
 						queryLog.append("ROLE : ").append(role).append("\n");
 						logger.trace(queryLog.toString());
 					}
-					
+
 					pstAddRole.setString(1, userEmail);
 					pstAddRole.setString(2, role);
 
@@ -166,16 +166,10 @@ public class UserDAOService extends ConnectionHelper {
 				Company company = ServiceFacade.getInstance().getCompany(companyID);
 				user.setCompany(company);
 
-				
-				   //TODO : id lere karsilik gelen isimler okunacak
-				  long userCompanyID = rsUsers.getLong("COMPANY_ID");
-				  long userDepartmentID = rsUsers.getLong("DEPARTMENT_ID");
-
-
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pstRoles = con.prepareStatement(query.toString());
-				
+
 				if (logger.isTraceEnabled()) {
 					StringBuilder queryLog = new StringBuilder();
 					queryLog.append("Query created : ").append(query).append("\n");
@@ -228,8 +222,8 @@ public class UserDAOService extends ConnectionHelper {
 			logger.debug("sql query created : " + query);
 
 			pstUser = con.prepareStatement(query);
-						pstUser.setString(1, userEmail);
-			
+			pstUser.setString(1, userEmail);
+
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query created : ").append("query").append("\n");
@@ -237,7 +231,7 @@ public class UserDAOService extends ConnectionHelper {
 				queryLog.append("EMAIL : ").append(userEmail).append("\n");
 				logger.trace(queryLog.toString());
 			}
-			
+
 			pstUser.setString(1, userEmail);
 
 			rsUser = pstUser.executeQuery();
@@ -263,9 +257,9 @@ public class UserDAOService extends ConnectionHelper {
 
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-				logger.debug("sql query created "+query);
+				logger.debug("sql query created " + query);
 				pstRole = con.prepareStatement(query.toString());
-				
+
 				if (logger.isTraceEnabled()) {
 					StringBuilder queryLog = new StringBuilder();
 					queryLog.append("Query created : ").append("query").append("\n");
@@ -297,57 +291,47 @@ public class UserDAOService extends ConnectionHelper {
 		return user;
 	}
 
-	public void updateUser(String password,String email) throws Exception{
-		
-		
+	public void updateUser(String password, String email) throws Exception {
+
 		logger.debug("updateUser started");
-		logger.debug("new password : " + password);
-		logger.debug("mail : " +email);
-		
 
-  
-    		Connection con = null;
-    		PreparedStatement pstUpdateUser = null;
-    		ResultSet rs = null;
-    		StringBuilder queryUpdateUser = new StringBuilder();
-    		StringBuilder queryLog = new StringBuilder();
-    
-    
-    			try {
-    				queryUpdateUser.append("UPDATE users SET PASSWORD=? WHERE EMAIL=?");
-//    				queryUpdateUser.append(" );
-//    				queryUpdateUser.append);
-    				String queryString = queryUpdateUser.toString();
-    				logger.debug("sql query created : "+queryString);
+		Connection con = null;
+		PreparedStatement pstUpdateUser = null;
+		ResultSet rs = null;
+		StringBuilder queryUpdateUser = new StringBuilder();
+		StringBuilder queryLog = new StringBuilder();
 
-    
-    				con = getConnection();
-    
-    				pstUpdateUser = con.prepareStatement(queryString);
-    				pstUpdateUser.setString(1, password);
-    				pstUpdateUser.setString(2, email);
+		try {
+			queryUpdateUser.append("UPDATE users SET PASSWORD=? WHERE EMAIL=?");
+			String queryString = queryUpdateUser.toString();
+			logger.debug("sql query created : " + queryString);
 
-    				logger.debug("pstUpdateUser : "+pstUpdateUser.toString());
+			con = getConnection();
 
-    				
-    				pstUpdateUser.executeUpdate();
+			pstUpdateUser = con.prepareStatement(queryString);
 
-   
+			if (logger.isTraceEnabled()) {
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("PASSWORD : ").append(password).append("\n");
+				queryLog.append("EMAIL : ").append(email).append("\n");
+				logger.trace(queryLog.toString());
+			}
 
-    					
-    				
-    
-    			} catch (Exception e) {
-    				logger.debug("UpdateUser error");
-    				e.printStackTrace();
-    			} finally {
-    				closePreparedStatement(pstUpdateUser);
-    				closeResultSet(rs);
-    				closeConnection(con);
-    			}
-    		
-    		logger.debug("UpdateUser completed");
+			pstUpdateUser.setString(1, password);
+			pstUpdateUser.setString(2, email);
+
+			pstUpdateUser.executeUpdate();
+
+		} catch (Exception e) {
+			logger.debug("UpdateUser error" + e.getMessage());
+		} finally {
+			closePreparedStatement(pstUpdateUser);
+			closeResultSet(rs);
+			closeConnection(con);
+		}
+
+		logger.debug("UpdateUser completed");
 	}
-
 
 }
