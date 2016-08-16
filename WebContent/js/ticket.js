@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	getAllTickets();
+});
+
 function getAllTickets() {
 	$("#ticket_jqGrid").jqGrid({
 		caption : "Ticket List",
