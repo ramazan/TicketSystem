@@ -3,22 +3,11 @@
 /********************************************************************/
 opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
 /********************************************************************/
-Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli
-/********************************************************************/
-tickeet gösterme ekranında date göstermiyor?
-/********************************************************************/
-Supporter olarak eklenen kişi hangi departmana supporter ? 
-/********************************************************************/
-rest/getAllUsers bazen boş dönüyor , giriş yapılsada auth işleminde bazen hata olabiliyor kontrol edilmeli 
+Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli 
 /********************************************************************/
 user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçekleştirilebilmeli
 /********************************************************************/
+Hata durumlarında exceptionlar fırlatılıp map edilecek
 
-/********************************************************************/
-########################## ONEMLI ##################################
-
-tablolardaki int degerler biginte cevirilecek.
-FKler habire ismizi uzatılaro gercekten gerek varmı? nerede kullanıcaz?
-addUser burak abinin dedigi gibi yapıldı ama exception sınıflarını push etmemis ornek icin
-YARIN ZOR OLACAK. ERKEN KALKACAM BENDE HALLETMEMIZ LAZIM HEPSNI. DEDIGI DUZENLEMELERI 1GUNDE YAPARIZ
+!!!User login redirect kısmında düzeltilmeye gidilmeli
 
