@@ -48,13 +48,7 @@ public class UserRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
 	public ArrayList<User> getAllUsers() {
-		long t1 = System.currentTimeMillis();
-		
-		ArrayList<User> users = ServiceFacade.getInstance().getAllUsers();
-		long t2 = System.currentTimeMillis();
-		long res = t2-t1;
-		System.out.println("TIME"+res);
-		return users;
+		return ServiceFacade.getInstance().getAllUsers();
 	}
 
 	@Path("/updateUser")

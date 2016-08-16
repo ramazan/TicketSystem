@@ -33,11 +33,11 @@ function getAllTickets() {
 			width : 100
 		}, {
 			label : "From",
-			name : 'from',
+			name : 'sender.name',
 			width : 100
 		}, {
 			label : "Department",
-			name : 'departmentName',
+			name : 'department.name',
 			width : 80
 		} ],
 		 responsive : true,

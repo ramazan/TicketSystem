@@ -36,7 +36,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 		try {
 
-			String query = "SELECT * FROM departments";
+			String query = "SELECT * FROM departments WHERE ID>0";
 			logger.debug("sql query created : " + query);
 
 			con = getConnection();

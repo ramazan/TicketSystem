@@ -2,6 +2,7 @@ package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -9,7 +10,9 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.bean.User;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);
@@ -40,7 +43,7 @@ public class TicketDAOService extends ConnectionHelper {
 
 			conn = getConnection();
 			pStmt = conn.prepareStatement(queryString);
-			
+
 			if (logger.isTraceEnabled()) {
 				querylog.append("Query : ").append(queryString).append("\n");
 				querylog.append("Parameters : ").append("\n");
@@ -71,7 +74,57 @@ public class TicketDAOService extends ConnectionHelper {
 
 	public ArrayList<Ticket> getAllTickets() {
 		logger.debug("getAllTickets started");
-		
-		return null;
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		StringBuilder query = new StringBuilder();
+
+		ArrayList<Ticket> tickets = new ArrayList<>();
+
+		try {
+			query.append("SELECT tickets.*, users.FULL_NAME, departments.DEPARTMENT_NAME FROM tickets ");
+			query.append("INNER JOIN users ON users.ID = tickets.SENDER_ID ");
+			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID = departments.ID ");
+			String queryString = query.toString();
+			logger.debug("Sql query Created : " + queryString);
+
+			conn = getConnection();
+			pStmt = conn.prepareStatement(queryString);
+
+			rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				Ticket ticket = new Ticket();
+				ticket.setId(rs.getLong("ID"));
+				ticket.setTitle(rs.getString("TITLE"));
+				ticket.setMessage(rs.getString("MESSAGE"));
+				ticket.setPriority(rs.getInt("PRIORITY"));
+				ticket.setStatus(true); // TODO : DB DEN AL
+
+				User user = new User();
+				user.setName(rs.getString("FULL_NAME"));
+				user.setId(rs.getLong("SENDER_ID"));
+
+				Department department = new Department();
+				department.setId(rs.getLong("DEPARTMENT_ID"));
+				department.setName(rs.getString("DEPARTMENT_NAME"));
+
+				ticket.setDepartment(department);
+				ticket.setSender(user);
+
+				tickets.add(ticket);
+
+			}
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pStmt);
+			closeConnection(conn);
+		}
+		logger.debug("getAllTicket is finished");
+		return tickets;
 	}
 }
