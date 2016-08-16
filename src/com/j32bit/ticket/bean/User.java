@@ -56,8 +56,6 @@ public class User {
 		this.userRoles = userRoles;
 	}
 
-	
-
 	public Department getDepartment() {
 		return department;
 	}
