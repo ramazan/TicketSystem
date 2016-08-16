@@ -1,10 +1,8 @@
 package com.j32bit.ticket.bean;
 
-import java.util.Date;
-
 public class Ticket {
 
-	private Date time;
+	private String time;
 	private long id;
 	private User sender;
 	private Department department;
@@ -16,42 +14,29 @@ public class Ticket {
 	public Ticket() {
 	}
 
-
 	public User getSender() {
 		return sender;
 	}
-
-
 
 	public void setSender(User sender) {
 		this.sender = sender;
 	}
 
-
-
 	public Department getDepartment() {
 		return department;
 	}
-
-
 
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
-
-
 	public int getPriority() {
 		return priority;
 	}
 
-
-
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-
-
 
 	public boolean isStatus() {
 		return status;
@@ -61,16 +46,16 @@ public class Ticket {
 		this.status = status;
 	}
 
-	public Date getTime() {
+	public String getMessage() {
+		return message;
+	}
+
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
-	}
-
-	public String getMessage() {
-		return message;
 	}
 
 	public void setMessage(String message) {

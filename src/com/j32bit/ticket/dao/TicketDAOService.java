@@ -1,9 +1,11 @@
 package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -101,6 +103,9 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setMessage(rs.getString("MESSAGE"));
 				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setStatus(true); // TODO : DB DEN AL
+				ticket.setTime(rs.getTimestamp("DATE").toString());
+				
+				//logger.debug("TiME "+rs.getTimestamp("DATE"));
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));

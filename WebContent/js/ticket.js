@@ -20,14 +20,12 @@ function getAllTickets() {
 			}
 		}, {
 			label : "Date",
-			name : 'date',
+			name : 'time',
 			width : 60,
 			formatter : 'date',
 			formatoptions : {
-				srcformat : 'U',
-				newformat : 'd/m/Y'
-			}
-
+      srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y H:i:s'
+      }
 		}, {
 			label : "Title",
 			name : 'title',
