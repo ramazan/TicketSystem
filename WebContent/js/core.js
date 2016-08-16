@@ -1,25 +1,29 @@
-$(document).ready(function() {
+var authenticatedUserID;
+
+$(document).ready(function(){
 
 	$.ajax({
-		type : "POST",
-		url : '/Ticket_System/rest/session/getAuthenticatedUser',
-		contentType : "application/json",
-		mimeType : "application/json",
-		success : function(data) {
-			console.log("user email:" + data.email + " name:" + data.name);
-			$("#nickname").text(data.email);
-			$("#user_email").text(data.email);
-			$("#user_name").text(data.name);
-			$("#user_company").text(data.company.name);
-			$("#user_roles").text(data.userRoles);
-		}
-	});
+			type: "POST",
+			url: '/Ticket_System/rest/session/getAuthenticatedUser',
+			contentType : "application/json",
+			mimeType: "application/json",
+			success : function(data){
+				console.log("user email:" + data.email+" name:"+data.name);
+				userID = data.id;
+				$("#nickname").text(data.email);
+				authenticatedUserID = data.id;
+				$("#user_email").text(data.email);
+				$("#user_name").val(data.name);
+				$("#user_company").text(data.company.name);
+				$("#user_roles").text(data.userRoles);
+				}
+		});
 
-	var isAdmin = true; // TODO: sessiondan check yapılacak
+	var isAdmin=true; // TODO: sessiondan check yapılacak
 
-	if (isAdmin == false) {
-		console.log("nav-user is hided");
-		$("#nav_users").hide();
+	if(isAdmin==false){
+	  console.log("nav-user is hided");
+	  $("#nav_users").hide();
 	}
 
 	$('#supporterRole').change(function() {
@@ -33,17 +37,19 @@ $(document).ready(function() {
 
 });
 
-function login() {
+
+function login(){
 }
 
-function logout() {
+function logout(){
 	$.get("/Ticket_System/rest/session/logout");
-	window.location = "/Ticket_System";
+	window.location="/Ticket_System";
 }
 
-function hideTickets() {
+
+function hideTickets(){
 	getAllUsers();
-	getAllDepartments();
+	getAllDepartments("#userDepartment");
 	getAllCompanies();
 
 	$('#userLink').addClass("active");
@@ -52,8 +58,9 @@ function hideTickets() {
 	$('#tickets').hide();
 }
 
-function hideUsers() {
+function hideUsers(){
 	getAllTickets();
+	getAllDepartments("#ticketDepartments");
 
 	$('#userLink').removeClass("active");
 	$("#ticketLink").addClass("active");

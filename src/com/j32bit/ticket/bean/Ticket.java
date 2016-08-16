@@ -2,20 +2,56 @@ package com.j32bit.ticket.bean;
 
 import java.util.Date;
 
-import com.j32bit.ticket.enums.Priority;
-
 public class Ticket {
 
 	private Date time;
 	private long id;
-	private String from;
-	private String departmentName;
+	private User sender;
+	private Department department;
 	private String message;
 	private String title;
-	private Priority priority;
+	private int priority;
 	private boolean status;
-	
-	
+
+	public Ticket() {
+	}
+
+
+	public User getSender() {
+		return sender;
+	}
+
+
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+
+
+	public Department getDepartment() {
+		return department;
+	}
+
+
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+
+
+	public int getPriority() {
+		return priority;
+	}
+
+
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+
 
 	public boolean isStatus() {
 		return status;
@@ -24,26 +60,6 @@ public class Ticket {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-	public Ticket() {
-	}
-
-	public String getFrom() {
-		return from;
-	}
-
-	public void setFrom(String from) {
-		this.from = from;
-	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
 
 	public Date getTime() {
 		return time;
@@ -67,14 +83,6 @@ public class Ticket {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public Priority getPriority() {
-		return priority;
-	}
-
-	public void setPriority(Priority priority) {
-		this.priority = priority;
 	}
 
 	public long getId() {

@@ -10,24 +10,18 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.j32bit.ticket.bean.Ticket;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/ticket")
 public class TicketRest {
 
-	private static Logger logger = LogManager.getLogger();
-
 	@Path("/addTicket")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PermitAll
 	public void storeTicket(Ticket ticket) throws Exception{
-		ServiceFacade.getInstance().storeTicket(ticket);
-		logger.debug("Ticket added: "+ticket);
+		ServiceFacade.getInstance().addTicket(ticket);
 	}
 
 	

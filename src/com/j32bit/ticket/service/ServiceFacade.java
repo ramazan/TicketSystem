@@ -42,20 +42,20 @@ public class ServiceFacade {
 		logger.info("initialize started");
 		userService = new UserDAOService();
 		userService.init(prop);
-		
+
 		ticketService = new TicketDAOService();
 		ticketService.init(prop);
-		
+
 		companyService = new CompanyDAOService();
 		companyService.init(prop);
-		
+
 		departmentDAOService = new DepartmentDAOService();
 		departmentDAOService.init(prop);
 		logger.info("initialize finished");
 	}
 
 	public void addUser(User user) {
-		 try {
+		try {
 			userService.addUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,28 +76,27 @@ public class ServiceFacade {
 		return userService.getUser(userEmail);
 	}
 
-	// TODO: SONRADAN ACILACAK!!
-	public void storeTicket(Ticket ticket) throws Exception {
-		// ticketService.storeTicket(ticket);
+	public void addTicket(Ticket ticket) throws Exception {
+		ticketService.addTicket(ticket);
 	}
 
 	public Company addCompany(Company company) {
 		return companyService.addCompany(company);
 	}
-	
-	public Company getCompany(long id){
+
+	public Company getCompany(long id) {
 		return companyService.getCompany(id);
 	}
-	
-	public ArrayList<Company> getAllCompanies(){
+
+	public ArrayList<Company> getAllCompanies() {
 		return companyService.getAllcompanies();
 	}
 
 	public ArrayList<Department> getAllDepartments() {
 		return departmentDAOService.getAllDepartments();
 	}
-	
-	public Department getDepartment(long departmentID){
+
+	public Department getDepartment(long departmentID) {
 		return departmentDAOService.getDepartment(departmentID);
 	}
 
