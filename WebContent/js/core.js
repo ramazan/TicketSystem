@@ -1,3 +1,5 @@
+var authenticatedUserID;
+
 $(document).ready(function(){
 
 	$.ajax({
@@ -7,7 +9,9 @@ $(document).ready(function(){
 			mimeType: "application/json",
 			success : function(data){
 				console.log("user email:" + data.email+" name:"+data.name);
+				userID = data.id;
 				$("#nickname").text(data.email);
+				authenticatedUserID = data.id;
 				$("#user_email").text(data.email);
 				$("#user_name").val(data.name);
 				$("#user_company").text(data.company.name);
@@ -21,7 +25,6 @@ $(document).ready(function(){
 	  console.log("nav-user is hided");
 	  $("#nav_users").hide();
 	}
-
 
 	$('#supporterRole').change(function() {
 		if (this.checked)
@@ -45,7 +48,7 @@ function logout(){
 
 function hideTickets(){
 	getAllUsers();
-	getAllDepartments();
+	getAllDepartments("#userDepartment");
 	getAllCompanies();
 
 	$('#userLink').addClass("active");
@@ -56,6 +59,7 @@ function hideTickets(){
 
 function hideUsers(){
 	getAllTickets();
+	getAllDepartments("#ticketDepartments");
 
 	$('#userLink').removeClass("active");
 	$("#ticketLink").addClass("active");

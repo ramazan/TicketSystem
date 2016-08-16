@@ -50,13 +50,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
 			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-
-			pst.setString(1, company.getName());
-			pst.setString(2, company.getAddress());
-			pst.setString(3, company.getEmail());
-			pst.setString(4, company.getPhone());
-			pst.setString(5, company.getFax());
-
+			
 			if (logger.isTraceEnabled()) { // trace bas sonra calistir
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
@@ -68,6 +62,12 @@ public class CompanyDAOService extends ConnectionHelper {
 				logger.trace(queryLog.toString());
 			}
 
+			pst.setString(1, company.getName());
+			pst.setString(2, company.getAddress());
+			pst.setString(3, company.getEmail());
+			pst.setString(4, company.getPhone());
+			pst.setString(5, company.getFax());
+			
 			pst.executeUpdate();
 
 			rs = pst.getGeneratedKeys();

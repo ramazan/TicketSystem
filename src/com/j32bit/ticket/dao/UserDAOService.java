@@ -52,19 +52,11 @@ public class UserDAOService extends ConnectionHelper {
 				queryAddUser.append("(FULL_NAME,EMAIL,PASSWORD,COMPANY_ID,DEPARTMENT_ID)");
 				queryAddUser.append("values (?,?,?,?,?)");
 				String queryString = queryAddUser.toString();
-				logger.debug("sql query created : "+queryString);
+				logger.debug("sql query created : " + queryString);
 
 				con = getConnection();
-
 				pstAddUser = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-
-				pstAddUser.setString(1, user.getName());
-				pstAddUser.setString(2, userEmail);
-				pstAddUser.setString(3, user.getPassword());
-				pstAddUser.setLong(4, user.getCompany().getId());
-				pstAddUser.setLong(5, user.getDepartment().getId());
-				pstAddUser.executeUpdate();
-
+				
 				if (logger.isTraceEnabled()) {
 					queryLog.append("Query : ").append(queryString).append("\n");
 					queryLog.append("Parameters : ").append("\n");
@@ -76,7 +68,16 @@ public class UserDAOService extends ConnectionHelper {
 					logger.trace(queryLog.toString());
 				}
 
+				pstAddUser.setString(1, user.getName());
+				pstAddUser.setString(2, userEmail);
+				pstAddUser.setString(3, user.getPassword());
+				pstAddUser.setLong(4, user.getCompany().getId());
+				pstAddUser.setLong(5, user.getDepartment().getId());
+
+				pstAddUser.executeUpdate();
+
 				rs = pstAddUser.getGeneratedKeys();
+
 				if (rs.next()) {
 					recordID = rs.getLong(1); /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM
 												/// BULAMADIM
@@ -87,14 +88,12 @@ public class UserDAOService extends ConnectionHelper {
 				queryAddRole.append("INSERT INTO user_roles ");
 				queryAddRole.append("(EMAIL,ROLE) values (?,?)");
 				queryString = queryAddRole.toString();
-				logger.debug("sql query created : "+queryString);
+				logger.debug("sql query created : " + queryString);
 
 				pstAddRole = con.prepareStatement(queryString);
 
 				List<String> userRoles = user.getUserRoles();
 				for (String role : userRoles) {
-					pstAddRole.setString(1, userEmail);
-					pstAddRole.setString(2, role);
 					
 					if (logger.isTraceEnabled()) {
 						queryLog = new StringBuilder();
@@ -105,6 +104,9 @@ public class UserDAOService extends ConnectionHelper {
 						logger.trace(queryLog.toString());
 					}
 					
+					pstAddRole.setString(1, userEmail);
+					pstAddRole.setString(2, role);
+
 					pstAddRole.executeUpdate();
 				}
 
@@ -137,16 +139,16 @@ public class UserDAOService extends ConnectionHelper {
 
 			con = getConnection();
 			String query = "SELECT * FROM users";
-			logger.debug("sql query created : "+query);
+			logger.debug("sql query created : " + query);
 
 			pstUsers = con.prepareStatement(query);
-			
-			if(logger.isTraceEnabled()){
+
+			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query created : ").append(query).append("\n");
 				logger.trace(queryLog.toString());
 			}
-			
+
 			rsUsers = pstUsers.executeQuery();
 
 			while (rsUsers.next()) {
@@ -155,32 +157,28 @@ public class UserDAOService extends ConnectionHelper {
 				user.setEmail(rsUsers.getString("EMAIL"));
 				user.setName(rsUsers.getString("FULL_NAME"));
 				user.setPassword(rsUsers.getString("PASSWORD"));
-				
+
 				long departmentID = rsUsers.getLong("DEPARTMENT_ID");
 				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
 				user.setDepartment(department);
-				
+
 				long companyID = rsUsers.getLong("COMPANY_ID");
 				Company company = ServiceFacade.getInstance().getCompany(companyID);
 				user.setCompany(company);
-				
-				// TODO : id lere karsilik gelen isimler okunacak
-				//long userCompanyID = rsUsers.getLong("COMPANY_ID");
-				//long userDepartmentID = rsUsers.getLong("DEPARTMENT_ID");
 
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
 				pstRoles = con.prepareStatement(query.toString());
-				pstRoles.setString(1, user.getEmail());
 				
-				if(logger.isTraceEnabled()){
+				if (logger.isTraceEnabled()) {
 					StringBuilder queryLog = new StringBuilder();
 					queryLog.append("Query created : ").append(query).append("\n");
 					queryLog.append("Parameters : \n");
 					queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
 					logger.trace(queryLog.toString());
 				}
-				
+				pstRoles.setString(1, user.getEmail());
+
 				rsRoles = pstRoles.executeQuery();
 
 				ArrayList<String> userRoles = new ArrayList<>();
@@ -188,7 +186,7 @@ public class UserDAOService extends ConnectionHelper {
 					userRoles.add(rsRoles.getString("ROLE"));
 				}
 				user.setUserRoles(userRoles);
-				
+
 				userList.add(user);
 			}
 		} catch (Exception e) {
@@ -201,7 +199,7 @@ public class UserDAOService extends ConnectionHelper {
 			closePreparedStatement(pstUsers);
 			closeConnection(con);
 		}
-		logger.debug("getAllUser finished. Total#"+userList.size());
+		logger.debug("getAllUser finished. Total#" + userList.size());
 		return userList;
 	}
 
@@ -221,11 +219,10 @@ public class UserDAOService extends ConnectionHelper {
 			// GET USER
 			con = getConnection();
 			String query = "SELECT * FROM users WHERE EMAIL=?";
-			logger.debug("sql query created : "+query);
+			logger.debug("sql query created : " + query);
 
 			pstUser = con.prepareStatement(query);
-			pstUser.setString(1, userEmail);
-
+			
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query created : ").append("query").append("\n");
@@ -233,6 +230,8 @@ public class UserDAOService extends ConnectionHelper {
 				queryLog.append("EMAIL : ").append(userEmail).append("\n");
 				logger.trace(queryLog.toString());
 			}
+			
+			pstUser.setString(1, userEmail);
 
 			rsUser = pstUser.executeQuery();
 
@@ -242,11 +241,11 @@ public class UserDAOService extends ConnectionHelper {
 				user.setName(rsUser.getString("FULL_NAME"));
 				user.setPassword(rsUser.getString("PASSWORD"));
 				user.setEmail(rsUser.getString("EMAIL"));
-				
+
 				long departmentID = rsUser.getLong("DEPARTMENT_ID");
 				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
 				user.setDepartment(department);
-				
+
 				long companyID = rsUser.getLong("COMPANY_ID");
 				Company company = ServiceFacade.getInstance().getCompany(companyID);
 				user.setCompany(company);
@@ -257,9 +256,9 @@ public class UserDAOService extends ConnectionHelper {
 
 				// GET ROLE
 				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
+				logger.debug("sql query created "+query);
 				pstRole = con.prepareStatement(query.toString());
-				pstRole.setString(1, userEmail);
-
+				
 				if (logger.isTraceEnabled()) {
 					StringBuilder queryLog = new StringBuilder();
 					queryLog.append("Query created : ").append("query").append("\n");
@@ -267,6 +266,7 @@ public class UserDAOService extends ConnectionHelper {
 					queryLog.append("EMAIL : ").append(userEmail).append("\n");
 					logger.trace(queryLog.toString());
 				}
+				pstRole.setString(1, userEmail);
 
 				rsRole = pstRole.executeQuery();
 

@@ -14,8 +14,8 @@ import com.j32bit.ticket.bean.Department;
 public class DepartmentDAOService extends ConnectionHelper {
 
 	private static Logger logger = LogManager.getLogger();
-	
-	public DepartmentDAOService(){
+
+	public DepartmentDAOService() {
 		logger.info("DepartmentDAOService constructed");
 	}
 
@@ -80,9 +80,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 		try {
 			con = getConnection();
 
-			pst = con.prepareStatement(query);
-			pst.setLong(1, departmentID);
-
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(query).append("\n");
@@ -91,6 +88,8 @@ public class DepartmentDAOService extends ConnectionHelper {
 				logger.trace(queryLog.toString());
 			}
 
+			pst = con.prepareStatement(query);
+			pst.setLong(1, departmentID);
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
@@ -111,7 +110,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 		return department;
 	}
 
-	
 	public Department addDepartment(Department department) {
 		logger.debug("adddepartment started");
 
@@ -120,7 +118,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		StringBuilder query = new StringBuilder();
 		StringBuilder queryLog = new StringBuilder();
-		
 
 		try {
 
@@ -128,20 +125,19 @@ public class DepartmentDAOService extends ConnectionHelper {
 			query.append("(DEPARTMENT_NAME)");
 			query.append("values (?)");
 			String queryString = query.toString();
-			logger.debug("sql query created :"+queryString);
+			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
-			pst = con.prepareStatement(queryString);
-
-			pst.setString(1, department.getName());
-
-
-			if (logger.isTraceEnabled()) { 
+			
+			if (logger.isTraceEnabled()) {
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("Name : ").append(department.getName()).append("\n");
 				logger.trace(queryLog.toString());
 			}
+			
+			pst = con.prepareStatement(queryString);
+			pst.setString(1, department.getName());
 
 			pst.executeUpdate();
 
@@ -155,5 +151,5 @@ public class DepartmentDAOService extends ConnectionHelper {
 		logger.debug("adddepartment finished");
 		return department;
 	}
-	
+
 }

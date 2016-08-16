@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	getAllTickets();
+	getAllDepartments("#ticketDepartment");
 });
 
 function getAllTickets() {
@@ -63,26 +64,28 @@ function getAllTickets() {
 		caption : "Add",
 		buttonicon : "ui-icon-add",
 		onClickButton : function() {
-			$('#myModalNewTicket').modal('show');
+			$('#modalAddTicket').modal('show');
 		}
 	});
 }
 
 function addTicket() {
-	var newTitle = $("#ticket_subject").val();
-	var newMessage = $("#ticket_message").val();
-	if (newTitle == "" || newMessage == "") {
-		$("#error_message").text("Please fill all boxes");
+	var ticketTitle = $("#ticketTitle").val();
+	var ticketMessage = $("#ticketMessage").val();
+	if (ticketTitle == "" || ticketMessage == "") {
+		$("#modalAddTicketMessage").text("Please fill all boxes");
 	} else {
-		var newDepartment = $("#ticket_deparment option:selected").text();
-		var newPriority = $("#ticket_priority option:selected").text();
+		var ticketDepartmentID = $("#ticketDepartment").val();
+		var ticketPriority = $("#ticketPriority").val();
+
+		console.log("Selected DepID:"+ticketDepartmentID+" Prio:"+ticketPriority);
 
 		var ticket = {
-			sender : "hmenn",
-			title : newTitle,
-			message : newMessage,
-			department : newDepartment,
-			priority : newPriority
+			sender : {id:authenticatedUserID},
+			title : ticketTitle,
+			message : ticketMessage,
+			department : { id:ticketDepartmentID},
+			priority : ticketPriority
 		};
 		$.ajax({
 			type : "POST",
@@ -91,7 +94,11 @@ function addTicket() {
 			mimeType : "application/json",
 			data : JSON.stringify(ticket),
 			success : function() {
-				console.log("ticket add ajax called")
+				$("#modalAddTicketMessage").text("Ticket sended. Closing Window..");
+				$('#ticket_jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
+				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
+				$('input').val('');   								       // inputları temizle.
+  				setTimeout(function() { $('#modalAddTicket').modal('hide'); }, 2000);
 			}
 		});
 

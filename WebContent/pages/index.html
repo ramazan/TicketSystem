@@ -41,7 +41,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="profile.html">My Profile</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="logout.html">Logout</a></li>
+							<li><a href="#" onclick="logout()">Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -59,7 +59,7 @@
 		</div>
 		<!-- row -- >
 		<!--    Add Tickets Modal -->
-		<div id="myModalNewTicket" class="modal fade" role="dialog">
+		<div id="modalAddTicket" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -68,39 +68,30 @@
 						<h4 class="modal-title">New Ticket</h4>
 					</div>
 					<div class="modal-body">
-						<p id="error_message" class="text-center text-warning lead"></p>
-
+						<p id="modalAddTicketMessage" class="text-center text-warning lead"></p>
 
 						<label>Department:</label>
 						<div class="form-group">
-							<select id="ticket_deparment">
-								<option value="dep_sale">Sale</option>
-								<option value="dep_support">Support</option>
-								<option value="dep_accounting">Accounting</option>
-							</select>
+							<select id="ticketDepartment"></select>
 						</div>
-
 
 						<label>Priority:</label>
 						<div class="form-group">
-							<select id="ticket_priority">
-								<option value="prio_low">LOW</option>
-								<option value="prio_normal">NORMAL</option>
-								<option value="prio_high">HIGH</option>
-								<option value="prio_emergency">EMERGENCY</option>
+							<select id="ticketPriority">
+								<option value="1">NORMAL</option>
+								<option value="2">HIGH</option>
 							</select>
 						</div>
 
-
-						<label>Subject:</label>
+						<label>Title:</label>
 						<div class="form-group">
-							<input type="text" size="40" id="ticket_subject"></input>
+							<input type="text" size="40" id="ticketTitle"></input>
 						</div>
 
 
 						<label>Message:</label>
 						<div class="form-group">
-							<textarea rows="9" cols="60" id="ticket_message"></textarea>
+							<textarea rows="9" cols="60" id="ticketMessage"></textarea>
 						</div>
 
 					</div>

@@ -1,5 +1,3 @@
-//Date ve Ticket Sayısı(PK) eklendikten sonra komutlar düzenlenecek. 
-
 package com.j32bit.ticket.dao;
 
 import java.sql.Connection;
@@ -15,8 +13,8 @@ import com.j32bit.ticket.bean.Ticket;
 
 public class TicketDAOService extends ConnectionHelper {
 	private Logger logger = LogManager.getLogger(TicketDAOService.class);
-	
-	public TicketDAOService(){
+
+	public TicketDAOService() {
 		logger.info("TicketDAOService constructed");
 	}
 
@@ -26,40 +24,39 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.info("TicketDAOService service is initialized");
 	}
 
-	public void storeTicket(Ticket ticket) throws Exception {
+	public void addTicket(Ticket ticket) throws Exception {
 
-		logger.debug("storeTicket is started");
+		logger.debug("addTicket is started");
 		Connection conn = null;
 		PreparedStatement pStmt = null;
 		StringBuilder query = new StringBuilder();
 		StringBuilder querylog = new StringBuilder();
 		try {
 			query.append("INSERT INTO tickets ");
-			query.append("(sender, title,priority,department,message) ");
+			query.append("(SENDER_ID, TITLE,DEPARTMENT_ID,MESSAGE,PRIORITY) ");
 			query.append("VALUES(?,?,?,?,?)");
 			String queryString = query.toString();
 			logger.debug("Sql query Created : " + queryString);
 
 			conn = getConnection();
-
 			pStmt = conn.prepareStatement(queryString);
-
+			
 			if (logger.isTraceEnabled()) {
 				querylog.append("Query : ").append(queryString).append("\n");
 				querylog.append("Parameters : ").append("\n");
 				querylog.append("TITLE : ").append(ticket.getTitle()).append("\n");
 				querylog.append("MESSAGE : ").append(ticket.getMessage()).append("\n");
-				querylog.append("SENDER : ").append(ticket.getFrom()).append("\n");
+				querylog.append("SENDER_ID : ").append(ticket.getSender().getId()).append("\n");
 				querylog.append("PRIORITY : ").append(ticket.getPriority()).append("\n");
-				querylog.append("DEPARTMENT : ").append(ticket.getDepartmentName()).append("\n");
+				querylog.append("DEPARTMENT_ID : ").append(ticket.getDepartment().getId()).append("\n");
 				logger.trace(querylog.toString());
 			}
 
-			pStmt.setString(1, ticket.getFrom());
+			pStmt.setLong(1, ticket.getSender().getId());
 			pStmt.setString(2, ticket.getTitle());
-			pStmt.setString(3, ticket.getPriority().toString());
-			pStmt.setString(4, ticket.getDepartmentName());
-			pStmt.setString(5, ticket.getMessage());
+			pStmt.setLong(3, ticket.getDepartment().getId());
+			pStmt.setString(4, ticket.getMessage());
+			pStmt.setInt(5, ticket.getPriority());
 
 			pStmt.execute();
 
@@ -69,46 +66,37 @@ public class TicketDAOService extends ConnectionHelper {
 			closePreparedStatement(pStmt);
 			closeConnection(conn);
 		}
-		logger.debug("storeTicket is finished");
+		logger.debug("addTicket is finished");
 	}
 
 	public ArrayList<Ticket> getAllTickets() {
 		logger.debug("getAllTickets started");
-		/*Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;*/
+		/*
+		 * Connection con = null; PreparedStatement pst = null; ResultSet rs =
+		 * null;
+		 */
 
 		ArrayList<Ticket> tickets = new ArrayList<>();
-		/*try {
-			String query = "SELECT * FROM tickets";
-			logger.debug("sql query created : "+query);
-
-			con = getConnection();
-			
-			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				long id = rs.getLong("ID");
-				Date date = rs.getDate("DATE");
-				int senderID = rs.getInt("SENDER_ID");
-				String title = rs.getString("TITLE");
-				int status = rs.getInt("STATUS");
-				int departmentID = rs.getInt("DEPARTMENT_ID");
-				String message = rs.getString("MESSAGE");
-
-				Priority priority = null; // TODO: BURASI DB DEN ALINACAK
-				Ticket ticket = new Ticket();
-				ticket.setId(id);
-			}
-		} catch (Exception e) {
-			logger.debug("getAllTickets error occured");
-			e.printStackTrace();
-		} finally {
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-			closeConnection(con);
-		}*/
+		/*
+		 * try { String query = "SELECT * FROM tickets";
+		 * logger.debug("sql query created : "+query);
+		 * 
+		 * con = getConnection();
+		 * 
+		 * pst = con.prepareStatement(query); rs = pst.executeQuery();
+		 * 
+		 * while (rs.next()) { long id = rs.getLong("ID"); Date date =
+		 * rs.getDate("DATE"); int senderID = rs.getInt("SENDER_ID"); String
+		 * title = rs.getString("TITLE"); int status = rs.getInt("STATUS"); int
+		 * departmentID = rs.getInt("DEPARTMENT_ID"); String message =
+		 * rs.getString("MESSAGE");
+		 * 
+		 * Priority priority = null; // TODO: BURASI DB DEN ALINACAK Ticket
+		 * ticket = new Ticket(); ticket.setId(id); } } catch (Exception e) {
+		 * logger.debug("getAllTickets error occured"); e.printStackTrace(); }
+		 * finally { closeResultSet(rs); closePreparedStatement(pst);
+		 * closeConnection(con); }
+		 */
 		return tickets;
 	}
 }
