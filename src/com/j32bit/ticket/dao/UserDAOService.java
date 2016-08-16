@@ -274,6 +274,7 @@ public class UserDAOService extends ConnectionHelper {
 				while (rsRole.next()) {
 					roles.add(rsRole.getString(1));
 				}
+				user.setUserRoles(roles);
 			}
 		} catch (Exception e) {
 			logger.debug("getUser error occured");

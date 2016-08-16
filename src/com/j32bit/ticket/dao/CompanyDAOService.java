@@ -182,11 +182,11 @@ public class CompanyDAOService extends ConnectionHelper {
 			if (rs.next()) {
 				company = new Company();
 				company.setName(rs.getString("COMPANY_NAME"));
-				company.setId(companyID);
-				company.setEmail("EMAIL");
-				company.setFax("FAX");
-				company.setPhone("PHONE");
-				company.setAddress("ADDRESS");
+				company.setId(rs.getLong("ID"));
+				company.setEmail(rs.getString("EMAIL"));
+				company.setFax(rs.getString("FAX"));
+				company.setPhone(rs.getString("PHONE"));
+				company.setAddress(rs.getString("ADDRESS"));
 			} else {
 				throw new Exception("Company not found!!!");
 			}
