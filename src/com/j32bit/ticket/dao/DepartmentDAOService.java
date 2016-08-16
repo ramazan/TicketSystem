@@ -95,7 +95,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 			if (rs.next()) {
 				department.setName(rs.getString("DEPARTMENT_NAME"));
-				department.setId(departmentID);
+				department.setId(rs.getLong("ID"));
 			} else {
 				department.setName("NO DEPARTMENT");
 				department.setId(0);
