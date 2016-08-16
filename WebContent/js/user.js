@@ -152,7 +152,7 @@ function updateProfile() {
 		mimeType : "application/json",
 		data :password,
 		success : function(data) {
-			console.log("password changed");
+			$("#validateStatus").text("Şifre başarıyla değişti!");
 		},
 		error : function() {
 			alert("User cannot added please try again. ");
