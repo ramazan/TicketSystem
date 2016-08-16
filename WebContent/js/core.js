@@ -33,7 +33,6 @@ $(document).ready(function(){
 			$('#departmentFade').fadeOut();
 	});
 
-	$("#user_new_pass2").keyup(validate);
 
 });
 

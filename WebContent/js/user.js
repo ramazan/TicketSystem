@@ -160,3 +160,8 @@ function updateProfile() {
 	});
 
 }
+
+
+$(document).ready(function(){
+	$("#userNewPassConfirm").keyup(validate);
+});
