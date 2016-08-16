@@ -24,9 +24,10 @@ function getAllTickets() {
 			width : 60,
 			formatter : 'date',
 			formatoptions : {
-				srcformat : 'Y-m-d H:i:s',
-				newformat : 'M d g:i A'
+				srcformat : 'U',
+				newformat : 'd/m/Y'
 			}
+
 		}, {
 			label : "Title",
 			name : 'title',
@@ -40,15 +41,15 @@ function getAllTickets() {
 			name : 'departmentName',
 			width : 80
 		} ],
-		 responsive : true,
-		 multiselect : true,
+		responsive : true,
+		multiselect : true,
 		viewrecords : true,
 		height : 450,
 		width : 850,
 		styleUI : 'Bootstrap',
 		rowNum : 10,
 		pager : "#ticket_jqGridPager",
-		emptyrecords: "Nothing to display"
+		emptyrecords : "Nothing to display"
 	});
 
 	$('#ticket_jqGrid').navGrid('#ticket_jqGridPager', {
@@ -78,13 +79,18 @@ function addTicket() {
 		var ticketDepartmentID = $("#ticketDepartment").val();
 		var ticketPriority = $("#ticketPriority").val();
 
-		console.log("Selected DepID:"+ticketDepartmentID+" Prio:"+ticketPriority);
+		console.log("Selected DepID:" + ticketDepartmentID + " Prio:"
+				+ ticketPriority);
 
 		var ticket = {
-			sender : {id:authenticatedUserID},
+			sender : {
+				id : authenticatedUserID
+			},
 			title : ticketTitle,
 			message : ticketMessage,
-			department : { id:ticketDepartmentID},
+			department : {
+				id : ticketDepartmentID
+			},
 			priority : ticketPriority
 		};
 		$.ajax({
@@ -94,11 +100,16 @@ function addTicket() {
 			mimeType : "application/json",
 			data : JSON.stringify(ticket),
 			success : function() {
-				$("#modalAddTicketMessage").text("Ticket sended. Closing Window..");
-				$('#ticket_jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
-				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
-				$('input').val('');   								       // inputları temizle.
-  				setTimeout(function() { $('#modalAddTicket').modal('hide'); }, 2000);
+				$("#modalAddTicketMessage").text(
+						"Ticket sended. Closing Window..");
+				$('#ticket_jqGrid').trigger('reloadGrid'); // jqGridi reload
+															// ediyorum
+				$('input:checkbox').removeAttr('checked'); // check boxların
+															// check'ini kaldır
+				$('input').val(''); // inputları temizle.
+				setTimeout(function() {
+					$('#modalAddTicket').modal('hide');
+				}, 2000);
 			}
 		});
 
