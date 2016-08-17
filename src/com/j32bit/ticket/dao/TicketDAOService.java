@@ -117,7 +117,6 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setSender(user);
 
 				tickets.add(ticket);
-
 			}
 
 		} catch (Exception e) {
@@ -131,9 +130,69 @@ public class TicketDAOService extends ConnectionHelper {
 		return tickets;
 	}
 
-	public Ticket getTicketDetails(long ID) {
-		logger.debug("get Ticket Catch it! ID= "+ ID);
-		Ticket ticket = new Ticket();
+	public Ticket getTicketDetails(long ticketID) {
+		logger.debug("getTicketDetails started. ticketID:" + ticketID);
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		StringBuilder query = new StringBuilder();
+
+		Ticket ticket = null;
+
+		try {
+			query.append("SELECT tickets.*, departments.DEPARTMENT_NAME, users.FULL_NAME, users.EMAIL FROM tickets ");
+			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID=departments.ID ");
+			query.append("INNER JOIN users ON users.id=tickets.SENDER_ID ");
+			query.append("WHERE tickets.ID=?");
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+
+			pst = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters ").append("\n");
+				queryLog.append("ID : ").append(ticketID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pst.setLong(1, ticketID);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				ticket = new Ticket();
+				ticket.setId(ticketID);
+				ticket.setMessage(rs.getString("MESSAGE"));
+				ticket.setPriority(rs.getInt("PRIORITY"));
+				ticket.setStatus(true); // TODO: db den boolean olarak alinacak
+				ticket.setTitle(rs.getString("TITLE"));
+				ticket.setTime(rs.getTimestamp("DATE").toString());
+
+				User user = new User();
+				user.setName(rs.getString("FULL_NAME"));
+				user.setId(rs.getLong("SENDER_ID"));
+				user.setEmail(rs.getString("EMAIL"));
+
+				ticket.setSender(user);
+
+				Department department = new Department();
+				department.setId(rs.getLong("DEPARTMENT_ID"));
+				department.setName(rs.getString("DEPARTMENT_NAME"));
+
+				ticket.setDepartment(department);
+			}
+
+		} catch (Exception e) {
+			logger.error("getTicketDetails error :" + e.getMessage());
+
+		}
+		logger.debug("getTicketDetails finished");
+
 		return ticket;
 	}
 }

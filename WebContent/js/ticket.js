@@ -15,8 +15,14 @@ function getTicket(ticketID){
 		contentType : "application/json",
 		mimeType : "application/json",
 		data:JSON.stringify(ticketID),
-		success : function() {
-
+		success : function(ticket) {
+			$("#ticket_title").text(ticket.title);
+			$("#ticket_message").text(ticket.message);
+			$("#ticket_status").text(ticket.status);
+			$("#ticket_date").text(ticket.time);
+			$("#ticket_sender").text(ticket.sender.name);
+			$("#ticket_department").text(ticket.department.name);
+			console.log("Ticket: "+ticket);
 		},
 		error : function() {
 			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
