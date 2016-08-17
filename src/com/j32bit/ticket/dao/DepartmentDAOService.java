@@ -43,21 +43,15 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 			pst = con.prepareStatement(query);
 
-			if (logger.isTraceEnabled()) {
-				logger.trace(query);
-			}
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-
-				String depName = rs.getString("DEPARTMENT_NAME");
-				int depID = rs.getInt("ID");
-				Department department = new Department(depName, depID);
+				Department department = new Department();
+				department.setId(rs.getInt("ID"));
+				department.setName(rs.getString("DEPARTMENT_NAME"));
 
 				departments.add(department);
 			}
-
-			logger.debug("getAllDepartments completed. dep#" + departments.size());
 
 		} catch (Exception e) {
 			logger.error("getAllDepartments error: " + e.getMessage());
@@ -66,8 +60,8 @@ public class DepartmentDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
+		logger.debug("getAllDepartments finished.");
 		return departments;
-
 	}
 
 	public Department getDepartment(long departmentID) {
@@ -85,6 +79,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 		try {
 			con = getConnection();
 
+			pst = con.prepareStatement(query);
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(query).append("\n");
@@ -93,7 +88,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 				logger.trace(queryLog.toString());
 			}
 
-			pst = con.prepareStatement(query);
 			pst.setLong(1, departmentID);
 			rs = pst.executeQuery();
 
@@ -101,8 +95,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 				department.setName(rs.getString("DEPARTMENT_NAME"));
 				department.setId(rs.getLong("ID"));
 			} else {
-				department.setName("NO DEPARTMENT");
-				department.setId(0);
+				throw new Exception("Not found department");
 			}
 		} catch (Exception e) {
 			// e.printStackTrace();
@@ -133,6 +126,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
+			pst = con.prepareStatement(queryString);
 
 			if (logger.isTraceEnabled()) {
 				queryLog.append("Query : ").append(queryString).append("\n");
@@ -141,7 +135,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 				logger.trace(queryLog.toString());
 			}
 
-			pst = con.prepareStatement(queryString);
 			pst.setString(1, department.getName());
 
 			pst.executeUpdate();

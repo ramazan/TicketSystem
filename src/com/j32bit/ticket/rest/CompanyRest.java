@@ -33,6 +33,7 @@ public class CompanyRest {
 	@GET
 	@Path("/getCompany")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Company getCompany(long companyID) {
 		return ServiceFacade.getInstance().getCompany(companyID);
 	}

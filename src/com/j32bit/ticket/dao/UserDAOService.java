@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.User;
-import com.j32bit.ticket.service.ServiceFacade;
 
 public class UserDAOService extends ConnectionHelper {
 
@@ -219,6 +218,7 @@ public class UserDAOService extends ConnectionHelper {
 		PreparedStatement pstRole = null;
 		ResultSet rsUser = null;
 		ResultSet rsRole = null;
+		StringBuilder query = new StringBuilder();
 
 		User user = null;
 
@@ -226,10 +226,15 @@ public class UserDAOService extends ConnectionHelper {
 
 			// GET USER
 			con = getConnection();
-			String query = "SELECT * FROM users WHERE EMAIL=?";
-			logger.debug("sql query created : " + query);
+			query.append("SELECT users.*, companies.COMPANY_NAME,companies.EMAIL AS COMPANY_EMAIL,");
+			query.append("companies.ADDRESS, companies.PHONE, companies.FAX,departments.DEPARTMENT_NAME ");
+			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
+			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID WHERE users.EMAIL=?");
+			
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
 
-			pstUser = con.prepareStatement(query);
+			pstUser = con.prepareStatement(queryString);
 			pstUser.setString(1, userEmail);
 
 			if (logger.isTraceEnabled()) {
@@ -247,26 +252,30 @@ public class UserDAOService extends ConnectionHelper {
 			if (rsUser.next()) {
 				user = new User();
 				user.setId(rsUser.getLong("ID"));
+				user.setEmail(rsUser.getString("EMAIL"));
 				user.setName(rsUser.getString("FULL_NAME"));
 				user.setPassword(rsUser.getString("PASSWORD"));
-				user.setEmail(rsUser.getString("EMAIL"));
 
-				long departmentID = rsUser.getLong("DEPARTMENT_ID");
-				Department department = ServiceFacade.getInstance().getDepartment(departmentID);
+				Department department = new Department();
+				department.setName(rsUser.getString("DEPARTMENT_NAME"));
+				department.setId(rsUser.getLong("DEPARTMENT_ID"));
+
 				user.setDepartment(department);
 
-				long companyID = rsUser.getLong("COMPANY_ID");
-				Company company = ServiceFacade.getInstance().getCompany(companyID);
+				Company company = new Company();
+				company.setAddress(rsUser.getString("ADDRESS"));
+				company.setEmail(rsUser.getString("COMPANY_EMAIL"));
+				company.setFax(rsUser.getString("FAX"));
+				company.setId(rsUser.getLong("COMPANY_ID"));
+				company.setName(rsUser.getString("COMPANY_NAME"));
+				company.setPhone("PHONE");
+
 				user.setCompany(company);
 
-				// TODO: company id ler in isimleri alinacak
-				// long userCompanyID = rsUser.getLong("COMPANY_ID");
-				// long userDepartmentID = rsUser.getLong("DEPARTMENT_ID");
-
 				// GET ROLE
-				query = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-				logger.debug("sql query created " + query);
-				pstRole = con.prepareStatement(query.toString());
+				queryString = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
+				logger.debug("sql query created " + queryString);
+				pstRole = con.prepareStatement(queryString);
 
 				if (logger.isTraceEnabled()) {
 					StringBuilder queryLog = new StringBuilder();

@@ -104,15 +104,15 @@ public class ServiceFacade {
 		return departmentDAOService.addDepartment(department);
 	}
 
-	public void updateUser(String password ,String email) {
+	public void updateUser(String password, String email) {
 		try {
-			logger.debug("update  user service2 password "+password);
+			logger.debug("update  user service2 password " + password);
 
-			userService.updateUser(password,email);
+			userService.updateUser(password, email);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
 
 }

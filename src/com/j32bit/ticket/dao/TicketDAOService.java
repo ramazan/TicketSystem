@@ -102,8 +102,8 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setStatus(true); // TODO : DB DEN AL
 				ticket.setTime(rs.getTimestamp("DATE").toString());
-				
-				//logger.debug("TiME "+rs.getTimestamp("DATE"));
+
+				// logger.debug("TiME "+rs.getTimestamp("DATE"));
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));

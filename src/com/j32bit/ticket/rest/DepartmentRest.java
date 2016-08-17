@@ -25,7 +25,7 @@ public class DepartmentRest {
 	@Path("/addDepartment")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Department addDepartments(Department department) throws Exception {
+	public Department addDepartment(Department department) throws Exception {
 		return ServiceFacade.getInstance().addDeparment(department);
 	}
 

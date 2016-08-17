@@ -43,14 +43,14 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			query.append("INSERT INTO companies ");
 			query.append("(COMPANY_NAME,ADDRESS,EMAIL,PHONE,FAX) ");
-			query.append("values (?,?,?,?,?)");
+			query.append("VALES (?,?,?,?,?)");
 			String queryString = query.toString();
-			logger.debug("sql query created :"+queryString);
+			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
 			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-			
+
 			if (logger.isTraceEnabled()) { // trace bas sonra calistir
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
@@ -67,7 +67,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			pst.setString(3, company.getEmail());
 			pst.setString(4, company.getPhone());
 			pst.setString(5, company.getFax());
-			
+
 			pst.executeUpdate();
 
 			rs = pst.getGeneratedKeys();
@@ -101,7 +101,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			pst.setString(1, company.getName());
 
 			rs = pst.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				throw new Exception("Similar record founds. Company Name :" + rs.getString("COMPANY_NAME"));
 			}
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		logger.debug("checkSimilarCompanyRecord started");
+		logger.debug("checkSimilarCompanyRecord finished");
 	}
 
 	public ArrayList<Company> getAllcompanies() {
@@ -191,7 +191,7 @@ public class CompanyDAOService extends ConnectionHelper {
 				throw new Exception("Company not found!!!");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("getCompany error : "+e.getMessage());
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
