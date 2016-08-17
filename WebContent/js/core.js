@@ -8,14 +8,15 @@ $(document).ready(function(){
 			contentType : "application/json",
 			mimeType: "application/json",
 			success : function(data){
-				console.log("user email:" + data.email+" name:"+data.name);
+				console.log("user email:" + data.email+" name:"+data.name +" company name  :" + data.company.name+" roller: "+data.userRoles   );
 				userID = data.id;
-				$("#nickname").text(data.email);
+				$("#userProfileEmail").text(data.email);
+				$("#userProfileName").text(data.name);
+				$("#userProfileCompany").text(data.company.name);
+				$("#userProfileRoles").text(data.userRoles);
+				$("#nickname").text("Wellcome " + data.name);
 				authenticatedUserID = data.id;
-				$("#userEmail").text(data.email);
-				$("#userName").text(data.name);
-				$("#userCompany").text(data.company.name);
-				$("#userRoles").text(data.userRoles);
+				
 				}
 		});
 
@@ -33,6 +34,9 @@ $(document).ready(function(){
 			$('#departmentFade').fadeOut();
 	});
 
+	
+	$("#userNewPass").keyup(validate);
+	$("#userNewPassConfirm").keyup(validate);
 
 });
 
@@ -46,7 +50,7 @@ function logout(){
 }
 
 
-function hideTickets(){
+function showUsers(){
 	getAllUsers();
 	getAllDepartments("#userDepartment");
 	getAllCompanies();
@@ -55,14 +59,28 @@ function hideTickets(){
 	$("#ticketLink").removeClass("active");
 	$('#users').show();
 	$('#tickets').hide();
+	$('#ticket_details').hide();
+	$('#profile').hide();
 }
 
-function hideUsers(){
+function showTickets(){
 	getAllTickets();
 	getAllDepartments("#ticketDepartments");
 
 	$('#userLink').removeClass("active");
 	$("#ticketLink").addClass("active");
 	$('#users').hide();
+	$('#ticket_details').hide();
+	$('#profile').hide();
 	$('#tickets').show();
+}
+
+function showProfile(){
+
+	$('#userLink').removeClass("active");
+	$("#ticketLink").addClass("active");
+	$('#users').hide();
+	$('#ticket_details').hide();
+	$('#profile').show();
+	$('#tickets').hide();
 }

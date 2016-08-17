@@ -161,8 +161,3 @@ function updateProfile() {
 
 }
 
-
-$(document).ready(function(){
-	$("#userNewPass").keyup(validate);
-	$("#userNewPassConfirm").keyup(validate);
-});
