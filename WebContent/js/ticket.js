@@ -108,6 +108,9 @@ function addTicket() {
 				setTimeout(function() {
 					$('#modalAddTicket').modal('hide');
 				}, 2000);
+			},
+			error : function() {
+				alert("Ticket cannot added please try again. ");
 			}
 		});
 

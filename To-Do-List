@@ -3,7 +3,7 @@
 /********************************************************************/
 opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
 /********************************************************************/
-Ticket ve user eklendiğinde/eklenemediğinde uyarı mesajları verilmeli 
+jqGrid yenilendiğinde her seferinde add butonu ekleniyor??
 /********************************************************************/
 user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçekleştirilebilmeli
 /********************************************************************/
