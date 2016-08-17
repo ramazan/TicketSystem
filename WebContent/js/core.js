@@ -16,7 +16,6 @@ $(document).ready(function(){
 				$("#userProfileRoles").text(data.userRoles);
 				$("#nickname").text("Welcome " + data.name);
 				authenticatedUserID = data.id;
-				
 				}
 		});
 
@@ -34,7 +33,7 @@ $(document).ready(function(){
 			$('#departmentFade').fadeOut();
 	});
 
-	
+
 	$("#userNewPass").keyup(validate);
 	$("#userNewPassConfirm").keyup(validate);
 
@@ -61,6 +60,15 @@ function showUsers(){
 	$('#tickets').hide();
 	$('#ticket_details').hide();
 	$('#profile').hide();
+}
+
+function showTicketDetails(){
+	$('#userLink').removeClass("active");
+	$("#ticketLink").addClass("active");
+	$('#users').hide();
+	$('#profile').hide();
+	$('#ticket_details').show();
+	$('#tickets').hide();
 }
 
 function showTickets(){

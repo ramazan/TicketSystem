@@ -3,6 +3,18 @@ $(document).ready(function() {
 	getAllDepartments("#ticketDepartment");
 });
 
+function getTicket(ticketID){
+	showTicketDetails();
+}
+
+function addLink(cellvalue, options, rowObject){
+	var ticketID= rowObject.id;
+	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Slect'";
+	clickLink +=" onclick=\"getTicket("+ticketID+")\" >"+ticketID+"</a>"
+	return clickLink;
+}
+
+
 function getAllTickets() {
 	$("#ticket_jqGrid").jqGrid({
 		caption : "Ticket List",
@@ -13,11 +25,7 @@ function getAllTickets() {
 			label : "ID",
 			name : 'id',
 			width : 25,
-			formatter : 'showlink',
-			formatoptions : {
-				baseLinkUrl : '###',
-				idName : 'ticketID'
-			}
+			formatter: addLink
 		}, {
 			label : "Date",
 			name : 'time',
@@ -47,7 +55,7 @@ function getAllTickets() {
 		styleUI : 'Bootstrap',
 		rowNum : 10,
 		pager : "#ticket_jqGridPager",
-		emptyrecords : "Nothing to display"
+		emptyrecords : "Nothing to display",
 	});
 
 	$('#ticket_jqGrid').navGrid('#ticket_jqGridPager', {
