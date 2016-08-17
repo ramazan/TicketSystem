@@ -14,7 +14,7 @@ $(document).ready(function(){
 				$("#userProfileName").text(data.name);
 				$("#userProfileCompany").text(data.company.name);
 				$("#userProfileRoles").text(data.userRoles);
-				$("#nickname").text("Wellcome " + data.name);
+				$("#nickname").text("Welcome " + data.name);
 				authenticatedUserID = data.id;
 				
 				}
