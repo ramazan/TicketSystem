@@ -4,14 +4,17 @@
 });
 
 function getTicket(ticketID){
+
+	console.log("Ticket ID:"+ticketID);
+	console.log(typeof ticketID);
 	showTicketDetails();
-	
+
 	$.ajax({
 		type : "POST",
 		url : '/Ticket_System/rest/ticket/getTicketDetails',
 		contentType : "application/json",
 		mimeType : "application/json",
-		data:ticketID,
+		data:JSON.stringify(ticketID),
 		success : function() {
 
 		},
