@@ -308,7 +308,7 @@ public class UserDAOService extends ConnectionHelper {
 		return user;
 	}
 
-	public void updateUser(String password, String email) throws Exception {
+	public void updateProfile(String password, String email) throws Exception {
 
 		logger.debug("updateUser started");
 

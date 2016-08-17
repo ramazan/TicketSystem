@@ -147,12 +147,13 @@ function updateProfile() {
 
 	$.ajax({
 		type : "POST",
-		url : '/Ticket_System/rest/user/updateUser',
+		url : '/Ticket_System/rest/user/updateProfile',
 		contentType : "application/json",
 		mimeType : "application/json",
 		data :password,
 		success : function(data) {
 			$("#validateStatus").text("Şifre başarıyla değişti!");
+			$("#ProfileSaveButton").prop("disabled", true);
 		},
 		error : function() {
 			alert("User cannot added please try again. ");

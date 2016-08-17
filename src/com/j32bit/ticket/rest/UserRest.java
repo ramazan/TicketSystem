@@ -51,12 +51,12 @@ public class UserRest {
 		return ServiceFacade.getInstance().getAllUsers();
 	}
 
-	@Path("/updateUser")
+	@Path("/updateProfile")
 	@POST
 	public void updateUser(String password, @Context HttpServletRequest request) {
 		User authenticatedUserDetails = (User) request.getSession().getAttribute("LOGIN_USER");
 		String email = authenticatedUserDetails.getEmail();
-		ServiceFacade.getInstance().updateUser(password, email);
+		ServiceFacade.getInstance().updateProfile(password, email);
 	}
 
 }
