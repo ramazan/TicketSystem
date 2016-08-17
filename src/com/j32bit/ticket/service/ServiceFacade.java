@@ -115,4 +115,9 @@ public class ServiceFacade {
 		}
 	}
 
+	public Ticket getTicketDetails(long ID) {
+		logger.debug("ServiceFacade getTicketDetails started  ID = " + ID);
+		return ticketService.getTicketDetails(ID);
+	}
+
 }

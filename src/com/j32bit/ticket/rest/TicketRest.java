@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.dao.TicketDAOService;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/ticket")
@@ -38,4 +39,12 @@ public class TicketRest {
 		return  ServiceFacade.getInstance().getAllTickets();
 	}
 
+	
+	@Path("/getTicketDetails")
+	@POST
+	public  Ticket getTicketDetails(long ID) throws Exception{
+		return ServiceFacade.getInstance().getTicketDetails(ID);
+	}
+	
+	
 }

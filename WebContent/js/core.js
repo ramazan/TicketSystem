@@ -68,7 +68,7 @@ function showTicketDetails(){
 	$('#users').hide();
 	$('#profile').hide();
 	$('#ticket_details').show();
-	$('#tickets').hide();
+//	$('#tickets').hide();
 }
 
 function showTickets(){

@@ -1,16 +1,31 @@
-$(document).ready(function() {
+	$(document).ready(function() {
 	getAllTickets();
 	getAllDepartments("#ticketDepartment");
 });
 
 function getTicket(ticketID){
 	showTicketDetails();
+	
+	$.ajax({
+		type : "POST",
+		url : '/Ticket_System/rest/ticket/getTicketDetails',
+		contentType : "application/json",
+		mimeType : "application/json",
+		data:ticketID,
+		success : function() {
+
+		},
+		error : function() {
+			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
+		}
+	});
 }
 
 function addLink(cellvalue, options, rowObject){
 	var ticketID= rowObject.id;
-	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Slect'";
+	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
 	clickLink +=" onclick=\"getTicket("+ticketID+")\" >"+ticketID+"</a>"
+	console.log(" clickLink :  "+ clickLink);
 	return clickLink;
 }
 

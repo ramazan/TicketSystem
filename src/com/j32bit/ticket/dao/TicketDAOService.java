@@ -130,4 +130,10 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("getAllTicket is finished");
 		return tickets;
 	}
+
+	public Ticket getTicketDetails(long ID) {
+		logger.debug("get Ticket Catch it! ID= "+ ID);
+		Ticket ticket = new Ticket();
+		return ticket;
+	}
 }
