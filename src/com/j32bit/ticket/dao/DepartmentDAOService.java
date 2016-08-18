@@ -3,6 +3,7 @@ package com.j32bit.ticket.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -126,7 +127,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
-			pst = con.prepareStatement(queryString);
+			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
 
 			if (logger.isTraceEnabled()) {
 				queryLog.append("Query : ").append(queryString).append("\n");
@@ -139,6 +140,10 @@ public class DepartmentDAOService extends ConnectionHelper {
 
 			pst.executeUpdate();
 
+			rs = pst.getGeneratedKeys();
+			if (rs.next()) {
+				department.setId(rs.getLong(1));
+			}
 		} catch (Exception e) {
 			logger.error("adddepartment error:" + e.getMessage());
 		} finally {

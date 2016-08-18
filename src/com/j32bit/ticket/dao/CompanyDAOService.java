@@ -43,7 +43,7 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			query.append("INSERT INTO companies ");
 			query.append("(COMPANY_NAME,ADDRESS,EMAIL,PHONE,FAX) ");
-			query.append("VALES (?,?,?,?,?)");
+			query.append("VALUES (?,?,?,?,?)");
 			String queryString = query.toString();
 			logger.debug("sql query created :" + queryString);
 

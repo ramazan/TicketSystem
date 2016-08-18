@@ -1,6 +1,8 @@
-var authenticatedUserID;
+var authenticatedUser;
 
 $(document).ready(function(){
+
+	loadAllTickets();
 
 	$.ajax({
 			type: "POST",
@@ -8,15 +10,9 @@ $(document).ready(function(){
 			contentType : "application/json",
 			mimeType: "application/json",
 			success : function(data){
-				console.log("user email:" + data.email+" name:"+data.name +" company name  :" + data.company.name+" roller: "+data.userRoles   );
-				userID = data.id;
-				$("#userProfileEmail").text(data.email);
-				$("#userProfileName").text(data.name);
-				$("#userProfileCompany").text(data.company.name);
-				$("#userProfileRoles").text(data.userRoles);
-				$("#nickname").text("Welcome " + data.name);
-				authenticatedUserID = data.id;
-				}
+				authenticatedUser = data;
+				$("#nav_nickname").text(authenticatedUser.email);
+			}
 		});
 
 	var isAdmin=true; // TODO: sessiondan check yapılacak
@@ -32,11 +28,6 @@ $(document).ready(function(){
 		else
 			$('#departmentFade').fadeOut();
 	});
-
-
-	$("#userNewPass").keyup(validate);
-	$("#userNewPassConfirm").keyup(validate);
-
 });
 
 
@@ -48,47 +39,45 @@ function logout(){
 	window.location="/Ticket_System";
 }
 
+function showProfile(){
 
-function showUsers(){
-	getAllUsers();
-	getAllDepartments("#userDepartment");
-	getAllCompanies();
+	loadProfileInf();
+	$("#user_new_pass").keyup(validate);
+	$("#user_new_pass_c").keyup(validate);
 
-	$('#userLink').addClass("active");
-	$("#ticketLink").removeClass("active");
-	$('#users').show();
-	$('#tickets').hide();
+
+	$('#nav_users').removeClass("active");
+	$("#nav_tickets").removeClass("active");
+
+	$('#users_page').hide();
+	$('#tickets_page').hide();
 	$('#ticket_details').hide();
-	$('#profile').hide();
+	$('#profile_page').show();
 }
 
 function showTicketDetails(){
-	$('#userLink').removeClass("active");
-	$("#ticketLink").addClass("active");
-	$('#users').hide();
-	$('#profile').hide();
-	$('#ticket_details').show();
-//	$('#tickets').hide();
+
+	$('#ticket_details_page').show();
 }
 
 function showTickets(){
-	getAllTickets();
-	getAllDepartments("#ticketDepartments");
+	loadAllTickets();
 
-	$('#userLink').removeClass("active");
-	$("#ticketLink").addClass("active");
-	$('#users').hide();
+	$('#nav_users').removeClass("active");
+	$("#nav_tickets").addClass("active");
+	$('#users_page').hide();
 	$('#ticket_details').hide();
-	$('#profile').hide();
-	$('#tickets').show();
+	$('#profile_page').hide();
+	$('#tickets_page').show();
 }
 
-function showProfile(){
+function showUsers(){
+	loadAllUsers();
 
-	$('#userLink').removeClass("active");
-	$("#ticketLink").addClass("active");
-	$('#users').hide();
+	$('#nav_tickets').removeClass("active");
+	$("#nav_users").addClass("active");
+	$('#users_page').show();
 	$('#ticket_details').hide();
-	$('#profile').show();
-	$('#tickets').hide();
+	$('#profile_page').hide();
+	$('#tickets_page').hide();
 }

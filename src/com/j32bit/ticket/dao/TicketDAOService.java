@@ -189,7 +189,10 @@ public class TicketDAOService extends ConnectionHelper {
 
 		} catch (Exception e) {
 			logger.error("getTicketDetails error :" + e.getMessage());
-
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
 		}
 		logger.debug("getTicketDetails finished");
 

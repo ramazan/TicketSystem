@@ -2,6 +2,7 @@ package com.j32bit.ticket.rest;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -53,6 +54,8 @@ public class UserRest {
 
 	@Path("/updateProfile")
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void updateUser(String password, @Context HttpServletRequest request) {
 		User authenticatedUserDetails = (User) request.getSession().getAttribute("LOGIN_USER");
 		String email = authenticatedUserDetails.getEmail();

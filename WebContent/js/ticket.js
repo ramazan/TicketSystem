@@ -1,12 +1,7 @@
-	$(document).ready(function() {
-	getAllTickets();
-	getAllDepartments("#ticketDepartment");
-});
-
 function getTicket(ticketID){
 
 	console.log("Ticket ID:"+ticketID);
-	console.log(typeof ticketID);
+
 	showTicketDetails();
 
 	$.ajax({
@@ -15,7 +10,7 @@ function getTicket(ticketID){
 		contentType : "application/json",
 		mimeType : "application/json",
 		data:JSON.stringify(ticketID),
-		success : function(ticket) {
+		success : function(ticket){
 			$("#ticket_title").text(ticket.title);
 			$("#ticket_message").text(ticket.message);
 			$("#ticket_date").text(ticket.time);
@@ -26,11 +21,11 @@ function getTicket(ticketID){
 			$("#ticket_status").text("OPEN");
 			}
 			else{
-			$("#ticket_status").text("CLOSED");	
+			$("#ticket_status").text("CLOSED");
 			$("#ticket_status").css("color", "red");
 
 			}
-		
+
 		},
 		error : function() {
 			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
@@ -42,13 +37,14 @@ function addLink(cellvalue, options, rowObject){
 	var ticketID= rowObject.id;
 	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
 	clickLink +=" onclick=\"getTicket("+ticketID+")\" >"+ticketID+"</a>"
-	console.log(" clickLink :  "+ clickLink);
 	return clickLink;
 }
 
+function loadAllTickets() {
 
-function getAllTickets() {
-	$("#ticket_jqGrid").jqGrid({
+	loadAllDeparments("new_ticket_dep");
+
+	$("#tickets_jqGrid").jqGrid({
 		caption : "Ticket List",
 		url : "/Ticket_System/rest/ticket/getAllTickets",
 		datatype : "json",
@@ -61,7 +57,7 @@ function getAllTickets() {
 		}, {
 			label : "Date",
 			name : 'time',
-			width : 60,
+			width : 80,
 			formatter : 'date',
 			formatoptions : {
       srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y H:i:s'
@@ -86,11 +82,11 @@ function getAllTickets() {
 		width : 850,
 		styleUI : 'Bootstrap',
 		rowNum : 10,
-		pager : "#ticket_jqGridPager",
+		pager : "#tickets_jqGridPager",
 		emptyrecords : "Nothing to display",
 	});
 
-	$('#ticket_jqGrid').navGrid('#ticket_jqGridPager', {
+	$('#tickets_jqGrid').navGrid('#tickets_jqGridPager', {
 		edit : false,
 		add : false,
 		del : false,
@@ -99,30 +95,28 @@ function getAllTickets() {
 		view : true,
 		position : "left",
 		cloneToTop : false
-	}).navButtonAdd('#ticket_jqGridPager', {
+	}).navButtonAdd('#tickets_jqGridPager', {
 		caption : "Add",
 		buttonicon : "ui-icon-add",
 		onClickButton : function() {
-			$('#modalAddTicket').modal('show');
+			$('#ticket_add_modal').modal('show');
 		}
 	});
+
 }
 
-function addTicket() {
-	var ticketTitle = $("#ticketTitle").val();
-	var ticketMessage = $("#ticketMessage").val();
+function sendTicket() {
+	var ticketTitle = $("#new_ticket_title").val();
+	var ticketMessage = $("#new_ticket_msg").val();
 	if (ticketTitle == "" || ticketMessage == "") {
-		$("#modalAddTicketMessage").text("Please fill all boxes");
+		$("#ticket_add_msg").text("Please fill all boxes");
 	} else {
-		var ticketDepartmentID = $("#ticketDepartment").val();
-		var ticketPriority = $("#ticketPriority").val();
-
-		console.log("Selected DepID:" + ticketDepartmentID + " Prio:"
-				+ ticketPriority);
+		var ticketDepartmentID = $("#new_ticket_dep").val();
+		var ticketPriority = $("#new_ticket_prio").val();
 
 		var ticket = {
 			sender : {
-				id : authenticatedUserID
+				id : authenticatedUser.id
 			},
 			title : ticketTitle,
 			message : ticketMessage,
@@ -138,19 +132,22 @@ function addTicket() {
 			mimeType : "application/json",
 			data : JSON.stringify(ticket),
 			success : function() {
-				$("#modalAddTicketMessage").text(
+				$("#ticket_add_msg").text(
 						"Ticket sended. Closing Window..");
-				$('#ticket_jqGrid').trigger('reloadGrid'); // jqGridi reload
-															// ediyorum
-				$('input:checkbox').removeAttr('checked'); // check boxların
-															// check'ini kaldır
-				$('input').val(''); // inputları temizle.
+				// reload jqgrid
+				$('#tickets_jqGrid').trigger('reloadGrid');
+
+			  // clear boxes
+				$('input:checkbox').removeAttr('checked');
+				$("#new_ticket_title").val("");
+				$("#new_ticket_title").val("");
+				$("#new_ticket_msg").val("");
 				setTimeout(function() {
-					$('#modalAddTicket').modal('hide');
+					$('#ticket_add_modal').modal('hide');
 				}, 2000);
 			},
 			error : function() {
-				alert("Ticket cannot added please try again. ");
+				$("#ticket_add_msg").text("Ticket couldn!t be sent! Later try again");
 			}
 		});
 

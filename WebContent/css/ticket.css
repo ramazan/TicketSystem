@@ -1,0 +1,27 @@
+#nav_nickname{
+  color: red;
+}
+
+#tickets_jqGridPager {
+  height: 36px;
+}
+
+#users_jqGridPager {
+  height: 36px;
+}
+
+#users_page{
+  display: none;
+}
+
+#users_jqGridPager{
+  height: 36px;
+}
+
+#profile_page{
+  display: none;
+}
+
+#ticket_detail_page{
+  display: none;
+}

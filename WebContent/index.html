@@ -3,62 +3,55 @@
 <head>
 <meta charset="utf-8" />
 
-<title>Ticket System</title>
+<title>32Bit Ticket System</title>
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="./css/ui.jqgrid-bootstrap.css" />
-
-<!-- JAVASCRIPT SOURCES -->
-<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/i18n/grid.locale-en.js"></script>
-<script type="text/javascript" src="./js/jquery.jqGrid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="./css/ticket.css">
 
 </head>
 
 <body>
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<a class="navbar-brand">TicketSystem</a>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li id="ticketLink" class="dropdown active"><a
-					onClick="showTickets()" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Tickets<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Opened Tickets</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Cloesed Tickets</a></li>
-					</ul></li>
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a class="navbar-brand">TicketSystem</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li id="nav_tickets" class="dropdown active">
+						<a onclick="showTickets()" class="dropdown-toggle"
+						data-toggle="dropdown" role="button"
+						aria-expanded="false">Tickets<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Opened Tickets</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Cloesed Tickets</a></li>
+						</ul></li>
+					<li id="nav_users"><a href="#" onclick="showUsers()">Users</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a>Welcome  <b id="nav_nickname"></b></a></li>
+					<li id="nav_profile"><a href="#" onclick="showProfile()">My
+							Profile</a></li>
+					<li><a href="#" onclick="logout()">Logout</a></li>
+				</ul>
+			</div>
+			<!--navbar collapse -->
+		</nav>
+	</header>
 
-				<li id="userLink"><a href="#" onclick="showUsers()">Users</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a style="color: red;  font-weight: bold;" id="nickname"></a></li>
-				<li id="profileLink"><a href="#" onclick="showProfile()">My
-						Profile</a></li>
-				<li><a href="#" onclick="logout()">Logout</a></li>
-
-
-			</ul>
-		</div>
-		<!--navbar collapse -->
-	</nav>
-
-	<div id="tickets">
+	<div id="tickets_page">
 		<!-- JQGRID Test -->
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<table id="ticket_jqGrid"></table>
-				<div id="ticket_jqGridPager" style="height: 36px"></div>
+				<table id="tickets_jqGrid"></table>
+				<div id="tickets_jqGridPager"></div>
 			</div>
 			<!-- com-md -->
 		</div>
 		<!-- row -- >
 		<!--    Add Tickets Modal -->
-		<div id="modalAddTicket" class="modal fade" role="dialog">
+		<div id="ticket_add_modal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -67,17 +60,17 @@
 						<h4 class="modal-title">New Ticket</h4>
 					</div>
 					<div class="modal-body">
-						<p id="modalAddTicketMessage"
+						<p id="ticket_add_msg"
 							class="text-center text-warning lead"></p>
 
 						<label>Department:</label>
 						<div class="form-group">
-							<select id="ticketDepartment"></select>
+							<select id="new_ticket_dep"></select>
 						</div>
 
 						<label>Priority:</label>
 						<div class="form-group">
-							<select id="ticketPriority">
+							<select id="new_ticket_prio">
 								<option value="1">NORMAL</option>
 								<option value="2">HIGH</option>
 							</select>
@@ -85,18 +78,17 @@
 
 						<label>Title:</label>
 						<div class="form-group">
-							<input type="text" size="40" id="ticketTitle"></input>
+							<input type="text" size="40" id="new_ticket_title">
 						</div>
-
 
 						<label>Message:</label>
 						<div class="form-group">
-							<textarea rows="9" cols="60" id="ticketMessage"></textarea>
+							<textarea rows="9" cols="60" id="new_ticket_msg"></textarea>
 						</div>
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addTicket()">Send
+						<button class="btn btn-success" onclick="sendTicket()">Send
 							Ticket</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
@@ -110,18 +102,17 @@
 	<!-- Tickets div -->
 
 
-
-	<div id="users" style="display: none">
+	<div id="users_page">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<table id="users_jqGrid"></table>
-				<div id="users_jqGridPager" style="height: 36px"></div>
+				<div id="users_jqGridPager"></div>
 			</div>
 		</div>
 		<!-- row -->
 
 		<!-- Add User Modal -->
-		<div id="myUserModal" class="modal fade" role="dialog">
+		<div id="add_user_modal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -131,31 +122,31 @@
 					</div>
 					<!-- modal header-->
 					<div class="modal-body">
-						<p id="modalAddUserMessage" class="text-center text-warning lead"></p>
+						<p id="add_user_msg" class="text-center text-warning lead"></p>
 						<div class="form-group">
-							<label>Full Name:</label> <input class="form-control" type="text"
-								id="userFullName" required />
+							<label>Full Name:</label>
+							<input class="form-control" type="text" id="new_user_name" required />
 						</div>
 
 						<div class="form-group">
-							<label>E-Mail:</label> <input class="form-control" type="text"
-								id="userEmail" required />
+							<label>E-Mail:</label>
+							<input class="form-control" type="text" id="new_user_email" required />
 						</div>
 
 						<div class="form-group">
-							<label>Password:</label> <input class="form-control" type="text"
-								id="userPassword" required />
+							<label>Password:</label>
+							<input class="form-control" type="text" id="new_user_password" required />
 						</div>
 
 						<div class="form-group">
 							<label>Company:</label>
 							<div class="row">
 								<div class="col-md-6">
-									<select class="form-control" id="userCompany"></select>
+									<select class="form-control" id="new_user_company"></select>
 								</div>
 								<div class="col-md-6">
 									<button class="btn btn-info" data-toggle="modal"
-										data-target="#myModalAddCompany">Add New Company</button>
+										data-target="#add_company_modal">Add New Company</button>
 								</div>
 							</div>
 							<!-- row -->
@@ -177,14 +168,14 @@
 							<label for="userDepartment">Department:</label>
 							<div class="row">
 								<div class="col-md-6">
-									<select class="form-control" id="userDepartment">
+									<select class="form-control" id="new_user_dep">
 										<!-- departmanlar db den yüklenecek -->
 									</select>
 								</div>
 
 								<div class="col-md-6">
 									<button class="btn btn-info" data-toggle="modal"
-										data-target="#myModalAddDepartment">Add New
+										data-target="#add_dep_modal">Add New
 										Department</button>
 
 								</div>
@@ -210,7 +201,7 @@
 
 
 		<!-- Add Company Modal -->
-		<div id="myModalAddCompany" class="modal fade" role="dialog">
+		<div id="add_company_modal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -220,26 +211,26 @@
 					</div>
 					<div class="modal-body">
 						<p class="text-center text-danger lead"
-							id="addCompanyModalMessage"></p>
+							id="add_company_msg"></p>
 						<div class="form-group">
 							<label>Name:<span class="text-danger">*</span></label> <input
-								class="form-control" type="text" id="compName" required />
+								class="form-control" type="text" id="new_company_name" required />
 						</div>
 						<div class="form-group">
 							<label>E-Mail:<span class="text-danger">*</span></label> <input
-								class="form-control" type="text" id="compEmail" required />
+								class="form-control" type="text" id="new_company_email" required />
 						</div>
 						<div class="form-group">
 							<label>Phone:</label> <input class="form-control" type="text"
-								id="compPhone" />
+								id="new_company_phone" />
 						</div>
 						<div class="form-group">
 							<label>Fax:</label> <input class="form-control" type="text"
-								id="compFax" />
+								id="new_company_fax" />
 						</div>
 						<div class="form-group">
 							<label>Address:</label> <input class="form-control" type="text"
-								id="compAddress" />
+								id="new_company_address" />
 						</div>
 						<p>
 							<span class="text-danger lead">*: Required</span>
@@ -258,7 +249,7 @@
 
 
 		<!-- Add Department Modal -->
-		<div id="myModalAddDepartment" class="modal fade" role="dialog">
+		<div id="add_dep_modal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -268,10 +259,10 @@
 					</div>
 					<div class="modal-body">
 						<p class="text-center text-danger lead"
-							id="addDepartmentModalMessage"></p>
+							id="add_dep_msg"></p>
 						<div class="form-group">
-							<label>Name:<span class="text-danger">*</span></label> <input
-								class="form-control" type="text" id="departmentName" required />
+							<label>Name:<span class="text-danger">*</span></label><input
+								class="form-control" type="text" id="new_dep_name" required />
 						</div>
 						<p>
 							<span class="text-danger lead">*: Required</span>
@@ -292,9 +283,9 @@
 	</div>
 	<!-- users div - -->
 
-<br><br>
+<br><hr><br>
 	<!-- Ticket Details -->
-	<div id="ticket_details" style="display:none">
+	<div id="ticket_details_page" style="display:none">
 
 		<div class="row">
 
@@ -335,7 +326,7 @@
 
 								<td colspan="2"><b id="ticketResponses">Responses
 										Responses Responses Responses Responses Responses</b></td>
-							<tr>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -348,7 +339,7 @@
 	<!-- Ticket Details -->
 
 
-	<div id="profile" class="row"  style="display: none;">
+	<div id="profile_page" class="row"  style="display: none;">
 
 		<div class="col-md-4 col-md-offset-4">
 
@@ -362,35 +353,35 @@
 					<tbody>
 						<tr>
 							<td>Name:</td>
-							<td><b id="userProfileName"></b></td>
+							<td><b id="user_name"></b></td>
 						</tr>
 						<tr>
 							<td>E-mail:</td>
-							<td><b id="userProfileEmail"></b></td>
+							<td><b id="user_email"></b></td>
 						</tr>
 						<tr>
 							<td>Roles:</td>
-							<td><b id="userProfileRoles">rolesHere</b></td>
+							<td><b id="user_roles">rolesHere</b></td>
 						</tr>
 
 						<tr>
 							<td>Company:</td>
-							<td><b id="userProfileCompany"></b></td>
+							<td><b id="user_company"></b></td>
 						</tr>
 						<tr>
 							<th colspan="2"><b>Password</b></th>
 						</tr>
 						<tr>
 							<td>New Password:</td>
-							<td><input id="userNewPass" type="password"></td>
+							<td><input id="user_new_pass" type="password"></td>
 						</tr>
 						<tr>
 							<td>Confirm New Password:</td>
-							<td><input id="userNewPassConfirm" type="password"></td>
+							<td><input id="user_new_pass_c" type="password"></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><b id="validateStatus" style="color: red;"></b></td>
+							<td><b id="pass_validate" style="color: red;"></b></td>
 						</tr>
 					</tbody>
 				</table>
@@ -399,7 +390,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				<button id="ProfileSaveButton" class="btn btn-success btn-block"
+				<button id="user_update_btn" class="btn btn-success btn-block"
 					onclick="updateProfile()" disabled>Save</button>
 			</div>
 		</div>
@@ -407,7 +398,11 @@
 	<!-- Profile div -->
 
 
-
+	<!-- JAVASCRIPT SOURCES -->
+	<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./js/i18n/grid.locale-en.js"></script>
+	<script type="text/javascript" src="./js/jquery.jqGrid.min.js"></script>
 
 
 	<!-- core js -->

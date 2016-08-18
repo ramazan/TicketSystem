@@ -1,4 +1,7 @@
-function getAllUsers() {
+function loadAllUsers() {
+
+	loadAllDeparments("new_user_dep");
+	loadAllCompanies("new_user_company");
 
 	$("#users_jqGrid").jqGrid({
 		caption : "USER LIST",
@@ -53,7 +56,7 @@ function getAllUsers() {
 		caption : "Add",
 		buttonicon : "ui-icon-add",
 		onClickButton : function() {
-			$('#myUserModal').modal('show');
+			$('#add_user_modal').modal('show');
 		},
 		position : "last"
 	}).navButtonAdd('#users_jqGridPager', {
@@ -68,10 +71,10 @@ function getAllUsers() {
 
 function addUser() {
 
-	var newName = $("#userFullName").val();
-	var newEmail = $('#userEmail').val();
-	var newCompanyID = $('#userCompany').val();
-	var newPassword = $('#userPassword').val();
+	var newName = $("#new_user_name").val();
+	var newEmail = $('#new_user_email').val();
+	var newCompanyID = $('#new_user_company').val();
+	var newPassword = $('#new_user_password').val();
 
 	var newRoles = [];
 	var userDepartmentID = 0;
@@ -80,8 +83,7 @@ function addUser() {
 	}
 	if ($('#supporterRole').is(':checked')) {
 		newRoles.push("supporter");
-		userDepartmentID = $("#userDepartment").val();
-		console.log("department:" + userDepartmentID);
+		userDepartmentID = $("#new_user_dep").val();
 	}
 	if ($('#clientRole').is(':checked')) {
 		newRoles.push("client");
@@ -90,7 +92,7 @@ function addUser() {
 	if (newRoles.length == 0 || newName == "" || newEmail == ""
 			|| newCompanyID == "" || newPassword == "") {
 		console.log("error: fill all boxes");
-		$("#modalAddUserMessage").html("Please fill all boxes");
+		$("#add_user_msg").html("Please fill all boxes");
 	} else {
 
 		var person = {
@@ -109,11 +111,16 @@ function addUser() {
 			mimeType : "application/json",
 			data : JSON.stringify(person),
 			success : function() {
-				$("#modalAddUserMessage").text("User added. Closing Window..");  // başarılı mesajını set et
-				$('#users_jqGrid').trigger('reloadGrid');    						 // jqGridi reload ediyorum
-				$('input:checkbox').removeAttr('checked'); 					// check boxların check'ini kaldır
-				$('input').val('');   								       // inputları temizle.
-  				setTimeout(function() { $('#myUserModal').modal('hide'); }, 2000);
+				$("#add_user_msg").text("User added. Closing Window..");
+				// reload jqgrid
+				$('#users_jqGrid').trigger('reloadGrid');
+				// clear boxes
+				$('input:checkbox').removeAttr('checked');
+				$('#add_user_msg').val('');
+				$('#new_user_name').val('');
+				$('#new_user_email').val('');
+				$('#new_user_password').val('');  								       // inputları temizle.
+  				setTimeout(function() { $('#add_user_modal').modal('hide'); }, 2000);
 			},
 			error : function() {
 				alert("User cannot added please try again. ");
@@ -122,28 +129,36 @@ function addUser() {
 	}
 }
 
+function loadProfileInf(){
+
+	var user = authenticatedUser;
+	$("#user_email").text(user.email);
+	$("#user_name").text(user.name);
+	$("#user_roles").text(user.userRoles);
+	$("#user_company").text(user.company.name);
+
+}
+
 // / Profile sayfasındaki şifre eşleşme kontrolü
 
 function validate() {
-	var password1 = $("#userNewPass").val();
-	var password2 = $("#userNewPassConfirm").val();
+	var password1 = $("#user_new_pass").val();
+	var password2 = $("#user_new_pass_c").val();
 
 	if (password1 == password2 && password1 != "" && password2 != "") {
-		$("#validateStatus").text("Şifreler eşleşti!");
+		$("#pass_validate").text("Şifreler eşleşti!");
 		// document.getElementById("ProfileSaveButton").enabled = true;
-		$("#ProfileSaveButton").removeAttr('disabled');
+		$("#user_update_btn").removeAttr('disabled');
 
 	} else {
-		$("#validateStatus").text("Şifreler eşleşmiyor!");
-		$("#ProfileSaveButton").prop("disabled", true);
-
+		$("#pass_validate").text("Şifreler eşleşmiyor!");
+		$("#user_update_btn").prop("disabled", true);
 	}
-
 }
 
 function updateProfile() {
 
-	var password = $("#userNewPass").val();
+	var password = $("#user_new_pass").val();
 
 	$.ajax({
 		type : "POST",
@@ -152,8 +167,8 @@ function updateProfile() {
 		mimeType : "application/json",
 		data :password,
 		success : function(data) {
-			$("#validateStatus").text("Şifre başarıyla değişti!");
-			$("#ProfileSaveButton").prop("disabled", true);
+			$("#pass_validate").text("Şifre başarıyla değişti!");
+			$("#user_update_btn").prop("disabled", true);
 		},
 		error : function() {
 			alert("User cannot added please try again. ");
@@ -161,4 +176,3 @@ function updateProfile() {
 	});
 
 }
-
