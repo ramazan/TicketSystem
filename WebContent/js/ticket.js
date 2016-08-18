@@ -69,6 +69,7 @@ function sendTicketResponse(){
 			data:JSON.stringify(responseTicket),
 			success : function(response){
 				console.log("Response sended. ID:"+response.id);
+				$("#ticket_response_msg").val("");
 				loadAllResponses();
 			}
 		});
@@ -98,9 +99,12 @@ function loadAllResponses(){
 			});
 		}
 	});
+	
+	
 
 
 }
+
 
 function loadAllTickets() {
 
@@ -215,3 +219,12 @@ function sendTicket() {
 
 	}
 }
+
+
+$('textarea').keypress(function(){
+
+    if(this.value.length > 500){
+        return false;
+    }
+    $("#remainingC").html("Remaining characters : " +(500 - this.value.length));
+});

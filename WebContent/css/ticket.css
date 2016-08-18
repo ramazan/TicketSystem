@@ -26,3 +26,8 @@
 #ticket_detail_page{
   display: none;
 }
+#remainingC{
+	color:red;
+	font-weight:italic;
+	
+}
