@@ -26,10 +26,14 @@ function getTicket(ticketID){
 			else{
 			$("#ticket_status").text("CLOSED");
 			$("#ticket_status").css("color", "red");
-
 			}
 
 			loadAllResponses(clickedTicketID);
+			$('html, body').animate({
+			        scrollTop: $("#ticket_detail_table").offset().top
+			    }, 1000);
+
+
 		},
 		error : function() {
 			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
@@ -89,18 +93,14 @@ function loadAllResponses(){
 
 			$("#ticket_responses > tbody").html("");
 			$.each(responses,function(key,value){
-
 				$('#ticket_responses > tbody:last-child')
-					.append("<th colspan=2>"+key+"<th>")
-					.append("<tr><td>Date:</td><td>"+value.date+"</td></tr>")
-					.append("<tr><td>Message:</td><td>"+value.message+"</td></tr>")
-					.append("<tr><td>Sender:</td><td>"+value.sender.name+"</td></tr>")
-					.append("<tr><td>ID:</td><td>"+value.id+"</td></tr>");
+					.append("<tr><th>"+value.date+" / "+value.sender.name+"</th></tr>")
+					.append("<tr><td>"+value.message+"</td></tr>");
 			});
 		}
 	});
-	
-	
+
+
 
 
 }

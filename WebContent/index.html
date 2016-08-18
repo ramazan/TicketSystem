@@ -350,7 +350,7 @@
 			<div class="col-md-8 col-md-offset-2">
 
 				<div class="table-responsive">
-					<table class="table table-condensed table-bordered">
+					<table id="ticket_detail_table" class="table table-condensed table-bordered">
 						<thead>
 							<tr>
 								<th colspan="2">Ticket Details</th>
@@ -381,19 +381,18 @@
 								<th colspan="2">Ticket Threads:</th>
 							</tr>
 							<tr>
-								<table class="table table-bordered table-condensed"
-											id="ticket_responses">
+								<table class="table table-bordered
+								 			table-condensed" id="ticket_responses">
 									<tbody>
 									</tbody>
 								</table>
 							</tr>
 							<tr>
-
 								<td colspan="2"><label>Message:</label>
 									<div class="form-group">
 										<p id="add_resp_msg"></p>
-										<textarea rows="9" cols="60" id="ticket_response_msg"></textarea></br>
-										<p id='remainingC'></p>
+										<textarea rows="9" cols="60" id="ticket_response_msg"></textarea><br>
+										<p id="remainingC"></p>
 										<br>
 										<button id="sendTicketResponse" class="btn btn-success"
 										onclick="sendTicketResponse()">Send Response</button>

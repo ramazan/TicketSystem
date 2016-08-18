@@ -264,7 +264,7 @@ public class TicketDAOService extends ConnectionHelper {
 		try {
 			query.append("SELECT ticket_responses.*, users.FULL_NAME, users.EMAIL FROM ticket_responses ");
 			query.append("INNER JOIN users ON ticket_responses.SENDER_ID=users.ID ");
-			query.append("WHERE ticket_responses.TICKET_ID=? ");
+			query.append("WHERE ticket_responses.TICKET_ID=? ORDER BY ticket_responses.ID ASC ");
 
 			String queryString = query.toString();
 			logger.debug("sql query create : " + queryString);

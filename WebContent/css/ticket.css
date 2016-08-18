@@ -29,5 +29,8 @@
 #remainingC{
 	color:red;
 	font-weight:italic;
-	
+}
+
+#ticket_responses{
+  word-break: break-all;
 }
