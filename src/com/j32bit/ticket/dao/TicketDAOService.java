@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.bean.TicketResponse;
 import com.j32bit.ticket.bean.User;
 
 public class TicketDAOService extends ConnectionHelper {
@@ -197,5 +199,117 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("getTicketDetails finished");
 
 		return ticket;
+	}
+
+	public TicketResponse addResponse(TicketResponse response) {
+		logger.debug("addResponse is started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		StringBuilder query = new StringBuilder();
+
+		try {
+			query.append("INSERT INTO ticket_responses ");
+			query.append("(SENDER_ID,TICKET_ID,RESPONSE) ");
+			query.append("VALUES(?,?,?) ");
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters :").append("\n");
+				queryLog.append("SENDER_ID :").append(response.getSender().getId()).append("\n");
+				queryLog.append("TICKET_ID :").append(response.getTicketID()).append("\n");
+				queryLog.append("RESPONSE : ").append(response.getMessage()).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pst.setLong(1, response.getSender().getId());
+			pst.setLong(2, response.getTicketID());
+			pst.setString(3, response.getMessage());
+
+			pst.executeUpdate();
+
+			rs = pst.getGeneratedKeys();
+			if (rs.next()) {
+				response.setId(rs.getLong(1));
+			}
+
+		} catch (Exception e) {
+			logger.error("addResponse error :" + e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+
+		logger.debug("Add response finished");
+		return response;
+	}
+
+	public ArrayList<TicketResponse> getAllResponses(long ticketID) {
+		logger.debug("getAllResponses is started. TicketID:"+ticketID);
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		ArrayList<TicketResponse> ticketResponses = new ArrayList<>();
+		StringBuilder query = new StringBuilder();
+
+		try {
+			query.append("SELECT ticket_responses.*, users.FULL_NAME, users.EMAIL FROM ticket_responses ");
+			query.append("INNER JOIN users ON ticket_responses.SENDER_ID=users.ID ");
+			query.append("WHERE ticket_responses.TICKET_ID=? ");
+
+			String queryString = query.toString();
+			logger.debug("sql query create : " + queryString);
+
+			con = getConnection();
+
+			pst = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Paramters :").append("\n");
+				queryLog.append("TICKET_ID : ").append(ticketID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pst.setLong(1, ticketID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+
+				TicketResponse response = new TicketResponse();
+				response.setDate(rs.getTimestamp("DATE").toString());
+				response.setId(rs.getLong("ID"));
+				response.setMessage(rs.getString("RESPONSE"));
+				response.setTicketID(ticketID);
+
+				User sender = new User();
+				sender.setEmail(rs.getString("EMAIL"));
+				sender.setName(rs.getString("FULL_NAME"));
+
+				response.setSender(sender);
+
+				ticketResponses.add(response);
+			}
+
+		} catch (Exception e) {
+			logger.error("getAllResponses error :" + e.getMessage());
+
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		logger.debug("getAllResponses is finished");
+		return ticketResponses;
 	}
 }

@@ -1,5 +1,8 @@
+var clickedTicketID;
+
 function getTicket(ticketID){
 
+	clickedTicketID = ticketID;
 	console.log("Ticket ID:"+ticketID);
 
 	showTicketDetails();
@@ -26,6 +29,7 @@ function getTicket(ticketID){
 
 			}
 
+			loadAllResponses(clickedTicketID);
 		},
 		error : function() {
 			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
@@ -38,6 +42,64 @@ function addLink(cellvalue, options, rowObject){
 	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
 	clickLink +=" onclick=\"getTicket("+ticketID+")\" >"+ticketID+"</a>"
 	return clickLink;
+}
+
+function sendTicketResponse(){
+
+	var ticketID = clickedTicketID;
+
+	var responseMsg = $("#ticket_response_msg").val();
+
+	if(responseMsg==""){
+		$("#add_resp_msg").text("Please add a response!");
+	}else{
+
+		var responseTicket = { message:responseMsg,
+			ticketID:ticketID,
+			sender:{ id:authenticatedUser.id,
+							name:authenticatedUser.name,
+							email:authenticatedUser.email}
+		};
+
+		$.ajax({
+			type : "POST",
+			url : '/Ticket_System/rest/ticket/addResponse',
+			contentType : "application/json",
+			mimeType : "application/json",
+			data:JSON.stringify(responseTicket),
+			success : function(response){
+				console.log("Response sended. ID:"+response.id);
+				loadAllResponses();
+			}
+		});
+	}
+}
+
+function loadAllResponses(){
+	var ticketID = clickedTicketID;
+
+	$.ajax({
+		type : "POST",
+		url : '/Ticket_System/rest/ticket/getAllResponses',
+		contentType : "application/json",
+		mimeType : "application/json",
+		data:JSON.stringify(ticketID),
+		success : function(responses){
+
+			$("#ticket_responses > tbody").html("");
+			$.each(responses,function(key,value){
+
+				$('#ticket_responses > tbody:last-child')
+					.append("<th colspan=2>"+key+"<th>")
+					.append("<tr><td>Date:</td><td>"+value.date+"</td></tr>")
+					.append("<tr><td>Message:</td><td>"+value.message+"</td></tr>")
+					.append("<tr><td>Sender:</td><td>"+value.sender.name+"</td></tr>")
+					.append("<tr><td>ID:</td><td>"+value.id+"</td></tr>");
+			});
+		}
+	});
+
+
 }
 
 function loadAllTickets() {

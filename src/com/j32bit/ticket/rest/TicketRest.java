@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.bean.TicketResponse;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/ticket")
@@ -48,5 +49,22 @@ public class TicketRest {
 		return ServiceFacade.getInstance().getTicketDetails(ID);
 	}
 	
+	@Path("/addResponse")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public TicketResponse addResponse(TicketResponse response){
+		return ServiceFacade.getInstance().addResponse(response);
+	}
+	
+	@Path("/getAllResponses")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public ArrayList<TicketResponse> getAllResponses(long ticketID){
+		return ServiceFacade.getInstance().getAllResponses(ticketID);
+	}
 	
 }

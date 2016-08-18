@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.j32bit.ticket.bean.Company;
 import com.j32bit.ticket.bean.Department;
 import com.j32bit.ticket.bean.Ticket;
+import com.j32bit.ticket.bean.TicketResponse;
 import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.dao.CompanyDAOService;
 import com.j32bit.ticket.dao.DepartmentDAOService;
@@ -118,6 +119,14 @@ public class ServiceFacade {
 	public Ticket getTicketDetails(long ID) {
 		logger.debug("ServiceFacade getTicketDetails started  ID = " + ID);
 		return ticketService.getTicketDetails(ID);
+	}
+	
+	public TicketResponse addResponse(TicketResponse response){
+		return ticketService.addResponse(response);
+	}
+	
+	public ArrayList<TicketResponse> getAllResponses(long ticketID){
+		return ticketService.getAllResponses(ticketID);
 	}
 
 }

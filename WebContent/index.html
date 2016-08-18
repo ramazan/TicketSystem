@@ -282,7 +282,7 @@
 
 	</div>
 	<!-- users div - -->
-	
+
 	<div id="profile_page" class="row"  style="display: none;">
 
 		<div class="col-md-4 col-md-offset-4">
@@ -378,21 +378,25 @@
 								<td><b id="ticket_date"></b></td>
 							</tr>
 							<tr>
-								<td colspan="2">Ticket Threads:</td>
+								<th colspan="2">Ticket Threads:</th>
+							</tr>
+							<tr>
+								<table class="table table-bordered table-condensed"
+											id="ticket_responses">
+									<tbody>
+									</tbody>
+								</table>
 							</tr>
 							<tr>
 
-								<td colspan="2"><b id="ticketResponses">Responses
-										Responses Responses Responses Responses Responses</b></td>
-							</tr>
-							<tr>
-		
 								<td colspan="2"><label>Message:</label>
 									<div class="form-group">
+										<p id="add_resp_msg"></p>
 										<textarea rows="9" cols="60" id="ticket_response_msg"></textarea>
-										</br></br>
-										<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse(ID)">Send Response</button>
-									</div>								
+										<br><br>
+										<button id="sendTicketResponse" class="btn btn-success"
+										onclick="sendTicketResponse()">Send Response</button>
+									</div>
 								</td>
 							</tr>
 						</tbody>
@@ -407,7 +411,7 @@
 	<!-- Ticket Details -->
 
 
-	
+
 
 
 	<!-- JAVASCRIPT SOURCES -->
