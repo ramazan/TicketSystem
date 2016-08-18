@@ -51,7 +51,7 @@ function showProfile(){
 
 	$('#users_page').hide();
 	$('#tickets_page').hide();
-	$('#ticket_details').hide();
+	$('#ticket_details_page').hide();
 	$('#profile_page').show();
 }
 
@@ -66,7 +66,7 @@ function showTickets(){
 	$('#nav_users').removeClass("active");
 	$("#nav_tickets").addClass("active");
 	$('#users_page').hide();
-	$('#ticket_details').hide();
+	$('#ticket_details_page').hide();
 	$('#profile_page').hide();
 	$('#tickets_page').show();
 }
@@ -77,7 +77,7 @@ function showUsers(){
 	$('#nav_tickets').removeClass("active");
 	$("#nav_users").addClass("active");
 	$('#users_page').show();
-	$('#ticket_details').hide();
+	$('#ticket_details_page').hide();
 	$('#profile_page').hide();
 	$('#tickets_page').hide();
 }

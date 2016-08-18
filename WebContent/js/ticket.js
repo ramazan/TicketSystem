@@ -60,7 +60,7 @@ function loadAllTickets() {
 			width : 80,
 			formatter : 'date',
 			formatoptions : {
-      srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y H:i:s'
+      srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y  H:i'
       }
 		}, {
 			label : "Title",
