@@ -5,7 +5,7 @@ opened tickets , closed tickets  ne tür bi geliştirme yapılacak  ??
 /********************************************************************/
 jqGrid yenilendiğinde her seferinde add butonu ekleniyor??
 /********************************************************************/
-user listte kullanıcının rolü görünmeli , kullanıcı silme işlemi gerçekleştirilebilmeli
+kullanıcı silme işlemi gerçekleştirilebilmeli
 /********************************************************************/
 Hata durumlarında exceptionlar fırlatılıp map edilecek
 

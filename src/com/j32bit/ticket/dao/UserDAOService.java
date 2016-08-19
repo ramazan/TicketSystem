@@ -132,6 +132,8 @@ public class UserDAOService extends ConnectionHelper {
 		ResultSet rsUsers = null;
 		ResultSet rsRoles = null;
 		StringBuilder query = new StringBuilder();
+		String queryRoles;
+
 
 		User user;
 		ArrayList<User> userList = new ArrayList<>();
@@ -174,25 +176,23 @@ public class UserDAOService extends ConnectionHelper {
 
 				user.setCompany(company);
 
+				
 				// GET ROLE
-				/*
-				 * query = "SELECT ROLE FROM user_roles WHERE EMAIL=?"; pstRoles
-				 * = con.prepareStatement(query.toString());
-				 * 
-				 * if (logger.isTraceEnabled()) { StringBuilder queryLog = new
-				 * StringBuilder();
-				 * queryLog.append("Query created : ").append(query).append("\n"
-				 * ); queryLog.append("Parameters : \n");
-				 * queryLog.append("EMAIL : ").append(user.getEmail()).append(
-				 * "\n"); logger.trace(queryLog.toString()); }
-				 * pstRoles.setString(1, user.getEmail());
-				 * 
-				 * rsRoles = pstRoles.executeQuery();
-				 * 
-				 * ArrayList<String> userRoles = new ArrayList<>(); while
-				 * (rsRoles.next()) { userRoles.add(rsRoles.getString("ROLE"));
-				 * } user.setUserRoles(userRoles);
-				 */
+				
+				/* string builder kullanamadım cunku 
+				*  buradaki durum farklı append dediğimde  her seferinde sonuna ekliyor 
+				*  biraz çirkin duruyor fakat şimdilik bu durumda kalacak :)  
+				*  git commit -m ":)"  --Ramazan 
+				*/
+				queryRoles = "SELECT ROLE FROM user_roles WHERE EMAIL='"+user.getEmail()+"';";
+				pstRoles = con.prepareStatement(queryRoles.toString());
+				rsRoles = pstRoles.executeQuery();
+
+				ArrayList<String> userRoles = new ArrayList<>();
+				while (rsRoles.next()) {
+					userRoles.add(rsRoles.getString("ROLE"));
+				}
+				user.setUserRoles(userRoles);
 
 				userList.add(user);
 			}
@@ -230,7 +230,7 @@ public class UserDAOService extends ConnectionHelper {
 			query.append("companies.ADDRESS, companies.PHONE, companies.FAX,departments.DEPARTMENT_NAME ");
 			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
 			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID WHERE users.EMAIL=?");
-			
+
 			String queryString = query.toString();
 			logger.debug("sql query created : " + queryString);
 

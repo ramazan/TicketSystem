@@ -31,11 +31,15 @@ function loadAllUsers() {
 		}, {
 			label : "Department",
 			name : 'department.name',
-			width : 85
-		}, ],
+			width : 95
+		}, {
+			label : "Roles",
+			name : 'userRoles',
+			width :125
+		},],
 		viewrecords : true,
 		height : 400,
-		width : 850,
+		width : 890,
 		rowNum : 10,
 		styleUI : 'Bootstrap',
 		pager : "#users_jqGridPager",
