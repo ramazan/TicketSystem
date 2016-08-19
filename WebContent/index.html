@@ -413,6 +413,82 @@
 
 
 
+<!-- BEGIN # USER MODAL DETAIL -->
+	<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<h4>Kapat</h4>
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+					<h3>Kisi Bilgileri</h3>
+
+				</div>
+
+				<!-- Begin # DIV Form -->
+				<div id="div-forms">
+
+					<!-- Begin | Register Form -->
+					<form id="register-form" method="post">
+						<div class="modal-body">
+						
+							<input style="display: none;" class="form-control" type="text"
+								 ng-model="selectedPerson.id" required><br>
+							<input class="form-control" type="text"
+								 ng-model="selectedPerson.tckn" required><br>
+							
+							<input class="form-control" type="text"
+								ng-model="selectedPerson.firstname" required><br> 
+								
+								<input
+								class="form-control" type="text" 
+								ng-model="selectedPerson.surname" required><br> 
+								
+								<input class="form-control"
+								type="text"  ng-model="selectedPerson.adress" required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="button" class="btn btn-primary btn-lg "
+									data-dismiss="modal">İptal</button>
+									
+<!-- 									ng-click düzenlenecek -->
+									<button value="submit" data-dismiss="modal" class="btn btn-primary btn-lg"
+									ng-click="deleteData()">Sil</button>
+								
+								<button value="submit" data-dismiss="modal" class="btn btn-primary btn-lg"
+									ng-click="putData()">Güncelle</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | Register Form -->
+
+				</div>
+				<!-- End # DIV Form -->
+
+			</div>
+		</div>
+	</div>
+	<!-- END # USER MODAL DETAIL -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<!-- JAVASCRIPT SOURCES -->
 	<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>

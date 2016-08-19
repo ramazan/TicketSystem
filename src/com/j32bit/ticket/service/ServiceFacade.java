@@ -76,6 +76,10 @@ public class ServiceFacade {
 	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);
 	}
+	
+	public User getUserDetailWithID(long ID) {
+		return userService.getUser(ID);
+	}
 
 	public void addTicket(Ticket ticket) throws Exception {
 		ticketService.addTicket(ticket);

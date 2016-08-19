@@ -51,6 +51,15 @@ public class UserRest {
 	public ArrayList<User> getAllUsers() {
 		return ServiceFacade.getInstance().getAllUsers();
 	}
+	
+	@Path("/getUserInfo")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
+	public User getUserInfo(long ID) {
+		return ServiceFacade.getInstance().getUserDetailWithID(ID);
+	}
+	
 
 	@Path("/updateProfile")
 	@POST
