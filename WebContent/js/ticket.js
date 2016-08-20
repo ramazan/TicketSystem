@@ -1,8 +1,8 @@
-var clickedTicketID;
+var selectedTicketID;
 
 function getTicket(ticketID){
 
-	clickedTicketID = ticketID;
+	selectedTicketID = ticketID;
 	console.log("Ticket ID:"+ticketID);
 
 	showTicketDetails();
@@ -28,9 +28,9 @@ function getTicket(ticketID){
 			$("#ticket_status").css("color", "red");
 			}
 
-			loadAllResponses(clickedTicketID);
+			loadAllResponses(selectedTicketID);
 			$('html, body').animate({
-			        scrollTop: $("#ticket_detail_table").offset().top
+			        scrollTop: $("#ticket_details_area").offset().top
 			    }, 1000);
 
 
@@ -48,9 +48,29 @@ function addLink(cellvalue, options, rowObject){
 	return clickLink;
 }
 
+function deleteTicket(){
+
+	console.log("started to delete ticketID:"+selectedTicketID);
+
+	$.ajax({
+		url:"/Ticket_System/rest/ticket/deleteTicket",
+		type:"POST",
+		mimeType:"application/json",
+		contentType:"application/json",
+		data:JSON.stringify(selectedTicketID),
+		success:function(){
+			console.log("ticket deleted!");
+			showTickets();
+		},
+		error:function(jqXHR,textStatus,errorThrown){
+			console.log("error :"+errorThrown);
+		}
+	});
+}
+
 function sendTicketResponse(){
 
-	var ticketID = clickedTicketID;
+	var ticketID = selectedTicketID;
 
 	var responseMsg = $("#ticket_response_msg").val();
 
@@ -81,7 +101,7 @@ function sendTicketResponse(){
 }
 
 function loadAllResponses(){
-	var ticketID = clickedTicketID;
+	var ticketID = selectedTicketID;
 
 	$.ajax({
 		type : "POST",

@@ -18,6 +18,7 @@ import com.j32bit.ticket.bean.TicketResponse;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("/ticket")
+@PermitAll
 @XmlAccessorType(XmlAccessType.FIELD)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML ,MediaType.TEXT_PLAIN})
 public class TicketRest {
@@ -65,6 +66,15 @@ public class TicketRest {
 	@PermitAll
 	public ArrayList<TicketResponse> getAllResponses(long ticketID){
 		return ServiceFacade.getInstance().getAllResponses(ticketID);
+	}
+	
+	
+	@Path("/deleteTicket")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public void deleteTicket(long ticketID) throws Exception{
+		ServiceFacade.getInstance().deleteTicket(ticketID);
 	}
 	
 }
