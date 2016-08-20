@@ -242,6 +242,11 @@ function sendTicket() {
 	}
 }
 
+function editTicket(){
+	
+	
+	
+}
 
 $('textarea').keypress(function(){
 
