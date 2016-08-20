@@ -77,4 +77,12 @@ public class TicketRest {
 		ServiceFacade.getInstance().deleteTicket(ticketID);
 	}
 	
+	@Path("/editTicket")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public void editTicket(long ticketID) throws Exception{
+		ServiceFacade.getInstance().editTicket(ticketID);
+	}
+	
 }

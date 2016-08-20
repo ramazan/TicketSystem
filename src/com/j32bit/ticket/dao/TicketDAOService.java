@@ -373,4 +373,26 @@ public class TicketDAOService extends ConnectionHelper {
 		}
 		logger.debug("deleteTicket is finished");
 	}
+	
+	public void editTicket(long ticketID) throws Exception {
+		
+		logger.debug("editTicket started. Param: ticketID=" + ticketID);
+
+		Connection con = null;
+		PreparedStatement pstResp = null;
+		PreparedStatement pstTicket = null;
+		StringBuilder queryEditResp = new StringBuilder();
+		StringBuilder queryEditTicket = new StringBuilder();
+		
+		queryEditResp.append("UPDATE FROM ticket_responses ");
+		queryEditResp.append("SET column1=value1,column2=value2,...");
+		queryEditResp.append("WHERE TICKET_ID=?");
+		String queryString = queryEditResp.toString();
+		
+		logger.debug("sql query created : " + queryString);
+
+		con = getConnection();
+		pstResp = con.prepareStatement(queryString);
+		
+	}
 }
