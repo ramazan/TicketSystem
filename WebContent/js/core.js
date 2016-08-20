@@ -1,5 +1,8 @@
 var authenticatedUser;
 
+var ticketTableCreateStatus=false;
+var userTableCreateStatus=false;
+
 $(document).ready(function(){
 
 	loadAllTickets();
@@ -61,6 +64,7 @@ function showTicketDetails(){
 }
 
 function showTickets(){
+
 	loadAllTickets();
 
 	$('#nav_users').removeClass("active");

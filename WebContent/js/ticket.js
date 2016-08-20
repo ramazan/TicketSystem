@@ -61,7 +61,6 @@ function deleteTicket(){
 		success:function(){
 			console.log("ticket deleted!");
 			$('#tickets_jqGrid').trigger('reloadGrid');
-
 			showTickets();
 		},
 		error:function(jqXHR,textStatus,errorThrown){
@@ -127,69 +126,74 @@ function loadAllResponses(){
 
 }
 
-
 function loadAllTickets() {
 
 	loadAllDeparments("new_ticket_dep");
 
-	$("#tickets_jqGrid").jqGrid({
-		caption : "Ticket List",
-		url : "/Ticket_System/rest/ticket/getAllTickets",
-		datatype : "json",
-		mtype : 'GET',
-		colModel : [ {
-			label : "ID",
-			name : 'id',
-			width : 25,
-			formatter: addLink
-		}, {
-			label : "Date",
-			name : 'time',
-			width : 80,
-			formatter : 'date',
-			formatoptions : {
-      srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y  H:i'
-      }
-		}, {
-			label : "Title",
-			name : 'title',
-			width : 100
-		}, {
-			label : "From",
-			name : 'sender.name',
-			width : 100
-		}, {
-			label : "Department",
-			name : 'department.name',
-			width : 80
-		} ],
-		responsive : true,
-		multiselect : true,
-		viewrecords : true,
-		height : 450,
-		width : 850,
-		styleUI : 'Bootstrap',
-		rowNum : 10,
-		pager : "#tickets_jqGridPager",
-		emptyrecords : "Nothing to display",
-	});
+	if(ticketTableCreateStatus==false){
+		ticketTableCreateStatus=true;
+		$("#tickets_jqGrid").jqGrid({
+			caption : "Ticket List",
+			url : "/Ticket_System/rest/ticket/getAllTickets",
+			datatype : "json",
+			mtype : 'GET',
+			colModel : [ {
+				label : "ID",
+				name : 'id',
+				width : 25,
+				formatter: addLink
+			}, {
+				label : "Date",
+				name : 'time',
+				width : 80,
+				formatter : 'date',
+				formatoptions : {
+				srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y  H:i'
+				}
+			}, {
+				label : "Title",
+				name : 'title',
+				width : 100
+			}, {
+				label : "From",
+				name : 'sender.name',
+				width : 100
+			}, {
+				label : "Department",
+				name : 'department.name',
+				width : 80
+			} ],
+			responsive : true,
+			multiselect : true,
+			viewrecords : true,
+			height : 450,
+			width : 850,
+			styleUI : 'Bootstrap',
+			rowNum : 10,
+			pager : "#tickets_jqGridPager",
+			emptyrecords : "Nothing to display",
+		});
 
-	$('#tickets_jqGrid').navGrid('#tickets_jqGridPager', {
-		edit : false,
-		add : false,
-		del : false,
-		search : true,
-		refresh : true,
-		view : true,
-		position : "left",
-		cloneToTop : false
-	}).navButtonAdd('#tickets_jqGridPager', {
-		caption : "Add",
-		buttonicon : "ui-icon-add",
-		onClickButton : function() {
-			$('#ticket_add_modal').modal('show');
-		}
-	});
+		$('#tickets_jqGrid').navGrid('#tickets_jqGridPager', {
+			edit : false,
+			add : false,
+			del : false,
+			search : true,
+			refresh : true,
+			view : true,
+			position : "left",
+			cloneToTop : false
+		}).navButtonAdd('#tickets_jqGridPager', {
+			caption : "Add",
+			buttonicon : "ui-icon-add",
+			onClickButton : function() {
+				$('#ticket_add_modal').modal('show');
+			}
+		});
+	}else{ // just reload table
+		$('#tickets_jqGrid').trigger('reloadGrid');
+	}
+
 
 }
 

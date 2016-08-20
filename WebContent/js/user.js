@@ -5,71 +5,77 @@ function loadAllUsers() {
 	loadAllDeparments("new_user_dep");
 	loadAllCompanies("new_user_company");
 
-	$("#users_jqGrid").jqGrid({
-		caption : "USER LIST",
-		url : "/Ticket_System/rest/user/getAllUsers",
-		mtype : "GET",
-		datatype : "json",
-		colModel : [ {
-			label : "ID",
-			name : 'id',
-			width : 40,
-			formatter: addUserLink
-		}, {
-			label : "Name",
-			name : 'name',
-			width : 85
-		}, {
-			label : "E-Mail",
-			name : 'email',
-			width : 110
-		}, {
-			label : "Company",
-			name : 'company.name',
-			width : 85
-		}, {
-			label : "Department",
-			name : 'department.name',
-			width : 95
-		}, {
-			label : "Roles",
-			name : 'userRoles',
-			width :125
-		},],
-		viewrecords : true,
-		height : 400,
-		width : 890,
-		rowNum : 10,
-		styleUI : 'Bootstrap',
-		pager : "#users_jqGridPager",
-		emptyrecords: "Nothing to display"
+	if(userTableCreateStatus==false){
+		userTableCreateStatus=true;
+		$("#users_jqGrid").jqGrid({
+			caption : "USER LIST",
+			url : "/Ticket_System/rest/user/getAllUsers",
+			mtype : "GET",
+			datatype : "json",
+			colModel : [ {
+				label : "ID",
+				name : 'id',
+				width : 40,
+				formatter: addUserLink
+			}, {
+				label : "Name",
+				name : 'name',
+				width : 85
+			}, {
+				label : "E-Mail",
+				name : 'email',
+				width : 110
+			}, {
+				label : "Company",
+				name : 'company.name',
+				width : 85
+			}, {
+				label : "Department",
+				name : 'department.name',
+				width : 95
+			}, {
+				label : "Roles",
+				name : 'userRoles',
+				width :125
+			},],
+			viewrecords : true,
+			height : 400,
+			width : 890,
+			rowNum : 10,
+			styleUI : 'Bootstrap',
+			pager : "#users_jqGridPager",
+			emptyrecords: "Nothing to display"
 
-	});
+		});
 
-	$('#users_jqGrid').navGrid('#users_jqGridPager', {
-		edit : false,
-		add : false,
-		del : false,
-		search : true,
-		refresh : true,
-		view : true,
-		position : "left",
-		cloneToTop : false
-	}).navButtonAdd('#users_jqGridPager', {
-		caption : "Add",
-		buttonicon : "ui-icon-add",
-		onClickButton : function() {
-			$('#add_user_modal').modal('show');
-		},
-		position : "last"
-	}).navButtonAdd('#users_jqGridPager', {
-		caption : "Del",
-		buttonicon : "ui-icon-del",
-		onClickButton : function() {
-			alert("Deleting Row");
-		},
-		position : "last"
-	});
+		$('#users_jqGrid').navGrid('#users_jqGridPager', {
+			edit : false,
+			add : false,
+			del : false,
+			search : true,
+			refresh : true,
+			view : true,
+			position : "left",
+			cloneToTop : false
+		}).navButtonAdd('#users_jqGridPager', {
+			caption : "Add",
+			buttonicon : "ui-icon-add",
+			onClickButton : function() {
+				$('#add_user_modal').modal('show');
+			},
+			position : "last"
+		}).navButtonAdd('#users_jqGridPager', {
+			caption : "Del",
+			buttonicon : "ui-icon-del",
+			onClickButton : function() {
+				alert("Deleting Row");
+			},
+			position : "last"
+		});
+	}else{
+		$("users_jqGrid").trigger("reloadGrid");
+	}
+
 }
 
 function addUser() {
@@ -208,7 +214,7 @@ function getUser(userID){
 //			$("#ticket_date").text(user.time);
 //			$("#ticket_sender").text(user.sender.name);
 //			$("#ticket_department").text(user.department.name);
-//		
+//
 //			loadAllResponses(clickedTicketID);
 //			$('html, body').animate({
 //			        scrollTop: $("#ticket_detail_table").offset().top
@@ -233,16 +239,16 @@ function getUser(userID){
 //			});
 //
 //	$scope.selectedPerson={};
-//	
+//
 //	$scope.showPerson = function($person){
-//		
+//
 //		$scope.selectedPerson=$person;
 //	}
-//	
-//	
-//	
-//	
-//	
+//
+//
+//
+//
+//
 //	$scope.insertData = function() {
 //		$http.post('/CrudApp/webapi/persons/', {
 //			'tckn' : $scope.tckn,
@@ -259,8 +265,8 @@ function getUser(userID){
 //			console.log("Veri başarıyla kaydedildi kardeş.");
 //		});
 //	}
-//	
-//	
+//
+//
 //	$scope.putData = function() {
 //		$http.put('/CrudApp/webapi/persons/', {
 //			'tckn' : $scope.selectedPerson.tckn,
@@ -279,11 +285,11 @@ function getUser(userID){
 //			console.log("Veri başarıyla güncellendi kardeş.");
 //		});
 //	}
-//	
-//	
-//	
-//	
-//	
+//
+//
+//
+//
+//
 //	$scope.deleteData = function() {
 //		$http.delete('/CrudApp/webapi/persons/'+$scope.selectedPerson.id, {
 //					'id' : $scope.selectedPerson.id
@@ -298,8 +304,8 @@ function getUser(userID){
 //			console.log("Veri başarıyla silindi kardeş.");
 //		});
 //	}
-//	
-//	
+//
+//
 //	$scope.reloadPage = function() {
 //		$http.get('/CrudApp/webapi/persons/').success(
 //				function(data) {
@@ -307,6 +313,6 @@ function getUser(userID){
 //				console.log("Veri başarıyla re-render edildi kardeş.");
 //				});
 //	}
-//	
-//	
+//
+//
 //});
