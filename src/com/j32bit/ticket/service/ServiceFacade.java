@@ -137,4 +137,9 @@ public class ServiceFacade {
 		return ticketService.getAllResponses(ticketID);
 	}
 
+	
+	public void deleteUser(long userID, String email) throws Exception {
+		userService.deleteUser(userID,email);
+	}
+
 }

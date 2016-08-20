@@ -1,3 +1,4 @@
+var selectedUserID,selectedUserEmail;
 
 
 function loadAllUsers() {
@@ -180,12 +181,11 @@ function updateProfile() {
 			$("#user_update_btn").prop("disabled", true);
 		},
 		error : function() {
-			alert("User cannot added please try again. ");
+		$("#pass_validate").text("Şifre değiştirilemedi , tekrar deneyin.");
 		}
 	});
 
 }
-
 
 
 function addUserLink(cellvalue, options, rowObject){
@@ -195,9 +195,10 @@ function addUserLink(cellvalue, options, rowObject){
 	return clickLink;
 }
 
+
 function getUser(userID){
 
-
+	selectedUserID = userID;
 	console.log("user ID:"+userID);
 	$('#user-detail-modal').modal('show');
 
@@ -209,18 +210,12 @@ function getUser(userID){
 		success : function(user){
 			$("#selectedPersonName").val(user.name);
 			$("#selectedPersonEmail").val(user.email);
+			selectedUserEmail= user.email;
 			$("#selectedPersonPassword").val(user.password);
-			console.log("#selectedPerson.Name : " +user.name + "#selectedPerson.email: " +user.email);
-//			$("#ticket_date").text(user.time);
-//			$("#ticket_sender").text(user.sender.name);
-//			$("#ticket_department").text(user.department.name);
-//
-//			loadAllResponses(clickedTicketID);
-//			$('html, body').animate({
-//			        scrollTop: $("#ticket_detail_table").offset().top
-//			    }, 1000);
-
-
+			$("#selectedPersonCompany").text(user.company.name);
+			$("#selectedPersonDepartment").text(user.department.name);
+			$("#selectedPersonRoles").text(user.userRoles);
+			console.log("#selectedPerson.Name : " +user.name + "  #selectedPerson.email: " +user.email);
 		},
 		error : function() {
 			alert("user details cannot get please try again. userID:  " + userID);
@@ -228,91 +223,36 @@ function getUser(userID){
 	});
 }
 
-//
-//var app = angular.module('app', []);
-//
-//app.controller('PersonListCtrl', function($scope, $http) {
-//
-//	$http.get('/Ticket_System/rest/user/getUserInfo').success(
-//			function(data) {
-//				$scope.selectedPerson= data;
-//			});
-//
-//	$scope.selectedPerson={};
-//
-//	$scope.showPerson = function($person){
-//
-//		$scope.selectedPerson=$person;
-//	}
-//
-//
-//
-//
-//
-//	$scope.insertData = function() {
-//		$http.post('/CrudApp/webapi/persons/', {
-//			'tckn' : $scope.tckn,
-//			'firstname' : $scope.firstname,
-//			'surname' : $scope.surname,
-//			'adress' : $scope.adress
-//		})
-//
-//		.success(function(data, status, headers, config) {
-//			$http.get('/CrudApp/webapi/persons/').success(
-//					function(data) {
-//						$scope.persons = data;
-//					});
-//			console.log("Veri başarıyla kaydedildi kardeş.");
-//		});
-//	}
-//
-//
-//	$scope.putData = function() {
-//		$http.put('/CrudApp/webapi/persons/', {
-//			'tckn' : $scope.selectedPerson.tckn,
-//			'firstname' : $scope.selectedPerson.firstname,
-//			'surname' : $scope.selectedPerson.surname,
-//			'adress' : $scope.selectedPerson.adress,
-//			'id' : $scope.selectedPerson.id
-//
-//		})
-//
-//		.success(function(data, status, headers, config) {
-//			$http.get('/CrudApp/webapi/persons/').success(
-//					function(data) {
-//						$scope.persons = data;
-//					});
-//			console.log("Veri başarıyla güncellendi kardeş.");
-//		});
-//	}
-//
-//
-//
-//
-//
-//	$scope.deleteData = function() {
-//		$http.delete('/CrudApp/webapi/persons/'+$scope.selectedPerson.id, {
-//					'id' : $scope.selectedPerson.id
-//
-//		})
-//
-//		.success(function(data, status, headers, config) {
-//			$http.get('/CrudApp/webapi/persons/').success(
-//					function(data) {
-//						$scope.persons = data;
-//					});
-//			console.log("Veri başarıyla silindi kardeş.");
-//		});
-//	}
-//
-//
-//	$scope.reloadPage = function() {
-//		$http.get('/CrudApp/webapi/persons/').success(
-//				function(data) {
-//					$scope.persons = data;
-//				console.log("Veri başarıyla re-render edildi kardeş.");
-//				});
-//	}
-//
-//
-//});
+
+
+function deleteUserData(){
+	
+	
+
+	console.log("started to delete userID:"+selectedUserID + " selected user mail : " +selectedUserEmail);
+
+	$.ajax({
+		url:"/Ticket_System/rest/user/deleteUser/" + selectedUserEmail,
+		type:"POST",
+		mimeType:"application/json",
+		contentType:"application/json",
+		data:JSON.stringify(selectedUserID),
+		success:function(){
+			console.log("user deleted!");
+			$('#users_jqGrid').trigger('reloadGrid');
+			user_detail_msg
+			$("#user_detail_msg").text("User deleted. Closing Window..");
+			setTimeout(function() { $('#user-detail-modal').modal('hide'); $("#user_detail_msg").text(""); }, 2000);
+			
+
+		},
+		error:function(jqXHR,textStatus,errorThrown){
+			console.log("error :"+errorThrown);
+		}
+	});
+	
+	
+	
+	
+	
+}

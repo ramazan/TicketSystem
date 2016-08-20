@@ -1,5 +1,5 @@
 <!DOCTYPE HTML5>
-<html ng-app="app">
+<html>
 <head>
 <meta charset="utf-8" />
 
@@ -421,7 +421,7 @@
 
 
 
-	<div id="user_modal_detail" ng-controller="PersonListCtrl">
+	<div id="user_modal_detail">
 
 <!-- BEGIN # USER MODAL DETAIL -->
 	<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog"
@@ -445,39 +445,91 @@
 					<!-- Begin | Register Form -->
 					<form id="register-form" method="post">
 						<div class="modal-body">
-
-							<div> <b>Name:</b>
+							<p id="user_detail_msg" class="text-center text-warning lead"></p>
+							
+							<div> <label>Full Name:</label>
 							<input class="form-control" type="text"
 								 id="selectedPersonName" required>
 							</div><br>
-
-							<div> <b>Email:</b>
+							
+							<div> <label>Email:</label>
 							<input class="form-control" type="text"
 								 id="selectedPersonEmail"  required>
 							</div><br>
-
-							<div> <b>Password:</b>
+							
+							<div> <label>Password:</label>
 							<input class="form-control" type="text"
 								 id="selectedPersonPassword"  required>
-							</div><br>
+							</div><br>	 
+							
+							<div> <label>Company:</label>
+							<span id="selectedPersonCompany"></span>
+							</div><br>	
+							
+							<div> <b>Department:</b>
+							<span id="selectedPersonDepartment"></span>
+							</div><br>	
+							
+							<div> <b>Roles:</b>
+							<span id="selectedPersonRoles"></span>
+							</div><br>	
 
-<!-- 								<input -->
-<!-- 								class="form-control" type="text"  -->
-<!-- 								ng-model="selectedPerson.surname" required><br>  -->
 
-<!-- 								<input class="form-control" -->
-<!-- 								type="text"  ng-model="selectedPerson.adress" required> -->
+<!-- 	<!-- modal header--> 
+<!-- 					<div class="modal-body"> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label>Full Name:</label> -->
+<!-- 							<input class="form-control" type="text" id="selectedPersonName" required /> -->
+<!-- 						</div> -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label>E-Mail:</label> -->
+<!-- 							<input class="form-control" type="text" id="selectedPersonEmail" required /> -->
+<!-- 						</div> -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label>Password:</label> -->
+<!-- 							<input class="form-control" type="text" id="selectedPersonPassword" required /> -->
+<!-- 						</div> -->
+						
+<!-- 						<div class="from-group"> -->
+<!-- 							<div class="checkbox form-control"> -->
+<!-- 								<label class="checkbox-inline"><input type="checkbox" -->
+<!-- 									name="userRole" id="adminRole" checked>Admin</label> <label -->
+<!-- 									class="checkbox-inline"><input type="checkbox" -->
+<!-- 									name="userRole" id="supporterRole">Supporter</label> <label -->
+<!-- 									class="checkbox-inline"><input type="checkbox" -->
+<!-- 									name="userRole" id="clientRole">Client</label> -->
+<!-- 							</div> -->
+<!-- 						</div>						 -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label>Company:</label> -->
+<!-- 							<label id="selectedPersonCompany"></label>	 -->
+<!-- 						</div> -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label>Department:</label> -->
+<!-- 							<label id="selectedPersonDepartment"></label>	 -->
+<!-- 						</div> -->
+<!-- 						form group div -->
+						
+<!-- 					</div> -->
+
+
+
+							
+															
 						</div>
 						<div class="modal-footer">
 							<div>
 								<button type="button" class="btn btn-primary btn-lg "
 									data-dismiss="modal">İptal</button>
 
-<!-- 									ng-click düzenlenecek -->
-									<button value="submit" data-dismiss="modal" class="btn btn-primary btn-lg"
-									ng-click="deleteData()">Sil</button>
-
-								<button value="submit" data-dismiss="modal" class="btn btn-primary btn-lg"
+									<button type="button"  class="btn btn-primary btn-lg"
+									onClick="deleteUserData()">Sil</button>
+								
+								<button  type="button" class="btn btn-primary btn-lg"
 									ng-click="putData()">Güncelle</button>
 							</div>
 						</div>
