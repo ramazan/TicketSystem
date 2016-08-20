@@ -435,4 +435,65 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("UpdateUser completed");
 	}
 
+	public void deleteUser(long userID, String email) {
+		
+		logger.debug("deleteUser started. Param: userID=" + userID + "   userEmail:" + email);
+
+		Connection con = null;
+		PreparedStatement pstRoles = null;
+		PreparedStatement pstUser = null;
+		StringBuilder queryDeleteRole = new StringBuilder();
+		StringBuilder queryDeleteUser = new StringBuilder();
+
+		try {
+			
+			// first delete responses
+			queryDeleteRole.append("DELETE FROM user_roles ");
+			queryDeleteRole.append("WHERE EMAIL=?");
+			String queryString = queryDeleteRole.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pstRoles = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("USER_ID : ").append(userID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+			
+			pstRoles.setString(1, email);
+
+			pstRoles.executeUpdate();
+			
+			// delete ticket
+			queryDeleteUser.append("DELETE FROM users ");
+			queryDeleteUser.append("WHERE ID=?");
+			queryString= queryDeleteUser.toString();
+			logger.debug("sql query created :"+queryString);			
+			
+			pstUser = con.prepareStatement(queryString);
+			
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("ID : ").append(userID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+			
+			pstUser.setLong(1, userID);
+			pstUser.executeUpdate();
+		} catch (Exception e) {
+			logger.error("error:" + e.getMessage());
+		} finally {
+			closePreparedStatement(pstRoles);
+			closePreparedStatement(pstUser);
+			closeConnection(con);
+		}
+		logger.debug("deleteUser is finished");
+	}
+
 }
