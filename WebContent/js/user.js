@@ -173,7 +173,7 @@ function updateProfile() {
 		contentType : "application/json",
 		mimeType : "application/json",
 		data :password,
-		success : function(data) {
+		success : function() {
 			$("#pass_validate").text("Şifre başarıyla değişti!");
 			$("#user_update_btn").prop("disabled", true);
 		},
@@ -199,48 +199,41 @@ function getUser(userID){
 	console.log("user ID:"+userID);
 	$('#user-detail-modal').modal('show');
 
-//	$.ajax({
-//		type : "POST",
-//		url : '/Ticket_System/rest/user/getUserInfo',
-//		contentType : "application/json",
-//		mimeType : "application/json",
-//		data:JSON.stringify(userID),
-//		success : function(ticket){
-//			$("#ticket_title").text(ticket.title);
-//			$("#ticket_message").text(ticket.message);
-//			$("#ticket_date").text(ticket.time);
-//			$("#ticket_sender").text(ticket.sender.name);
-//			$("#ticket_department").text(ticket.department.name);
-//			var status=$("#ticket_status");
-//			if(status){
-//			$("#ticket_status").text("OPEN");
-//			}
-//			else{
-//			$("#ticket_status").text("CLOSED");
-//			$("#ticket_status").css("color", "red");
-//			}
-//
+	$.ajax({
+		type : "GET",
+		url : '/Ticket_System/rest/user/getUserInfo/' + userID,
+		contentType : "application/json",
+		mimeType : "application/json",
+		success : function(user){
+			$("#selectedPersonName").val(user.name);
+			$("#selectedPersonEmail").val(user.email);
+			$("#selectedPersonPassword").val(user.password);
+			console.log("#selectedPerson.Name : " +user.name + "#selectedPerson.email: " +user.email);
+//			$("#ticket_date").text(user.time);
+//			$("#ticket_sender").text(user.sender.name);
+//			$("#ticket_department").text(user.department.name);
+//		
 //			loadAllResponses(clickedTicketID);
 //			$('html, body').animate({
 //			        scrollTop: $("#ticket_detail_table").offset().top
 //			    }, 1000);
-//
-//
-//		},
-//		error : function() {
-//			alert("Ticket details cannot get please try again. TicketID:  " + userID);
-//		}
-//	});
+
+
+		},
+		error : function() {
+			alert("user details cannot get please try again. userID:  " + userID);
+		}
+	});
 }
 
-
-var app = angular.module('app', []);
-
+//
+//var app = angular.module('app', []);
+//
 //app.controller('PersonListCtrl', function($scope, $http) {
 //
-//	$http.get('/CrudApp/webapi/persons/').success(
+//	$http.get('/Ticket_System/rest/user/getUserInfo').success(
 //			function(data) {
-//				$scope.persons = data;
+//				$scope.selectedPerson= data;
 //			});
 //
 //	$scope.selectedPerson={};

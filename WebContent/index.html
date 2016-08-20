@@ -437,21 +437,28 @@
 					<!-- Begin | Register Form -->
 					<form id="register-form" method="post">
 						<div class="modal-body">
-						
-							<input style="display: none;" class="form-control" type="text"
-								 ng-model="selectedPerson.id" required><br>
-							<input class="form-control" type="text"
-								 ng-model="selectedPerson.tckn" required><br>
 							
+							<div> <b>Name:</b>
 							<input class="form-control" type="text"
-								ng-model="selectedPerson.firstname" required><br> 
+								 id="selectedPersonName" required>
+							</div><br>
+							
+							<div> <b>Email:</b>
+							<input class="form-control" type="text"
+								 id="selectedPersonEmail"  required>
+							</div><br>
+							
+							<div> <b>Password:</b>
+							<input class="form-control" type="text"
+								 id="selectedPersonPassword"  required>
+							</div><br>	 
+															
+<!-- 								<input -->
+<!-- 								class="form-control" type="text"  -->
+<!-- 								ng-model="selectedPerson.surname" required><br>  -->
 								
-								<input
-								class="form-control" type="text" 
-								ng-model="selectedPerson.surname" required><br> 
-								
-								<input class="form-control"
-								type="text"  ng-model="selectedPerson.adress" required>
+<!-- 								<input class="form-control" -->
+<!-- 								type="text"  ng-model="selectedPerson.adress" required> -->
 						</div>
 						<div class="modal-footer">
 							<div>

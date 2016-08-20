@@ -310,7 +310,7 @@ public class UserDAOService extends ConnectionHelper {
 
 	// OVERLOADING YAPIYORUZ
 	public User getUser(long userID) {
-	    logger.debug("getUser started.");
+	    logger.debug("getUser with ID  started.");
 
 	    Connection con = null;
 	    PreparedStatement pstUser = null;
@@ -331,7 +331,7 @@ public class UserDAOService extends ConnectionHelper {
 	      query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID WHERE users.ID=?");
 
 	      String queryString = query.toString();
-	      logger.debug("sql query created : " + queryString);
+	      logger.debug("getUser with ID  sql query created : " + queryString);
 
 	      pstUser = con.prepareStatement(queryString);
 	      pstUser.setLong(1, userID);
@@ -363,7 +363,7 @@ public class UserDAOService extends ConnectionHelper {
 
 	        // GET ROLE
 	        queryString = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
-	        logger.debug("sql query created " + queryString);
+	        logger.debug( "getUser with ID  sql query created " + queryString);
 	        pstRole = con.prepareStatement(queryString);
 
 	        pstRole.setString(1, user.getEmail());
@@ -377,7 +377,7 @@ public class UserDAOService extends ConnectionHelper {
 	        user.setUserRoles(roles);
 	      }
 	    } catch (Exception e) {
-	      logger.debug("getUser error occured");
+	      logger.debug("getUser with ID  error occured");
 	      e.printStackTrace();
 	    } finally {
 	      closeResultSet(rsRole);
@@ -386,7 +386,7 @@ public class UserDAOService extends ConnectionHelper {
 	      closePreparedStatement(pstRole);
 	      closeConnection(con);
 	    }
-	    logger.debug("getUser completed.");
+	    logger.debug("getUser with ID completed.");
 	    return user;
 	  }
 	
