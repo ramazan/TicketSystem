@@ -24,10 +24,6 @@ function loadAllUsers() {
 			name : 'email',
 			width : 110
 		}, {
-			label : "Password",
-			name : 'password',
-			width : 70
-		}, {
 			label : "Company",
 			name : 'company.name',
 			width : 85

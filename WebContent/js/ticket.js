@@ -60,6 +60,8 @@ function deleteTicket(){
 		data:JSON.stringify(selectedTicketID),
 		success:function(){
 			console.log("ticket deleted!");
+			$('#tickets_jqGrid').trigger('reloadGrid');
+
 			showTickets();
 		},
 		error:function(jqXHR,textStatus,errorThrown){
