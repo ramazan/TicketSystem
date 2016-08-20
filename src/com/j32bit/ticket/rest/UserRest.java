@@ -72,5 +72,16 @@ public class UserRest {
 		String email = authenticatedUserDetails.getEmail();
 		ServiceFacade.getInstance().updateProfile(password, email);
 	}
+	
+	
+	@Path("/deleteUser/{mail}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public void deleteUser(long userID , @PathParam("mail") String email) throws Exception{
+		ServiceFacade.getInstance().deleteUser(userID,email);
+	}
+	
+	
 
 }
