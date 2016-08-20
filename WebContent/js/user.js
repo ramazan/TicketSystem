@@ -1,3 +1,5 @@
+
+
 function loadAllUsers() {
 
 	loadAllDeparments("new_user_dep");
@@ -11,7 +13,8 @@ function loadAllUsers() {
 		colModel : [ {
 			label : "ID",
 			name : 'id',
-			width : 40
+			width : 40,
+			formatter: addUserLink
 		}, {
 			label : "Name",
 			name : 'name',
@@ -31,11 +34,15 @@ function loadAllUsers() {
 		}, {
 			label : "Department",
 			name : 'department.name',
-			width : 85
-		}, ],
+			width : 95
+		}, {
+			label : "Roles",
+			name : 'userRoles',
+			width :125
+		},],
 		viewrecords : true,
 		height : 400,
-		width : 850,
+		width : 890,
 		rowNum : 10,
 		styleUI : 'Bootstrap',
 		pager : "#users_jqGridPager",
@@ -161,7 +168,7 @@ function updateProfile() {
 	var password = $("#user_new_pass").val();
 
 	$.ajax({
-		type : "POST",
+		type : "PUT",
 		url : '/Ticket_System/rest/user/updateProfile',
 		contentType : "application/json",
 		mimeType : "application/json",
@@ -176,3 +183,141 @@ function updateProfile() {
 	});
 
 }
+
+
+
+function addUserLink(cellvalue, options, rowObject){
+	var userID= rowObject.id;
+	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
+	clickLink +=" onclick=\"getUser("+userID+")\" >"+userID+"</a>"
+	return clickLink;
+}
+
+function getUser(userID){
+
+
+	console.log("user ID:"+userID);
+	$('#user-detail-modal').modal('show');
+
+//	$.ajax({
+//		type : "POST",
+//		url : '/Ticket_System/rest/user/getUserInfo',
+//		contentType : "application/json",
+//		mimeType : "application/json",
+//		data:JSON.stringify(userID),
+//		success : function(ticket){
+//			$("#ticket_title").text(ticket.title);
+//			$("#ticket_message").text(ticket.message);
+//			$("#ticket_date").text(ticket.time);
+//			$("#ticket_sender").text(ticket.sender.name);
+//			$("#ticket_department").text(ticket.department.name);
+//			var status=$("#ticket_status");
+//			if(status){
+//			$("#ticket_status").text("OPEN");
+//			}
+//			else{
+//			$("#ticket_status").text("CLOSED");
+//			$("#ticket_status").css("color", "red");
+//			}
+//
+//			loadAllResponses(clickedTicketID);
+//			$('html, body').animate({
+//			        scrollTop: $("#ticket_detail_table").offset().top
+//			    }, 1000);
+//
+//
+//		},
+//		error : function() {
+//			alert("Ticket details cannot get please try again. TicketID:  " + userID);
+//		}
+//	});
+}
+
+
+var app = angular.module('app', []);
+
+//app.controller('PersonListCtrl', function($scope, $http) {
+//
+//	$http.get('/CrudApp/webapi/persons/').success(
+//			function(data) {
+//				$scope.persons = data;
+//			});
+//
+//	$scope.selectedPerson={};
+//	
+//	$scope.showPerson = function($person){
+//		
+//		$scope.selectedPerson=$person;
+//	}
+//	
+//	
+//	
+//	
+//	
+//	$scope.insertData = function() {
+//		$http.post('/CrudApp/webapi/persons/', {
+//			'tckn' : $scope.tckn,
+//			'firstname' : $scope.firstname,
+//			'surname' : $scope.surname,
+//			'adress' : $scope.adress
+//		})
+//
+//		.success(function(data, status, headers, config) {
+//			$http.get('/CrudApp/webapi/persons/').success(
+//					function(data) {
+//						$scope.persons = data;
+//					});
+//			console.log("Veri başarıyla kaydedildi kardeş.");
+//		});
+//	}
+//	
+//	
+//	$scope.putData = function() {
+//		$http.put('/CrudApp/webapi/persons/', {
+//			'tckn' : $scope.selectedPerson.tckn,
+//			'firstname' : $scope.selectedPerson.firstname,
+//			'surname' : $scope.selectedPerson.surname,
+//			'adress' : $scope.selectedPerson.adress,
+//			'id' : $scope.selectedPerson.id
+//
+//		})
+//
+//		.success(function(data, status, headers, config) {
+//			$http.get('/CrudApp/webapi/persons/').success(
+//					function(data) {
+//						$scope.persons = data;
+//					});
+//			console.log("Veri başarıyla güncellendi kardeş.");
+//		});
+//	}
+//	
+//	
+//	
+//	
+//	
+//	$scope.deleteData = function() {
+//		$http.delete('/CrudApp/webapi/persons/'+$scope.selectedPerson.id, {
+//					'id' : $scope.selectedPerson.id
+//
+//		})
+//
+//		.success(function(data, status, headers, config) {
+//			$http.get('/CrudApp/webapi/persons/').success(
+//					function(data) {
+//						$scope.persons = data;
+//					});
+//			console.log("Veri başarıyla silindi kardeş.");
+//		});
+//	}
+//	
+//	
+//	$scope.reloadPage = function() {
+//		$http.get('/CrudApp/webapi/persons/').success(
+//				function(data) {
+//					$scope.persons = data;
+//				console.log("Veri başarıyla re-render edildi kardeş.");
+//				});
+//	}
+//	
+//	
+//});

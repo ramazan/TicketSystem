@@ -132,6 +132,8 @@ public class UserDAOService extends ConnectionHelper {
 		ResultSet rsUsers = null;
 		ResultSet rsRoles = null;
 		StringBuilder query = new StringBuilder();
+		String queryRoles;
+
 
 		User user;
 		ArrayList<User> userList = new ArrayList<>();
@@ -174,25 +176,23 @@ public class UserDAOService extends ConnectionHelper {
 
 				user.setCompany(company);
 
+				
 				// GET ROLE
-				/*
-				 * query = "SELECT ROLE FROM user_roles WHERE EMAIL=?"; pstRoles
-				 * = con.prepareStatement(query.toString());
-				 * 
-				 * if (logger.isTraceEnabled()) { StringBuilder queryLog = new
-				 * StringBuilder();
-				 * queryLog.append("Query created : ").append(query).append("\n"
-				 * ); queryLog.append("Parameters : \n");
-				 * queryLog.append("EMAIL : ").append(user.getEmail()).append(
-				 * "\n"); logger.trace(queryLog.toString()); }
-				 * pstRoles.setString(1, user.getEmail());
-				 * 
-				 * rsRoles = pstRoles.executeQuery();
-				 * 
-				 * ArrayList<String> userRoles = new ArrayList<>(); while
-				 * (rsRoles.next()) { userRoles.add(rsRoles.getString("ROLE"));
-				 * } user.setUserRoles(userRoles);
-				 */
+				
+				/* string builder kullanamadım cunku 
+				*  buradaki durum farklı append dediğimde  her seferinde sonuna ekliyor 
+				*  biraz çirkin duruyor fakat şimdilik bu durumda kalacak :)  
+				*  git commit -m ":)"  --Ramazan 
+				*/
+				queryRoles = "SELECT ROLE FROM user_roles WHERE EMAIL='"+user.getEmail()+"';";
+				pstRoles = con.prepareStatement(queryRoles.toString());
+				rsRoles = pstRoles.executeQuery();
+
+				ArrayList<String> userRoles = new ArrayList<>();
+				while (rsRoles.next()) {
+					userRoles.add(rsRoles.getString("ROLE"));
+				}
+				user.setUserRoles(userRoles);
 
 				userList.add(user);
 			}
@@ -230,7 +230,7 @@ public class UserDAOService extends ConnectionHelper {
 			query.append("companies.ADDRESS, companies.PHONE, companies.FAX,departments.DEPARTMENT_NAME ");
 			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
 			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID WHERE users.EMAIL=?");
-			
+
 			String queryString = query.toString();
 			logger.debug("sql query created : " + queryString);
 
@@ -308,6 +308,90 @@ public class UserDAOService extends ConnectionHelper {
 		return user;
 	}
 
+	// OVERLOADING YAPIYORUZ
+	public User getUser(long userID) {
+	    logger.debug("getUser started.");
+
+	    Connection con = null;
+	    PreparedStatement pstUser = null;
+	    PreparedStatement pstRole = null;
+	    ResultSet rsUser = null;
+	    ResultSet rsRole = null;
+	    StringBuilder query = new StringBuilder();
+
+	    User user = null;
+
+	    try {
+
+	      // GET USER
+	      con = getConnection();
+	      query.append("SELECT users.*, companies.COMPANY_NAME,companies.EMAIL AS COMPANY_EMAIL,");
+	      query.append("companies.ADDRESS, companies.PHONE, companies.FAX,departments.DEPARTMENT_NAME ");
+	      query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
+	      query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID WHERE users.ID=?");
+
+	      String queryString = query.toString();
+	      logger.debug("sql query created : " + queryString);
+
+	      pstUser = con.prepareStatement(queryString);
+	      pstUser.setLong(1, userID);
+
+	      rsUser = pstUser.executeQuery();
+
+	      if (rsUser.next()) {
+	        user = new User();
+	        user.setId(rsUser.getLong("ID"));
+	        user.setEmail(rsUser.getString("EMAIL"));
+	        user.setName(rsUser.getString("FULL_NAME"));
+	        user.setPassword(rsUser.getString("PASSWORD"));
+
+	        Department department = new Department();
+	        department.setName(rsUser.getString("DEPARTMENT_NAME"));
+	        department.setId(rsUser.getLong("DEPARTMENT_ID"));
+
+	        user.setDepartment(department);
+
+	        Company company = new Company();
+	        company.setAddress(rsUser.getString("ADDRESS"));
+	        company.setEmail(rsUser.getString("COMPANY_EMAIL"));
+	        company.setFax(rsUser.getString("FAX"));
+	        company.setId(rsUser.getLong("COMPANY_ID"));
+	        company.setName(rsUser.getString("COMPANY_NAME"));
+	        company.setPhone("PHONE");
+
+	        user.setCompany(company);
+
+	        // GET ROLE
+	        queryString = "SELECT ROLE FROM user_roles WHERE EMAIL=?";
+	        logger.debug("sql query created " + queryString);
+	        pstRole = con.prepareStatement(queryString);
+
+	        pstRole.setString(1, user.getEmail());
+
+	        rsRole = pstRole.executeQuery();
+
+	        ArrayList<String> roles = new ArrayList<>();
+	        while (rsRole.next()) {
+	          roles.add(rsRole.getString(1));
+	        }
+	        user.setUserRoles(roles);
+	      }
+	    } catch (Exception e) {
+	      logger.debug("getUser error occured");
+	      e.printStackTrace();
+	    } finally {
+	      closeResultSet(rsRole);
+	      closeResultSet(rsUser);
+	      closePreparedStatement(pstUser);
+	      closePreparedStatement(pstRole);
+	      closeConnection(con);
+	    }
+	    logger.debug("getUser completed.");
+	    return user;
+	  }
+	
+	
+	
 	public void updateProfile(String password, String email) throws Exception {
 
 		logger.debug("updateUser started");
