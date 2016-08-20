@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.ws.rs.WebApplicationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -253,7 +255,7 @@ public class TicketDAOService extends ConnectionHelper {
 	}
 
 	public ArrayList<TicketResponse> getAllResponses(long ticketID) {
-		logger.debug("getAllResponses is started. TicketID:"+ticketID);
+		logger.debug("getAllResponses is started. TicketID:" + ticketID);
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -311,5 +313,64 @@ public class TicketDAOService extends ConnectionHelper {
 		}
 		logger.debug("getAllResponses is finished");
 		return ticketResponses;
+	}
+
+	public void deleteTicket(long ticketID) throws Exception {
+		logger.debug("deleteTicket started. Param: ticketID=" + ticketID);
+
+		Connection con = null;
+		PreparedStatement pstResp = null;
+		PreparedStatement pstTicket = null;
+		StringBuilder queryDeleteResp = new StringBuilder();
+		StringBuilder queryDeleteTicket = new StringBuilder();
+
+		try {
+			
+			// first delete responses
+			queryDeleteResp.append("DELETE FROM ticket_responses ");
+			queryDeleteResp.append("WHERE TICKET_ID=?");
+			String queryString = queryDeleteResp.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pstResp = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("TICKET_ID : ").append(ticketID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+			pstResp.setLong(1, ticketID);
+
+			pstResp.executeUpdate();
+			
+			// delete ticket
+			queryDeleteTicket.append("DELETE FROM tickets ");
+			queryDeleteTicket.append("WHERE ID=?");
+			queryString= queryDeleteTicket.toString();
+			logger.debug("sql query created :"+queryString);			
+			
+			pstTicket = con.prepareStatement(queryString);
+			
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("ID : ").append(ticketID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+			
+			pstTicket.setLong(1, ticketID);
+			pstTicket.executeUpdate();
+		} catch (Exception e) {
+			logger.error("error:" + e.getMessage());
+		} finally {
+			closePreparedStatement(pstResp);
+			closePreparedStatement(pstTicket);
+			closeConnection(con);
+		}
+		logger.debug("deleteTicket is finished");
 	}
 }

@@ -341,15 +341,23 @@
 	</div>
 	<!-- Profile div -->
 
-<br><hr><br>
+<br><hr>
 	<!-- Ticket Details -->
 	<div id="ticket_details_page" style="display:none">
-
 		<div class="row">
-
 			<div class="col-md-8 col-md-offset-2">
 
-				<div class="table-responsive">
+				<div class="table-responsive" id="ticket_details_area">
+					<br>
+					<div class="row">
+						<div class="col-md-1">
+							<button class="btn btn-danger" onclick="deleteTicket()">Delete</button>
+						</div>
+						<div class="col-md-1">
+							<button class="btn btn-primary" onclick="closeTicket()">Close</button>
+						</div>
+					</div>
+					<hr><br>
 					<table id="ticket_detail_table" class="table table-condensed table-bordered">
 						<thead>
 							<tr>

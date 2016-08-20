@@ -84,6 +84,10 @@ public class ServiceFacade {
 	public void addTicket(Ticket ticket) throws Exception {
 		ticketService.addTicket(ticket);
 	}
+	
+	public void deleteTicket(long ticketID) throws Exception{
+		ticketService.deleteTicket(ticketID);
+	}
 
 	public Company addCompany(Company company) {
 		return companyService.addCompany(company);
