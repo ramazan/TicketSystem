@@ -1,13 +1,12 @@
-var selectedUserID,selectedUserEmail;
-
+var selectedUserID, selectedUserEmail;
 
 function loadAllUsers() {
 
 	loadAllDeparments("new_user_dep");
 	loadAllCompanies("new_user_company");
 
-	if(userTableCreateStatus==false){
-		userTableCreateStatus=true;
+	if (userTableCreateStatus == false) {
+		userTableCreateStatus = true;
 		$("#users_jqGrid").jqGrid({
 			caption : "USER LIST",
 			url : "/Ticket_System/rest/user/getAllUsers",
@@ -17,7 +16,7 @@ function loadAllUsers() {
 				label : "ID",
 				name : 'id',
 				width : 40,
-				formatter: addUserLink
+				formatter : addUserLink
 			}, {
 				label : "Name",
 				name : 'name',
@@ -37,15 +36,15 @@ function loadAllUsers() {
 			}, {
 				label : "Roles",
 				name : 'userRoles',
-				width :125
-			},],
+				width : 125
+			}, ],
 			viewrecords : true,
 			height : 400,
 			width : 890,
 			rowNum : 10,
 			styleUI : 'Bootstrap',
 			pager : "#users_jqGridPager",
-			emptyrecords: "Nothing to display"
+			emptyrecords : "Nothing to display"
 
 		});
 
@@ -65,15 +64,8 @@ function loadAllUsers() {
 				$('#add_user_modal').modal('show');
 			},
 			position : "last"
-		}).navButtonAdd('#users_jqGridPager', {
-			caption : "Del",
-			buttonicon : "ui-icon-del",
-			onClickButton : function() {
-				alert("Deleting Row");
-			},
-			position : "last"
 		});
-	}else{
+	} else {
 		$("users_jqGrid").trigger("reloadGrid");
 	}
 
@@ -109,9 +101,13 @@ function addUser() {
 			name : newName,
 			email : newEmail,
 			password : newPassword,
-			company : { id:newCompanyID},
+			company : {
+				id : newCompanyID
+			},
 			userRoles : newRoles,
-			department : {id:userDepartmentID}
+			department : {
+				id : userDepartmentID
+			}
 		};
 
 		$.ajax({
@@ -129,8 +125,10 @@ function addUser() {
 				$('#add_user_msg').val('');
 				$('#new_user_name').val('');
 				$('#new_user_email').val('');
-				$('#new_user_password').val('');  								       // inputları temizle.
-  				setTimeout(function() { $('#add_user_modal').modal('hide'); }, 2000);
+				$('#new_user_password').val(''); // inputları temizle.
+				setTimeout(function() {
+					$('#add_user_modal').modal('hide');
+				}, 2000);
 			},
 			error : function() {
 				alert("User cannot added please try again. ");
@@ -139,7 +137,7 @@ function addUser() {
 	}
 }
 
-function loadProfileInf(){
+function loadProfileInf() {
 
 	var user = authenticatedUser;
 	$("#user_email").text(user.email);
@@ -170,36 +168,36 @@ function updateProfile() {
 
 	var password = $("#user_new_pass").val();
 
-	$.ajax({
-		type : "PUT",
-		url : '/Ticket_System/rest/user/updateProfile',
-		contentType : "application/json",
-		mimeType : "application/json",
-		data :password,
-		success : function() {
-			$("#pass_validate").text("Şifre başarıyla değişti!");
-			$("#user_update_btn").prop("disabled", true);
-		},
-		error : function() {
-		$("#pass_validate").text("Şifre değiştirilemedi , tekrar deneyin.");
-		}
-	});
+	$
+			.ajax({
+				type : "PUT",
+				url : '/Ticket_System/rest/user/updateProfile',
+				contentType : "application/json",
+				mimeType : "application/json",
+				data : password,
+				success : function() {
+					$("#pass_validate").text("Şifre başarıyla değişti!");
+					$("#user_update_btn").prop("disabled", true);
+				},
+				error : function() {
+					$("#pass_validate").text(
+							"Şifre değiştirilemedi , tekrar deneyin.");
+				}
+			});
 
 }
 
-
-function addUserLink(cellvalue, options, rowObject){
-	var userID= rowObject.id;
+function addUserLink(cellvalue, options, rowObject) {
+	var userID = rowObject.id;
 	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
-	clickLink +=" onclick=\"getUser("+userID+")\" >"+userID+"</a>"
+	clickLink += " onclick=\"getUser(" + userID + ")\" >" + userID + "</a>"
 	return clickLink;
 }
 
-
-function getUser(userID){
+function getUser(userID) {
 
 	selectedUserID = userID;
-	console.log("user ID:"+userID);
+	console.log("user ID:" + userID);
 	$('#user-detail-modal').modal('show');
 
 	$.ajax({
@@ -207,52 +205,49 @@ function getUser(userID){
 		url : '/Ticket_System/rest/user/getUserInfo/' + userID,
 		contentType : "application/json",
 		mimeType : "application/json",
-		success : function(user){
+		success : function(user) {
 			$("#selectedPersonName").val(user.name);
 			$("#selectedPersonEmail").val(user.email);
-			selectedUserEmail= user.email;
+			selectedUserEmail = user.email;
 			$("#selectedPersonPassword").val(user.password);
 			$("#selectedPersonCompany").text(user.company.name);
 			$("#selectedPersonDepartment").text(user.department.name);
 			$("#selectedPersonRoles").text(user.userRoles);
-			console.log("#selectedPerson.Name : " +user.name + "  #selectedPerson.email: " +user.email);
+			console.log("#selectedPerson.Name : " + user.name
+					+ "  #selectedPerson.email: " + user.email);
 		},
 		error : function() {
-			alert("user details cannot get please try again. userID:  " + userID);
+			alert("user details cannot get please try again. userID:  "
+					+ userID);
 		}
 	});
 }
 
+function deleteUserData() {
 
-
-function deleteUserData(){
-	
-	
-
-	console.log("started to delete userID:"+selectedUserID + " selected user mail : " +selectedUserEmail);
+	console.log("started to delete userID:" + selectedUserID
+			+ " selected user mail : " + selectedUserEmail);
 
 	$.ajax({
-		url:"/Ticket_System/rest/user/deleteUser/" + selectedUserEmail,
-		type:"POST",
-		mimeType:"application/json",
-		contentType:"application/json",
-		data:JSON.stringify(selectedUserID),
-		success:function(){
+		url : "/Ticket_System/rest/user/deleteUser/" + selectedUserEmail,
+		type : "POST",
+		mimeType : "application/json",
+		contentType : "application/json",
+		data : JSON.stringify(selectedUserID),
+		success : function() {
 			console.log("user deleted!");
 			$('#users_jqGrid').trigger('reloadGrid');
 			user_detail_msg
 			$("#user_detail_msg").text("User deleted. Closing Window..");
-			setTimeout(function() { $('#user-detail-modal').modal('hide'); $("#user_detail_msg").text(""); }, 2000);
-			
+			setTimeout(function() {
+				$('#user-detail-modal').modal('hide');
+				$("#user_detail_msg").text("");
+			}, 2000);
 
 		},
-		error:function(jqXHR,textStatus,errorThrown){
-			console.log("error :"+errorThrown);
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error :" + errorThrown);
 		}
 	});
-	
-	
-	
-	
-	
+
 }
