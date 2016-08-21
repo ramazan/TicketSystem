@@ -50,7 +50,9 @@ function addDepartment() {
 
           $("#new_dep_name").val("");
           $("#add_dep_msg").val("");
-  				setTimeout(function() { $('#add_dep_modal').modal('hide'); }, 2000);
+  				setTimeout(function() { $('#add_dep_modal').modal('hide');
+  										$("#add_dep_msg").text("");
+  				}, 2000);
 			},
 			error : function() {
 		          $("#add_dep_msg").text("Department can't added. Please try again..");

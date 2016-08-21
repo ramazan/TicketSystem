@@ -62,12 +62,14 @@ function deleteTicket(){
 			console.log("ticket deleted!");
 			$('#tickets_jqGrid').trigger('reloadGrid');
 
-			$("#delete_ticket_msg").text("Ticket Deleted. Window closing...");
+			$("#delete_ticket_label").text("Ticket Deleted. Window closing...");
 			setTimeout(function() {
 				$('#delete_ticket_modal').modal('hide');
+				$('#delete_ticket_msg').text("Are you sure want to delete ticket?");
+				$("#delete_ticket_label").text(""); // tekrar tıklanıldıgında aynı mesaji görmemek için texti sıfırla!
+
 			}, 1500);
-			//TODO: buralari hemen devreye aliyor.
-			$('#delete_ticket_msg').text("Are you sure want to delete ticket?");
+			//TODO: buralari hemen devreye aliyor. -->> hemen devreye almaması için üsttekiki gibi setTimeOut fonksiyonun içine almalısın :)
 			showTickets();
 		},
 		error:function(jqXHR,textStatus,errorThrown){
@@ -243,6 +245,7 @@ function sendTicket() {
 				$("#new_ticket_msg").val("");
 				setTimeout(function() {
 					$('#ticket_add_modal').modal('hide');
+					$("#ticket_add_msg").text("");
 				}, 2000);
 
 			},

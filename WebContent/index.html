@@ -63,7 +63,10 @@
 						<h4 class="modal-title">New Ticket</h4>
 					</div>
 					<div class="modal-body">
-						<p id="ticket_add_msg" class="text-center text-warning lead"></p>
+							<div>
+								<p id="ticket_add_msg" class="label label-success"></p>
+								</br></br>
+							</div>
 
 						<label>Department:</label>
 						<div class="form-group">
@@ -111,7 +114,12 @@
 					<h4 class="modal-title">Delete Ticket</h4>
 				</div>
 				<div class="modal-body">
-					<p id="delete_ticket_msg">Are you sure want to delete ticket?</p>
+						<div>
+								<p id="delete_ticket_label" class="label label-success"></p>
+								</br></br>
+						</div>
+				
+					<p id="delete_ticket_msg"  class="label label-danger">Are you sure want to delete ticket?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -146,7 +154,11 @@
 					</div>
 					<!-- modal header-->
 					<div class="modal-body">
-						<p id="add_user_msg" class="text-center text-warning lead"></p>
+						<div>
+								<p id="add_user_msg" class="label label-success"></p>
+								</br></br>
+							</div>
+						
 						<div class="form-group">
 							<label>Full Name:</label> <input class="form-control" type="text"
 								id="new_user_name" required />
@@ -233,7 +245,12 @@
 						<h4 class="modal-title">Add New Company</h4>
 					</div>
 					<div class="modal-body">
-						<p class="text-center text-danger lead" id="add_company_msg"></p>
+						<div>
+								<p id="add_company_msg" class="label label-success"></p>
+								</br></br>
+						</div>
+						
+						
 						<div class="form-group">
 							<label>Name:<span class="text-danger">*</span></label> <input
 								class="form-control" type="text" id="new_company_name" required />
@@ -280,7 +297,10 @@
 						<h4 class="modal-title">Add New Department</h4>
 					</div>
 					<div class="modal-body">
-						<p class="text-center text-danger lead" id="add_dep_msg"></p>
+						<div>
+								<p id="add_dep_msg" class="label label-success"></p>
+								</br></br>
+						</div>
 						<div class="form-group">
 							<label>Name:<span class="text-danger">*</span></label><input
 								class="form-control" type="text" id="new_dep_name" required />
@@ -469,8 +489,11 @@
 						<!-- Begin | Register Form -->
 						<form id="register-form" method="post">
 							<div class="modal-body">
-								<p id="user_detail_msg" class="text-center text-warning lead"></p>
-
+							<div>
+								<p id="user_detail_msg" class="label label-success"></p>
+								</br></br>
+							</div>
+							
 								<div>
 									<label>Full Name:</label> <input class="form-control"
 										type="text" id="selectedPersonName" required>
@@ -485,7 +508,8 @@
 
 								<div>
 									<label>Password:</label> <input class="form-control"
-										type="text" id="selectedPersonPassword" required>
+										type="password" id="selectedPersonPassword" required>
+										<button id="showHideButton" class="btn btn-primary" type="button">Showw/Hide</button>
 								</div>
 								<br>
 

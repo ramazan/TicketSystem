@@ -34,3 +34,10 @@
 #ticket_responses{
   word-break: break-all;
 }
+
+
+#user_detail_msg,#add_user_msg,#ticket_add_msg,#add_company_msg,#add_dep_msg,#delete_ticket_label,#delete_ticket_msg{
+	
+font-size: 20px;
+}
+

@@ -59,7 +59,9 @@ function addCompany() {
           $('#new_company_email').val('');
           $('#new_company_name').val('');
           $('#new_company_address').val('');
-  				setTimeout(function() { $('#add_company_modal').modal('hide'); }, 2000);
+  				setTimeout(function() { $('#add_company_modal').modal('hide');
+  										$("#add_company_msg").text("");
+  				}, 2000);
 			},
 			error : function() {
 		          $("#add_company_msg").text("Company can't added. Please try again..");
