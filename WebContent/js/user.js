@@ -254,14 +254,12 @@ function deleteUserData() {
 
 
 	
-	var btn =  document.getElementById("showHideButton").addEventListener("click", function(e){
+document.getElementById("showHideButton").addEventListener("click", function(e){
 	        var pwd = document.getElementById("selectedPersonPassword");
 	        if(pwd.getAttribute("type")=="password"){
 	            pwd.setAttribute("type","text");
-	            btn.value("Gizle");
 	        } else {
 	            pwd.setAttribute("type","password");
-	            btn.value("Göster");
 
 	        }
 	    });
