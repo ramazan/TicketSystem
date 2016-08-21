@@ -5,7 +5,8 @@
 
 <title>32Bit Ticket System</title>
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="./css/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="./css/ui.jqgrid-bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="./css/ticket.css">
 
 </head>
@@ -18,10 +19,10 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li id="nav_tickets" class="dropdown active">
-						<a onclick="showTickets()" class="dropdown-toggle"
-						data-toggle="dropdown" role="button"
-						aria-expanded="false">Tickets<span class="caret"></span></a>
+					<li id="nav_tickets" class="dropdown active"><a
+						onclick="showTickets()" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Tickets<span
+							class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Opened Tickets</a></li>
 							<li role="separator" class="divider"></li>
@@ -30,7 +31,7 @@
 					<li id="nav_users"><a href="#" onclick="showUsers()">Users</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a>Welcome  <b id="nav_nickname"></b></a></li>
+					<li><a>Welcome <b id="nav_nickname"></b></a></li>
 					<li id="nav_profile"><a href="#" onclick="showProfile()">My
 							Profile</a></li>
 					<li><a href="#" onclick="logout()">Logout</a></li>
@@ -40,6 +41,8 @@
 		</nav>
 	</header>
 
+
+	<!-- ############# TICKET AREA ############ -->
 	<div id="tickets_page">
 		<!-- JQGRID Test -->
 		<div class="row">
@@ -60,8 +63,7 @@
 						<h4 class="modal-title">New Ticket</h4>
 					</div>
 					<div class="modal-body">
-						<p id="ticket_add_msg"
-							class="text-center text-warning lead"></p>
+						<p id="ticket_add_msg" class="text-center text-warning lead"></p>
 
 						<label>Department:</label>
 						<div class="form-group">
@@ -101,7 +103,29 @@
 	</div>
 	<!-- Tickets div -->
 
+	<div id="delete_ticket_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<p id="delete_ticket_msg">Are you sure want to delete ticket?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" onclick="deleteTicket()"
+						class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete ticket modal-->
 
+
+
+	<!-- ###### USER AREAA #####-->
 	<div id="users_page">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -124,18 +148,18 @@
 					<div class="modal-body">
 						<p id="add_user_msg" class="text-center text-warning lead"></p>
 						<div class="form-group">
-							<label>Full Name:</label>
-							<input class="form-control" type="text" id="new_user_name" required />
+							<label>Full Name:</label> <input class="form-control" type="text"
+								id="new_user_name" required />
 						</div>
 
 						<div class="form-group">
-							<label>E-Mail:</label>
-							<input class="form-control" type="text" id="new_user_email" required />
+							<label>E-Mail:</label> <input class="form-control" type="text"
+								id="new_user_email" required />
 						</div>
 
 						<div class="form-group">
-							<label>Password:</label>
-							<input class="form-control" type="text" id="new_user_password" required />
+							<label>Password:</label> <input class="form-control" type="text"
+								id="new_user_password" required />
 						</div>
 
 						<div class="form-group">
@@ -175,8 +199,7 @@
 
 								<div class="col-md-6">
 									<button class="btn btn-info" data-toggle="modal"
-										data-target="#add_dep_modal">Add New
-										Department</button>
+										data-target="#add_dep_modal">Add New Department</button>
 
 								</div>
 							</div>
@@ -210,8 +233,7 @@
 						<h4 class="modal-title">Add New Company</h4>
 					</div>
 					<div class="modal-body">
-						<p class="text-center text-danger lead"
-							id="add_company_msg"></p>
+						<p class="text-center text-danger lead" id="add_company_msg"></p>
 						<div class="form-group">
 							<label>Name:<span class="text-danger">*</span></label> <input
 								class="form-control" type="text" id="new_company_name" required />
@@ -258,8 +280,7 @@
 						<h4 class="modal-title">Add New Department</h4>
 					</div>
 					<div class="modal-body">
-						<p class="text-center text-danger lead"
-							id="add_dep_msg"></p>
+						<p class="text-center text-danger lead" id="add_dep_msg"></p>
 						<div class="form-group">
 							<label>Name:<span class="text-danger">*</span></label><input
 								class="form-control" type="text" id="new_dep_name" required />
@@ -283,10 +304,10 @@
 	</div>
 	<!-- users div - -->
 
-	<div id="profile_page" class="row"  style="display: none;">
 
+	<!-- PROFILE PAGE AREA-->
+	<div id="profile_page" class="row" style="display: none;">
 		<div class="col-md-4 col-md-offset-4">
-
 			<div class="table-responsive">
 				<table class="table table-condensed table-bordered">
 					<thead>
@@ -341,27 +362,30 @@
 	</div>
 	<!-- Profile div -->
 
-<br><hr>
-	<!-- Ticket Details -->
-	<div id="ticket_details_page" style="display:none">
+	<br>
+	<hr>
+	<!-- ###### Ticket Details Area ####### -->
+	<div id="ticket_details_page" style="display: none">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-3">
-
-				<div class="table-responsive" id="ticket_details_area">
-					<br>
-					<div class="row">
-						<div class="col-md-1">
-							<button class="btn btn-danger" onclick="deleteTicket()">Delete</button>
-						</div>
-						<div class="col-md-1">
-							<button class="btn btn-primary" onclick="closeTicket()">Close</button>
-						</div>
-						<div class="col-md-1">
-							<button class="btn btn-success" onclick="editTicket()">Edit</button>
-						</div>
+			<div class="col-md-8 col-md-offset-2">
+				<br>
+				<div class="row">
+					<div class="col-md-1">
+						<button class="btn btn-danger" data-toggle="modal"
+							data-target="#delete_ticket_modal">Delete</button>
 					</div>
-					<hr><br>
-					<table id="ticket_detail_table" class="table table-condensed table-bordered">
+					<div class="col-md-1">
+						<button class="btn btn-primary" onclick="closeTicket()">Close</button>
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-success" onclick="editTicket()">Edit</button>
+					</div>
+				</div>
+				<hr>
+				<br>
+				<div class="table-responsive">
+					<table id="ticket_detail_table"
+						class="table table-condensed table-bordered">
 						<thead>
 							<tr>
 								<th colspan="2">Ticket Details</th>
@@ -382,125 +406,129 @@
 							</tr>
 							<tr>
 								<td>Status:</td>
-								<td><b id="ticket_status" style="color: green;"></b></td>
+								<td><b id="ticket_status"></b></td>
 							</tr>
 							<tr>
 								<td>Date:</td>
 								<td><b id="ticket_date"></b></td>
 							</tr>
-							<tr>
-								<th colspan="2">Ticket Threads:</th>
-							</tr>
-							<tr>
-								<table class="table table-bordered
-								 			table-condensed" id="ticket_responses">
-									<tbody>
-									</tbody>
-								</table>
-							</tr>
-							<tr>
-								<td colspan="2"><label>Message:</label>
-									<div class="form-group">
-										<p id="add_resp_msg"></p>
-										<textarea rows="9" cols="60" id="ticket_response_msg"></textarea><br>
-										<p id="remainingC"></p>
-										<br>
-										<button id="sendTicketResponse" class="btn btn-success"
-										onclick="sendTicketResponse()">Send Response</button>
-									</div>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
-				<!-- main container-fluid -->
+				<div class="table-responsive">
+					<table class="table table-bordered
+						table-condensed"
+						id="ticket_responses">
+						<thead>
+							<tr>
+								<th>Ticket Responses</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div class="form-group">
+					<p id="add_resp_msg"></p>
+					<label for="ticket_response_msg">Response:</label>
+					<textarea class="form-control" rows="9" cols="50"
+						id="ticket_response_msg"></textarea>
+					<br>
+					<p id="remainingC">Remaining characters : 500</p>
+					<br>
+					<button id="sendTicketResponse" class="btn btn-success"
+						onclick="sendTicketResponse()">Send Response</button>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
-	<!-- Ticket Details -->
 
 
 
 
 	<div id="user_modal_detail">
+		<!-- BEGIN # USER MODAL DETAIL -->
+		<div class="modal fade" id="user-detail-modal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" align="center">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<h4>Kapat</h4>
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h3>Kisi Bilgileri</h3>
 
-<!-- BEGIN # USER MODAL DETAIL -->
-	<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<h4>Kapat</h4>
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
-					<h3>Kisi Bilgileri</h3>
+					</div>
 
-				</div>
+					<!-- Begin # DIV Form -->
+					<div id="div-forms">
 
-				<!-- Begin # DIV Form -->
-				<div id="div-forms">
+						<!-- Begin | Register Form -->
+						<form id="register-form" method="post">
+							<div class="modal-body">
+								<p id="user_detail_msg" class="text-center text-warning lead"></p>
 
-					<!-- Begin | Register Form -->
-					<form id="register-form" method="post">
-						<div class="modal-body">
-							<p id="user_detail_msg" class="text-center text-warning lead"></p>
-							
-							<div> <label>Full Name:</label>
-							<input class="form-control" type="text"
-								 id="selectedPersonName" required>
-							</div><br>
-							
-							<div> <label>Email:</label>
-							<input class="form-control" type="text"
-								 id="selectedPersonEmail"  required>
-							</div><br>
-							
-							<div> <label>Password:</label>
-							<input class="form-control" type="text"
-								 id="selectedPersonPassword"  required>
-							</div><br>	 
-							
-							<div> <label>Company:</label>
-							<span id="selectedPersonCompany"></span>
-							</div><br>	
-							
-							<div> <b>Department:</b>
-							<span id="selectedPersonDepartment"></span>
-							</div><br>	
-							
-							<div> <b>Roles:</b>
-							<span id="selectedPersonRoles"></span>
-							</div><br>					
-						</div>
-						<div class="modal-footer">
-							<div>
-								<button type="button" class="btn btn-primary btn-lg "
-									data-dismiss="modal">İptal</button>
+								<div>
+									<label>Full Name:</label> <input class="form-control"
+										type="text" id="selectedPersonName" required>
+								</div>
+								<br>
 
-									<button type="button"  class="btn btn-primary btn-lg"
-									onClick="deleteUserData()">Sil</button>
-								
-								<button  type="button" class="btn btn-primary btn-lg"
-									onclick="putData()">Güncelle</button>
+								<div>
+									<label>Email:</label> <input class="form-control" type="text"
+										id="selectedPersonEmail" required>
+								</div>
+								<br>
+
+								<div>
+									<label>Password:</label> <input class="form-control"
+										type="text" id="selectedPersonPassword" required>
+								</div>
+								<br>
+
+								<div>
+									<label>Company:</label> <span id="selectedPersonCompany"></span>
+								</div>
+								<br>
+
+								<div>
+									<b>Department:</b> <span id="selectedPersonDepartment"></span>
+								</div>
+								<br>
+
+								<div>
+									<b>Roles:</b> <span id="selectedPersonRoles"></span>
+								</div>
+								<br>
 							</div>
-						</div>
-					</form>
-					<!-- End | Register Form -->
+							<div class="modal-footer">
+								<div>
+									<button type="button" class="btn btn-primary btn-lg "
+										data-dismiss="modal">İptal</button>
+
+									<button type="button" class="btn btn-primary btn-lg"
+										onclick="deleteUserData()">Sil</button>
+
+									<button type="button" class="btn btn-primary btn-lg"
+										onclick="putData()">Güncelle</button>
+								</div>
+							</div>
+						</form>
+						<!-- End | Register Form -->
+
+					</div>
+					<!-- End # DIV Form -->
 
 				</div>
-				<!-- End # DIV Form -->
-
 			</div>
 		</div>
-	</div>
-	<!-- END # USER MODAL DETAIL -->
+		<!-- END # USER MODAL DETAIL -->
 
-	</div> <!-- user_modal_detail sonu -->
+	</div>
+	<!-- user_modal_detail sonu -->
 
 
 	<!-- JAVASCRIPT SOURCES -->

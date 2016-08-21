@@ -81,8 +81,8 @@ public class TicketRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public void editTicket(long ticketID) throws Exception{
-		ServiceFacade.getInstance().editTicket(ticketID);
+	public void editTicket(Ticket ticket) throws Exception{
+		ServiceFacade.getInstance().editTicket(ticket);
 	}
 	
 }

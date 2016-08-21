@@ -20,17 +20,17 @@ function getTicket(ticketID){
 			$("#ticket_sender").text(ticket.sender.name);
 			$("#ticket_department").text(ticket.department.name);
 			var status=$("#ticket_status");
-			if(status){
-			$("#ticket_status").text("OPEN");
-			}
-			else{
-			$("#ticket_status").text("CLOSED");
-			$("#ticket_status").css("color", "red");
+			if(status==1){
+				$("#ticket_status").text("OPEN");
+				$("#ticket_status").css("color", "green");
+			}else{
+				$("#ticket_status").text("CLOSED");
+				$("#ticket_status").css("color", "red");
 			}
 
 			loadAllResponses(selectedTicketID);
 			$('html, body').animate({
-			        scrollTop: $("#ticket_details_area").offset().top
+			        scrollTop: $("#ticket_details_page").offset().top
 			    }, 1000);
 
 
@@ -61,6 +61,13 @@ function deleteTicket(){
 		success:function(){
 			console.log("ticket deleted!");
 			$('#tickets_jqGrid').trigger('reloadGrid');
+
+			$("#delete_ticket_msg").text("Ticket Deleted. Window closing...");
+			setTimeout(function() {
+				$('#delete_ticket_modal').modal('hide');
+			}, 1500);
+			//TODO: buralari hemen devreye aliyor.
+			$('#delete_ticket_msg').text("Are you sure want to delete ticket?");
 			showTickets();
 		},
 		error:function(jqXHR,textStatus,errorThrown){
@@ -237,6 +244,7 @@ function sendTicket() {
 				setTimeout(function() {
 					$('#ticket_add_modal').modal('hide');
 				}, 2000);
+
 			},
 			error : function() {
 				$("#ticket_add_msg").text("Ticket couldn!t be sent! Later try again");
@@ -247,9 +255,9 @@ function sendTicket() {
 }
 
 function editTicket(){
-	
-	
-	
+
+
+
 }
 
 $('textarea').keypress(function(){
@@ -257,5 +265,5 @@ $('textarea').keypress(function(){
     if(this.value.length > 500){
         return false;
     }
-    $("#remainingC").html("Remaining characters : " +(500 - this.value.length));
+    $("#remainingC").text("Remaining characters : " +(500 - this.value.length));
 });

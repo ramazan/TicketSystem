@@ -102,10 +102,13 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setMessage(rs.getString("MESSAGE"));
 				ticket.setPriority(rs.getInt("PRIORITY"));
-				ticket.setStatus(true); // TODO : DB DEN AL
 				ticket.setTime(rs.getTimestamp("DATE").toString());
-
-				// logger.debug("TiME "+rs.getTimestamp("DATE"));
+				
+				if(rs.getInt("STATUS")==1){
+					ticket.setStatus(true);
+				}else{
+					ticket.setStatus(false);
+				}
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));
@@ -171,9 +174,14 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setId(ticketID);
 				ticket.setMessage(rs.getString("MESSAGE"));
 				ticket.setPriority(rs.getInt("PRIORITY"));
-				ticket.setStatus(true); // TODO: db den boolean olarak alinacak
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setTime(rs.getTimestamp("DATE").toString());
+				
+				if(rs.getInt("STATUS")==1){
+					ticket.setStatus(true);
+				}else{
+					ticket.setStatus(false);
+				}
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));
@@ -323,7 +331,7 @@ public class TicketDAOService extends ConnectionHelper {
 		StringBuilder queryDeleteTicket = new StringBuilder();
 
 		try {
-			
+
 			// first delete responses
 			queryDeleteResp.append("DELETE FROM ticket_responses ");
 			queryDeleteResp.append("WHERE TICKET_ID=?");
@@ -343,23 +351,23 @@ public class TicketDAOService extends ConnectionHelper {
 			pstResp.setLong(1, ticketID);
 
 			pstResp.executeUpdate();
-			
+
 			// delete ticket
 			queryDeleteTicket.append("DELETE FROM tickets ");
 			queryDeleteTicket.append("WHERE ID=?");
-			queryString= queryDeleteTicket.toString();
-			logger.debug("sql query created :"+queryString);			
-			
+			queryString = queryDeleteTicket.toString();
+			logger.debug("sql query created :" + queryString);
+
 			pstTicket = con.prepareStatement(queryString);
-			
-			if(logger.isTraceEnabled()){
+
+			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("ID : ").append(ticketID).append("\n");
 				logger.trace(queryLog.toString());
 			}
-			
+
 			pstTicket.setLong(1, ticketID);
 			pstTicket.executeUpdate();
 		} catch (Exception e) {
@@ -371,26 +379,31 @@ public class TicketDAOService extends ConnectionHelper {
 		}
 		logger.debug("deleteTicket is finished");
 	}
-	
-	public void editTicket(long ticketID) throws Exception {
-		
-		logger.debug("editTicket started. Param: ticketID=" + ticketID);
+
+	public void editTicket(Ticket newTicket) throws Exception {
+
+		logger.debug("editTicket started.");
 
 		Connection con = null;
-		PreparedStatement pstResp = null;
-		PreparedStatement pstTicket = null;
-		StringBuilder queryEditResp = new StringBuilder();
-		StringBuilder queryEditTicket = new StringBuilder();
-		
-		queryEditResp.append("UPDATE FROM ticket_responses ");
-		queryEditResp.append("SET column1=value1,column2=value2,...");
-		queryEditResp.append("WHERE TICKET_ID=?");
-		String queryString = queryEditResp.toString();
-		
-		logger.debug("sql query created : " + queryString);
+		PreparedStatement pst = null;
+		StringBuilder query = new StringBuilder();
 
-		con = getConnection();
-		pstResp = con.prepareStatement(queryString);
-		
+		try {
+			//TODO: duruma göre devamı gelicek, query bastan yazilmalı
+			query.append("UPDATE FROM ticket_responses ");
+			query.append("SET column1=value1,column2=value2,...");
+			query.append("WHERE TICKET_ID=?");
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pst = con.prepareStatement(queryString);
+			
+		} catch (Exception e) {
+			logger.debug("error :" + e.getMessage());
+		} finally {
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
 	}
 }
