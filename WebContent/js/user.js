@@ -12,12 +12,7 @@ function loadAllUsers() {
 			url : "/Ticket_System/rest/user/getAllUsers",
 			mtype : "GET",
 			datatype : "json",
-			colModel : [ {
-				label : "ID",
-				name : 'id',
-				width : 40,
-				formatter : addUserLink
-			}, {
+			colModel : [  {
 				label : "Name",
 				name : 'name',
 				width : 85
@@ -37,7 +32,12 @@ function loadAllUsers() {
 				label : "Roles",
 				name : 'userRoles',
 				width : 125
-			}, ],
+			},{
+				label : "Detail",
+				name : 'id',
+				width : 50,
+				formatter : addUserLink
+			} ],
 			viewrecords : true,
 			height : 400,
 			width : 890,
@@ -155,7 +155,6 @@ function validate() {
 
 	if (password1 == password2 && password1 != "" && password2 != "") {
 		$("#pass_validate").text("Şifreler eşleşti!");
-		// document.getElementById("ProfileSaveButton").enabled = true;
 		$("#user_update_btn").removeAttr('disabled');
 
 	} else {
@@ -190,7 +189,7 @@ function updateProfile() {
 function addUserLink(cellvalue, options, rowObject) {
 	var userID = rowObject.id;
 	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
-	clickLink += " onclick=\"getUser(" + userID + ")\" >" + userID + "</a>"
+	clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-primary\">Detail</button></a>"
 	return clickLink;
 }
 
