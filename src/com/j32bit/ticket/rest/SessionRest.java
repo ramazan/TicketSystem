@@ -28,8 +28,10 @@ public class SessionRest {
 	@GET
 	@PermitAll
 	public void login(@Context HttpServletRequest request, @Context HttpServletResponse response) {
-
-		String userEmail = request.getParameter("email");
+		logger.debug("login is started");
+		
+		String userEmail = request.getUserPrincipal().getName();
+		logger.debug("login email:"+userEmail);
 		User authenticatedUser = ServiceFacade.getInstance().getUserDetailWithEmail(userEmail);
 
 		HttpSession session = request.getSession();

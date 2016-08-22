@@ -3,39 +3,38 @@ var authenticatedUser;
 var ticketTableCreateStatus=false;
 var userTableCreateStatus=false;
 
-$(document).ready(function(){
+// login to system
+$.get("/Ticket_System/rest/session/login",function(){
 
-	loadAllTickets();
-
-	$.ajax({
-			type: "POST",
-			url: '/Ticket_System/rest/session/getAuthenticatedUser',
-			contentType : "application/json",
-			mimeType: "application/json",
-			success : function(data){
-				authenticatedUser = data;
-				$("#nav_nickname").text(authenticatedUser.email);
-			}
+	$(document).ready(function(){
+		$.ajax({
+				type: "POST",
+				url: '/Ticket_System/rest/session/getAuthenticatedUser',
+				contentType : "application/json",
+				mimeType: "application/json",
+				success : function(data){
+					authenticatedUser = data;
+					$("#nav_nickname").text(authenticatedUser.email);
+				}
 		});
 
-	var isAdmin=true; // TODO: sessiondan check yapılacak
+		loadAllTickets();
+		var isAdmin=true; // TODO: sessiondan check yapılacak
 
-	if(isAdmin==false){
-	  console.log("nav-user is hided");
-	  $("#nav_users").hide();
-	}
+		if(isAdmin==false){
+		  console.log("nav-user is hided");
+		  $("#nav_users").hide();
+		}
 
-	$('#supporterRole').change(function() {
-		if (this.checked)
-			$('#departmentFade').fadeIn();
-		else
-			$('#departmentFade').fadeOut();
+		$('#supporterRole').change(function() {
+			if (this.checked)
+				$('#departmentFade').fadeIn();
+			else
+				$('#departmentFade').fadeOut();
+		});
 	});
 });
 
-
-function login(){
-}
 
 function logout(){
 	$.get("/Ticket_System/rest/session/logout");
