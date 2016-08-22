@@ -158,19 +158,20 @@
 								<p id="add_user_msg" class="label label-success"></p>
 								<br><br>
 							</div>
-
+				
+				<form>
 						<div class="form-group">
-							<label>Full Name:</label> <input class="form-control" type="text"
+							<label>Full Name:</label> <input class="form-control" type="text" placeholder="Enter Your Full Name"
 								id="new_user_name" required />
 						</div>
 
 						<div class="form-group">
-							<label>E-Mail:</label> <input class="form-control" type="text"
-								id="new_user_email" required />
+							<label>E-Mail:</label> <input type="email" class="form-control" placeholder="Enter Email"
+								id="new_user_email"/>
 						</div>
 
 						<div class="form-group">
-							<label>Password:</label> <input class="form-control" type="text"
+							<label>Password:</label> <input class="form-control" type="text" placeholder="Enter Password"
 								id="new_user_password" required />
 						</div>
 
@@ -218,6 +219,7 @@
 							<!-- row div- -->
 						</div>
 						<!-- form group div -->
+				</form>
 
 					</div>
 					<!-- modal body-->
@@ -476,7 +478,7 @@
 					<div class="modal-header" align="center">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
-							<h4>Kapat</h4>
+							<h5>Kapat</h5>
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 						</button>
 						<h3>Kisi Bilgileri</h3>
@@ -530,13 +532,13 @@
 							</div>
 							<div class="modal-footer">
 								<div>
-									<button type="button" class="btn btn-primary btn-lg "
+									<button type="button" class="btn btn-primary"
 										data-dismiss="modal">İptal</button>
 
-									<button type="button" class="btn btn-primary btn-lg"
-										onclick="deleteUserData()">Sil</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#delete_user_modal">Sil</button>
 
-									<button type="button" class="btn btn-primary btn-lg"
+									<button type="button" class="btn btn-primary"
 										onclick="putData()">Güncelle</button>
 								</div>
 							</div>
@@ -553,6 +555,36 @@
 
 	</div>
 	<!-- user_modal_detail sonu -->
+
+
+	<!-- delete user modal-->
+<div id="delete_user_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete User</h4>
+				</div>
+				<div class="modal-body">
+						<div>
+								<p id="delete_user_label" class="label label-success"></p>
+								<br><br>
+						</div>
+
+					<p id="delete_user_msg"  class="label label-danger">Are you sure want to delete user?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" onclick="deleteUserData()"
+						class="btn btn-danger">Delete user</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete user modal-->
+
+
+
 
 
 	<!-- JAVASCRIPT SOURCES -->

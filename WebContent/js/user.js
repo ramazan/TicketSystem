@@ -127,7 +127,9 @@ function addUser() {
 				$('#new_user_email').val('');
 				$('#new_user_password').val(''); // inputları temizle.
 				setTimeout(function() {
-					$('#add_user_modal').modal('hide');
+					$('#add_user_modal').modal('hide'); 
+					$("#add_user_msg").text("");
+
 				}, 2000);
 			},
 			error : function() {
@@ -237,10 +239,11 @@ function deleteUserData() {
 			console.log("user deleted!");
 			$('#users_jqGrid').trigger('reloadGrid');
 			user_detail_msg
-			$("#user_detail_msg").text("User deleted. Closing Window..");
+			$("#delete_user_label").text("User deleted. Closing Window..");
 			setTimeout(function() {
 				$('#user-detail-modal').modal('hide');
-				$("#user_detail_msg").text("");
+				$('#delete_user_modal').modal('hide');
+				$("#delete_user_label").text("");
 			}, 2000);
 
 		},
