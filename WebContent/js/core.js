@@ -1,8 +1,5 @@
 var authenticatedUser;
 
-var ticketTableCreateStatus=false;
-var userTableCreateStatus=false;
-
 // login to system
 $.get("/Ticket_System/rest/session/login",function(){
 
@@ -18,7 +15,8 @@ $.get("/Ticket_System/rest/session/login",function(){
 				}
 		});
 
-		loadAllTickets();
+		// load open tickets
+		loadAllTickets(1);
 		var isAdmin=true; // TODO: sessiondan check yapılacak
 
 		if(isAdmin==false){
@@ -69,9 +67,7 @@ function showTicketDetails(){
 
 function showTickets(){
 
-	loadAllTickets();
-
-	$("#")
+	loadAllTickets(1);
 
 	$("#nav_profile").removeClass("active");
 	$('#nav_users').removeClass("active");

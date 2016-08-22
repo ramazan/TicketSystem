@@ -69,8 +69,8 @@ public class ServiceFacade {
 		return users;
 	}
 
-	public ArrayList<Ticket> getAllTickets() {
-		return ticketService.getAllTickets();
+	public ArrayList<Ticket> getAllTickets(boolean status) {
+		return ticketService.getAllTickets(status);
 	}
 
 	public User getUserDetailWithEmail(String userEmail) {

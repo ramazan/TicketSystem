@@ -5,69 +5,65 @@ function loadAllUsers() {
 	loadAllDeparments("new_user_dep");
 	loadAllCompanies("new_user_company");
 
-	if (userTableCreateStatus == false) {
-		userTableCreateStatus = true;
-		$("#users_jqGrid").jqGrid({
-			caption : "USER LIST",
-			url : "/Ticket_System/rest/user/getAllUsers",
-			mtype : "GET",
-			datatype : "json",
-			colModel : [  {
-				label : "Name",
-				name : 'name',
-				width : 85
-			}, {
-				label : "E-Mail",
-				name : 'email',
-				width : 110
-			}, {
-				label : "Company",
-				name : 'company.name',
-				width : 85
-			}, {
-				label : "Department",
-				name : 'department.name',
-				width : 95
-			}, {
-				label : "Roles",
-				name : 'userRoles',
-				width : 125
-			},{
-				label : "Detail",
-				name : 'id',
-				width : 50,
-				formatter : addUserLink
-			} ],
-			viewrecords : true,
-			height : 400,
-			width : 890,
-			rowNum : 10,
-			styleUI : 'Bootstrap',
-			pager : "#users_jqGridPager",
-			emptyrecords : "Nothing to display"
+	$("#users_jqGrid").jqGrid("clearGridData",true).trigger("reloadGrid");
+	$("#users_jqGrid").jqGrid({
+		caption : "USER LIST",
+		url : "/Ticket_System/rest/user/getAllUsers",
+		mtype : "GET",
+		datatype : "json",
+		colModel : [  {
+			label : "Name",
+			name : 'name',
+			width : 85
+		}, {
+			label : "E-Mail",
+			name : 'email',
+			width : 110
+		}, {
+			label : "Company",
+			name : 'company.name',
+			width : 85
+		}, {
+			label : "Department",
+			name : 'department.name',
+			width : 95
+		}, {
+			label : "Roles",
+			name : 'userRoles',
+			width : 125
+		},{
+			label : "Detail",
+			name : 'id',
+			width : 50,
+			formatter : addUserLink
+		} ],
+		viewrecords : true,
+		height : 400,
+		width : 890,
+		rowNum : 10,
+		styleUI : 'Bootstrap',
+		pager : "#users_jqGridPager",
+		emptyrecords : "Nothing to display"
 
-		});
+	});
 
-		$('#users_jqGrid').navGrid('#users_jqGridPager', {
-			edit : false,
-			add : false,
-			del : false,
-			search : true,
-			refresh : true,
-			view : true,
-			position : "left",
-			cloneToTop : false
-		}).navButtonAdd('#users_jqGridPager', {
-			caption : "Add",
-			buttonicon : "ui-icon-add",
-			onClickButton : function() {
-				$('#add_user_modal').modal('show');
-			},
-			position : "last"
-		});
-	} else {
-		$("users_jqGrid").trigger("reloadGrid");
-	}
+	$('#users_jqGrid').navGrid('#users_jqGridPager', {
+		edit : false,
+		add : false,
+		del : false,
+		search : true,
+		refresh : true,
+		view : true,
+		position : "left",
+		cloneToTop : false
+	}).navButtonAdd('#users_jqGridPager', {
+		caption : "Add",
+		buttonicon : "ui-icon-add",
+		onClickButton : function() {
+			$('#add_user_modal').modal('show');
+		},
+		position : "last"
+	});
 
 }
 
@@ -127,7 +123,7 @@ function addUser() {
 				$('#new_user_email').val('');
 				$('#new_user_password').val(''); // inputları temizle.
 				setTimeout(function() {
-					$('#add_user_modal').modal('hide'); 
+					$('#add_user_modal').modal('hide');
 					$("#add_user_msg").text("");
 
 				}, 2000);
@@ -255,7 +251,7 @@ function deleteUserData() {
 }
 
 
-	
+
 document.getElementById("showHideButton").addEventListener("click", function(e){
 	        var pwd = document.getElementById("selectedPersonPassword");
 	        if(pwd.getAttribute("type")=="password"){
@@ -265,4 +261,3 @@ document.getElementById("showHideButton").addEventListener("click", function(e){
 
 	        }
 	    });
-	

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -36,8 +38,13 @@ public class TicketRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public ArrayList<Ticket> getAllTickets() {
-		return  ServiceFacade.getInstance().getAllTickets();
+	public ArrayList<Ticket> getAllTickets(@Context HttpServletRequest request) {
+		int status = Integer.valueOf(request.getParameter("status"));
+		boolean stat=true;
+		if(status==0)
+			stat=false;
+		
+		return  ServiceFacade.getInstance().getAllTickets(stat);
 	}
 
 	

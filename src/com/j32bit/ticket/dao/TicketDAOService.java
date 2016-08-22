@@ -74,7 +74,7 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("addTicket is finished");
 	}
 
-	public ArrayList<Ticket> getAllTickets() {
+	public ArrayList<Ticket> getAllTickets(boolean status) {
 		logger.debug("getAllTickets started");
 		Connection conn = null;
 		PreparedStatement pStmt = null;
@@ -87,12 +87,27 @@ public class TicketDAOService extends ConnectionHelper {
 			query.append("SELECT tickets.*, users.FULL_NAME, departments.DEPARTMENT_NAME FROM tickets ");
 			query.append("INNER JOIN users ON users.ID = tickets.SENDER_ID ");
 			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID = departments.ID ");
+			query.append("WHERE STATUS=? ");
 			String queryString = query.toString();
 			logger.debug("Sql query Created : " + queryString);
 
 			conn = getConnection();
 			pStmt = conn.prepareStatement(queryString);
-
+			
+			int paramStat;
+			if(status)
+				paramStat = 1;
+			else paramStat=0;
+			
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("STATUS : ").append(paramStat).append("\n");
+				logger.trace(queryLog);
+			}
+			
+			pStmt.setInt(1, paramStat);
 			rs = pStmt.executeQuery();
 
 			while (rs.next()) {
