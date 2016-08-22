@@ -1,4 +1,7 @@
 var authenticatedUser;
+var isAdmin=false;
+var isSupporter=false;
+var isClient=false;
 
 // login to system
 $.get("/Ticket_System/rest/session/login",function(){
@@ -12,17 +15,26 @@ $.get("/Ticket_System/rest/session/login",function(){
 				success : function(data){
 					authenticatedUser = data;
 					$("#nav_nickname").text(authenticatedUser.email);
+
+					// sayfayi izinlere gore hazirla
+					$.each(authenticatedUser.userRoles,function(key,value){
+						console.log(value);
+						if(value=="admin")
+							isAdmin=true;
+						else if(value=="supporter")
+							isSupporter=true;
+						else
+							isClient=true;
+					});
+
+					if(isAdmin==false){
+						console.log("nav-user is hided");
+						$("#nav_users").hide();
+					}
 				}
-		});
+			});
 
-		// load open tickets
 		loadAllTickets(1);
-		var isAdmin=true; // TODO: sessiondan check yapılacak
-
-		if(isAdmin==false){
-		  console.log("nav-user is hided");
-		  $("#nav_users").hide();
-		}
 
 		$('#supporterRole').change(function() {
 			if (this.checked)

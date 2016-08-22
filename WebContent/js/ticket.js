@@ -33,7 +33,6 @@ function getTicket(ticketID){
 			        scrollTop: $("#ticket_details_page").offset().top
 			    }, 1000);
 
-
 		},
 		error : function() {
 			alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
@@ -66,10 +65,9 @@ function deleteTicket(){
 			setTimeout(function() {
 				$('#delete_ticket_modal').modal('hide');
 				$('#delete_ticket_msg').text("Are you sure want to delete ticket?");
-				$("#delete_ticket_label").text(""); // tekrar tıklanıldıgında aynı mesaji görmemek için texti sıfırla!
-
+				 // tekrar tıklanıldıgında aynı mesaji görmemek için texti sıfırla!
+				$("#delete_ticket_label").text("");
 			}, 1500);
-			//TODO: buralari hemen devreye aliyor. -->> hemen devreye almaması için üsttekiki gibi setTimeOut fonksiyonun içine almalısın :)
 			showTickets();
 		},
 		error:function(jqXHR,textStatus,errorThrown){
@@ -129,10 +127,6 @@ function loadAllResponses(){
 			});
 		}
 	});
-
-
-
-
 }
 
 // status boolean : open, closed
@@ -194,16 +188,6 @@ function loadAllTickets(status) {
 		position : "left",
 		cloneToTop : false
 	});
-		/*.navButtonAdd('#tickets_jqGridPager', {
-			caption : "Add",
-			buttonicon : "ui-icon-add",
-			onClickButton : function() {
-				$('#ticket_add_modal').modal('show');
-			}
-		});*/
-
-
-
 }
 
 function sendTicket() {
