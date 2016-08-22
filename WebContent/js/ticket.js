@@ -192,13 +192,14 @@ function loadAllTickets() {
 			view : true,
 			position : "left",
 			cloneToTop : false
-		}).navButtonAdd('#tickets_jqGridPager', {
+		});
+		/*.navButtonAdd('#tickets_jqGridPager', {
 			caption : "Add",
 			buttonicon : "ui-icon-add",
 			onClickButton : function() {
 				$('#ticket_add_modal').modal('show');
 			}
-		});
+		});*/
 	}else{ // just reload table
 		$('#tickets_jqGrid').trigger('reloadGrid');
 	}

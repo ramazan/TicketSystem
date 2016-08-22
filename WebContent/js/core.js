@@ -59,13 +59,21 @@ function showProfile(){
 
 function showTicketDetails(){
 
+	$("#nav_users").removeClass("active");
+	$('#nav_tickets').removeClass("active");
+	$("#nav_profile").addClass("active");
+
 	$('#ticket_details_page').show();
+
 }
 
 function showTickets(){
 
 	loadAllTickets();
 
+	$("#")
+
+	$("#nav_profile").removeClass("active");
 	$('#nav_users').removeClass("active");
 	$("#nav_tickets").addClass("active");
 	$('#users_page').hide();
@@ -77,6 +85,7 @@ function showTickets(){
 function showUsers(){
 	loadAllUsers();
 
+	$("#nav_profile").removeClass("active");
 	$('#nav_tickets').removeClass("active");
 	$("#nav_users").addClass("active");
 	$('#users_page').show();
