@@ -7,7 +7,7 @@ function loadAllUsers() {
 	loadAllDeparments("new_user_dep");
 	loadAllCompanies("new_user_company");
 
-	$("#users_jqGrid").jqGrid("clearGridData",true).trigger("reloadGrid");
+	$.jgrid.gridUnload("users_jqGrid");
 	$("#users_jqGrid").jqGrid({
 		caption : "USER LIST",
 		url : "/Ticket_System/rest/user/getAllUsers",
@@ -267,7 +267,7 @@ function updateUserData() {
 	var newEmail = $('#selectedPersonEmail').val();
 	var newCompanyID = $('#selectedPersonCompany').val();
 	var newPassword = $('#selectedPersonPassword').val();
-	
+
 	var newRoles = [];
 	var userDepartmentID = 0;
 	if ($('#adminRole').is(':checked')) {
@@ -280,13 +280,13 @@ function updateUserData() {
 	if ($('#clientRole').is(':checked')) {
 		newRoles.push("client");
 	}
-	
+
 	if (newRoles.length == 0 || newName == "" || newEmail == ""
 			|| newCompanyID == "" || newPassword == "") {
 		console.log("error: fill all boxes");
 		$("#user_detail_msg").html("Please fill all boxes");
 	} else {
-	
+
 		var person = {
 			name : newName,
 			email : newEmail,
@@ -299,7 +299,7 @@ function updateUserData() {
 				id : userDepartmentID
 			}
 		};
-	
+
 		$.ajax({
 			type : "POST",
 			url : '/Ticket_System/rest/user/updateUserData',
@@ -318,7 +318,7 @@ function updateUserData() {
 				setTimeout(function() {
 					$('#user-detail-modal').modal('hide');
 					$("#user_detail_msg").text("");
-	
+
 				}, 2000);
 			},
 			error : function() {

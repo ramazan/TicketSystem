@@ -133,6 +133,7 @@ function loadAllResponses(){
 function loadAllTickets(status) {
 	console.log(status);
 	loadAllDeparments("new_ticket_dep");
+	
 	$("#tickets_jqGrid").jqGrid("clearGridData", true)
 		.setGridParam({url:"/Ticket_System/rest/ticket/getAllTickets?status="+status})
 		.trigger("reloadGrid");
