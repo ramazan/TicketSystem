@@ -42,6 +42,14 @@ $.get("/Ticket_System/rest/session/login",function(){
 			else
 				$('#departmentFade').fadeOut();
 		});
+		
+		$('#supporterRol').change(function() {
+			if (this.checked)
+				$('#departmentInput').fadeIn();
+			else
+				$('#departmentInput').fadeOut();
+		});
+		
 	});
 });
 
