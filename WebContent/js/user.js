@@ -1,5 +1,7 @@
 var selectedUserID, selectedUserEmail;
 
+
+//users tablosu için tüm kullanıcıları getirme işlemi
 function loadAllUsers() {
 
 	loadAllDeparments("new_user_dep");
@@ -67,6 +69,7 @@ function loadAllUsers() {
 
 }
 
+//yeni kullanıcı ekleme işlemi
 function addUser() {
 
 	var newName = $("#new_user_name").val();
@@ -118,7 +121,6 @@ function addUser() {
 				$('#users_jqGrid').trigger('reloadGrid');
 				// clear boxes
 				$('input:checkbox').removeAttr('checked');
-				$('#add_user_msg').val('');
 				$('#new_user_name').val('');
 				$('#new_user_email').val('');
 				$('#new_user_password').val(''); // inputları temizle.
@@ -135,6 +137,7 @@ function addUser() {
 	}
 }
 
+//profile sayfasındaki bilgilerin set edilmesi
 function loadProfileInf() {
 
 	var user = authenticatedUser;
@@ -145,8 +148,8 @@ function loadProfileInf() {
 
 }
 
-// / Profile sayfasındaki şifre eşleşme kontrolü
 
+// Profile sayfasındaki şifre eşleşme kontrolü
 function validate() {
 	var password1 = $("#user_new_pass").val();
 	var password2 = $("#user_new_pass_c").val();
@@ -161,6 +164,8 @@ function validate() {
 	}
 }
 
+
+//profile sayfasındaki kullanıcın şifre değiştirme işlemi
 function updateProfile() {
 
 	var password = $("#user_new_pass").val();
@@ -184,6 +189,8 @@ function updateProfile() {
 
 }
 
+
+//users tablosundaki detail butonlarının hazırlanması
 function addUserLink(cellvalue, options, rowObject) {
 	var userID = rowObject.id;
 	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
@@ -191,6 +198,7 @@ function addUserLink(cellvalue, options, rowObject) {
 	return clickLink;
 }
 
+//detail buutonuna tıklandıgında ilgili kullanıcının bilgilerinin getirilmesi
 function getUser(userID) {
 
 	selectedUserID = userID;
@@ -220,6 +228,7 @@ function getUser(userID) {
 	});
 }
 
+//user detail modaldeki seçilen kullanıcının silinmesi
 function deleteUserData() {
 
 	console.log("started to delete userID:" + selectedUserID
@@ -251,7 +260,78 @@ function deleteUserData() {
 }
 
 
+//user detail update kısmı
+function updateUserData() {
 
+	var newName = $("#selectedPersonName").val();
+	var newEmail = $('#selectedPersonEmail').val();
+	var newCompanyID = $('#selectedPersonCompany').val();
+	var newPassword = $('#selectedPersonPassword').val();
+	
+	var newRoles = [];
+	var userDepartmentID = 0;
+	if ($('#adminRole').is(':checked')) {
+		newRoles.push("admin");
+	}
+	if ($('#supporterRole').is(':checked')) {
+		newRoles.push("supporter");
+		userDepartmentID = $("#selectedPersonDepartment").val();
+	}
+	if ($('#clientRole').is(':checked')) {
+		newRoles.push("client");
+	}
+	
+	if (newRoles.length == 0 || newName == "" || newEmail == ""
+			|| newCompanyID == "" || newPassword == "") {
+		console.log("error: fill all boxes");
+		$("#user_detail_msg").html("Please fill all boxes");
+	} else {
+	
+		var person = {
+			name : newName,
+			email : newEmail,
+			password : newPassword,
+			company : {
+				id : newCompanyID
+			},
+			userRoles : newRoles,
+			department : {
+				id : userDepartmentID
+			}
+		};
+	
+		$.ajax({
+			type : "POST",
+			url : '/Ticket_System/rest/user/updateUserData',
+			contentType : "application/json",
+			mimeType : "application/json",
+			data : JSON.stringify(person),
+			success : function() {
+				$("#user_detail_msg").text("User updated. Closing Window..");
+				// reload jqgrid
+				$('#users_jqGrid').trigger('reloadGrid');
+				// clear boxes
+				$('input:checkbox').removeAttr('checked');
+				$('#selectedPersonName').val('');
+				$('#selectedPersonEmail').val('');
+				$('#selectedPersonPassword').val(''); // inputları temizle.
+				setTimeout(function() {
+					$('#user-detail-modal').modal('hide');
+					$("#user_detail_msg").text("");
+	
+				}, 2000);
+			},
+			error : function() {
+				alert("User cannot updated please try again. ");
+			}
+		});
+	}
+}
+
+
+
+
+//user detail modaldeki password show/hide işlemi
 document.getElementById("showHideButton").addEventListener("click", function(e){
 	        var pwd = document.getElementById("selectedPersonPassword");
 	        if(pwd.getAttribute("type")=="password"){

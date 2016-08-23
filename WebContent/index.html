@@ -527,17 +527,33 @@
 								<br>
 
 								<div>
-									<label>Company:</label> <span id="selectedPersonCompany"></span>
+									<label>Company:</label> 
+<!-- 									<span id="selectedPersonCompany"></span> -->
+									<select class="form-control" id="selectedPersonCompany"></select>
+								
 								</div>
 								<br>
 
 								<div>
-									<b>Department:</b> <span id="selectedPersonDepartment"></span>
+									<b>Department:</b>
+<!-- 									 <span id="selectedPersonDepartment"></span> -->
+									 <select class="form-control" id="selectedPersonDepartment"></select>
+									 
 								</div>
 								<br>
 
 								<div>
-									<b>Roles:</b> <span id="selectedPersonRoles"></span>
+									<b>Roles:</b> 
+<!-- 									<span id="selectedPersonRoles"></span> -->
+									<div class="checkbox form-control">
+									<label class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="adminRole" checked>Admin</label> <label
+										class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="supporterRole">Supporter</label> <label
+										class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="clientRole">Client</label>
+									</div>
+								
 								</div>
 								<br>
 							</div>
