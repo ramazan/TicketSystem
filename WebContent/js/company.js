@@ -1,6 +1,8 @@
 function loadAllCompanies(selectID) {
 
   var compSelectID = "#"+selectID;
+  
+  console.log("compselect ıd " + compSelectID);
 
   $(compSelectID).html(" "); // kutucugu temizle
 

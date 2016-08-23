@@ -201,6 +201,10 @@ function addUserLink(cellvalue, options, rowObject) {
 //detail buutonuna tıklandıgında ilgili kullanıcının bilgilerinin getirilmesi
 function getUser(userID) {
 
+	
+	loadAllDeparments("selectedPersonDepartment");
+	loadAllCompanies("selectedPersonCompany");
+	
 	selectedUserID = userID;
 	console.log("user ID:" + userID);
 	$('#user-detail-modal').modal('show');
@@ -211,15 +215,16 @@ function getUser(userID) {
 		contentType : "application/json",
 		mimeType : "application/json",
 		success : function(user) {
+			selectedUserEmail = user.email;
 			$("#selectedPersonName").val(user.name);
 			$("#selectedPersonEmail").val(user.email);
-			selectedUserEmail = user.email;
 			$("#selectedPersonPassword").val(user.password);
-			$("#selectedPersonCompany").text(user.company.name);
-			$("#selectedPersonDepartment").text(user.department.name);
-			$("#selectedPersonRoles").text(user.userRoles);
+//			$("#selectedPersonCompany").val("2");
+//	     	$("#selectedPersonDepartment").text(user.department.name);
+			var roles = user.userRoles;
+			var company = user.company.name;
 			console.log("#selectedPerson.Name : " + user.name
-					+ "  #selectedPerson.email: " + user.email);
+					+ "  #selectedPerson.email: " + user.email + "  selected company : " +company + "roles: " + roles);
 		},
 		error : function() {
 			alert("user details cannot get please try again. userID:  "
