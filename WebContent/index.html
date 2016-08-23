@@ -520,9 +520,17 @@
 								<br>
 
 								<div>
-									<label>Password:</label> <input class="form-control"
-										type="password" id="selectedPersonPassword" required>
-										<button id="showHideButton" class="btn btn-primary" type="button">Show/Hide</button>
+									<label>Password:</label> 
+									  <div class="row">
+									
+											<div class="col-md-8">									
+												<input class="form-control"	type="password" id="selectedPersonPassword" required>
+											</div>
+										
+											<div class="col-md-6">
+													<button id="showHideButton" class="btn btn-primary btn-sm" type="button">Show/Hide</button>
+											</div>
+										</div>
 								</div>
 								<br>
 
@@ -535,27 +543,29 @@
 								<br>
 
 								<div>
+									<b>Roles:</b> 
+<!-- 									<span id="selectedPersonRoles"></span> -->
+									<div class="checkbox form-control">
+									<label class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="adminRol" checked>Admin</label> <label
+										class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="supporterRol">Supporter</label> <label
+										class="checkbox-inline"><input type="checkbox"
+										name="userRole" id="clientRol">Client</label>
+									</div>
+								
+								</div>
+								<br>
+								
+								<div style="display: none;" id="departmentInput">
 									<b>Department:</b>
 <!-- 									 <span id="selectedPersonDepartment"></span> -->
 									 <select class="form-control" id="selectedPersonDepartment"></select>
 									 
 								</div>
 								<br>
-
-								<div>
-									<b>Roles:</b> 
-<!-- 									<span id="selectedPersonRoles"></span> -->
-									<div class="checkbox form-control">
-									<label class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="adminRole" checked>Admin</label> <label
-										class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="supporterRole">Supporter</label> <label
-										class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="clientRole">Client</label>
-									</div>
 								
-								</div>
-								<br>
+								
 							</div>
 							<div class="modal-footer">
 								<div>
