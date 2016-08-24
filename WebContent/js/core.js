@@ -1,111 +1,111 @@
 var authenticatedUser;
-var isAdmin=false;
-var isSupporter=false;
-var isClient=false;
+var isAdmin = false;
+var isSupporter = false;
+var isClient = false;
 
 // login to system
-$.get("/Ticket_System/rest/session/login",function(){
+$.get("/Ticket_System/rest/session/login", function() {
 
-	$(document).ready(function(){
-		$.ajax({
-				type: "POST",
-				url: '/Ticket_System/rest/session/getAuthenticatedUser',
-				contentType : "application/json",
-				mimeType: "application/json",
-				success : function(data){
-					authenticatedUser = data;
-					$("#nav_nickname").text(authenticatedUser.email);
+  $(document).ready(function() {
+    $.ajax({
+      type: "POST",
+      url: '/Ticket_System/rest/session/getAuthenticatedUser',
+      contentType: "application/json",
+      mimeType: "application/json",
+      success: function(data) {
+        authenticatedUser = data;
+        $("#nav_nickname").text(authenticatedUser.email);
 
-					// sayfayi izinlere gore hazirla
-					$.each(authenticatedUser.userRoles,function(key,value){
-						console.log(value);
-						if(value=="admin")
-							isAdmin=true;
-						else if(value=="supporter")
-							isSupporter=true;
-						else
-							isClient=true;
-					});
+        // sayfayi izinlere gore hazirla
+        $.each(authenticatedUser.userRoles, function(key, value) {
+          console.log(value);
+          if (value == "admin")
+            isAdmin = true;
+          else if (value == "supporter")
+            isSupporter = true;
+          else
+            isClient = true;
+        });
 
-					if(isAdmin==false){
-						console.log("nav-user is hided");
-						$("#nav_users").hide();
-					}
-				}
-			});
+        if (isAdmin == false) {
+          console.log("nav-user is hided");
+          $("#nav_users").hide();
+        }
+      }
+    });
 
-		loadAllTickets(1);
+    loadAllTickets(1);
 
-		$('#supporterRole').change(function() {
-			if (this.checked)
-				$('#departmentFade').fadeIn();
-			else
-				$('#departmentFade').fadeOut();
-		});
-		
-		$('#supporterRol').change(function() {
-			if (this.checked)
-				$('#departmentInput').fadeIn();
-			else
-				$('#departmentInput').fadeOut();
-		});
-		
-	});
+    $('#supporterRole').change(function() {
+      if (this.checked)
+        $('#departmentFade').fadeIn();
+      else
+        $('#departmentFade').fadeOut();
+    });
+
+    $('#supporterRol').change(function() {
+      if (this.checked)
+        $('#departmentInput').fadeIn();
+      else
+        $('#departmentInput').fadeOut();
+    });
+
+  });
 });
 
 
-function logout(){
-	$.get("/Ticket_System/rest/session/logout");
-	window.location="/Ticket_System";
+function logout() {
+  $.get("/Ticket_System/rest/session/logout");
+  window.location = "/Ticket_System";
 }
 
-function showProfile(){
+function showProfile() {
 
-	loadProfileInf();
-	$("#user_new_pass").keyup(validate);
-	$("#user_new_pass_c").keyup(validate);
+  loadProfileInf();
+  $("#user_new_pass").keyup(validate);
+  $("#user_new_pass_c").keyup(validate);
 
 
-	$('#nav_users').removeClass("active");
-	$("#nav_tickets").removeClass("active");
+  $('#nav_users').removeClass("active");
+  $("#nav_tickets").removeClass("active");
 
-	$('#users_page').hide();
-	$('#tickets_page').hide();
-	$('#ticket_details_page').hide();
-	$('#profile_page').show();
+  $('#users_page').hide();
+  $('#tickets_page').hide();
+  $('#ticket_details_page').hide();
+  $('#profile_page').show();
 }
 
-function showTicketDetails(){
+function showTicketDetails() {
 
-	$("#nav_users").removeClass("active");
-	$('#nav_tickets').removeClass("active");
-	$("#nav_profile").addClass("active");
+  $("#nav_users").removeClass("active");
+  $('#nav_tickets').removeClass("active");
+  $("#nav_profile").addClass("active");
 
-	$('#ticket_details_page').show();
+  $('#ticket_details_page').show();
 
 }
 
-function showTickets(){
+function showTickets() {
 
-	loadAllTickets(1);
+  loadAllTickets(1);
 
-	$("#nav_profile").removeClass("active");
-	$('#nav_users').removeClass("active");
-	$("#nav_tickets").addClass("active");
-	$('#users_page').hide();
-	$('#ticket_details_page').hide();
-	$('#profile_page').hide();
-	$('#tickets_page').show();
+  $("#nav_profile").removeClass("active");
+  $('#nav_users').removeClass("active");
+  $("#nav_tickets").addClass("active");
+  $('#users_page').hide();
+  $('#ticket_details_page').hide();
+  $('#profile_page').hide();
+  $('#tickets_page').show();
 }
 
-function showUsers(){
-	loadAllUsers();
+function showUsers() {
+  loadAllUsers();
 
-	$("#nav_profile").removeClass("active");
-	$('#nav_tickets').removeClass("active");
-	$("#nav_users").addClass("active");
-	$('#users_page').show();
-	$('#ticket_details_page').hide();
-	$('#profile_page').hide();
-	$('#tickets_page').hide();
+  $("#nav_profile").removeClass("active");
+  $('#nav_tickets').removeClass("active");
+  $("#nav_users").addClass("active");
+  $('#users_page').show();
+  $('#ticket_details_page').hide();
+  $('#profile_page').hide();
+  $('#tickets_page').hide();
 }
