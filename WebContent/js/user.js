@@ -308,7 +308,8 @@ function updateUserData() {
   if (newRoles.length == 0 || newName == "" || newEmail == "" ||
     newCompanyID == "" || newPassword == "") {
     console.log("error: fill all boxes");
-    $("#user_detail_msg").html("Please fill all boxes");
+    $("#update_user_label").html("Please fill all boxes");
+    setTimeout(function() { $("#update_user_label").text(""); }, 2000);
   } else {
 
     var person = {
@@ -327,7 +328,7 @@ function updateUserData() {
 
     $.ajax({
       type: "POST",
-      url: '/Ticket_System/rest/user/updateUserData',
+      url: '/Ticket_System/rest/user/updateUserData/' + selectedUserEmail,
       contentType: "application/json",
       mimeType: "application/json",
       data: JSON.stringify(person),
@@ -339,7 +340,7 @@ function updateUserData() {
           $('#user-detail-modal').modal('hide');
           $('#update_user_modal').modal('hide');
           $("#user_detail_msg").text("");          
-          $("#updae_user_label").text("");
+          $("#update_user_label").text("");
 
         }, 2000);
       },

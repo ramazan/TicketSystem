@@ -83,12 +83,12 @@ public class UserRest {
 	}
 	
 	
-	@Path("/updateUserData")
+	@Path("/updateUserData/{mail}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void updateUserData(User user) {
-		ServiceFacade.getInstance().updateUserData(user);
+	public void updateUserData(User user,@PathParam("mail") String email) {
+		ServiceFacade.getInstance().updateUserData(user,email);
 	}
 	
 	

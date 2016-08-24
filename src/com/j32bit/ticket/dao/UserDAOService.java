@@ -390,8 +390,6 @@ public class UserDAOService extends ConnectionHelper {
 	    return user;
 	  }
 	
-	
-	
 	public void updateProfile(String password, String email) throws Exception {
 
 		logger.debug("updateUser started");
@@ -496,24 +494,62 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("deleteUser is finished");
 	}
 
-	public void updateUserData(User user) throws Exception {
+	public void updateUserData(User user, String email) throws Exception {
 
 		logger.debug("updateUserData started");
-
-		
-		System.out.println(user.toString());
-		
-		
+			
 		StringBuilder queryLog = new StringBuilder();
-
-//		queryLog.append("Query : ").append(queryString).append("\n");
 		queryLog.append("Parameters : ").append("\n");
+		queryLog.append("ID : ").append(user.getId()).append("\n");
 		queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
 		queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
 		queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
 		queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
 		queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
 		logger.debug(queryLog.toString());
+		
+		
+		Connection con = null;
+		PreparedStatement pstUpdateUser = null;
+//		PreparedStatement pstAddRole = null;
+//		ResultSet rs = null;
+		StringBuilder queryUpdateUser = new StringBuilder();
+//		StringBuilder queryAddRole = new StringBuilder();
+
+		
+//		UPDATE users SET PASSWORD='?' , EMAIL='?' , FULL_NAME='?' , COMPANY_ID='?' , DEPARTMENT_ID='?' WHERE ID='?';
+
+		
+		queryUpdateUser.append("UPDATE users SET ");
+		queryUpdateUser.append("PASSWORD=? , EMAIL=? , FULL_NAME=? , COMPANY_ID=? , DEPARTMENT_ID=? ");
+		queryUpdateUser.append(" WHERE ID=? ;");
+		String queryString = queryUpdateUser.toString();
+		logger.debug("sql query created : " + queryString);
+
+		con = getConnection();
+		pstUpdateUser = con.prepareStatement(queryString);
+
+		pstUpdateUser.setString(1, user.getPassword());
+		pstUpdateUser.setString(2, user.getEmail());
+		pstUpdateUser.setString(3, user.getName());
+		pstUpdateUser.setLong(4, user.getCompany().getId());
+		pstUpdateUser.setLong(5, user.getDepartment().getId());
+		pstUpdateUser.setLong(6, user.getId());
+
+		pstUpdateUser.executeUpdate();
+		
+		logger.debug("pstUpdateUser :  "+pstUpdateUser.toString());
+		
+		List<String> userRoles = user.getUserRoles();
+		for (String role : userRoles) {
+			
+				queryLog = new StringBuilder();
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("Eski EMAIL : ").append(email).append("\n");
+				queryLog.append("ROLE : ").append(role).append("\n");
+				logger.debug(queryLog.toString());
+		}
+		
 		
 //		Connection con = null;
 //		PreparedStatement pstAddUser = null;

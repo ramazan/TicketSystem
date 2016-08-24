@@ -146,9 +146,9 @@ public class ServiceFacade {
 		userService.deleteUser(userID,email);
 	}
 
-	public void updateUserData(User user) {
+	public void updateUserData(User user, String email) {
 		try {
-			userService.updateUserData(user);
+			userService.updateUserData(user,email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
