@@ -1,52 +1,125 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<head>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-  <!-- Latest compiled JavaScript -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-  <style>
-    .container-fluid{
-      padding-top: 5%;
-      width:300px;
-    }
-  </style>
+<style>
+@import
+	url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+	;
 
-  </head>
+body {
+	background:
+		url(https://unsplash.imgix.net/photo-1415226581130-91cb7f52f078?q=75&fm=jpg&s=859a0a6f863f8eb93a489c98402e687b);
+	background-color: #444;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	/*background: url(https://unsplash.imgix.net/photo-1415226581130-91cb7f52f078?q=75&fm=jpg&s=859a0a6f863f8eb93a489c98402e687b),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+*/
+}
 
-  <body>
-    <div class="container-fluid">
-      <p class="text-danger text-center lead"id="errorMessage" style="color:red; font-weight:bold;"></p>
-      <h1 class="text-center">Ticket System Login</h1>
-      <form method="POST" action="j_security_check">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="E-Mail" name="j_username"/>
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" name="j_password"/>
-        </div>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2">
-            <input class="btn btn-success btn-block" type="submit" value="Login"/>
-          </div>
-        </div>
-      </form>
-    </div>
-    <script>
-      function checkPath(){
-        var query = window.location.pathname; // /Ticket_System/j_security_check
-        var vars = query.split("/");
+.vertical-offset-100 {
+	padding-top: 100px;
+}
 
-        if(vars[2]=="j_security_check"){
-          console.log("invalid login");
-          $("#errorMessage").text("Invalid email or password.");
-        }
-      }
-      checkPath();
-    </script>
-  </body>
+.login .user-row {
+	text-align: center;
+	font-size: 30px;
+}
+
+.login .img-responsive {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: auto;
+}
+
+.login.panel {
+	margin-bottom: 20px;
+	background-color: rgba(255, 255, 255, 0.75);
+	border: 1px solid transparent;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.login label {
+	display: block;
+	width: 100%;
+	color: #449d44;
+	text-shadow: #4cae4c;
+	text-align: center;
+}
+
+.login hr {
+	margin: 5px;
+}
+</style>
+
+</head>
+
+<body>
+	<div class="container">
+
+		<div class="row vertical-offset-100">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default login">
+					<div class="panel-heading">
+						<p class="text-danger text-center lead" id="errorMessage"
+							style="color: red; font-weight: bold;"></p>
+						<div class="row-fluid user-row">
+							<img src="http://i64.tinypic.com/2qvffnl.png" />
+						</div>
+						<h3 class="panel-title user-row"
+							style="color: #AC2323; font-weight: italic">Bilgisayar
+							Hizmetleri</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Ticket System</label>
+							<hr>
+						</div>
+						<form accept-charset="UTF-8" role="form" method="POST"
+							action="j_security_check">
+							<fieldset>
+								<div class="form-group">
+									<input class="form-control" placeholder="E-mail"
+										name="j_username" type="text">
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password"
+										name="j_password" type="password" value="">
+								</div>
+								<input class="btn btn-lg btn-success btn-block" type="submit"
+									value="Login">
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function checkPath() {
+			var query = window.location.pathname; // /Ticket_System/j_security_check
+			var vars = query.split("/");
+
+			if (vars[2] == "j_security_check") {
+				console.log("invalid login");
+				$("#errorMessage").text("Invalid email or password.");
+			}
+		}
+		checkPath();
+	</script>
+</body>
 </html>
