@@ -71,6 +71,10 @@ public class User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	
+	public boolean checkRole(String role){
+		return userRoles.contains(role);
+	}
 
 	@Override
 	public String toString() {

@@ -69,14 +69,21 @@ public class ServiceFacade {
 		return users;
 	}
 
-	public ArrayList<Ticket> getAllTickets(boolean status) {
-		return ticketService.getAllTickets(status);
+	public ArrayList<Ticket> getAllTickets(int status,User user) {
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		if(user.checkRole("admin"))
+			tickets = ticketService.getAllTickets(status);
+		else if(user.checkRole("supporter"))
+			tickets= ticketService.getAllDepartmentTickets(status,user.getDepartment().getId());
+		else if(user.checkRole("client"))
+			tickets = ticketService.getAllTickets(status);
+		return tickets;
 	}
 
 	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);
 	}
-	
+
 	public User getUserDetailWithID(long ID) {
 		return userService.getUser(ID);
 	}
@@ -84,15 +91,15 @@ public class ServiceFacade {
 	public void addTicket(Ticket ticket) throws Exception {
 		ticketService.addTicket(ticket);
 	}
-	
-	public void deleteTicket(long ticketID) throws Exception{
+
+	public void deleteTicket(long ticketID) throws Exception {
 		ticketService.deleteTicket(ticketID);
 	}
-	
-	public void editTicket(Ticket ticket) throws Exception{
+
+	public void editTicket(Ticket ticket) throws Exception {
 		ticketService.editTicket(ticket);
 	}
-	
+
 	public Company addCompany(Company company) {
 		return companyService.addCompany(company);
 	}
@@ -132,26 +139,25 @@ public class ServiceFacade {
 		logger.debug("ServiceFacade getTicketDetails started  ID = " + ID);
 		return ticketService.getTicketDetails(ID);
 	}
-	
-	public TicketResponse addResponse(TicketResponse response){
+
+	public TicketResponse addResponse(TicketResponse response) {
 		return ticketService.addResponse(response);
 	}
-	
-	public ArrayList<TicketResponse> getAllResponses(long ticketID){
+
+	public ArrayList<TicketResponse> getAllResponses(long ticketID) {
 		return ticketService.getAllResponses(ticketID);
 	}
 
-	
 	public void deleteUser(long userID, String email) throws Exception {
-		userService.deleteUser(userID,email);
+		userService.deleteUser(userID, email);
 	}
 
 	public void updateUserData(User user, String email) {
 		try {
-			userService.updateUserData(user,email);
+			userService.updateUserData(user, email);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 }
