@@ -83,5 +83,14 @@ public class UserRest {
 	}
 	
 	
+	@Path("/updateUserData")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
+	public void updateUserData(User user) {
+		ServiceFacade.getInstance().updateUserData(user);
+	}
+	
+	
 
 }

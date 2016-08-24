@@ -496,4 +496,114 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("deleteUser is finished");
 	}
 
+	public void updateUserData(User user) throws Exception {
+
+		logger.debug("updateUserData started");
+
+		
+		System.out.println(user.toString());
+		
+		
+		StringBuilder queryLog = new StringBuilder();
+
+//		queryLog.append("Query : ").append(queryString).append("\n");
+		queryLog.append("Parameters : ").append("\n");
+		queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
+		queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
+		queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
+		queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
+		queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
+		logger.debug(queryLog.toString());
+		
+//		Connection con = null;
+//		PreparedStatement pstAddUser = null;
+//		PreparedStatement pstAddRole = null;
+//		ResultSet rs = null;
+//		StringBuilder queryAddUser = new StringBuilder();
+//		StringBuilder queryAddRole = new StringBuilder();
+//		StringBuilder queryLog = new StringBuilder();
+//		long recordID = 0;
+//
+//		String userEmail = user.getEmail();
+//
+//		if (getUser(userEmail) != null) {
+//			throw new Exception("User Exist"); // TEST
+//		} else {
+//			try {
+//				queryAddUser.append("INSERT INTO users ");
+//				queryAddUser.append("(FULL_NAME,EMAIL,PASSWORD,COMPANY_ID,DEPARTMENT_ID)");
+//				queryAddUser.append("values (?,?,?,?,?)");
+//				String queryString = queryAddUser.toString();
+//				logger.debug("sql query created : " + queryString);
+//
+//				con = getConnection();
+//				pstAddUser = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+//
+//				if (logger.isTraceEnabled()) {
+//					queryLog.append("Query : ").append(queryString).append("\n");
+//					queryLog.append("Parameters : ").append("\n");
+//					queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
+//					queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
+//					queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
+//					queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
+//					queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
+//					logger.trace(queryLog.toString());
+//				}
+//
+//				pstAddUser.setString(1, user.getName());
+//				pstAddUser.setString(2, userEmail);
+//				pstAddUser.setString(3, user.getPassword());
+//				pstAddUser.setLong(4, user.getCompany().getId());
+//				pstAddUser.setLong(5, user.getDepartment().getId());
+//
+//				pstAddUser.executeUpdate();
+//
+//				rs = pstAddUser.getGeneratedKeys();
+//
+//				if (rs.next()) {
+//					recordID = rs.getLong(1); /// PATLIYOR ÜSTÜN KÖRÜ İNCELEDİM
+//												/// BULAMADIM
+//					logger.debug("Record ID : " + recordID);
+//					user.setId(recordID);
+//				}
+//
+//				queryAddRole.append("INSERT INTO user_roles ");
+//				queryAddRole.append("(EMAIL,ROLE) values (?,?)");
+//				queryString = queryAddRole.toString();
+//				logger.debug("sql query created : " + queryString);
+//
+//				pstAddRole = con.prepareStatement(queryString);
+//
+//				List<String> userRoles = user.getUserRoles();
+//				for (String role : userRoles) {
+//
+//					if (logger.isTraceEnabled()) {
+//						queryLog = new StringBuilder();
+//						queryLog.append("Query : ").append(queryString).append("\n");
+//						queryLog.append("Parameters : ").append("\n");
+//						queryLog.append("EMAIL : ").append(userEmail).append("\n");
+//						queryLog.append("ROLE : ").append(role).append("\n");
+//						logger.trace(queryLog.toString());
+//					}
+//
+//					pstAddRole.setString(1, userEmail);
+//					pstAddRole.setString(2, role);
+//
+//					pstAddRole.executeUpdate();
+//				}
+//
+//			} catch (Exception e) {
+//				logger.debug("addUser error");
+//				e.printStackTrace();
+//			} finally {
+//				closePreparedStatement(pstAddRole);
+//				closePreparedStatement(pstAddUser);
+//				closeResultSet(rs);
+//				closeConnection(con);
+//			}
+//		}
+		logger.debug("updateUserData completed");
+		
+	}
+
 }

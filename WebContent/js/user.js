@@ -284,6 +284,9 @@ function deleteUserData() {
 //user detail update kısmı
 function updateUserData() {
 
+	 console.log("started to update userID:" + selectedUserID );
+	
+	
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
   var newCompanyID = $('#selectedPersonCompany').val();
@@ -291,14 +294,14 @@ function updateUserData() {
 
   var newRoles = [];
   var userDepartmentID = 0;
-  if ($('#adminRole').is(':checked')) {
+  if ($('#selectedPersonRoleAdmin').is(':checked')) {
     newRoles.push("admin");
   }
-  if ($('#supporterRole').is(':checked')) {
+  if ($('#selectedPersonRoleSup').is(':checked')) {
     newRoles.push("supporter");
     userDepartmentID = $("#selectedPersonDepartment").val();
   }
-  if ($('#clientRole').is(':checked')) {
+  if ($('#selectedPersonRoleClient').is(':checked')) {
     newRoles.push("client");
   }
 
@@ -309,6 +312,7 @@ function updateUserData() {
   } else {
 
     var person = {
+    	id: selectedUserID,	
       name: newName,
       email: newEmail,
       password: newPassword,
@@ -328,17 +332,14 @@ function updateUserData() {
       mimeType: "application/json",
       data: JSON.stringify(person),
       success: function() {
-        $("#user_detail_msg").text("User updated. Closing Window..");
+        $("#update_user_label").text("User updated. Closing Window..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
-        // clear boxes
-        $('input:checkbox').removeAttr('checked');
-        $('#selectedPersonName').val('');
-        $('#selectedPersonEmail').val('');
-        $('#selectedPersonPassword').val(''); // inputları temizle.
         setTimeout(function() {
           $('#user-detail-modal').modal('hide');
-          $("#user_detail_msg").text("");
+          $('#update_user_modal').modal('hide');
+          $("#user_detail_msg").text("");          
+          $("#updae_user_label").text("");
 
         }, 2000);
       },
