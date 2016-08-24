@@ -43,7 +43,7 @@ $.get("/Ticket_System/rest/session/login", function() {
         $('#departmentFade').fadeOut();
     });
 
-    $('#supporterRol').change(function() {
+    $('#selectedPersonRoleSup').change(function() {
       if (this.checked)
         $('#departmentInput').fadeIn();
       else
