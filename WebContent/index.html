@@ -498,69 +498,48 @@
 
 					<!-- Begin # DIV Form -->
 					<div id="div-forms">
-
 						<!-- Begin | Register Form -->
 						<form id="register-form" method="post">
 							<div class="modal-body">
-							<div>
 								<p id="user_detail_msg" class="label label-success"></p>
-								<br><br>
-							</div>
-
 								<div>
 									<label>Full Name:</label> <input class="form-control"
 										type="text" id="selectedPersonName" required>
-								</div>
-								<br>
-
+								</div><br>
 								<div>
 									<label>Email:</label> <input class="form-control" type="text"
 										id="selectedPersonEmail" required>
-								</div>
-								<br>
-
+								</div><br>
 								<div>
-									<label>Password:</label> 
+									<label>Password:</label>
 									  <div class="row">
-									
-											<div class="col-md-6">									
+											<div class="col-md-6">
 												<input class="form-control"	type="password" id="selectedPersonPassword" required>
 											</div>
-										
 											<div class="col-md-6">
-													<button id="showHideButton" class="btn btn-primary btn-sm" type="button">Show/Hide</button>
+												<button id="showHideButton" class="btn btn-primary btn-sm" type="button">Show/Hide</button>
 											</div>
 									 </div>
-								</div>
-								<br>
-
+								</div><br>
 								<div>
-									<label>Company:</label> 
+									<label>Company:</label>
 									<select class="form-control" id="selectedPersonCompany"></select>
-								</div>
-								<br>
-
+								</div><br>
 								<div>
-									<b>Roles:</b> 
+									<b>Roles:</b>
 									<div class="checkbox form-control">
-									<label class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="adminRol">Admin</label> <label
-										class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="supporterRol">Supporter</label> <label
-										class="checkbox-inline"><input type="checkbox"
-										name="userRole" id="clientRol">Client</label>
+										<label class="checkbox-inline"><input type="checkbox"
+											name="userRole" id="selectedPersonRoleAdmin">Admin</label> <label
+											class="checkbox-inline"><input type="checkbox"
+											name="userRole" id="selectedPersonRoleSup">Supporter</label> <label
+											class="checkbox-inline"><input type="checkbox"
+											name="userRole" id="selectedPersonRoleClient">Client</label>
 									</div>
-								</div>
-								<br>
-								
-								<div style="display: none;" id="departmentInput">
+								</div><br>
+								<div id="departmentInput">
 									<b>Department:</b>
 									 <select class="form-control" id="selectedPersonDepartment"></select>
-									 
 								</div>
-								<br>
-								
-								
 							</div>
 							<div class="modal-footer">
 								<div>
@@ -576,10 +555,8 @@
 							</div>
 						</form>
 						<!-- End | Register Form -->
-
 					</div>
 					<!-- End # DIV Form -->
-
 				</div>
 			</div>
 		</div>
@@ -587,8 +564,6 @@
 
 	</div>
 	<!-- user_modal_detail sonu -->
-
-
 	<!-- delete user modal-->
 <div id="delete_user_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">

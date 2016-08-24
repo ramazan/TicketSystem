@@ -201,10 +201,10 @@ function addUserLink(cellvalue, options, rowObject) {
 //detail buutonuna tıklandıgında ilgili kullanıcının bilgilerinin getirilmesi
 function getUser(userID) {
 
-	
+
 	loadAllDeparments("selectedPersonDepartment");
 	loadAllCompanies("selectedPersonCompany");
-	
+
 	selectedUserID = userID;
 	console.log("user ID:" + userID);
 	$('#user-detail-modal').modal('show');
@@ -219,13 +219,29 @@ function getUser(userID) {
 			$("#selectedPersonName").val(user.name);
 			$("#selectedPersonEmail").val(user.email);
 			$("#selectedPersonPassword").val(user.password);
-//			$("#selectedPersonCompany").val("2");
-//	     	$("#selectedPersonDepartment").text(user.department.name);
-			var roles = user.userRoles;
-			var company = user.company.name;
-			console.log("#selectedPerson.Name : " + user.name
-					+ "  #selectedPerson.email: " + user.email + "  selected company : " +company + "roles: " + roles);
-		},
+			$("#selectedPersonCompany").val(user.company.id);
+
+
+			$("#selectedPersonRoleAdmin").prop("checked",false);
+			$("#selectedPersonRoleSup").prop("checked",false);
+			$("#selectedPersonRoleClient").prop("checked",false);
+			$("#departmentInput").hide();
+
+			$.each(user.userRoles,function(key,value){
+				console.log(key+value);
+				if(value=="admin"){
+					$("#selectedPersonRoleAdmin").prop("checked",true);
+				}else if(value=="supporter"){
+					$("#selectedPersonRoleSup").prop("checked",true);
+					$("#departmentInput").show();
+					$("#selectedPersonDepartment").val(user.department.id);
+				}else if(value=="client"){
+					$("#selectedPersonRoleClient").prop("checked",true);
+				}
+
+			});
+
+	},
 		error : function() {
 			alert("user details cannot get please try again. userID:  "
 					+ userID);
