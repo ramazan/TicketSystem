@@ -75,9 +75,9 @@ public class TicketDAOService extends ConnectionHelper {
 	}
 	
 	
-	public ArrayList<Ticket> getAllDepartmentTickets(int status, long departmentId){
+	public ArrayList<Ticket> getAllDepartmentTickets(int status, User user){
 		logger.debug("getAllDepartmentTickets started. Status:"
-						+status+" DepartmentID:"+departmentId);
+						+status+" User ID:"+user.getId());
 		Connection conn = null;
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -89,7 +89,7 @@ public class TicketDAOService extends ConnectionHelper {
 			query.append("SELECT tickets.*, users.FULL_NAME, departments.DEPARTMENT_NAME FROM tickets ");
 			query.append("INNER JOIN users ON users.ID = tickets.SENDER_ID ");
 			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID = departments.ID ");
-			query.append("WHERE STATUS=? AND tickets.DEPARTMENT_ID=?");
+			query.append("WHERE STATUS=? AND tickets.DEPARTMENT_ID=? AND tickets.SENDER_ID=?");
 			String queryString = query.toString();
 			logger.debug("Sql query Created : " + queryString);
 
@@ -101,12 +101,14 @@ public class TicketDAOService extends ConnectionHelper {
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("STATUS : ").append(status).append("\n");
-				queryLog.append("DEPARTMENT_ID : ").append(departmentId).append("\n");
+				queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
+				queryLog.append("SENDER_ID : ").append(user.getDepartment().getId()).append("\n");
 				logger.trace(queryLog);
 			}
 			
 			pStmt.setInt(1, status);
-			pStmt.setLong(2, departmentId);
+			pStmt.setLong(2, user.getDepartment().getId());
+			pStmt.setLong(3, user.getId());
 			rs = pStmt.executeQuery();
 
 			while (rs.next()) {
@@ -124,16 +126,16 @@ public class TicketDAOService extends ConnectionHelper {
 					ticket.setStatus(false);
 				}
 
-				User user = new User();
-				user.setName(rs.getString("FULL_NAME"));
-				user.setId(rs.getLong("SENDER_ID"));
+				User ticketSender = new User();
+				ticketSender.setName(rs.getString("FULL_NAME"));
+				ticketSender.setId(rs.getLong("SENDER_ID"));
 
 				Department department = new Department();
 				department.setId(rs.getLong("DEPARTMENT_ID"));
 				department.setName(rs.getString("DEPARTMENT_NAME"));
 
 				ticket.setDepartment(department);
-				ticket.setSender(user);
+				ticket.setSender(ticketSender);
 
 				tickets.add(ticket);
 			}
