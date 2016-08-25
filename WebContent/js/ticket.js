@@ -19,8 +19,8 @@ function getTicket(ticketID) {
       $("#ticket_date").text(ticket.time);
       $("#ticket_sender").text(ticket.sender.name);
       $("#ticket_department").text(ticket.department.name);
-      var status = $("#ticket_status");
-      if (status == 1) {
+      var status = ticket.status;
+      if (status == true) {
         $("#ticket_status").text("OPEN");
         $("#ticket_status").css("color", "green");
       } else {
