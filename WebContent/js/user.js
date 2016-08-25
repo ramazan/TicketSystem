@@ -7,7 +7,7 @@ function loadAllUsers() {
   loadAllDeparments("new_user_dep");
   loadAllCompanies("new_user_company");
 
-  $.jgrid.gridUnload("users_jqGrid");
+//  $.jgrid.gridUnload("users_jqGrid");  // Yeni temada patlıyor o yüzden kapattım düzeltilmeli!!
   $("#users_jqGrid").jqGrid({
     caption: "USER LIST",
     url: "/Ticket_System/rest/user/getAllUsers",
