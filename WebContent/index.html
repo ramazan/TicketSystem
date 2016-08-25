@@ -13,7 +13,7 @@
 
 <body>
 	<header>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
 				<a class="navbar-brand">TicketSystem</a>
 			</div>
@@ -339,70 +339,9 @@
 
 	<!-- PROFILE PAGE AREA-->
 	<div id="profile_page" class="row" style="display: none;">
-<!-- 		<div class="col-md-4 col-md-offset-4"> -->
-<!-- 			<div class="table-responsive"> -->
-<!-- 				<table class="table table-condensed table-bordered"> -->
-<!-- 					<thead> -->
-<!-- 						<tr> -->
-<!-- 							<th colspan="2">Account Informations</th> -->
-<!-- 						</tr> -->
-<!-- 					</thead> -->
-<!-- 					<tbody> -->
-<!-- 						<tr> -->
-<!-- 							<td>Name:</td> -->
-<!-- 							<td><b id="user_name"></b></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>E-mail:</td> -->
-<!-- 							<td><b id="user_email"></b></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>Roles:</td> -->
-<!-- 							<td><b id="user_roles">rolesHere</b></td> -->
-<!-- 						</tr> -->
-
-<!-- 						<tr> -->
-<!-- 							<td>Company:</td> -->
-<!-- 							<td><b id="user_company"></b></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<th colspan="2"><b>Password</b></th> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>New Password:</td> -->
-<!-- 							<td> -->
-<!-- 								<input id="user_new_pass" type="password"> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>Confirm New Password:</td> -->
-<!-- 							<td> -->
-<!-- 								<input id="user_new_pass_c" type="password"> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td></td> -->
-<!-- 							<td><b id="pass_validate" style="color: red;"></b></td> -->
-<!-- 						</tr> -->
-<!-- 					</tbody> -->
-<!-- 				</table> -->
-<!-- 			</div> -->
-<!-- 			<!-- main container-fluid --> -->
-<!-- 		</div> -->
-<!-- 		<div class="row"> -->
-<!-- 			<div class="col-md-4 col-md-offset-4"> -->
-<!-- 				<button id="user_update_btn" class="btn btn-success btn-block" onclick="updateProfile()" disabled>Save</button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
-		
-		
-		
 		<div class="container">
       <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-   
-   
+         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
           <div class="panel panel-info">
             <div class="panel-heading">
               <h3 class="panel-title" id="user_name"></h3>
@@ -439,8 +378,14 @@
 							</td>
 						</tr>
 						<tr>
-							<td></td>
-							<td><b id="pass_validate" style="color: red;"></b></td>
+							<td colspan="2">
+								
+								<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<b id="pass_validate"></b>  
+								</div>
+																
+							</td>
 							<br>
 						</tr>
                      
@@ -451,10 +396,10 @@
             </div>
                  <div class="panel-footer">
                  		<div class="row">
-                 
                         <span class="pull-right">
-                        	<button id="user_update_btn" class="btn btn-success btn-lg glyphicon glyphicon-floppy-disk" onclick="updateProfile()" disabled> Save</button>
-                       
+                        	<button type="button" id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
+                        		<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>   Save
+                        	 </button>						                       
                         </span>
                         </div>
                     </div>
@@ -466,6 +411,8 @@
 		
 	</div>
 	<!-- Profile div -->
+
+
 
 	<br>
 	<hr>

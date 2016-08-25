@@ -1,3 +1,16 @@
+body {
+  font-family: 'Open Sans', 'sans-serif';
+}
+
+.pull-right{
+	padding-right: 17px;
+}
+
+.panel-title{
+	font-weight:bold;
+	color:black;	
+}
+
 #nav_nickname{
   color: red;
 	font-weight: bold;

@@ -152,12 +152,17 @@ function loadProfileInf() {
 function validate() {
   var password1 = $("#user_new_pass").val();
   var password2 = $("#user_new_pass_c").val();
+  
+  if(password1 == "" && password2 == ""){
+		 $("#profile_alert").hide();
 
-  if (password1 == password2 && password1 != "" && password2 != "") {
+  } else if (password1 == password2 && password1 != "" && password2 != "") {
+	 $("#profile_alert").show();
     $("#pass_validate").text("Şifreler eşleşti!");
     $("#user_update_btn").removeAttr('disabled');
 
   } else {
+		 $("#profile_alert").show();
     $("#pass_validate").text("Şifreler eşleşmiyor!");
     $("#user_update_btn").prop("disabled", true);
   }
