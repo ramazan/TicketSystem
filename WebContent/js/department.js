@@ -2,9 +2,6 @@ function loadAllDeparments(selectID) {
 
   var selectBoxId = "#" + selectID;
 
-  console.log("department ıd " + selectBoxId);
-
-
   $(selectBoxId).html(" ");
 
   $.ajax({

@@ -1,67 +1,66 @@
 body {
-  font-family: 'Open Sans', 'sans-serif';
+	font-family: 'Open Sans', 'sans-serif';
 }
 
-.pull-right{
+.pull-right {
 	padding-right: 17px;
 	padding-bottom: 20px;
 }
 
-.panel-title{
-	font-weight:bold;
-	color:black;
+.panel-title {
+	font-weight: bold;
+	color: black;
 }
 
-#nav_nickname{
-  color: red;
-	font-weight: bold;
+#nav_nickname {
+	color: #AC2323;
+	font-weight: italic;
 }
 
 #tickets_jqGridPager {
-  height: 36px;
+	height: 36px;
 }
 
 #users_jqGridPager {
-  height: 36px;
+	height: 36px;
 }
 
-#users_page{
-  display: none;
+#users_page {
+	display: none;
 }
 
-#users_jqGridPager{
-  height: 36px;
+#users_jqGridPager {
+	height: 36px;
 }
 
-#profile_page{
-  display: none;
+#profile_page {
+	display: none;
 }
 
-#ticket_detail_page{
-  display: none;
-}
-#remainingC{
-	color:red;
-	font-weight:italic;
+#ticket_detail_page {
+	display: none;
 }
 
-#ticket_responses{
-  word-break: break-all;
+#remainingC {
+	color: red;
+	font-weight: italic;
 }
 
-
-#user_detail_msg,#add_user_msg,#ticket_add_msg,
-#add_company_msg,#add_dep_msg,#delete_ticket_label,
-#delete_ticket_msg,#delete_user_msg,#delete_user_label,
-#update_user_label,#update_user_msg{
-
-font-size: 20px;
+#ticket_responses {
+	word-break: break-all;
 }
 
-.navbar-brand{
-  padding-top:10px; 
+#user_detail_msg, #add_user_msg, #ticket_add_msg, #add_company_msg,
+	#add_dep_msg, #delete_ticket_label, #delete_ticket_msg,
+	#delete_user_msg, #delete_user_label, #update_user_label,
+	#update_user_msg {
+	font-size: 20px;
 }
 
-#brand_img{
-  height: 35px;
+.navbar-brand {
+	padding-top: 10px;
+}
+
+#brand_img {
+	height: 35px;
 }
