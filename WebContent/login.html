@@ -1,26 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML5>
 <html>
 
 <head>
-	<title>Login</title>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<title>32Bit Ticket System - Login</title>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 	<style>
-		@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 		body {
-			background: url(https://unsplash.imgix.net/photo-1415226581130-91cb7f52f078?q=75&fm=jpg&s=859a0a6f863f8eb93a489c98402e687b);
+			background-image: url(https://unsplash.imgix.net/photo-1415226581130-91cb7f52f078?q=75&fm=jpg&s=859a0a6f863f8eb93a489c98402e687b);
 			background-color: #444;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center center;
-			/*background: url(https://unsplash.imgix.net/photo-1415226581130-91cb7f52f078?q=75&fm=jpg&s=859a0a6f863f8eb93a489c98402e687b),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);
-*/
 		}
 
 		.vertical-offset-100 {
@@ -98,7 +89,16 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- JAVASCRIPT SOURCES -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	<script>
+		$(document).ready(function() {
+			checkPath();
+		});
+
 		function checkPath() {
 			var query = window.location.pathname; // /Ticket_System/j_security_check
 			var vars = query.split("/");
@@ -108,7 +108,6 @@
 				$("#errorMessage").text("Invalid email or password.");
 			}
 		}
-		checkPath();
 	</script>
 </body>
 

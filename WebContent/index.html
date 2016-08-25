@@ -38,187 +38,187 @@
 	</header>
 
 	<!-- tickets page -->
-	<div id="tickets_page">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-2">
-				<div class="list-group">
-					<ul class="list-inline">
-						<li><a href="#" onclick="loadAllTickets(1)">Open Tickets</a></li>
-						<li><a href="#" onclick="loadAllTickets(0)">Closed Tickets</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#ticket_add_modal">New Ticket</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- ticket page top navbar -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<table id="tickets_jqGrid"></table>
-				<div id="tickets_jqGridPager"></div>
-			</div>
-		</div>
-	</div>
-	<!-- ticket page end -->
-
-	<br>
-	<hr>
-
-	<!-- ticket detail page -->
-	<div id="ticket_details_page" style="display: none">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<br>
-				<div class="row">
-					<div class="col-md-1">
-						<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
-					</div>
-					<div class="col-md-1">
-						<button class="btn btn-primary" onclick="closeTicket()">Close</button>
-					</div>
-					<div class="col-md-1">
-						<button class="btn btn-success" onclick="editTicket()">Edit</button>
-					</div>
-				</div>
-				<hr>
-				<br>
-				<div class="table-responsive">
-					<table id="ticket_detail_table" class="table table-condensed table-bordered">
-						<thead>
-							<tr>
-								<th colspan="2">Ticket Details</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Title:</td>
-								<td><b id="ticket_title"></b></td>
-							</tr>
-							<tr>
-								<td>Sender:</td>
-								<td><b id="ticket_sender"></b></td>
-							</tr>
-							<tr>
-								<td>Status:</td>
-								<td><b id="ticket_status"></b></td>
-							</tr>
-							<tr>
-								<td>Date:</td>
-								<td><b id="ticket_date"></b></td>
-							</tr>
-							<tr>
-								<td>Message:</td>
-								<td><b id="ticket_message"></b></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="table-responsive">
-					<table class="table table-bordered table-condensed" id="ticket_responses">
-						<thead>
-							<tr>
-								<th>Ticket Responses</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</div>
-				<div class="form-group">
-					<p id="add_resp_msg"></p>
-					<label for="ticket_response_msg">Response:</label>
-					<textarea class="form-control" rows="9" cols="50" id="ticket_response_msg"></textarea>
-					<br>
-					<p id="remainingC">Remaining characters : 500</p>
-					<br>
-					<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse()">Send Response</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- ticket detail page end -->
-
-	<!-- user page -->
-	<div id="users_page">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<table id="users_jqGrid"></table>
-				<div id="users_jqGridPager"></div>
-			</div>
-		</div>
-	</div>
-	<!-- user page end -->
-
-	<!-- my profile page -->
-	<div id="profile_page" class="row" style="display: none;">
-		<div class="container">
+	<div class="container-fluid">
+		<div id="tickets_page">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title" id="user_name"></h3>
+				<div class="col-md-6 col-md-offset-2">
+					<div class="list-group">
+						<ul class="list-inline">
+							<li><a href="#" onclick="loadAllTickets(1)">Open Tickets</a></li>
+							<li><a href="#" onclick="loadAllTickets(0)">Closed Tickets</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#ticket_add_modal">New Ticket</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- ticket page top navbar -->
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<table id="tickets_jqGrid"></table>
+					<div id="tickets_jqGridPager"></div>
+				</div>
+			</div>
+		</div>
+		<!-- ticket page end -->
+
+		<!-- ticket detail page -->
+		<div id="ticket_details_page" style="display: none">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<br>
+					<div class="row">
+						<div class="col-md-1">
+							<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
 						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
-								<div class=" col-md-9 col-lg-9 ">
-									<table class="table table-user-information">
-										<tbody>
-											<tr>
-												<td>E-mail:</td>
-												<td><b id="user_email"></b></td>
-											</tr>
-											<tr>
-												<td>Roles:</td>
-												<td><b id="user_roles">rolesHere</b></td>
-											</tr>
-											<tr>
-												<td>Company:</td>
-												<td><b id="user_company"></b></td>
-											</tr>
-											<tr>
-												<td>New Password:</td>
-												<td>
-													<input id="user_new_pass" type="password">
-												</td>
-											</tr>
-											<tr>
-												<td>Confirm New Password:</td>
-												<td>
-													<input id="user_new_pass_c" type="password">
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2">
-													<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
-														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-														<b id="pass_validate"></b>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+						<div class="col-md-1">
+							<button class="btn btn-primary" onclick="closeTicket()">Close</button>
+						</div>
+						<div class="col-md-1">
+							<button class="btn btn-success" onclick="editTicket()">Edit</button>
+						</div>
+					</div>
+					<hr>
+					<br>
+					<div class="table-responsive">
+						<table id="ticket_detail_table" class="table table-condensed table-bordered">
+							<thead>
+								<tr>
+									<th colspan="2">Ticket Details</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Title:</td>
+									<td><b id="ticket_title"></b></td>
+								</tr>
+								<tr>
+									<td>Sender:</td>
+									<td><b id="ticket_sender"></b></td>
+								</tr>
+								<tr>
+									<td>Status:</td>
+									<td><b id="ticket_status"></b></td>
+								</tr>
+								<tr>
+									<td>Date:</td>
+									<td><b id="ticket_date"></b></td>
+								</tr>
+								<tr>
+									<td>Message:</td>
+									<td><b id="ticket_message"></b></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-bordered table-condensed" id="ticket_responses">
+							<thead>
+								<tr>
+									<th>Ticket Responses</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group">
+						<p id="add_resp_msg"></p>
+						<label for="ticket_response_msg">Response:</label>
+						<textarea class="form-control" rows="9" cols="50" id="ticket_response_msg"></textarea>
+						<br>
+						<p id="remainingC">Remaining characters : 500</p>
+						<br>
+						<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse()">Send Response</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ticket detail page end -->
+
+		<!-- user page -->
+		<div id="users_page">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<table id="users_jqGrid"></table>
+					<div id="users_jqGridPager"></div>
+				</div>
+			</div>
+		</div>
+		<!-- user page end -->
+
+		<!-- my profile page -->
+		<div id="profile_page" class="row" style="display: none;">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title" id="user_name"></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
+									<div class=" col-md-9 col-lg-9 ">
+										<table class="table table-user-information">
+											<tbody>
+												<tr>
+													<td>E-mail:</td>
+													<td><b id="user_email"></b></td>
+												</tr>
+												<tr>
+													<td>Roles:</td>
+													<td><b id="user_roles">rolesHere</b></td>
+												</tr>
+												<tr>
+													<td>Company:</td>
+													<td><b id="user_company"></b></td>
+												</tr>
+												<tr>
+													<td>New Password:</td>
+													<td>
+														<input id="user_new_pass" type="password">
+													</td>
+												</tr>
+												<tr>
+													<td>Confirm New Password:</td>
+													<td>
+														<input id="user_new_pass_c" type="password">
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
+															<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+															<b id="pass_validate"></b>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="panel-footer">
-							<div class="row">
-								<div class="pull-right">
-									<button id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
-										<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+							<div class="panel-footer">
+								<div class="row">
+									<div class="pull-right">
+										<button id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
+											<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
 												</span>Save
-									</button>
+										</button>
+									</div>
 								</div>
+								<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+									<span class="sr-only">Info:</span> if you wanna change another information , please send ticket.</div>
 							</div>
-							<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-							<span class="sr-only">Info:</span>
-							   if you wanna change another information , please send ticket.</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- Profile div -->
+
 	</div>
-	<!-- Profile div -->
+	<!-- main page container-->
 
 	<!--    Add Tickets Modal -->
 	<div id="ticket_add_modal" class="modal fade" role="dialog">
@@ -235,7 +235,6 @@
 					<div class="form-group">
 						<select id="new_ticket_dep"></select>
 					</div>
-
 					<label>Priority:</label>
 					<div class="form-group">
 						<select id="new_ticket_prio">

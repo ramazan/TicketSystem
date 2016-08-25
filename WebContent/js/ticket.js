@@ -150,12 +150,12 @@ function loadAllTickets(status) {
     colModel: [{
       label: "ID",
       name: 'id',
-      width: 25,
+      width: 50,
       formatter: addLink
     }, {
       label: "Date",
       name: 'time',
-      width: 80,
+      width: 90,
       formatter: 'date',
       formatoptions: {
         srcformat: 'Y-m-d H:i:s',
