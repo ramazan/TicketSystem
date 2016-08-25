@@ -119,8 +119,6 @@ function loadAllResponses() {
 
 // status boolean : open, closed
 function loadAllTickets(status) {
-  loadAllDeparments("new_ticket_dep");
-
   $("#tickets_jqGrid").jqGrid("clearGridData", true)
     .setGridParam({
       url: "/Ticket_System/rest/ticket/getAllTickets?status=" + status
@@ -129,6 +127,69 @@ function loadAllTickets(status) {
   $("#tickets_jqGrid").jqGrid({
     caption: "Ticket List",
     url: "/Ticket_System/rest/ticket/getAllTickets?status=" + status,
+    datatype: "json",
+    mtype: 'GET',
+    colModel: [{
+      label: "ID",
+      name: 'id',
+      width: 50,
+      formatter: addLink
+    }, {
+      label: "Date",
+      name: 'time',
+      width: 90,
+      formatter: 'date',
+      formatoptions: {
+        srcformat: 'Y-m-d H:i:s',
+        newformat: 'd/m/Y  H:i'
+      }
+    }, {
+      label: "Title",
+      name: 'title',
+      width: 100
+    }, {
+      label: "From",
+      name: 'sender.name',
+      width: 100
+    }, {
+      label: "Department",
+      name: 'department.name',
+      width: 80
+    }],
+    responsive: true,
+    multiselect: true,
+    viewrecords: true,
+    height: 450,
+    width: 850,
+    styleUI: 'Bootstrap',
+    rowNum: 10,
+    pager: "#tickets_jqGridPager",
+    emptyrecords: "Nothing to display",
+  });
+
+  $('#tickets_jqGrid').navGrid('#tickets_jqGridPager', {
+    edit: false,
+    add: false,
+    del: false,
+    search: true,
+    refresh: true,
+    view: false,
+    position: "left",
+    cloneToTop: false
+  });
+}
+
+// status boolean : open, closed
+function loadPostedTickets(status) {
+
+  $("#tickets_jqGrid").jqGrid("clearGridData", true)
+    .setGridParam({
+      url: "/Ticket_System/rest/ticket/getPostedTickets?status=" + status
+    })
+    .trigger("reloadGrid");
+  $("#tickets_jqGrid").jqGrid({
+    caption: "Ticket List",
+    url: "/Ticket_System/rest/ticket/getPostedTickets?status=" + status,
     datatype: "json",
     mtype: 'GET',
     colModel: [{

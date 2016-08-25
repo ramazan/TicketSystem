@@ -4,10 +4,7 @@ var selectedUserID, selectedUserEmail;
 //users tablosu için tüm kullanıcıları getirme işlemi
 function loadAllUsers() {
 
-  loadAllDeparments("new_user_dep");
-  loadAllCompanies("new_user_company");
-
-//  $.jgrid.gridUnload("users_jqGrid");  // Yeni temada patlıyor o yüzden kapattım düzeltilmeli!!
+  $("#users_jqGrid").GridUnload();
   $("#users_jqGrid").jqGrid({
     caption: "USER LIST",
     url: "/Ticket_System/rest/user/getAllUsers",
@@ -46,7 +43,6 @@ function loadAllUsers() {
     styleUI: 'Bootstrap',
     pager: "#users_jqGridPager",
     emptyrecords: "Nothing to display"
-
   });
 
   $('#users_jqGrid').navGrid('#users_jqGridPager', {
@@ -139,13 +135,11 @@ function addUser() {
 
 //profile sayfasındaki bilgilerin set edilmesi
 function loadProfileInf() {
-
   var user = authenticatedUser;
   $("#user_email").text(user.email);
   $("#user_name").text(user.name);
   $("#user_roles").text(user.userRoles);
   $("#user_company").text(user.company.name);
-
 }
 
 // Profile sayfasındaki şifre eşleşme kontrolü
@@ -174,22 +168,21 @@ function updateProfile() {
 
   var password = $("#user_new_pass").val();
 
-  $
-    .ajax({
-      type: "PUT",
-      url: '/Ticket_System/rest/user/updateProfile',
-      contentType: "application/json",
-      mimeType: "application/json",
-      data: password,
-      success: function() {
-        $("#pass_validate").text("Şifre başarıyla değişti!");
-        $("#user_update_btn").prop("disabled", true);
-      },
-      error: function() {
-        $("#pass_validate").text(
-          "Şifre değiştirilemedi , tekrar deneyin.");
-      }
-    });
+  $.ajax({
+    type: "PUT",
+    url: '/Ticket_System/rest/user/updateProfile',
+    contentType: "application/json",
+    mimeType: "application/json",
+    data: password,
+    success: function() {
+      $("#pass_validate").text("Şifre başarıyla değişti!");
+      $("#user_update_btn").prop("disabled", true);
+    },
+    error: function() {
+      $("#pass_validate").text(
+        "Şifre değiştirilemedi , tekrar deneyin.");
+    }
+  });
 
 }
 
@@ -204,7 +197,6 @@ function addUserLink(cellvalue, options, rowObject) {
 
 //detail buutonuna tıklandıgında ilgili kullanıcının bilgilerinin getirilmesi
 function getUser(userID) {
-
 
   loadAllDeparments("selectedPersonDepartment");
   loadAllCompanies("selectedPersonCompany");

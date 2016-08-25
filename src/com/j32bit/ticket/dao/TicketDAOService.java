@@ -74,6 +74,79 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("addTicket is finished");
 	}
 	
+	public ArrayList<Ticket> getPostedTickets(int status, long userID){
+		logger.debug("getPostedTickets started");
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		StringBuilder query = new StringBuilder();
+
+		ArrayList<Ticket> tickets = new ArrayList<>();
+
+		try {
+			query.append("SELECT tickets.*, users.FULL_NAME, departments.DEPARTMENT_NAME FROM tickets ");
+			query.append("INNER JOIN users ON users.ID = tickets.SENDER_ID ");
+			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID = departments.ID ");
+			query.append("WHERE STATUS=? AND tickets.SENDER_ID=?");
+			String queryString = query.toString();
+			logger.debug("Sql query Created : " + queryString);
+
+			conn = getConnection();
+			pStmt = conn.prepareStatement(queryString);
+			
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("STATUS : ").append(status).append("\n");
+				queryLog.append("SENDER_ID : ").append(userID).append("\n");
+				logger.trace(queryLog);
+			}
+			
+			pStmt.setInt(1, status);
+			pStmt.setLong(2, userID);
+			rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				Ticket ticket = new Ticket();
+				ticket.setId(rs.getLong("ID"));
+				ticket.setTitle(rs.getString("TITLE"));
+				ticket.setMessage(rs.getString("MESSAGE"));
+				ticket.setPriority(rs.getInt("PRIORITY"));
+				ticket.setTime(rs.getTimestamp("DATE").toString());
+				
+				if(rs.getInt("STATUS")==1){
+					ticket.setStatus(true);
+				}else{
+					ticket.setStatus(false);
+				}
+
+				User user = new User();
+				user.setName(rs.getString("FULL_NAME"));
+				user.setId(rs.getLong("SENDER_ID"));
+
+				Department department = new Department();
+				department.setId(rs.getLong("DEPARTMENT_ID"));
+				department.setName(rs.getString("DEPARTMENT_NAME"));
+
+				ticket.setDepartment(department);
+				ticket.setSender(user);
+
+				tickets.add(ticket);
+			}
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pStmt);
+			closeConnection(conn);
+		}
+		logger.debug("getPostedTickets is finished");
+		return tickets;		
+	}
+	
 	
 	public ArrayList<Ticket> getAllDepartmentTickets(int status, User user){
 		logger.debug("getAllDepartmentTickets started. Status:"

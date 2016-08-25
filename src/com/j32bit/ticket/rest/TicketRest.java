@@ -32,6 +32,18 @@ public class TicketRest {
 	public void storeTicket(Ticket ticket) throws Exception {
 		ServiceFacade.getInstance().addTicket(ticket);
 	}
+	
+	@Path("/getPostedTickets")
+	@GET
+	@PermitAll
+	public ArrayList<Ticket> getPostedTickets(@Context HttpServletRequest request){
+		
+		User user = (User) request.getSession().getAttribute("LOGIN_USER");
+		int status = Integer.valueOf(request.getParameter("status"));
+		long userID = user.getId();
+		return ServiceFacade.getInstance().getPostedTickets(status,userID);
+
+	}
 
 	@Path("/getAllTickets")
 	@GET

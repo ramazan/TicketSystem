@@ -79,6 +79,11 @@ public class ServiceFacade {
 			tickets = ticketService.getAllTickets(status);
 		return tickets;
 	}
+	
+	public ArrayList<Ticket> getPostedTickets(int status,long userID){
+		return ticketService.getPostedTickets(status,userID);
+	}
+	
 
 	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);
