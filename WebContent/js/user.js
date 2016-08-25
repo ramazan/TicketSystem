@@ -152,19 +152,19 @@ function loadProfileInf() {
 function validate() {
   var password1 = $("#user_new_pass").val();
   var password2 = $("#user_new_pass_c").val();
-  
-  if(password1 == "" && password2 == ""){
-		 $("#profile_alert").hide();
+
+  if (password1 == "" && password2 == "") {
+    $("#profile_alert").hide();
 
   } else if (password1 == password2 && password1 != "" && password2 != "") {
-	 $("#profile_alert").show();
-	    $("#pass_validate").text("Şifreler eşleşti!");
-	    $("#user_update_btn").removeAttr('disabled');
+    $("#profile_alert").show();
+    $("#pass_validate").text("Şifreler eşleşti!");
+    $("#user_update_btn").removeAttr('disabled');
 
   } else {
-		$("#profile_alert").show();
-	    $("#pass_validate").text("Şifreler eşleşmiyor!");
-	    $("#user_update_btn").prop("disabled", true);
+    $("#profile_alert").show();
+    $("#pass_validate").text("Şifreler eşleşmiyor!");
+    $("#user_update_btn").prop("disabled", true);
   }
 }
 
@@ -269,11 +269,11 @@ function deleteUserData() {
       console.log("user deleted!");
       $('#users_jqGrid').trigger('reloadGrid');
       user_detail_msg
-      $("#delete_user_label").text("User deleted. Closing Window..");
+      $("#delete_user_status").text("User deleted. Closing Window..");
       setTimeout(function() {
         $('#user-detail-modal').modal('hide');
         $('#delete_user_modal').modal('hide');
-        $("#delete_user_label").text("");
+        $("#delete_user_status").text("");
       }, 2000);
 
     },
@@ -287,9 +287,9 @@ function deleteUserData() {
 //user detail update kısmı
 function updateUserData() {
 
-	 console.log("started to update userID:" + selectedUserID );
-	
-     $("#updateUserDataButton").prop("disabled", true);
+  console.log("started to update userID:" + selectedUserID);
+
+  $("#updateUserDataButton").prop("disabled", true);
 
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
@@ -313,11 +313,13 @@ function updateUserData() {
     newCompanyID == "" || newPassword == "") {
     console.log("error: fill all boxes");
     $("#update_user_label").html("Please fill all boxes");
-    setTimeout(function() { $("#update_user_label").text(""); }, 2000);
+    setTimeout(function() {
+      $("#update_user_label").text("");
+    }, 2000);
   } else {
 
     var person = {
-    	id: selectedUserID,	
+      id: selectedUserID,
       name: newName,
       email: newEmail,
       password: newPassword,
@@ -343,7 +345,7 @@ function updateUserData() {
         setTimeout(function() {
           $('#user-detail-modal').modal('hide');
           $('#update_user_modal').modal('hide');
-          $("#user_detail_msg").text("");          
+          $("#user_detail_msg").text("");
           $("#update_user_label").text("");
           $("#updateUserDataButton").prop("disabled", false);
 

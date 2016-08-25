@@ -7,7 +7,7 @@
 	<title>32Bit Ticket System</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/ui.jqgrid-bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="./css/ticket.css">
+	<link rel="stylesheet" type="text/css" href="./css/ticket.css" />
 
 </head>
 
@@ -28,397 +28,42 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a>Welcome <b id="nav_nickname"></b></a></li>
-						<li id="nav_profile"><a href="#" onclick="showProfile()">My
-							Profile</a></li>
+						<li id="nav_profile">
+							<a href="#" onclick="showProfile()">My Profile</a></li>
 						<li><a href="#" onclick="logout()">Logout</a></li>
 					</ul>
 				</div>
-				<!--navbar collapse -->
 			</div>
 		</nav>
 	</header>
 
-
-	<!-- ############# TICKET AREA ############ -->
+	<!-- tickets page -->
 	<div id="tickets_page">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-2">
 				<div class="list-group">
 					<ul class="list-inline">
-						<li><a href="#" onclick="loadAllTickets(1)">
-								Open Tickets</a>
-						</li>
-						<li><a href="#" onclick="loadAllTickets(0)">
-								Closed Tickets</a>
-						</li>
+						<li><a href="#" onclick="loadAllTickets(1)">Open Tickets</a></li>
+						<li><a href="#" onclick="loadAllTickets(0)">Closed Tickets</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#ticket_add_modal">New Ticket</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-
-
-		<!-- JQGRID Test -->
+		<!-- ticket page top navbar -->
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<table id="tickets_jqGrid"></table>
 				<div id="tickets_jqGridPager"></div>
 			</div>
-			<!-- com-md -->
-		</div>
-		<!-- row -- >
-		<!--    Add Tickets Modal -->
-		<div id="ticket_add_modal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">New Ticket</h4>
-					</div>
-					<div class="modal-body">
-						<div>
-							<p id="ticket_add_msg" class="label label-success"></p>
-							<br>
-							<br>
-						</div>
-
-						<label>Department:</label>
-						<div class="form-group">
-							<select id="new_ticket_dep"></select>
-						</div>
-
-						<label>Priority:</label>
-						<div class="form-group">
-							<select id="new_ticket_prio">
-								<option value="1">NORMAL</option>
-								<option value="2">HIGH</option>
-							</select>
-						</div>
-
-						<label>Title:</label>
-						<div class="form-group">
-							<input type="text" size="40" id="new_ticket_title">
-						</div>
-
-						<label>Message:</label>
-						<div class="form-group">
-							<textarea rows="9" cols="60" id="new_ticket_msg"></textarea>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-success" onclick="sendTicket()">Send Ticket
-						</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-				<!-- modal content -->
-			</div>
-			<!-- modal-dialog-->
-		</div>
-		<!--    Add Tickets Modal -->
-	</div>
-	<!-- Tickets div -->
-
-	<div id="delete_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete Ticket</h4>
-				</div>
-				<div class="modal-body">
-					<div>
-						<p id="delete_ticket_label" class="label label-success"></p>
-						<br>
-						<br>
-					</div>
-
-					<p id="delete_ticket_msg" class="label label-danger">Are you sure want to delete ticket?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button" onclick="deleteTicket()" class="btn btn-danger">Delete</button>
-				</div>
-			</div>
 		</div>
 	</div>
-	<!-- delete ticket modal-->
-
-	<!-- ###### USER AREAA #####-->
-	<div id="users_page">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<table id="users_jqGrid"></table>
-				<div id="users_jqGridPager"></div>
-			</div>
-		</div>
-		<!-- row -->
-
-		<!-- Add User Modal -->
-		<div id="add_user_modal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add New User</h4>
-					</div>
-					<!-- modal header-->
-					<div class="modal-body">
-						<div>
-							<p id="add_user_msg" class="label label-success"></p>
-							<br>
-							<br>
-						</div>
-
-						<form>
-							<div class="form-group">
-								<label>Full Name:</label>
-								<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" required />
-							</div>
-
-							<div class="form-group">
-								<label>E-Mail:</label>
-								<input type="email" class="form-control" placeholder="Enter Email" id="new_user_email" />
-							</div>
-
-							<div class="form-group">
-								<label>Password:</label>
-								<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" required />
-							</div>
-
-							<div class="form-group">
-								<label>Company:</label>
-								<div class="row">
-									<div class="col-md-6">
-										<select class="form-control" id="new_user_company"></select>
-									</div>
-									<div class="col-md-6">
-										<button class="btn btn-primary" data-toggle="modal" data-target="#add_company_modal">Add New Company</button>
-									</div>
-								</div>
-								<!-- row -->
-
-							</div>
-
-							<div class="from-group">
-								<div class="checkbox form-control">
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="adminRole" checked>Admin</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="supporterRole">Supporter</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="clientRole">Client</label>
-								</div>
-							</div>
-
-							<div class="form-group" style="display: none;" id="departmentFade">
-								<label for="userDepartment">Department:</label>
-								<div class="row">
-									<div class="col-md-6">
-										<select class="form-control" id="new_user_dep">
-											<!-- departmanlar db den yüklenecek -->
-										</select>
-									</div>
-
-									<div class="col-md-6">
-										<button class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal">Add New Department</button>
-
-									</div>
-								</div>
-								<!-- row div- -->
-							</div>
-							<!-- form group div -->
-						</form>
-
-					</div>
-					<!-- modal body-->
-					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addUser()">Add User
-						</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-					<!-- modal footer -->
-				</div>
-				<!-- modal content -->
-			</div>
-			<!-- modal-dialog-->
-		</div>
-		<!-- Add User Modal -->
-
-
-		<!-- Add Company Modal -->
-		<div id="add_company_modal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add New Company</h4>
-					</div>
-					<div class="modal-body">
-						<div>
-							<p id="add_company_msg" class="label label-success"></p>
-							<br>
-							<br>
-						</div>
-
-
-						<div class="form-group">
-							<label>Name:<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" id="new_company_name" required />
-						</div>
-						<div class="form-group">
-							<label>E-Mail:<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" id="new_company_email" required />
-						</div>
-						<div class="form-group">
-							<label>Phone:</label>
-							<input class="form-control" type="text" id="new_company_phone" />
-						</div>
-						<div class="form-group">
-							<label>Fax:</label>
-							<input class="form-control" type="text" id="new_company_fax" />
-						</div>
-						<div class="form-group">
-							<label>Address:</label>
-							<input class="form-control" type="text" id="new_company_address" />
-						</div>
-						<p>
-							<span class="text-danger lead">*: Required</span>
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addCompany()">Add</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-				<!-- modal content -->
-			</div>
-			<!-- modal-dialog-->
-		</div>
-		<!-- Add Company Modal -->
-
-
-		<!-- Add Department Modal -->
-		<div id="add_dep_modal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add New Department</h4>
-					</div>
-					<div class="modal-body">
-						<div>
-							<p id="add_dep_msg" class="label label-success"></p>
-							<br>
-							<br>
-						</div>
-						<div class="form-group">
-							<label>Name:<span class="text-danger">*</span></label>
-							<input class="form-control" type="text" id="new_dep_name" required />
-						</div>
-						<p>
-							<span class="text-danger lead">*: Required</span>
-						</p>
-					</div>
-
-					<div class="modal-footer">
-						<button class="btn btn-success" onclick="addDepartment()">Add</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-				<!-- modal content -->
-			</div>
-			<!-- modal-dialog-->
-		</div>
-		<!-- Add Department Modal -->
-
-	</div>
-	<!-- users div - -->
-
-
-	<!-- PROFILE PAGE AREA-->
-	<div id="profile_page" class="row" style="display: none;">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title" id="user_name"></h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
-								<div class=" col-md-9 col-lg-9 ">
-									<table class="table table-user-information">
-										<tbody>
-											<tr>
-												<td>E-mail:</td>
-												<td><b id="user_email"></b></td>
-											</tr>
-											<tr>
-												<td>Roles:</td>
-												<td><b id="user_roles">rolesHere</b></td>
-											</tr>
-
-											<tr>
-												<td>Company:</td>
-												<td><b id="user_company"></b></td>
-											</tr>
-											<tr>
-												<td>New Password:</td>
-												<td>
-													<input id="user_new_pass" type="password">
-												</td>
-											</tr>
-											<tr>
-												<td>Confirm New Password:</td>
-												<td>
-													<input id="user_new_pass_c" type="password">
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2">
-
-													<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
-														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-														<b id="pass_validate"></b>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<div class="row">
-								<span class="pull-right">
-                        	<button type="button" id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
-                        		<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
-								</button>
-								</span>
-								<br>
-							</div>
-							<div class="alert alert-info" role="alert">if you wanna change another information,please send ticket to admin</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<!-- Profile div -->
-
-
+	<!-- ticket page end -->
 
 	<br>
 	<hr>
-	<!-- ###### Ticket Details Area ####### -->
+
+	<!-- ticket detail page -->
 	<div id="ticket_details_page" style="display: none">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -468,8 +113,7 @@
 					</table>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered
-						table-condensed" id="ticket_responses">
+					<table class="table table-bordered table-condensed" id="ticket_responses">
 						<thead>
 							<tr>
 								<th>Ticket Responses</th>
@@ -491,12 +135,302 @@
 			</div>
 		</div>
 	</div>
+	<!-- ticket detail page end -->
 
+	<!-- user page -->
+	<div id="users_page">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<table id="users_jqGrid"></table>
+				<div id="users_jqGridPager"></div>
+			</div>
+		</div>
+	</div>
+	<!-- user page end -->
 
+	<!-- my profile page -->
+	<div id="profile_page" class="row" style="display: none;">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title" id="user_name"></h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>E-mail:</td>
+												<td><b id="user_email"></b></td>
+											</tr>
+											<tr>
+												<td>Roles:</td>
+												<td><b id="user_roles">rolesHere</b></td>
+											</tr>
+											<tr>
+												<td>Company:</td>
+												<td><b id="user_company"></b></td>
+											</tr>
+											<tr>
+												<td>New Password:</td>
+												<td>
+													<input id="user_new_pass" type="password">
+												</td>
+											</tr>
+											<tr>
+												<td>Confirm New Password:</td>
+												<td>
+													<input id="user_new_pass_c" type="password">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<b id="pass_validate"></b>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="pull-right">
+									<button id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
+										<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+												</span>Save
+									</button>
+								</div>
+							</div>
+							<br>
+							<div class="alert alert-info" role="alert">if you wanna change another information,please send ticket to admin</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Profile div -->
 
+	<!--    Add Tickets Modal -->
+	<div id="ticket_add_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<p id="ticket_add_msg" class="label label-success"></p>
+					<br>
+					<label>Department:</label>
+					<div class="form-group">
+						<select id="new_ticket_dep"></select>
+					</div>
 
+					<label>Priority:</label>
+					<div class="form-group">
+						<select id="new_ticket_prio">
+							<option value="1">NORMAL</option>
+							<option value="2">HIGH</option>
+						</select>
+					</div>
+
+					<label>Title:</label>
+					<div class="form-group">
+						<input type="text" size="40" id="new_ticket_title">
+					</div>
+
+					<label>Message:</label>
+					<div class="form-group">
+						<textarea rows="9" cols="50" id="new_ticket_msg"></textarea>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" onclick="sendTicket()">Send Ticket
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--    Add Tickets Modal end-->
+
+	<!-- delete ticket modal -->
+	<div id="delete_ticket_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<p id="delete_ticket_label" class="label label-success"></p>
+						<br>
+						<br>
+					</div>
+					<p id="delete_ticket_msg" class="label label-danger">Are you sure want to delete ticket?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" onclick="deleteTicket()" class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete ticket modal-->
+
+	<!-- Add User Modal -->
+	<div id="add_user_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add New User</h4>
+				</div>
+				<div class="modal-body">
+					<p id="add_user_msg" class="label label-success"></p>
+					<br>
+					<div class="form-group">
+						<label>Full Name:</label>
+						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" required />
+					</div>
+					<div class="form-group">
+						<label>E-Mail:</label>
+						<input type="email" class="form-control" placeholder="Enter Email" id="new_user_email" />
+					</div>
+					<div class="form-group">
+						<label>Password:</label>
+						<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" required />
+					</div>
+					<div class="form-group">
+						<label>Company:</label>
+						<div class="row">
+							<div class="col-md-6">
+								<select class="form-control" id="new_user_company"></select>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#add_company_modal">Add New Company</button>
+							</div>
+						</div>
+					</div>
+					<div class="from-group">
+						<div class="checkbox form-control">
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="adminRole" checked>Admin</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="supporterRole">Supporter</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="clientRole">Client</label>
+						</div>
+					</div>
+					<div class="form-group" style="display: none;" id="departmentFade">
+						<label for="userDepartment">Department:</label>
+						<div class="row">
+							<div class="col-md-6">
+								<select class="form-control" id="new_user_dep">
+									<!-- departmanlar db den yuklenir -->
+								</select>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal">Add New Department</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" onclick="addUser()">Add User
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Add User Modal end -->
+
+	<!-- Add Company Modal -->
+	<div id="add_company_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add New Company</h4>
+				</div>
+				<div class="modal-body">
+					<p id="add_company_msg" class="label label-success"></p>
+					<br>
+					<div class="form-group">
+						<label>Name:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" id="new_company_name" required />
+					</div>
+					<div class="form-group">
+						<label>E-Mail:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" id="new_company_email" required />
+					</div>
+					<div class="form-group">
+						<label>Phone:</label>
+						<input class="form-control" type="text" id="new_company_phone" />
+					</div>
+					<div class="form-group">
+						<label>Fax:</label>
+						<input class="form-control" type="text" id="new_company_fax" />
+					</div>
+					<div class="form-group">
+						<label>Address:</label>
+						<input class="form-control" type="text" id="new_company_address" />
+					</div>
+					<p>
+						<span class="text-danger lead">*: Required</span>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" onclick="addCompany()">Add</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Add Company Modal end -->
+
+	<!-- Add Department Modal -->
+	<div id="add_dep_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add New Department</h4>
+				</div>
+				<div class="modal-body">
+					<p id="add_dep_msg" class="label label-success"></p>
+					<br>
+					<div class="form-group">
+						<label>Name:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" id="new_dep_name" required />
+					</div>
+					<p>
+						<span class="text-danger lead">*: Required</span>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" onclick="addDepartment()">Add</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Add Department Modal end -->
+
+	<!-- user detail modal -->
 	<div id="user_modal_detail">
-		<!-- BEGIN # USER MODAL DETAIL -->
 		<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -506,7 +440,6 @@
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 						</button>
 						<h3>Kisi Bilgileri</h3>
-
 					</div>
 
 					<!-- Begin # DIV Form -->
@@ -562,9 +495,7 @@
 							<div class="modal-footer">
 								<div>
 									<button type="button" class="btn btn-primary" data-dismiss="modal">İptal</button>
-
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
-
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
 								</div>
 							</div>
@@ -575,12 +506,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- END # USER MODAL DETAIL -->
-
 	</div>
-	<!-- user_modal_detail sonu -->
+	<!-- user detail modal end -->
 
-	<!-- delete user modal-->
+	<!-- delete user modal -->
 	<div id="delete_user_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -589,12 +518,8 @@
 					<h4 class="modal-title">Delete User</h4>
 				</div>
 				<div class="modal-body">
-					<div>
-						<p id="delete_user_label" class="label label-success"></p>
-						<br>
-						<br>
-					</div>
-
+					<p id="delete_user_status" class="label label-success"></p>
+					<br>
 					<p id="delete_user_msg" class="label label-danger">Are you sure want to delete user?</p>
 				</div>
 				<div class="modal-footer">
@@ -604,11 +529,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- delete user modal-->
+	<!-- delete user modal -->
 
-
-
-	<!-- update user modal-->
+	<!-- update user modal -->
 	<div id="update_user_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -617,12 +540,8 @@
 					<h4 class="modal-title">Update User</h4>
 				</div>
 				<div class="modal-body">
-					<div>
-						<p id="update_user_label" class="label label-success"></p>
-						<br>
-						<br>
-					</div>
-
+					<p id="update_user_label" class="label label-success"></p>
+					<br>
 					<p id="update_user_msg" class="label label-danger">Are you sure want to update user?</p>
 				</div>
 				<div class="modal-footer">
@@ -632,9 +551,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- update user modal-->
-
-
+	<!-- update user modal -->
 
 	<!-- JAVASCRIPT SOURCES -->
 	<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
