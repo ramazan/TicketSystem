@@ -3,8 +3,6 @@ var selectedTicketID;
 function getTicket(ticketID) {
 
   selectedTicketID = ticketID;
-  console.log("Ticket ID:" + ticketID);
-
   showTicketDetails();
 
   $.ajax({
@@ -19,8 +17,8 @@ function getTicket(ticketID) {
       $("#ticket_date").text(ticket.time);
       $("#ticket_sender").text(ticket.sender.name);
       $("#ticket_department").text(ticket.department.name);
-      var status = ticket.status;
-      if (status == true) {
+
+      if (ticket.status == true) {
         $("#ticket_status").text("OPEN");
         $("#ticket_status").css("color", "green");
       } else {
@@ -32,10 +30,9 @@ function getTicket(ticketID) {
       $('html, body').animate({
         scrollTop: $("#ticket_details_page").offset().top
       }, 1000);
-
     },
     error: function() {
-      alert("Ticket details cannot get please try again. TicketID:  " + ticketID);
+      alert("Ticket details cannot get please try again. TicketID:  " + selectedTicketID);
     }
   });
 }
@@ -48,9 +45,6 @@ function addLink(cellvalue, options, rowObject) {
 }
 
 function deleteTicket() {
-
-  console.log("started to delete ticketID:" + selectedTicketID);
-
   $.ajax({
     url: "/Ticket_System/rest/ticket/deleteTicket",
     type: "POST",
@@ -58,14 +52,12 @@ function deleteTicket() {
     contentType: "application/json",
     data: JSON.stringify(selectedTicketID),
     success: function() {
-      console.log("ticket deleted!");
       $('#tickets_jqGrid').trigger('reloadGrid');
-
       $("#delete_ticket_label").text("Ticket Deleted. Window closing...");
       setTimeout(function() {
         $('#delete_ticket_modal').modal('hide');
         $('#delete_ticket_msg').text("Are you sure want to delete ticket?");
-        // tekrar tıklanıldıgında aynı mesaji görmemek için texti sıfırla!
+        // bilgi mesajini temizle
         $("#delete_ticket_label").text("");
       }, 1500);
       showTickets();
@@ -99,7 +91,6 @@ function sendTicketResponse() {
       mimeType: "application/json",
       data: JSON.stringify(responseTicket),
       success: function(response) {
-        console.log("Response sended. ID:" + response.id);
         $("#ticket_response_msg").val("");
         loadAllResponses();
       }
@@ -128,7 +119,6 @@ function loadAllResponses() {
 
 // status boolean : open, closed
 function loadAllTickets(status) {
-  console.log(status);
   loadAllDeparments("new_ticket_dep");
 
   $("#tickets_jqGrid").jqGrid("clearGridData", true)
@@ -223,7 +213,6 @@ function sendTicket() {
           "Ticket sended. Closing Window..");
         // reload jqgrid
         $('#tickets_jqGrid').trigger('reloadGrid');
-
         // clear boxes
         $('input:checkbox').removeAttr('checked');
         $("#new_ticket_title").val("");
@@ -233,7 +222,6 @@ function sendTicket() {
           $('#ticket_add_modal').modal('hide');
           $("#ticket_add_msg").text("");
         }, 2000);
-
       },
       error: function() {
         $("#ticket_add_msg").text("Ticket couldn't be sent! Later try again");
