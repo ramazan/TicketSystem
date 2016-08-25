@@ -142,34 +142,27 @@ public class UserDAOService extends ConnectionHelper {
 		Connection con = null;
 
 		PreparedStatement pstUsers = null;
-		PreparedStatement pstRoles = null;
 		ResultSet rsUsers = null;
-		ResultSet rsRoles = null;
 		StringBuilder query = new StringBuilder();
-		StringBuilder queryRole = new StringBuilder();
 
 		User user = null;
 		ArrayList<User> userList = new ArrayList<>();
 
 		try {
 			con = getConnection();
-			query.append("SELECT users.*, user_roles.ROLE, companies.COMPANY_NAME, departments.DEPARTMENT_NAME ");
+			query.append("SELECT users.*, user_roles.ROLE, ");
+			query.append("companies.COMPANY_NAME, departments.DEPARTMENT_NAME ");
 			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
 			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID ");
 			query.append("INNER JOIN user_roles ON users.EMAIL=user_roles.EMAIL");
 			String queryString = query.toString();
 			logger.debug("sql query created : " + queryString);
 
-			queryRole.append("SELECT ROLE FROM user_roles ");
-			queryRole.append("WHERE EMAIL=?");
-			String queryRoleString = queryRole.toString();
-			logger.debug("sql query for roles created :" + queryRoleString);
-
 			pstUsers = con.prepareStatement(queryString);
 
 			rsUsers = pstUsers.executeQuery();
 
-			long visitedID = 0;
+			long visitedID = -1;// -1 idye sahip kimse olamaz
 			while (rsUsers.next()) {
 				// yeni kullanici geldi ilk bilgileri oku
 				// eski kullanici ise sadece rollerini oku
@@ -193,9 +186,9 @@ public class UserDAOService extends ConnectionHelper {
 					company.setName(rsUsers.getString("COMPANY_NAME"));
 
 					user.setCompany(company);
-					
+
 					user.getUserRoles().add(rsUsers.getString("ROLE"));
-				}else{ // set roles
+				} else { // geri kalan rolleri oku
 					user.getUserRoles().add(rsUsers.getString("ROLE"));
 				}
 			}
@@ -203,9 +196,7 @@ public class UserDAOService extends ConnectionHelper {
 			logger.debug("getAllUser error occured");
 			e.printStackTrace();
 		} finally {
-			closeResultSet(rsRoles);
 			closeResultSet(rsUsers);
-			closePreparedStatement(pstRoles);
 			closePreparedStatement(pstUsers);
 			closeConnection(con);
 		}
