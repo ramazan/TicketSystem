@@ -147,6 +147,44 @@ public class TicketDAOService extends ConnectionHelper {
 		return tickets;		
 	}
 	
+	public void closeTicket(long ticketID){
+		logger.debug("closeTicket is started. ticketID:"+ticketID);
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		StringBuilder query = new StringBuilder();
+
+		try {
+			query.append("UPDATE tickets ");
+			query.append("SET tickets.STATUS=0 ");
+			query.append("WHERE tickets.ID=? ");
+			String queryString = query.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters :").append("\n");
+				queryLog.append("ID :").append(ticketID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pst.setLong(1, ticketID);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			logger.error("addResponse error :" + e.getMessage());
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+		}
+		logger.debug("closeTicket is finished");
+	}
+	
 	
 	public ArrayList<Ticket> getAllDepartmentTickets(int status, User user){
 		logger.debug("getAllDepartmentTickets started. Status:"

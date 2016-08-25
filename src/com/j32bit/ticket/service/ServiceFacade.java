@@ -84,6 +84,10 @@ public class ServiceFacade {
 		return ticketService.getPostedTickets(status,userID);
 	}
 	
+	public void closeTicket(long ticketID){
+		ticketService.closeTicket(ticketID);
+	}
+	
 
 	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);

@@ -21,9 +21,13 @@ function getTicket(ticketID) {
       if (ticket.status == true) {
         $("#ticket_status").text("OPEN");
         $("#ticket_status").css("color", "green");
+        $("#close_ticket_btn").show();
+        $("#send_response_area").show();
       } else {
         $("#ticket_status").text("CLOSED");
         $("#ticket_status").css("color", "red");
+        $("#close_ticket_btn").hide();
+        $("#send_response_area").hide();
       }
 
       loadAllResponses(selectedTicketID);
@@ -117,13 +121,28 @@ function loadAllResponses() {
   });
 }
 
+function closeTicket() {
+
+  $.ajax({
+    type: "POST",
+    url: "/Ticket_System/rest/ticket/closeTicket",
+    contentType: "application/json",
+    mimeType: "application/json",
+    data: JSON.stringify(selectedTicketID),
+    success: function() {
+      $("#tickets_jqGrid").trigger("reloadGrid");
+      getTicket(selectedTicketID);
+    },
+    error: function() {
+      console.log("close ticket error");
+    }
+  });
+}
+
 // status boolean : open, closed
 function loadAllTickets(status) {
-  $("#tickets_jqGrid").jqGrid("clearGridData", true)
-    .setGridParam({
-      url: "/Ticket_System/rest/ticket/getAllTickets?status=" + status
-    })
-    .trigger("reloadGrid");
+
+  $("#tickets_jqGrid").GridUnload();
   $("#tickets_jqGrid").jqGrid({
     caption: "Ticket List",
     url: "/Ticket_System/rest/ticket/getAllTickets?status=" + status,

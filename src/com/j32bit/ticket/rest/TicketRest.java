@@ -99,5 +99,15 @@ public class TicketRest {
 	public void editTicket(Ticket ticket) throws Exception {
 		ServiceFacade.getInstance().editTicket(ticket);
 	}
+	
+	@Path("/closeTicket")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public void closeTicket(long ticketID) throws Exception {
+		ServiceFacade.getInstance().closeTicket(ticketID);
+	}
+	
+	
 
 }
