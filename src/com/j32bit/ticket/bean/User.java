@@ -14,6 +14,7 @@ public class User {
 
 	public User() {
 		// no parameter constructor
+		this.userRoles = new ArrayList<>();
 	}
 
 	public long getId() {

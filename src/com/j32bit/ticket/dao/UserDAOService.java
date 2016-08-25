@@ -153,9 +153,10 @@ public class UserDAOService extends ConnectionHelper {
 
 		try {
 			con = getConnection();
-			query.append("SELECT users.*, companies.COMPANY_NAME, departments.DEPARTMENT_NAME ");
+			query.append("SELECT users.*, user_roles.ROLE, companies.COMPANY_NAME, departments.DEPARTMENT_NAME ");
 			query.append("FROM users INNER JOIN companies ON users.COMPANY_ID=companies.ID ");
-			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID");
+			query.append("INNER JOIN departments ON users.DEPARTMENT_ID=departments.ID ");
+			query.append("INNER JOIN user_roles ON users.EMAIL=user_roles.EMAIL");
 			String queryString = query.toString();
 			logger.debug("sql query created : " + queryString);
 
@@ -168,37 +169,35 @@ public class UserDAOService extends ConnectionHelper {
 
 			rsUsers = pstUsers.executeQuery();
 
+			long visitedID = 0;
 			while (rsUsers.next()) {
-				user = new User();
-				user.setId(rsUsers.getLong("ID"));
-				user.setEmail(rsUsers.getString("EMAIL"));
-				user.setName(rsUsers.getString("FULL_NAME"));
-				user.setPassword(rsUsers.getString("PASSWORD"));
+				// yeni kullanici geldi ilk bilgileri oku
+				// eski kullanici ise sadece rollerini oku
+				if (visitedID != rsUsers.getLong("ID")) {
+					user = new User();
+					userList.add(user); // referansını listeye ekle
+					visitedID = rsUsers.getLong("ID");
+					user.setId(rsUsers.getLong("ID"));
+					user.setEmail(rsUsers.getString("EMAIL"));
+					user.setName(rsUsers.getString("FULL_NAME"));
+					user.setPassword(rsUsers.getString("PASSWORD"));
 
-				Department department = new Department();
-				department.setName(rsUsers.getString("DEPARTMENT_NAME"));
-				department.setId(rsUsers.getLong("DEPARTMENT_ID"));
+					Department department = new Department();
+					department.setName(rsUsers.getString("DEPARTMENT_NAME"));
+					department.setId(rsUsers.getLong("DEPARTMENT_ID"));
 
-				user.setDepartment(department);
+					user.setDepartment(department);
 
-				Company company = new Company();
-				company.setId(rsUsers.getLong("COMPANY_ID"));
-				company.setName(rsUsers.getString("COMPANY_NAME"));
+					Company company = new Company();
+					company.setId(rsUsers.getLong("COMPANY_ID"));
+					company.setName(rsUsers.getString("COMPANY_NAME"));
 
-				user.setCompany(company);
-
-				// GET ROLE
-				pstRoles = con.prepareStatement(queryRoleString);
-				pstRoles.setString(1, user.getEmail());
-				rsRoles = pstRoles.executeQuery();
-
-				ArrayList<String> userRoles = new ArrayList<>();
-				while (rsRoles.next()) {
-					userRoles.add(rsRoles.getString("ROLE"));
+					user.setCompany(company);
+					
+					user.getUserRoles().add(rsUsers.getString("ROLE"));
+				}else{ // set roles
+					user.getUserRoles().add(rsUsers.getString("ROLE"));
 				}
-				user.setUserRoles(userRoles);
-
-				userList.add(user);
 			}
 		} catch (Exception e) {
 			logger.debug("getAllUser error occured");
