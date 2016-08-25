@@ -9,7 +9,7 @@ body {
 
 .panel-title{
 	font-weight:bold;
-	color:black;	
+	color:black;
 }
 
 #nav_nickname{
@@ -54,7 +54,14 @@ body {
 #add_company_msg,#add_dep_msg,#delete_ticket_label,
 #delete_ticket_msg,#delete_user_msg,#delete_user_label,
 #update_user_label,#update_user_msg{
-	
+
 font-size: 20px;
 }
 
+.navbar-brand{
+  padding-top:10px; 
+}
+
+#brand_img{
+  height: 35px;
+}

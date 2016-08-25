@@ -14,27 +14,27 @@
 <body>
 	<header>
 		<nav class="navbar navbar-inverse">
-			<div class="navbar-header">
-				<a class="navbar-brand">TicketSystem</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li id="nav_tickets" class="active">
-						<a href="#" onclick="showTickets()">Tickets</a></li>
-					<li id="nav_users"><a href="#" onclick="showUsers()">Users</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-center" style="padding-left:450px;">
-					<img src="http://i64.tinypic.com/2qvffnl.png"/>
-				</ul>
-				
-				<ul class="nav navbar-nav navbar-right">
-					<li><a>Welcome <b id="nav_nickname"></b></a></li>
-					<li id="nav_profile"><a href="#" onclick="showProfile()">My
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">
+						<img id="brand_img" alt="Brand" src="http://i64.tinypic.com/2qvffnl.png">
+					</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li id="nav_tickets" class="active">
+							<a href="#" onclick="showTickets()">Tickets</a></li>
+						<li id="nav_users"><a href="#" onclick="showUsers()">Users</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a>Welcome <b id="nav_nickname"></b></a></li>
+						<li id="nav_profile"><a href="#" onclick="showProfile()">My
 							Profile</a></li>
-					<li><a href="#" onclick="logout()">Logout</a></li>
-				</ul>
+						<li><a href="#" onclick="logout()">Logout</a></li>
+					</ul>
+				</div>
+				<!--navbar collapse -->
 			</div>
-			<!--navbar collapse -->
 		</nav>
 	</header>
 
@@ -344,73 +344,73 @@
 	<!-- PROFILE PAGE AREA-->
 	<div id="profile_page" class="row" style="display: none;">
 		<div class="container">
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title" id="user_name"></h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-						<tr>
-							<td>E-mail:</td>
-							<td><b id="user_email"></b></td>
-						</tr>
-						<tr>
-							<td>Roles:</td>
-							<td><b id="user_roles">rolesHere</b></td>
-						</tr>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title" id="user_name"></h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>E-mail:</td>
+												<td><b id="user_email"></b></td>
+											</tr>
+											<tr>
+												<td>Roles:</td>
+												<td><b id="user_roles">rolesHere</b></td>
+											</tr>
 
-						<tr>
-							<td>Company:</td>
-							<td><b id="user_company"></b></td>
-						</tr>
-						<tr>
-							<td>New Password:</td>
-							<td>
-								<input id="user_new_pass" type="password">
-							</td>
-						</tr>
-						<tr>
-							<td>Confirm New Password:</td>
-							<td>
-								<input id="user_new_pass_c" type="password">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								
-								<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<b id="pass_validate"></b>  
+											<tr>
+												<td>Company:</td>
+												<td><b id="user_company"></b></td>
+											</tr>
+											<tr>
+												<td>New Password:</td>
+												<td>
+													<input id="user_new_pass" type="password">
+												</td>
+											</tr>
+											<tr>
+												<td>Confirm New Password:</td>
+												<td>
+													<input id="user_new_pass_c" type="password">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+
+													<div id="profile_alert" style="display:none;" class="alert alert-info alert-dismissible" role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<b id="pass_validate"></b>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-							</td>
-						</tr>
-                    </tbody>
-                  </table>
-                 </div>
-              </div>              
-            </div>          
-                 <div class="panel-footer">                 
-                 		<div class="row">
-                        <span class="pull-right">
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<span class="pull-right">
                         	<button type="button" id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
-                        		<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>   Save
-                        	 </button>						                       
-                        </span>
-                        <br>
-                        </div>
-                       <div class="alert alert-info" role="alert">if you wanna change another information,please send ticket to admin</div>            
-                    </div>
-          </div>
-        </div>
-      </div>
-    </div>
-		
+                        		<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+								</button>
+								</span>
+								<br>
+							</div>
+							<div class="alert alert-info" role="alert">if you wanna change another information,please send ticket to admin</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<!-- Profile div -->
 
@@ -565,7 +565,7 @@
 
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
 
-									<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
 								</div>
 							</div>
 						</form>
@@ -579,7 +579,7 @@
 
 	</div>
 	<!-- user_modal_detail sonu -->
-	
+
 	<!-- delete user modal-->
 	<div id="delete_user_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -605,9 +605,9 @@
 		</div>
 	</div>
 	<!-- delete user modal-->
-	
-	
-	
+
+
+
 	<!-- update user modal-->
 	<div id="update_user_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -627,14 +627,14 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button"  id="updateUserDataButton" onclick="updateUserData()" class="btn btn-danger">Update user</button>
+					<button type="button" id="updateUserDataButton" onclick="updateUserData()" class="btn btn-danger">Update user</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- update user modal-->
-	
-	
+
+
 
 	<!-- JAVASCRIPT SOURCES -->
 	<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>
