@@ -148,7 +148,6 @@ function loadProfileInf() {
 
 }
 
-
 // Profile sayfasındaki şifre eşleşme kontrolü
 function validate() {
   var password1 = $("#user_new_pass").val();
@@ -280,7 +279,6 @@ function deleteUserData() {
 
 }
 
-
 //user detail update kısmı
 function updateUserData() {
 
@@ -350,8 +348,6 @@ function updateUserData() {
     });
   }
 }
-
-
 
 
 //user detail modaldeki password show/hide işlemi
