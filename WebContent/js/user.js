@@ -158,13 +158,13 @@ function validate() {
 
   } else if (password1 == password2 && password1 != "" && password2 != "") {
 	 $("#profile_alert").show();
-    $("#pass_validate").text("Şifreler eşleşti!");
-    $("#user_update_btn").removeAttr('disabled');
+	    $("#pass_validate").text("Şifreler eşleşti!");
+	    $("#user_update_btn").removeAttr('disabled');
 
   } else {
-		 $("#profile_alert").show();
-    $("#pass_validate").text("Şifreler eşleşmiyor!");
-    $("#user_update_btn").prop("disabled", true);
+		$("#profile_alert").show();
+	    $("#pass_validate").text("Şifreler eşleşmiyor!");
+	    $("#user_update_btn").prop("disabled", true);
   }
 }
 
@@ -289,7 +289,8 @@ function updateUserData() {
 
 	 console.log("started to update userID:" + selectedUserID );
 	
-	
+     $("#updateUserDataButton").prop("disabled", true);
+
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
   var newCompanyID = $('#selectedPersonCompany').val();
@@ -344,6 +345,7 @@ function updateUserData() {
           $('#update_user_modal').modal('hide');
           $("#user_detail_msg").text("");          
           $("#update_user_label").text("");
+          $("#updateUserDataButton").prop("disabled", false);
 
         }, 2000);
       },
