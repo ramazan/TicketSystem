@@ -78,17 +78,13 @@ function deleteTicket() {
 
 function sendTicketResponse() {
 
-  var ticketID = selectedTicketID;
-
   var responseMsg = $("#ticket_response_msg").val();
-
   if (responseMsg == "") {
     $("#add_resp_msg").text("Please add a response!");
   } else {
-
     var responseTicket = {
       message: responseMsg,
-      ticketID: ticketID,
+      ticketID: selectedTicketID,
       sender: {
         id: authenticatedUser.id,
         name: authenticatedUser.name,
@@ -112,14 +108,12 @@ function sendTicketResponse() {
 }
 
 function loadAllResponses() {
-  var ticketID = selectedTicketID;
-
   $.ajax({
     type: "POST",
     url: '/Ticket_System/rest/ticket/getAllResponses',
     contentType: "application/json",
     mimeType: "application/json",
-    data: JSON.stringify(ticketID),
+    data: JSON.stringify(selectedTicketID),
     success: function(responses) {
 
       $("#ticket_responses > tbody").html("");
@@ -191,7 +185,7 @@ function loadAllTickets(status) {
     del: false,
     search: true,
     refresh: true,
-    view: true,
+    view: false,
     position: "left",
     cloneToTop: false
   });
@@ -200,6 +194,7 @@ function loadAllTickets(status) {
 function sendTicket() {
   var ticketTitle = $("#new_ticket_title").val();
   var ticketMessage = $("#new_ticket_msg").val();
+
   if (ticketTitle == "" || ticketMessage == "") {
     $("#ticket_add_msg").text("Please fill all boxes");
   } else {
@@ -241,21 +236,16 @@ function sendTicket() {
 
       },
       error: function() {
-        $("#ticket_add_msg").text("Ticket couldn!t be sent! Later try again");
+        $("#ticket_add_msg").text("Ticket couldn't be sent! Later try again");
       }
     });
-
   }
 }
 
-function editTicket() {
+function editTicket() {}
 
-
-
-}
-
+//TODO: bu kısımda hata var, düzenlenmeli
 $('textarea').keypress(function() {
-
   if (this.value.length > 500) {
     return false;
   }

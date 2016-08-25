@@ -40,18 +40,20 @@
 	<!-- tickets page -->
 	<div class="container-fluid">
 		<div id="tickets_page">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-2">
-					<div class="list-group">
-						<ul class="list-inline">
-							<li><a href="#" onclick="loadAllTickets(1)">Open Tickets</a></li>
-							<li><a href="#" onclick="loadAllTickets(0)">Closed Tickets</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#ticket_add_modal">New Ticket</a></li>
+			<div class="navbar navbar-default navbar-fixed-left">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">My Tickets <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#" onclick="loadPostedTiclets(1)">Open</a></li>
+							<li class="divider"></li>
+							<li><a href="#" onclick="loadPostedTiclets(0)">Close</a></li>
 						</ul>
-					</div>
-				</div>
+					</li>
+					<li><a href="#" onclick="loadAllTickets(1)">Open Tickets</a></li>
+					<li><a href="#" onclick="loadAllTickets(0)">Closed Tickets</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#ticket_add_modal">New Ticket</a></li>
+				</ul>
 			</div>
-			<!-- ticket page top navbar -->
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<table id="tickets_jqGrid"></table>
