@@ -11,13 +11,22 @@ function loadAllUsers() {
     mtype: "GET",
     datatype: "json",
     colModel: [{
+        label: "ID",
+        name: 'id',
+        width: 35,
+        sortable:true,
+        sorttype:"int",
+        search:true,
+        align:"center"
+      }, 
+       {
       label: "Name",
       name: 'name',
       width: 85
     }, {
       label: "E-Mail",
       name: 'email',
-      width: 110
+      width: 140
     }, {
       label: "Company",
       name: 'company.name',
@@ -33,7 +42,7 @@ function loadAllUsers() {
     }, {
       label: "Detail",
       name: 'id',
-      width: 50,
+      width: 48,
       formatter: addUserLink
     }],
     viewrecords: true,
@@ -51,7 +60,7 @@ function loadAllUsers() {
     del: false,
     search: true,
     refresh: true,
-    view: true,
+    view: false,
     position: "left",
     cloneToTop: false
   }).navButtonAdd('#users_jqGridPager', {
@@ -190,8 +199,8 @@ function updateProfile() {
 //users tablosundaki detail butonlarının hazırlanması
 function addUserLink(cellvalue, options, rowObject) {
   var userID = rowObject.id;
-  var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
-  clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-primary\">Detail</button></a>"
+  var clickLink = "<a style='width:50px;' type='button' title='Select'";
+  clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-info\">Detail</button></a>"
   return clickLink;
 }
 

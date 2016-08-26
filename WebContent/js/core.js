@@ -113,3 +113,9 @@ function showUsers() {
   $('#profile_page').hide();
   $('#tickets_page').hide();
 }
+
+$('.dropdown').hover(function() {
+    $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
+    }, function() {
+    $(this).find('.dropdown-menu').first().stop(true, true).slideUp(100)
+    });
