@@ -200,7 +200,7 @@ public class TicketDAOService extends ConnectionHelper {
 			query.append("SELECT tickets.*, users.FULL_NAME, departments.DEPARTMENT_NAME FROM tickets ");
 			query.append("INNER JOIN users ON users.ID = tickets.SENDER_ID ");
 			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID = departments.ID ");
-			query.append("WHERE STATUS=? AND tickets.DEPARTMENT_ID=? AND tickets.SENDER_ID=?");
+			query.append("WHERE STATUS=? AND tickets.DEPARTMENT_ID=? ");
 			String queryString = query.toString();
 			logger.debug("Sql query Created : " + queryString);
 
@@ -213,13 +213,11 @@ public class TicketDAOService extends ConnectionHelper {
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("STATUS : ").append(status).append("\n");
 				queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
-				queryLog.append("SENDER_ID : ").append(user.getDepartment().getId()).append("\n");
 				logger.trace(queryLog);
 			}
 			
 			pStmt.setInt(1, status);
 			pStmt.setLong(2, user.getDepartment().getId());
-			pStmt.setLong(3, user.getId());
 			rs = pStmt.executeQuery();
 
 			while (rs.next()) {
