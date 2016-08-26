@@ -79,7 +79,7 @@
 							<button id="edit_ticket_btn" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button>
 						</div>
 						<div class="col-md-1">
-							<button id="close_ticket_btn" class="btn btn-primary" onclick="closeTicket()">Close</button>
+							<button id="close_ticket_btn" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button>
 						</div>
 					</div>
 					<hr>
@@ -235,7 +235,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="ticket_add_msg" class="label label-success"></p>
-					<br>
+					<br><br>
 					<label>Department:</label>
 					<div class="form-group">
 						<select id="new_ticket_dep"></select>
@@ -260,7 +260,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" onclick="sendTicket()">Send Ticket
+					<button id="sendTicketButton" class="btn btn-success" onclick="sendTicket()">Send Ticket
 					</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
@@ -287,13 +287,36 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button" onclick="deleteTicket()" class="btn btn-danger">Delete</button>
+					<button id="deleteTicketButton" type="button" onclick="deleteTicket()" class="btn btn-danger">Delete</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- delete ticket modal-->
-
+	
+	<!-- close ticket modal -->
+	<div id="close_ticket_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Close Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<p id="close_ticket_label" class="label label-success"></p>
+						<br>
+						<br>
+					</div>
+					<p id="close_ticket_msg" class="label label-danger">Are you sure want to close ticket?</p>
+				</div>
+				<div class="modal-footer">
+					<button id="closeTicketButton" type="button" onclick="closeTicket()" class="btn btn-danger">Close Ticket</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- close ticket modal-->
 
 	<!-- edit ticket modal -->
 	<div id="edit_ticket_modal" class="modal fade" role="dialog">
@@ -305,7 +328,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="edit_ticket_msg" class="label label-success"></p>
-					<br>
+					<br><br>
 					<label for="edit_ticket_dep">Department:</label>
 					<div class="row">
 						<div class="col-md-6">
@@ -320,7 +343,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button" onclick="deleteTicket()" class="btn btn-danger">Edit</button>
+					<button id="editTicketButton" type="button" onclick="deleteTicket()" class="btn btn-danger">Edit</button>
 				</div>
 			</div>
 		</div>
@@ -337,7 +360,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_user_msg" class="label label-success"></p>
-					<br>
+					<br><br>
 					<div class="form-group">
 						<label>Full Name:</label>
 						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" required />
@@ -386,7 +409,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" onclick="addUser()">Add User
+					<button id="addUserButton" class="btn btn-success" onclick="addUser()">Add User
 					</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
@@ -405,7 +428,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_company_msg" class="label label-success"></p>
-					<br>
+					<br><br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*</span></label>
 						<input class="form-control" type="text" id="new_company_name" required />
@@ -449,7 +472,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_dep_msg" class="label label-success"></p>
-					<br>
+					<br><br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*</span></label>
 						<input class="form-control" type="text" id="new_dep_name" required />
@@ -485,7 +508,7 @@
 						<!-- Begin | Register Form -->
 						<form id="register-form" method="post">
 							<div class="modal-body">
-								<p id="user_detail_msg" class="label label-success"></p>
+								<p id="user_detail_msg" class="label label-success"></p><br><br>
 								<div>
 									<label>Full Name:</label>
 									<input class="form-control" type="text" id="selectedPersonName" required>
@@ -557,7 +580,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="delete_user_status" class="label label-success"></p>
-					<br>
+					<br><br>
 					<p id="delete_user_msg" class="label label-danger">Are you sure want to delete user?</p>
 				</div>
 				<div class="modal-footer">
@@ -579,7 +602,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="update_user_label" class="label label-success"></p>
-					<br>
+					<br><br>
 					<p id="update_user_msg" class="label label-danger">Are you sure want to update user?</p>
 				</div>
 				<div class="modal-footer">

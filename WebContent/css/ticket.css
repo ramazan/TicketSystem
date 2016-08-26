@@ -9,6 +9,15 @@ body {
   background-color: #d20d1b;
 }
 
+.text-muted{
+	font-weight:bold;
+	color:#d20d1b;
+}
+.response_message{
+	color:black;	
+	
+}
+
 .pull-right {
 	padding-right: 17px;
 	padding-bottom: 20px;
@@ -59,9 +68,10 @@ body {
 
 #user_detail_msg, #add_user_msg, #ticket_add_msg, #add_company_msg,
 	#add_dep_msg, #delete_ticket_label, #delete_ticket_msg,
-	#delete_user_msg, #delete_user_label, #update_user_label,
-	#update_user_msg {
-	font-size: 20px;
+	#delete_user_msg, #delete_user_status, #update_user_label,
+	#update_user_msg,#edit_ticket_msg,#close_ticket_label,
+	#close_ticket_msg {
+	font-size: 18px;
 }
 
 .navbar-brand {

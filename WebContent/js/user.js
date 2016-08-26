@@ -77,6 +77,7 @@ function loadAllUsers() {
 //yeni kullanıcı ekleme işlemi
 function addUser() {
 
+	
   var newName = $("#new_user_name").val();
   var newEmail = $('#new_user_email').val();
   var newCompanyID = $('#new_user_company').val();
@@ -101,6 +102,8 @@ function addUser() {
     $("#add_user_msg").html("Please fill all boxes");
   } else {
 
+	  $("#addUserButton").prop("disabled", true);
+	  
     var person = {
       name: newName,
       email: newEmail,
@@ -132,6 +135,7 @@ function addUser() {
         setTimeout(function() {
           $('#add_user_modal').modal('hide');
           $("#add_user_msg").text("");
+          $("#addUserButton").prop("disabled", falsel);
 
         }, 2000);
       },
@@ -211,7 +215,6 @@ function getUser(userID) {
   loadAllCompanies("selectedPersonCompany");
 
   selectedUserID = userID;
-  console.log("user ID:" + userID);
   $('#user-detail-modal').modal('show');
 
   $.ajax({
@@ -233,7 +236,6 @@ function getUser(userID) {
       $("#departmentInput").hide();
 
       $.each(user.userRoles, function(key, value) {
-        console.log(key + value);
         if (value == "admin") {
           $("#selectedPersonRoleAdmin").prop("checked", true);
         } else if (value == "supporter") {
@@ -288,9 +290,6 @@ function deleteUserData() {
 //user detail update kısmı
 function updateUserData() {
 
-  console.log("started to update userID:" + selectedUserID);
-
-  $("#updateUserDataButton").prop("disabled", true);
 
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
@@ -318,8 +317,10 @@ function updateUserData() {
       $("#update_user_label").text("");
     }, 2000);
   } else {
-
-    var person = {
+	  
+	  $("#updateUserDataButton").prop("disabled", true);
+    
+	  var person = {
       id: selectedUserID,
       name: newName,
       email: newEmail,
