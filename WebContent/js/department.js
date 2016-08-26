@@ -26,6 +26,7 @@ var selectedDeparmentAreaID;
 
 function prepareAddDepArea(depAddAreaID) {
   selectedDeparmentAreaID = depAddAreaID;
+  $("#add_dep_modal").modal("show");
   console.log("selectedDeparmentAreaID: " + selectedDeparmentAreaID);
 }
 

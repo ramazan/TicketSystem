@@ -339,7 +339,7 @@
 							</select>
 						</div>
 						<div class="col-md-6">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal">Add Department</button>
+							<button class="btn btn-primary" onclick="prepareAddDepArea('edit_ticket_dep')">Add Department</button>
 						</div>
 					</div>
 				</div>
@@ -383,7 +383,7 @@
 								<select class="form-control" id="new_user_company"></select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" onclick="prepareAddCompanyArea('new_user_company')" data-id="new_user_company" data-toggle="modal" data-target="#add_company_modal">Add New Company</button>
+								<button class="btn btn-primary" onclick="prepareAddCompanyArea('new_user_company')">Add New Company</button>
 							</div>
 						</div>
 					</div>
@@ -406,7 +406,7 @@
 								</select>
 							</div>
 							<div class="col-md-6">
-								<button id="add_user_dep_btn" class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal" onclick="prepareAddDepArea('new_user_dep')">Add New Department</button>
+								<button id="add_user_dep_btn" class="btn btn-primary" onclick="prepareAddDepArea('new_user_dep')">Add New Department</button>
 							</div>
 						</div>
 					</div>
