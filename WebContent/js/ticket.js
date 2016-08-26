@@ -111,7 +111,7 @@ function loadAllResponses() {
     data: JSON.stringify(selectedTicketID),
     success: function(responses) {
 
-      $("#ticket_responses > tbody").html("");
+      $("#response_list").html("");
       $.each(responses, function(key, value) {
         $('#response_list').append("<li class='media'>" +
           "<div class='media-body'><div class='media'>" +
