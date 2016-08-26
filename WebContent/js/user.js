@@ -11,15 +11,14 @@ function loadAllUsers() {
     mtype: "GET",
     datatype: "json",
     colModel: [{
-        label: "ID",
-        name: 'id',
-        width: 35,
-        sortable:true,
-        sorttype:"int",
-        search:true,
-        align:"center"
-      }, 
-       {
+      label: "ID",
+      name: 'id',
+      width: 35,
+      sortable: true,
+      sorttype: "int",
+      search: true,
+      align: "center"
+    }, {
       label: "Name",
       name: 'name',
       width: 85
@@ -49,6 +48,7 @@ function loadAllUsers() {
     height: 400,
     width: 890,
     rowNum: 10,
+    loadonce: true,
     styleUI: 'Bootstrap',
     pager: "#users_jqGridPager",
     emptyrecords: "Nothing to display"
@@ -77,7 +77,7 @@ function loadAllUsers() {
 //yeni kullanıcı ekleme işlemi
 function addUser() {
 
-	
+
   var newName = $("#new_user_name").val();
   var newEmail = $('#new_user_email').val();
   var newCompanyID = $('#new_user_company').val();
@@ -102,8 +102,8 @@ function addUser() {
     $("#add_user_msg").html("Please fill all boxes");
   } else {
 
-	  $("#addUserButton").prop("disabled", true);
-	  
+    $("#addUserButton").prop("disabled", true);
+
     var person = {
       name: newName,
       email: newEmail,
@@ -317,10 +317,10 @@ function updateUserData() {
       $("#update_user_label").text("");
     }, 2000);
   } else {
-	  
-	  $("#updateUserDataButton").prop("disabled", true);
-    
-	  var person = {
+
+    $("#updateUserDataButton").prop("disabled", true);
+
+    var person = {
       id: selectedUserID,
       name: newName,
       email: newEmail,

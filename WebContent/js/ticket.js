@@ -22,12 +22,10 @@ function getTicket(ticketID) {
         $("#ticket_status").text("OPEN");
         $("#ticket_status").css("color", "green");
         $("#close_ticket_btn").show();
-        $("#send_response_area").show();
       } else {
         $("#ticket_status").text("CLOSED");
         $("#ticket_status").css("color", "red");
         $("#close_ticket_btn").hide();
-        $("#send_response_area").hide();
       }
 
       loadAllResponses(selectedTicketID);
@@ -49,8 +47,8 @@ function addLink(cellvalue, options, rowObject) {
 }
 
 function deleteTicket() {
-	
-    $("#deleteTicketButton").prop("disabled", true);
+
+  $("#deleteTicketButton").prop("disabled", true);
 
   $.ajax({
     url: "/Ticket_System/rest/ticket/deleteTicket",
@@ -65,7 +63,7 @@ function deleteTicket() {
         $('#delete_ticket_modal').modal('hide');
         $('#delete_ticket_msg').text("Are you sure want to delete ticket?");
         // bilgi mesajini temizle
-        $("#delete_ticket_label").text("");     
+        $("#delete_ticket_label").text("");
         $("#deleteTicketButton").prop("disabled", false);
       }, 1500);
       showTickets();
@@ -130,8 +128,8 @@ function loadAllResponses() {
 
 function closeTicket() {
 
-    $("#closeTicketButton").prop("disabled", true);
-	
+  $("#closeTicketButton").prop("disabled", true);
+
   $.ajax({
     type: "POST",
     url: "/Ticket_System/rest/ticket/closeTicket",
@@ -139,14 +137,14 @@ function closeTicket() {
     mimeType: "application/json",
     data: JSON.stringify(selectedTicketID),
     success: function() {
-        $("#close_ticket_label").text("Ticket Closed. Window closing...");	
+      $("#close_ticket_label").text("Ticket Closed. Window closing...");
       $("#tickets_jqGrid").trigger("reloadGrid");
       getTicket(selectedTicketID);
       setTimeout(function() {
-    	  $("#closeTicketButton").prop("disabled", false); 
-          $("#close_ticket_label").text("");	
-          $('#close_ticket_modal').modal('hide');
-  
+        $("#closeTicketButton").prop("disabled", false);
+        $("#close_ticket_label").text("");
+        $('#close_ticket_modal').modal('hide');
+
       }, 1500);
     },
     error: function() {
@@ -198,6 +196,7 @@ function loadAllTickets(status) {
     width: 850,
     styleUI: 'Bootstrap',
     rowNum: 10,
+    loadonce: true,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
   });
@@ -260,6 +259,7 @@ function loadPostedTickets(status) {
     height: 450,
     width: 850,
     styleUI: 'Bootstrap',
+    loadonce: true,
     rowNum: 10,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
@@ -284,7 +284,7 @@ function sendTicket() {
   if (ticketTitle == "" || ticketMessage == "") {
     $("#ticket_add_msg").text("Please fill all boxes");
   } else {
-	  $("#sendTicketButton").prop("disabled", true);
+    $("#sendTicketButton").prop("disabled", true);
     var ticketDepartmentID = $("#new_ticket_dep").val();
     var ticketPriority = $("#new_ticket_prio").val();
 
@@ -318,7 +318,7 @@ function sendTicket() {
         setTimeout(function() {
           $('#ticket_add_modal').modal('hide');
           $("#ticket_add_msg").text("");
-    	  $("#sendTicketButton").prop("disabled", false);
+          $("#sendTicketButton").prop("disabled", false);
         }, 2000);
       },
       error: function() {
