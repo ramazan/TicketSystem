@@ -1,5 +1,11 @@
 var selectedUserID, selectedUserEmail;
 
+function prepareAddUserArea() {
+  loadAllDeparments("new_user_dep");
+  loadAllCompanies("new_user_company");
+  $("#add_user_modal").modal("show");
+}
+
 
 //users tablosu için tüm kullanıcıları getirme işlemi
 function loadAllUsers() {
@@ -67,7 +73,7 @@ function loadAllUsers() {
     caption: "Add",
     buttonicon: "ui-icon-add",
     onClickButton: function() {
-      $('#add_user_modal').modal('show');
+      prepareAddUserArea();
     },
     position: "last"
   });
@@ -76,7 +82,6 @@ function loadAllUsers() {
 
 //yeni kullanıcı ekleme işlemi
 function addUser() {
-
 
   var newName = $("#new_user_name").val();
   var newEmail = $('#new_user_email').val();

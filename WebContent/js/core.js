@@ -35,10 +35,7 @@ $.get("/Ticket_System/rest/session/login", function() {
     });
 
     loadAllTickets(1);
-    loadAllDeparments("new_ticket_dep");
 
-    loadAllDeparments("new_user_dep");
-    loadAllCompanies("new_user_company");
 
     $('#supporterRole').change(function() {
       if (this.checked)
@@ -115,7 +112,7 @@ function showUsers() {
 }
 
 $('.dropdown').hover(function() {
-    $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
-    }, function() {
-    $(this).find('.dropdown-menu').first().stop(true, true).slideUp(100)
-    });
+  $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
+}, function() {
+  $(this).find('.dropdown-menu').first().stop(true, true).slideUp(100)
+});

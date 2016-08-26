@@ -24,7 +24,7 @@ function loadAllCompanies(selectID) {
 
 var selectedCompanyAreaID;
 
-function setSelectedCompanyAreaID(areaID) {
+function prepareAddCompanyArea(areaID) {
   selectedCompanyAreaID = areaID;
   console.log("selectedCompanyAreaID: " + selectedCompanyAreaID);
   console.log("test" + $("add_company_modal").data("id"));

@@ -24,7 +24,7 @@ function loadAllDeparments(selectID) {
 
 var selectedDeparmentAreaID;
 
-function setSelectedDepAreaID(depAddAreaID) {
+function prepareAddDepArea(depAddAreaID) {
   selectedDeparmentAreaID = depAddAreaID;
   console.log("selectedDeparmentAreaID: " + selectedDeparmentAreaID);
 }

@@ -277,6 +277,11 @@ function loadPostedTickets(status) {
   });
 }
 
+function prepareAddTicketArea() {
+  $("#add_ticket_modal").modal("show");
+  loadAllDeparments("new_ticket_dep");
+}
+
 function sendTicket() {
   var ticketTitle = $("#new_ticket_title").val();
   var ticketMessage = $("#new_ticket_msg").val();
