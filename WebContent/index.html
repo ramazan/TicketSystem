@@ -76,7 +76,7 @@
 							<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
 						</div>
 						<div class="col-md-1">
-							<button id="edit_ticket_btn" class="btn btn-success" onclick="editTicket()">Edit</button>
+							<button id="edit_ticket_btn" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button>
 						</div>
 						<div class="col-md-1">
 							<button id="close_ticket_btn" class="btn btn-primary" onclick="closeTicket()">Close</button>
@@ -103,6 +103,10 @@
 								<tr>
 									<td>Status:</td>
 									<td><b id="ticket_status"></b></td>
+								</tr>
+								<tr>
+									<td>Department:</td>
+									<td><b id="ticket_department"></b></td>
 								</tr>
 								<tr>
 									<td>Date:</td>
@@ -289,6 +293,39 @@
 		</div>
 	</div>
 	<!-- delete ticket modal-->
+
+
+	<!-- edit ticket modal -->
+	<div id="edit_ticket_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Ticket</h4>
+				</div>
+				<div class="modal-body">
+					<p id="edit_ticket_msg" class="label label-success"></p>
+					<br>
+					<label for="edit_ticket_dep">Department:</label>
+					<div class="row">
+						<div class="col-md-6">
+							<select class="form-control" id="edit_ticket_dep">
+								<!-- departmanlar db den yuklenir -->
+							</select>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal">Add Department</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" onclick="deleteTicket()" class="btn btn-danger">Edit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit ticket modal-->
 
 	<!-- Add User Modal -->
 	<div id="add_user_modal" class="modal fade" role="dialog">
