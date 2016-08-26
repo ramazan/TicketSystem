@@ -113,9 +113,12 @@ function loadAllResponses() {
 
       $("#ticket_responses > tbody").html("");
       $.each(responses, function(key, value) {
-        $('#ticket_responses > tbody:last-child')
-          .append("<tr><th>" + value.date + " / " + value.sender.name + "</th></tr>")
-          .append("<tr><td>" + value.message + "</td></tr>");
+        $('#response_list').append("<li class='media'>" +
+          "<div class='media-body'><div class='media'>" +
+          "<div class='media-body'>" + value.message +
+          "<br><small class = 'text-muted' >" + value.sender.name +
+          "  |  " + value.date + " </small><hr>" +
+          "</div> </div > </div> </li>");
       });
     }
   });
