@@ -4,9 +4,9 @@ body {
   font-family: "Calibri", "Roboto", sans-serif;
  }
 
-.btn-detail:hover {
-  color: #fff;
-  background-color: #d20d1b;
+.btn-xs:hover {
+  color: #edeff2;
+  background-color: #AC2323;
 }
 
 .text-muted{

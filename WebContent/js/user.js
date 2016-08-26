@@ -41,13 +41,13 @@ function loadAllUsers() {
     }, {
       label: "Detail",
       name: 'id',
-      width: 48,
+      width: 40,
       formatter: addUserLink
     }],
     viewrecords: true,
     height: 400,
     width: 890,
-    rowNum: 10,
+    rowNum: 15,
     loadonce: true,
     styleUI: 'Bootstrap',
     pager: "#users_jqGridPager",
@@ -135,7 +135,7 @@ function addUser() {
         setTimeout(function() {
           $('#add_user_modal').modal('hide');
           $("#add_user_msg").text("");
-          $("#addUserButton").prop("disabled", falsel);
+          $("#addUserButton").prop("disabled", false);
 
         }, 2000);
       },
@@ -204,7 +204,7 @@ function updateProfile() {
 function addUserLink(cellvalue, options, rowObject) {
   var userID = rowObject.id;
   var clickLink = "<a style='width:50px;' type='button' title='User Details'";
-  clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-info btn-detail \">Detail</button></a>"
+  clickLink += " onclick='getUser(" + userID + ")' ><button class='btn btn-warning btn-xs'>Detail</button></a>"
   return clickLink;
 }
 
