@@ -199,8 +199,8 @@ function updateProfile() {
 //users tablosundaki detail butonlarının hazırlanması
 function addUserLink(cellvalue, options, rowObject) {
   var userID = rowObject.id;
-  var clickLink = "<a style='width:50px;' type='button' title='Select'";
-  clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-info\">Detail</button></a>"
+  var clickLink = "<a style='width:50px;' type='button' title='User Details'";
+  clickLink += " onclick=\"getUser(" + userID + ")\" ><button class=\"btn btn-info btn-detail \">Detail</button></a>"
   return clickLink;
 }
 

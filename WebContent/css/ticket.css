@@ -1,5 +1,12 @@
 body {
-	font-family: 'Open Sans', 'sans-serif';
+/* 	font-family: 'Open Sans', 'sans-serif'; */
+	background-color: #edeff2;
+  font-family: "Calibri", "Roboto", sans-serif;
+ }
+
+.btn-detail:hover {
+  color: #fff;
+  background-color: #d20d1b;
 }
 
 .pull-right {
