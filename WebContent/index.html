@@ -166,8 +166,8 @@
 							</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
-									<div class=" col-md-9 col-lg-9 ">
+									<div class="col-md-3 col-lg-3" align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
+									<div class=" col-md-9 col-lg-9">
 										<table class="table table-user-information">
 											<tbody>
 												<tr>
@@ -235,7 +235,8 @@
 				</div>
 				<div class="modal-body" align="center">
 					<p id="ticket_add_msg" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<label>Department:</label>
 					<div class="form-group">
 						<select id="new_ticket_dep"></select>
@@ -293,7 +294,7 @@
 		</div>
 	</div>
 	<!-- delete ticket modal-->
-	
+
 	<!-- close ticket modal -->
 	<div id="close_ticket_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -328,7 +329,8 @@
 				</div>
 				<div class="modal-body">
 					<p id="edit_ticket_msg" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<label for="edit_ticket_dep">Department:</label>
 					<div class="row">
 						<div class="col-md-6">
@@ -360,7 +362,8 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_user_msg" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<div class="form-group">
 						<label>Full Name:</label>
 						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" required />
@@ -380,7 +383,7 @@
 								<select class="form-control" id="new_user_company"></select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" data-toggle="modal" data-target="#add_company_modal">Add New Company</button>
+								<button class="btn btn-primary" onclick="setSelectedCompanyAreaID('new_user_company')" data-id="new_user_company" data-toggle="modal" data-target="#add_company_modal">Add New Company</button>
 							</div>
 						</div>
 					</div>
@@ -403,15 +406,15 @@
 								</select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal">Add New Department</button>
+								<button id="add_user_dep_btn" class="btn btn-primary" data-toggle="modal" data-target="#add_dep_modal" onclick="setSelectedDepAreaID('new_user_dep')">Add New Department</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class=" modal-footer">
 					<button id="addUserButton" class="btn btn-success" onclick="addUser()">Add User
 					</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -423,12 +426,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add New Company</h4>
 				</div>
 				<div class="modal-body">
 					<p id="add_company_msg" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*</span></label>
 						<input class="form-control" type="text" id="new_company_name" required />
@@ -455,7 +459,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success" onclick="addCompany()">Add</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -467,19 +471,17 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add New Department</h4>
 				</div>
 				<div class="modal-body">
 					<p id="add_dep_msg" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<div class="form-group">
-						<label>Name:<span class="text-danger">*</span></label>
+						<label>Name:<span class="text-danger">*Required</span></label>
 						<input class="form-control" type="text" id="new_dep_name" required />
 					</div>
-					<p>
-						<span class="text-danger lead">*: Required</span>
-					</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success" onclick="addDepartment()">Add</button>
@@ -496,8 +498,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">User Details</h4>
+						<button class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">User Details</h4>
 					</div>
 
 					<!-- Begin # DIV Form -->
@@ -505,7 +507,9 @@
 						<!-- Begin | Register Form -->
 						<form id="register-form" method="post">
 							<div class="modal-body">
-								<p id="user_detail_msg" class="label label-success"></p><br><br>
+								<p id="user_detail_msg" class="label label-success"></p>
+								<br>
+								<br>
 								<div>
 									<label>Full Name:</label>
 									<input class="form-control" type="text" id="selectedPersonName" required>
@@ -523,7 +527,7 @@
 											<input class="form-control" type="password" id="selectedPersonPassword" required>
 										</div>
 										<div class="col-md-6">
-											<button id="showHideButton" class="btn btn-primary btn-sm" type="button">Show/Hide</button>
+											<button id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
 										</div>
 									</div>
 								</div>
@@ -552,9 +556,9 @@
 							</div>
 							<div class="modal-footer">
 								<div>
-									<button type="button" class="btn btn-primary" data-dismiss="modal">İptal</button>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
+									<button class="btn btn-primary" data-dismiss="modal">İptal</button>
+									<button class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
+									<button class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
 								</div>
 							</div>
 						</form>
@@ -572,17 +576,18 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Delete User</h4>
 				</div>
 				<div class="modal-body">
 					<p id="delete_user_status" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<p id="delete_user_msg" class="label label-danger">Are you sure want to delete user?</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button" onclick="deleteUserData()" class="btn btn-danger">Delete user</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button onclick="deleteUserData()" class="btn btn-danger">Delete user</button>
 				</div>
 			</div>
 		</div>
@@ -594,17 +599,18 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Update User</h4>
 				</div>
 				<div class="modal-body">
 					<p id="update_user_label" class="label label-success"></p>
-					<br><br>
+					<br>
+					<br>
 					<p id="update_user_msg" class="label label-danger">Are you sure want to update user?</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button type="button" id="updateUserDataButton" onclick="updateUserData()" class="btn btn-danger">Update user</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button id="updateUserDataButton" onclick="updateUserData()" class="btn btn-danger">Update user</button>
 				</div>
 			</div>
 		</div>

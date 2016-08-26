@@ -22,11 +22,17 @@ function loadAllDeparments(selectID) {
   });
 }
 
+var selectedDeparmentAreaID;
+
+function setSelectedDepAreaID(depAddAreaID) {
+  selectedDeparmentAreaID = depAddAreaID;
+  console.log("selectedDeparmentAreaID: " + selectedDeparmentAreaID);
+}
 
 function addDepartment() {
-
   var dName = $("#new_dep_name").val();
-
+  console.log("new_dep_name: " +
+    dName);
   if (dName == "") {
     $("#add_dep_msg").text("You have to fill required places");
   } else {
@@ -43,10 +49,9 @@ function addDepartment() {
       data: JSON.stringify(company),
       success: function(result) {
         $("#add_dep_msg").text("Department added. Closing Window..");
-        $('#new_user_dep').append(
+        $("#" + selectedDeparmentAreaID).append(
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
-
         $("#new_dep_name").val("");
         $("#add_dep_msg").val("");
         setTimeout(function() {
@@ -55,6 +60,7 @@ function addDepartment() {
         }, 2000);
       },
       error: function() {
+        console.log("add department error");
         $("#add_dep_msg").text("Department can't added. Please try again..");
       }
     });

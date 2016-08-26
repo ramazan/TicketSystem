@@ -22,6 +22,14 @@ function loadAllCompanies(selectID) {
   });
 }
 
+var selectedCompanyAreaID;
+
+function setSelectedCompanyAreaID(areaID) {
+  selectedCompanyAreaID = areaID;
+  console.log("selectedCompanyAreaID: " + selectedCompanyAreaID);
+  console.log("test" + $("add_company_modal").data("id"));
+}
+
 function addCompany() {
 
   var cEmail = $("#new_company_email").val();
@@ -50,7 +58,7 @@ function addCompany() {
       data: JSON.stringify(company),
       success: function(result) {
         $("#add_company_msg").text("Company added. Closing Window..");
-        $('#new_user_company').append(
+        $('#' + selectedCompanyAreaID).append(
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
         $('#add_company_msg').val('');
