@@ -5,12 +5,12 @@
 	<meta charset="utf-8" />
 
 	<title>32Bit Ticket System</title>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="./css/ui.jqgrid-bootstrap.css" />
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/ui.jqgrid-bootstrap.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/overcast/jquery-ui.css">
-	<link rel="stylesheet" href="css/jqGrid.bootstrap.css">
-	<link href="css/ui.jqgrid.css" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="./css/ticket.css" />
+	<link rel="stylesheet" href="./css/jqGrid.bootstrap.css">
+	<link rel="stylesheet" href="./css/ui.jqgrid.css" />
+	<link rel="stylesheet" href="./css/ticket.css" />
 
 </head>
 
@@ -20,7 +20,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand">
-						<img id="brand_img" alt="Brand" src="http://i64.tinypic.com/2qvffnl.png">
+						<img id="brand_img" alt="Brand" src="./images/32bit.jpg">
 					</a>
 				</div>
 				<div class="collapse navbar-collapse">
@@ -131,7 +131,7 @@
 						<div class="panel-footer">
 							<div class="input-group">
 								<p id="add_resp_msg"></p>
-								<textarea class="form-control" rows="9" cols="80" id="ticket_response_msg"></textarea>
+								<textarea class="form-control" rows="9" cols="80" maxlength="500" id="ticket_response_msg"></textarea>
 								<p id="remainingC">Remaining characters : 500</p>
 								<span class="input-group">
 									<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse()">Send Response</button>
@@ -225,7 +225,7 @@
 	</div>
 	<!-- main page container-->
 
-	<!--    Add Tickets Modal -->
+	<!-- Add Tickets Modal -->
 	<div id="add_ticket_modal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">

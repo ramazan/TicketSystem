@@ -128,6 +128,31 @@ function loadAllResponses() {
   });
 }
 
+
+//TODO: OPEN TİCKET Devam edilecek
+function openTicket() {
+
+  $.ajax({
+    type: "POST",
+    url: "/Ticket_System/rest/ticket/openTicket",
+    contentType: "application/json",
+    mimeType: "application/json",
+    data: JSON.stringify(selectedTicketID),
+    success: function() {
+      $("#tickets_jqGrid").trigger("reloadGrid");
+      getTicket(selectedTicketID);
+      setTimeout(function() {
+        $("#closeTicketButton").prop("disabled", false);
+        $("#close_ticket_label").text("");
+        $('#close_ticket_modal').modal('hide');
+      }, 1500);
+    },
+    error: function() {
+      console.log("close ticket error");
+    }
+  });
+}
+
 function closeTicket() {
 
   $("#closeTicketButton").prop("disabled", true);
@@ -218,11 +243,7 @@ function loadAllTickets(status) {
 // status boolean : open, closed
 function loadPostedTickets(status) {
 
-  $("#tickets_jqGrid").jqGrid("clearGridData", true)
-    .setGridParam({
-      url: "/Ticket_System/rest/ticket/getPostedTickets?status=" + status
-    })
-    .trigger("reloadGrid");
+  $("#tickets_jqGrid").GridUnload();
   $("#tickets_jqGrid").jqGrid({
     caption: "Ticket List",
     url: "/Ticket_System/rest/ticket/getPostedTickets?status=" + status,
