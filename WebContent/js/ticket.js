@@ -60,9 +60,9 @@ function deleteTicket() {
     success: function() {
       $('#tickets_jqGrid').trigger('reloadGrid');
       $("#delete_ticket_label").text("Ticket Deleted. Window closing...");
+      $('#ticket_details_page').hide();
       setTimeout(function() {
         $('#delete_ticket_modal').modal('hide');
-        $('#delete_ticket_msg').text("Are you sure want to delete ticket?");
         // bilgi mesajini temizle
         $("#delete_ticket_label").text("");
         $("#deleteTicketButton").prop("disabled", false);
@@ -79,8 +79,9 @@ function sendTicketResponse() {
 
   var responseMsg = $("#ticket_response_msg").val();
   if (responseMsg == "") {
-    $("#add_resp_msg").text("Please add a response!");
+		$('#addResponseAlertMessage').show();
   } else {
+	$('#addResponseAlertMessage').hide();  
     $("#sendTicketResponse").prop("disabled", true);
     var responseTicket = {
       message: responseMsg,
@@ -170,7 +171,7 @@ function closeTicket() {
     success: function() {
       $("#close_ticket_label").text("Ticket Closed. Window closing...");
       $("#tickets_jqGrid").trigger("reloadGrid");
-      getTicket(selectedTicketID);
+      $('#ticket_details_page').hide();
       setTimeout(function() {
         $("#closeTicketButton").prop("disabled", false);
         $("#close_ticket_label").text("");
@@ -212,12 +213,12 @@ function loadAllTickets(status) {
     }, {
       label: "Title",
       name: 'title',
-      width: 130,
+      width: 150,
       align: "center"
     }, {
       label: "From",
       name: 'sender.name',
-      width: 80,
+      width: 70,
       align: "center"
     }, {
       label: "Department",
@@ -232,7 +233,8 @@ function loadAllTickets(status) {
     width: 850,
     styleUI: 'Bootstrap',
     rowNum: 10,
-    loadonce: true,
+//    loadonce: true,
+    rowNum: 100,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
   });
@@ -296,7 +298,7 @@ function loadPostedTickets(status) {
     width: 850,
     styleUI: 'Bootstrap',
     loadonce: true,
-    rowNum: 10,
+    rowNum: 100,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
   });
