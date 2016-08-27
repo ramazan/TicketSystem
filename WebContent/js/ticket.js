@@ -374,9 +374,38 @@ function sendTicket() {
 
 function editTicket() {
 	
-	alert("edit ticket called!");
+//	alert("edit ticket called! ID :  " + selectedTicketID);
 	
+	 var ticketDepartmentID = $("#edit_ticket_dep").val();
 
+	 var ticket = {
+	      department: {
+	        id: ticketDepartmentID
+	      }
+	    };
+	 
+     $("#editTicketButton").prop("disabled", true);
+   
+	    $.ajax({
+	      type: "POST",
+	      url: '/Ticket_System/rest/ticket/editTicket/' + selectedTicketID,
+	      contentType: "application/json",
+	      mimeType: "application/json",
+	      data: JSON.stringify(ticket),
+	      success: function() {
+	    	  getTicket(selectedTicketID);
+	        $("#edit_ticket_msg").text("Ticket Edited. Closing Window..");
+	        $('#tickets_jqGrid').trigger('reloadGrid');
+	        setTimeout(function() {
+	          $('#edit_ticket_modal').modal('hide');
+	          $("#edit_ticket_msg").text("");
+	          $("#editTicketButton").prop("disabled", false);
+	        }, 2000);
+	      },
+	      error: function() {
+	    	  alert("Edit Ticket Sıçtı!")
+	      }
+	    });
 	
 }
 
