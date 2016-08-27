@@ -1,8 +1,7 @@
-var selectedTicketID;
+var selectedTicket;
 
 function getTicket(ticketID) {
 
-  selectedTicketID = ticketID;
   showTicketDetails();
 
   $.ajax({
@@ -12,14 +11,13 @@ function getTicket(ticketID) {
     mimeType: "application/json",
     data: JSON.stringify(ticketID),
     success: function(ticket) {
+      selectedTicket = ticket;
       $("#ticket_title").text(ticket.title);
       var msg = ticket.message.replace(/\n/g, "<br />");
       $("#ticket_message").html(msg);
       $("#ticket_date").text(ticket.time);
       $("#ticket_sender").text(ticket.sender.name);
       $("#ticket_department").text(ticket.department.name);
-      $("#edit_ticket_dep").val(ticket.department.id);
-
 
       if (ticket.status == true) {
         $("#ticket_status").text("OPEN");
@@ -31,13 +29,13 @@ function getTicket(ticketID) {
         $("#close_ticket_btn").hide();
       }
 
-      loadAllResponses(selectedTicketID);
+      loadAllResponses(selectedTicket.id);
       $('html, body').animate({
         scrollTop: $("#ticket_details_page").offset().top
       }, 1000);
     },
     error: function() {
-      alert("Ticket details cannot get please try again. TicketID:  " + selectedTicketID);
+      alert("Ticket details cannot get please try again. TicketID:  " + selectedTicket.id);
     }
   });
 }
@@ -61,7 +59,7 @@ function deleteTicket() {
     type: "POST",
     mimeType: "application/json",
     contentType: "application/json",
-    data: JSON.stringify(selectedTicketID),
+    data: JSON.stringify(selectedTicket.id),
     success: function() {
       $("#deleteTicketButton").prop("disabled", true);
       $('#tickets_jqGrid').trigger('reloadGrid');
@@ -88,7 +86,7 @@ function sendTicketResponse() {
     $("#sendTicketResponse").prop("disabled", true);
     var responseTicket = {
       message: responseMsg,
-      ticketID: selectedTicketID,
+      ticketID: selectedTicket.id,
       sender: {
         id: authenticatedUser.id,
         name: authenticatedUser.name,
@@ -118,7 +116,7 @@ function loadAllResponses() {
     url: '/Ticket_System/rest/ticket/getAllResponses',
     contentType: "application/json",
     mimeType: "application/json",
-    data: JSON.stringify(selectedTicketID),
+    data: JSON.stringify(selectedTicket.id),
     success: function(responses) {
 
 
@@ -145,10 +143,10 @@ function openTicket() {
     url: "/Ticket_System/rest/ticket/openTicket",
     contentType: "application/json",
     mimeType: "application/json",
-    data: JSON.stringify(selectedTicketID),
+    data: JSON.stringify(selectedTicket.id),
     success: function() {
       $("#tickets_jqGrid").trigger("reloadGrid");
-      getTicket(selectedTicketID);
+      getTicket(selectedTicket.id);
       setTimeout(function() {
         $("#closeTicketButton").prop("disabled", false);
         $("#close_ticket_label").text("");
@@ -173,7 +171,7 @@ function closeTicket() {
     url: "/Ticket_System/rest/ticket/closeTicket",
     contentType: "application/json",
     mimeType: "application/json",
-    data: JSON.stringify(selectedTicketID),
+    data: JSON.stringify(selectedTicket.id),
     success: function() {
       $("#close_ticket_modal_msg").text("Ticket Closed. Window closing in 2sec...");
       $("#tickets_jqGrid").trigger("reloadGrid");
@@ -377,10 +375,11 @@ function sendTicket() {
 }
 
 function prepareEditTicketArea() {
-  loadAllDeparments("edit_ticket_dep");
+  loadAllDeparments("edit_ticket_dep", selectedTicket.department.id);
   $("#edit_ticket_modal_msg").text("");
   $("#edit_ticket_modal").modal("show");
   $("#editTicketButton").prop("disabled", false);
+  $("#edit_ticket_dep").val(selectedTicket.department.id);
 }
 
 function editTicket() {
@@ -388,7 +387,7 @@ function editTicket() {
   var ticketDepartmentID = $("#edit_ticket_dep").val();
 
   var editedTicket = {
-    id: selectedTicketID,
+    id: selectedTicket.id,
     department: {
       id: ticketDepartmentID
     }
@@ -401,7 +400,7 @@ function editTicket() {
     mimeType: "application/json",
     data: JSON.stringify(editedTicket),
     success: function() {
-      getTicket(selectedTicketID);
+      getTicket(selectedTicket.id);
       $("#editTicketButton").prop("disabled", true);
       $("#edit_ticket_modal_msg").text("Ticket Edited. Closing Window in 2sec..");
       $('#tickets_jqGrid').trigger('reloadGrid');
@@ -436,7 +435,4 @@ jQuery(document).ready(function($) {
   updateCountdownTicket();
   $('#new_ticket_msg').change(updateCountdownTicket);
   $('#new_ticket_msg').keyup(updateCountdownTicket);
-
-
-
-});
+});;;;

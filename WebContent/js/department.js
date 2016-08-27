@@ -1,9 +1,10 @@
-function loadAllDeparments(selectID) {
-
-  var selectBoxId = "#" + selectID;
-
+/*
+  addPlaceID: departmanlarin ekleneceği select tag idsi
+  selectVal: girilmesi durumunda eşleşen value default seçilir
+*/
+function loadAllDeparments(addPlaceID, selectVal) {
+  var selectBoxId = "#" + addPlaceID;
   $(selectBoxId).html(" ");
-
   $.ajax({
     type: "POST",
     url: '/Ticket_System/rest/department/getAllDepartments',
@@ -12,8 +13,13 @@ function loadAllDeparments(selectID) {
     success: function(departments) {
       $.each(departments, function(key, value) {
         // key == value.id db te id sutunu tutuyoruz...
-        $(selectBoxId).append(
-          $("<option></option>").attr("value", value.id).text(value.name));
+        if (value.id == selectVal) {
+          $(selectBoxId).append(
+            $("<option></option>").attr("selected", true).attr("value", value.id).text(value.name));
+        } else {
+          $(selectBoxId).append(
+            $("<option></option>").attr("value", value.id).text(value.name));
+        }
       });
     },
     error: function() {
