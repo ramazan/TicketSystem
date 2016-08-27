@@ -147,7 +147,7 @@ public class TicketDAOService extends ConnectionHelper {
 		return tickets;		
 	}
 	
-	public void closeTicket(long ticketID){
+	public void closeTicket(long ticketID) throws Exception{
 		logger.debug("closeTicket is started. ticketID:"+ticketID);
 		Connection con = null;
 		PreparedStatement pst = null;

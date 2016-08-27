@@ -84,7 +84,7 @@ public class ServiceFacade {
 		return ticketService.getPostedTickets(status,userID);
 	}
 	
-	public void closeTicket(long ticketID){
+	public void closeTicket(long ticketID) throws Exception{
 		ticketService.closeTicket(ticketID);
 	}
 	

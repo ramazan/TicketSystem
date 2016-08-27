@@ -47,10 +47,13 @@ function addLink(cellvalue, options, rowObject) {
   return clickLink;
 }
 
+function prepareDeleteTicketArea() {
+  $("#delete_ticket_modal_msg").text("");
+  $("#deleteTicketButton").prop("disabled", false);
+  $("#delete_ticket_modal").modal("show");
+}
+
 function deleteTicket() {
-
-  $("#deleteTicketButton").prop("disabled", true);
-
   $.ajax({
     url: "/Ticket_System/rest/ticket/deleteTicket",
     type: "POST",
@@ -58,15 +61,13 @@ function deleteTicket() {
     contentType: "application/json",
     data: JSON.stringify(selectedTicketID),
     success: function() {
+      $("#deleteTicketButton").prop("disabled", true);
       $('#tickets_jqGrid').trigger('reloadGrid');
-      $("#delete_ticket_label").text("Ticket Deleted. Window closing...");
-      $('#ticket_details_page').hide();
+      $("#delete_ticket_modal_msg").text("Ticket Deleted. Window closing in 2sec...");
+      $('#ticket_details_page').hide()
       setTimeout(function() {
         $('#delete_ticket_modal').modal('hide');
-        // bilgi mesajini temizle
-        $("#delete_ticket_label").text("");
-        $("#deleteTicketButton").prop("disabled", false);
-      }, 1500);
+      }, 2000);
       showTickets();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -79,9 +80,9 @@ function sendTicketResponse() {
 
   var responseMsg = $("#ticket_response_msg").val();
   if (responseMsg == "") {
-		$('#addResponseAlertMessage').show();
+    $('#addResponseAlertMessage').show();
   } else {
-	$('#addResponseAlertMessage').hide();  
+    $('#addResponseAlertMessage').hide();
     $("#sendTicketResponse").prop("disabled", true);
     var responseTicket = {
       message: responseMsg,
@@ -158,10 +159,13 @@ function openTicket() {
   });
 }
 
+function prepareCloseTicketArea() {
+  $("#closeTicketButton").prop("disabled", false);
+  $("#close_ticket_modal_msg").text("");
+  $("#close_ticket_modal").modal("show");
+}
+
 function closeTicket() {
-
-  $("#closeTicketButton").prop("disabled", true);
-
   $.ajax({
     type: "POST",
     url: "/Ticket_System/rest/ticket/closeTicket",
@@ -169,18 +173,17 @@ function closeTicket() {
     mimeType: "application/json",
     data: JSON.stringify(selectedTicketID),
     success: function() {
-      $("#close_ticket_label").text("Ticket Closed. Window closing...");
+      $("#close_ticket_modal_msg").text("Ticket Closed. Window closing in 2sec...");
       $("#tickets_jqGrid").trigger("reloadGrid");
       $('#ticket_details_page').hide();
-      setTimeout(function() {
-        $("#closeTicketButton").prop("disabled", false);
-        $("#close_ticket_label").text("");
-        $('#close_ticket_modal').modal('hide');
+      $("#closeTicketButton").prop("disabled", true);
 
-      }, 1500);
+      setTimeout(function() {
+        $('#close_ticket_modal').modal('hide');
+      }, 2000);
     },
     error: function() {
-      console.log("close ticket error");
+      $("close_ticket_modal_msg").text("An Error Occured!");
     }
   });
 }
@@ -233,7 +236,7 @@ function loadAllTickets(status) {
     width: 850,
     styleUI: 'Bootstrap',
     rowNum: 10,
-//    loadonce: true,
+    //    loadonce: true,
     rowNum: 100,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
@@ -316,8 +319,14 @@ function loadPostedTickets(status) {
 }
 
 function prepareAddTicketArea() {
-  $("#add_ticket_modal").modal("show");
+  $("#add_ticket_modal_msg").text("");
+  $('input:checkbox').removeAttr('checked');
+  $("#new_ticket_title").val("");
+  $("#new_ticket_title").val("");
+  $("#new_ticket_msg").val("");
+  $('.ticketMessageCountdown').text('500 characters remaining.');
   loadAllDeparments("new_ticket_dep");
+  $("#add_ticket_modal").modal("show");
 }
 
 function sendTicket() {
@@ -325,7 +334,7 @@ function sendTicket() {
   var ticketMessage = $("#new_ticket_msg").val();
 
   if (ticketTitle == "" || ticketMessage == "") {
-    $("#ticket_add_msg").text("Please fill all boxes");
+    $("#add_ticket_modal_msg").text("Please fill required inputs");
   } else {
     $("#sendTicketButton").prop("disabled", true);
     var ticketDepartmentID = $("#new_ticket_dep").val();
@@ -349,61 +358,51 @@ function sendTicket() {
       mimeType: "application/json",
       data: JSON.stringify(ticket),
       success: function() {
-        $("#ticket_add_msg").text(
-          "Ticket sended. Closing Window..");
-        // reload jqgrid
-        $('#tickets_jqGrid').trigger('reloadGrid');
-        // clear boxes
-        $('input:checkbox').removeAttr('checked');
-        $("#new_ticket_title").val("");
-        $("#new_ticket_title").val("");
-        $("#new_ticket_msg").val("");
-        jQuery('.ticketMessageCountdown').text('500 characters remaining.');
+        $("#add_ticket_modal_msg").text(
+          "Ticket sended. Closing Window in 2sec..");
         setTimeout(function() {
           $('#add_ticket_modal').modal('hide');
-          $("#ticket_add_msg").text("");
           $("#sendTicketButton").prop("disabled", false);
         }, 2000);
+        // reload jqgrid
+        $('#tickets_jqGrid').trigger('reloadGrid');
       },
       error: function() {
-        $("#ticket_add_msg").text("Ticket couldn't be sent! Later try again");
+        $("#add_ticket_modal_msg").text("An Error Occured!");
       }
     });
   }
 }
 
 function editTicket() {
-	
-	alert("edit ticket called!");
-	
 
-	
+  alert("edit ticket called!");
+
+
+
 }
 
 function updateCountdownTicketResponse() {
-    // 140 is the max message length
-    var remaining = 500 - jQuery('.responseMessage').val().length;
-    jQuery('.responseMessageCountdown').text(remaining + ' characters remaining.');
+  // 140 is the max message length
+  var remaining = 500 - $('.responseMessage').val().length;
+  $('.responseMessageCountdown').text(remaining + ' characters remaining.');
 }
 
 function updateCountdownTicket() {
-    // 140 is the max message length
-    var remaining = 500 - jQuery('#new_ticket_msg').val().length;
-    jQuery('.ticketMessageCountdown').text(remaining + ' characters remaining.');
+  // 140 is the max message length
+  var remaining = 500 - jQuery('#new_ticket_msg').val().length;
+  jQuery('.ticketMessageCountdown').text(remaining + ' characters remaining.');
 }
 
 jQuery(document).ready(function($) {
-    updateCountdownTicketResponse();
-    $('.responseMessage').change(updateCountdownTicketResponse);
-    $('.responseMessage').keyup(updateCountdownTicketResponse);
-    
-    updateCountdownTicket();
-    $('#new_ticket_msg').change(updateCountdownTicket);
-    $('#new_ticket_msg').keyup(updateCountdownTicket);
-    
-	  loadAllDeparments("edit_ticket_dep");
+  updateCountdownTicketResponse();
+  $('.responseMessage').change(updateCountdownTicketResponse);
+  $('.responseMessage').keyup(updateCountdownTicketResponse);
+
+  updateCountdownTicket();
+  $('#new_ticket_msg').change(updateCountdownTicket);
+  $('#new_ticket_msg').keyup(updateCountdownTicket);
+
+  loadAllDeparments("edit_ticket_dep");
 
 });
-
-
-

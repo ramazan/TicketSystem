@@ -63,8 +63,9 @@ function logout() {
 function showProfile() {
 
   loadProfileInf();
-  $("#user_new_pass").keyup(validate);
-  $("#user_new_pass_c").keyup(validate);
+  $("#user_new_pass").keyup(validate).val("");
+  $("#user_new_pass_c").keyup(validate).val("");
+  $("#profile_update_alert").hide();
 
 
   $('#nav_users').removeClass("active");

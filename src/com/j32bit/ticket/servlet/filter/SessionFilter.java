@@ -31,7 +31,7 @@ public class SessionFilter implements Filter {
 
 		if (urlList.contains(url)) {
 			allowedRequest = true;
-		}
+		}	
 
 		if (!allowedRequest) {
 			HttpSession session = request.getSession(false);

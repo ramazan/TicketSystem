@@ -53,7 +53,7 @@ function loadAllUsers() {
     viewrecords: true,
     height: 400,
     width: 890,
-//    loadonce: true,
+    //    loadonce: true,
     rowNum: 100,
     styleUI: 'Bootstrap',
     pager: "#users_jqGridPager",
@@ -166,15 +166,15 @@ function validate() {
   var password2 = $("#user_new_pass_c").val();
 
   if (password1 == "" && password2 == "") {
-    $("#profile_alert").hide();
+    $("#profile_update_alert").hide();
 
   } else if (password1 == password2 && password1 != "" && password2 != "") {
-    $("#profile_alert").show();
+    $("#profile_update_alert").show();
     $("#pass_validate").text("Şifreler eşleşti!");
     $("#user_update_btn").removeAttr('disabled');
 
   } else {
-    $("#profile_alert").show();
+    $("#profile_update_alert").show();
     $("#pass_validate").text("Şifreler eşleşmiyor!");
     $("#user_update_btn").prop("disabled", true);
   }
@@ -193,12 +193,12 @@ function updateProfile() {
     mimeType: "application/json",
     data: password,
     success: function() {
-      $("#pass_validate").text("Şifre başarıyla değişti!");
+      $("#pass_validate").text("Password changed!");
       $("#user_update_btn").prop("disabled", true);
     },
     error: function() {
       $("#pass_validate").text(
-        "Şifre değiştirilemedi , tekrar deneyin.");
+        "An error occured!");
     }
   });
 
