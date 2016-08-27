@@ -577,7 +577,7 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("deleteTicket is finished");
 	}
 
-	public void editTicket(Ticket newTicket, long ID) throws Exception {
+	public void editTicket(Ticket editedTicket) throws Exception {
 
 		logger.debug("editTicket started.");
 
@@ -595,8 +595,8 @@ public class TicketDAOService extends ConnectionHelper {
 			con = getConnection();
 			pst = con.prepareStatement(queryString);
 
-			pst.setLong(1, newTicket.getDepartment().getId());
-			pst.setLong(2, ID);
+			pst.setLong(1, editedTicket.getDepartment().getId());
+			pst.setLong(2, editedTicket.getId());
 
 			logger.debug("Edit Ticket query created  : " + pst.toString());
 			

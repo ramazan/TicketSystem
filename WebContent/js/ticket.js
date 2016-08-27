@@ -376,41 +376,44 @@ function sendTicket() {
   }
 }
 
-function editTicket() {
-	
-//	alert("edit ticket called! ID :  " + selectedTicketID);
-	
-	 var ticketDepartmentID = $("#edit_ticket_dep").val();
+function prepareEditTicketArea() {
+  loadAllDeparments("edit_ticket_dep");
+  $("#edit_ticket_modal_msg").text("");
+  $("#edit_ticket_modal").modal("show");
+  $("#editTicketButton").prop("disabled", false);
+}
 
-	 var ticket = {
-	      department: {
-	        id: ticketDepartmentID
-	      }
-	    };
-	 
-     $("#editTicketButton").prop("disabled", true);
-   
-	    $.ajax({
-	      type: "POST",
-	      url: '/Ticket_System/rest/ticket/editTicket/' + selectedTicketID,
-	      contentType: "application/json",
-	      mimeType: "application/json",
-	      data: JSON.stringify(ticket),
-	      success: function() {
-	    	  getTicket(selectedTicketID);
-	        $("#edit_ticket_msg").text("Ticket Edited. Closing Window..");
-	        $('#tickets_jqGrid').trigger('reloadGrid');
-	        setTimeout(function() {
-	          $('#edit_ticket_modal').modal('hide');
-	          $("#edit_ticket_msg").text("");
-	          $("#editTicketButton").prop("disabled", false);
-	        }, 2000);
-	      },
-	      error: function() {
-	    	  alert("Edit Ticket Sıçtı!")
-	      }
-	    });
-	
+function editTicket() {
+
+  var ticketDepartmentID = $("#edit_ticket_dep").val();
+
+  var editedTicket = {
+    id: selectedTicketID,
+    department: {
+      id: ticketDepartmentID
+    }
+  };
+
+  $.ajax({
+    type: "POST",
+    url: '/Ticket_System/rest/ticket/editTicket/',
+    contentType: "application/json",
+    mimeType: "application/json",
+    data: JSON.stringify(editedTicket),
+    success: function() {
+      getTicket(selectedTicketID);
+      $("#editTicketButton").prop("disabled", true);
+      $("#edit_ticket_modal_msg").text("Ticket Edited. Closing Window in 2sec..");
+      $('#tickets_jqGrid').trigger('reloadGrid');
+      setTimeout(function() {
+        $('#edit_ticket_modal').modal('hide');
+      }, 2000);
+    },
+    error: function() {
+      alert("An Error Occured!");
+    }
+  });
+
 }
 
 function updateCountdownTicketResponse() {
@@ -434,6 +437,6 @@ jQuery(document).ready(function($) {
   $('#new_ticket_msg').change(updateCountdownTicket);
   $('#new_ticket_msg').keyup(updateCountdownTicket);
 
-  loadAllDeparments("edit_ticket_dep");
+
 
 });
