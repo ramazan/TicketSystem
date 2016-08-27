@@ -276,10 +276,9 @@ function deleteUserData() {
     success: function() {
       console.log("user deleted!");
       $('#users_jqGrid').trigger('reloadGrid');
-      user_detail_msg
       $("#delete_user_status").text("User deleted. Closing Window..");
       setTimeout(function() {
-        $('#user-detail-modal').modal('hide');
+        $('#user_modal_detail').modal('hide');
         $('#delete_user_modal').modal('hide');
         $("#delete_user_status").text("");
       }, 2000);
@@ -350,9 +349,8 @@ function updateUserData() {
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
         setTimeout(function() {
-          $('#user-detail-modal').modal('hide');
+          $('#user_modal_detail').modal('hide');
           $('#update_user_modal').modal('hide');
-          $("#user_detail_msg").text("");
           $("#update_user_label").text("");
           $("#updateUserDataButton").prop("disabled", false);
 

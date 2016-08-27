@@ -5,8 +5,4 @@ Hata durumlarında exceptionlar fırlatılıp map edilecek
 
 - ticketi ben açmadıgım ve admin olmadıgım halde edit close ticket a erişebiliyorum.
 
-
-- id si 46 ve 47  olan ticketi rdemir057@gmail.com hesabı ile ben açtıgım halde admin rolu olan aynı hesaptan acık olan ticket sekmesinde göremiyorum
-ama my tickets->open tickets sekmesinde görebiliyorum??    bu durum  kullanıcının hem admin hem sup olup departmanı olmasından kaynaklanıyor olabilir..
-
 --Gridler yeni birşey ekleyince oto güncellemiyor!

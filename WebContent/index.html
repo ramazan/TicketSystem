@@ -263,7 +263,7 @@
 
 	<!-- delete ticket modal -->
 	<div id="delete_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -288,7 +288,7 @@
 
 	<!-- close ticket modal -->
 	<div id="close_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -312,7 +312,7 @@
 
 	<!-- edit ticket modal -->
 	<div id="edit_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -345,7 +345,7 @@
 
 	<!-- Add User Modal -->
 	<div id="add_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -374,7 +374,7 @@
 								<select class="form-control" id="new_user_company"></select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" onclick="prepareAddCompanyArea('new_user_company')">Add New Company</button>
+								<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('new_user_company')"> New Company</button>
 							</div>
 						</div>
 					</div>
@@ -397,7 +397,7 @@
 								</select>
 							</div>
 							<div class="col-md-6">
-								<button id="add_user_dep_btn" class="btn btn-primary" onclick="prepareAddDepArea('new_user_dep')">Add New Department</button>
+								<button id="add_user_dep_btn" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('new_user_dep')"> New Department</button>
 							</div>
 						</div>
 					</div>
@@ -414,7 +414,7 @@
 
 	<!-- Add Company Modal -->
 	<div id="add_company_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
@@ -459,7 +459,7 @@
 
 	<!-- Add Department Modal -->
 	<div id="add_dep_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
@@ -484,22 +484,14 @@
 	<!-- Add Department Modal end -->
 
 	<!-- user detail modal -->
-	<div class="modal fade" id="user_modal_detail" role="dialog">
-		<div class="modal-dialog">
+	<div id="user_modal_detail" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">User Details</h4>
 				</div>
-
-				<!-- Begin # DIV Form -->
-				<div id="div-forms">
-					<!-- Begin | Register Form -->
-					<form id="register-form" method="post">
 						<div class="modal-body">
-							<p id="user_detail_msg" class="label label-success"></p>
-							<br>
-							<br>
 							<div>
 								<label>Full Name:<span class="text-danger lead"></span></label>
 								<input class="form-control" type="text" id="selectedPersonName">
@@ -522,9 +514,16 @@
 								</div>
 							</div>
 							<br>
-							<div>
+							<div class="form-group">
 								<label>Company:</label>
-								<select class="form-control" id="selectedPersonCompany"></select>
+								<div class="row">
+									<div class="col-md-6">
+										<select class="form-control" id="selectedPersonCompany"></select>
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('selectedPersonCompany')"> New Company</button>
+									</div>
+								</div>
 							</div>
 							<br>
 							<div>
@@ -541,7 +540,16 @@
 							<br>
 							<div id="departmentInput">
 								<b>Department:</b>
-								<select class="form-control" id="selectedPersonDepartment"></select>
+								<div class="row">
+									<div class="col-md-6">
+										<select class="form-control" id="selectedPersonDepartment">
+											<!-- departmanlar db den yuklenir -->
+										</select>
+									</div>
+									<div class="col-md-6">
+										<button id="add_user_dep_btn" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('selectedPersonDepartment')"> New Department</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -551,10 +559,6 @@
 								<button class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
 							</div>
 						</div>
-					</form>
-					<!-- End | Register Form -->
-				</div>
-				<!-- End # DIV Form -->
 			</div>
 		</div>
 	</div>
@@ -562,7 +566,7 @@
 
 	<!-- delete user modal -->
 	<div id="delete_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
@@ -585,7 +589,7 @@
 
 	<!-- update user modal -->
 	<div id="update_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>

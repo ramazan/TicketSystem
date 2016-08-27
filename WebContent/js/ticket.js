@@ -65,7 +65,7 @@ function deleteTicket() {
     success: function() {
       $("#deleteTicketButton").prop("disabled", true);
       $('#tickets_jqGrid').trigger('reloadGrid');
-      $("#delete_ticket_modal_msg").text("Ticket Deleted. Window closing in 2sec...");
+      $("#delete_ticket_modal_msg").text("Ticket Deleted. Window closing");
       $('#ticket_details_page').hide()
       setTimeout(function() {
         $('#delete_ticket_modal').modal('hide');
@@ -175,7 +175,7 @@ function closeTicket() {
     mimeType: "application/json",
     data: JSON.stringify(selectedTicketID),
     success: function() {
-      $("#close_ticket_modal_msg").text("Ticket Closed. Window closing in 2sec...");
+      $("#close_ticket_modal_msg").text("Ticket Closed. Window closing");
       $("#tickets_jqGrid").trigger("reloadGrid");
       $('#ticket_details_page').hide();
       $("#closeTicketButton").prop("disabled", true);
@@ -403,7 +403,7 @@ function editTicket() {
     success: function() {
       getTicket(selectedTicketID);
       $("#editTicketButton").prop("disabled", true);
-      $("#edit_ticket_modal_msg").text("Ticket Edited. Closing Window in 2sec..");
+      $("#edit_ticket_modal_msg").text("Ticket Edited. Closing Window");
       $('#tickets_jqGrid').trigger('reloadGrid');
       setTimeout(function() {
         $('#edit_ticket_modal').modal('hide');
