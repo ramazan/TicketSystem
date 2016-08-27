@@ -53,8 +53,8 @@ function loadAllUsers() {
     viewrecords: true,
     height: 400,
     width: 890,
-    rowNum: 15,
-    loadonce: true,
+//    loadonce: true,
+    rowNum: 100,
     styleUI: 'Bootstrap',
     pager: "#users_jqGridPager",
     emptyrecords: "Nothing to display"

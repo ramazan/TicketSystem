@@ -71,55 +71,60 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<br>
-					<div class="row">
-						<div class="col-md-1">
-							<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
+					<div class="panel panel-info" style="width:590px;">
+						<div class="panel-heading">
+							<h4 style="text-align:center;">Ticket Detail</h4>
 						</div>
-						<div class="col-md-1">
-							<button id="edit_ticket_btn" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button>
+						<div class="panel-body">
+							<ul class="media-list" id="">
+								<li class="media">
+									<div class="media-body">
+										<div class="media">
+											<div class="media-body">
+												<strong>Title :</strong> <span class="response_message" id="ticket_title"></span>
+										      <span style="float:right; "><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
+												<hr>
+												<strong>Status : </strong><span class="response_message" id="ticket_status"></span>
+												<span style="float:right; "><strong>Department : </strong><span class="response_message" id="ticket_department"></span></span>
+												<hr>
+												<strong>Date : </strong><span class="response_message" id="ticket_date"></span>
+												<hr>
+												<strong>Message : </strong><br><br><span class="text-muted" id="ticket_message"></span><br><br>
+												<span style="float:right;">
+														
+														<div class="btn-group">
+														  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
+														  <button type="button" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button>
+														  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button>
+														</div>
+														
+												 </span>
+											</div> 
+										</div>
+									</div> 
+								</li>
+							</ul>
 						</div>
-						<div class="col-md-1">
-							<button id="close_ticket_btn" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button>
-						</div>
+<!-- 							<div class="panel-footer"> -->
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-8"> -->
+<!-- 											<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-8"> -->
+<!-- 											<button id="edit_ticket_btn" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-8"> -->
+<!-- 											<button id="close_ticket_btn" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+									
+									
+<!-- 							</div> -->
 					</div>
-					<hr>
-					<br>
-					<div class="table-responsive">
-						<table id="ticket_detail_table" class="table table-condensed table-bordered">
-							<thead>
-								<tr>
-									<th colspan="2">Ticket Details</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Title:</td>
-									<td><b id="ticket_title"></b></td>
-								</tr>
-								<tr>
-									<td>Sender:</td>
-									<td><b id="ticket_sender"></b></td>
-								</tr>
-								<tr>
-									<td>Status:</td>
-									<td><b id="ticket_status"></b></td>
-								</tr>
-								<tr>
-									<td>Department:</td>
-									<td><b id="ticket_department"></b></td>
-								</tr>
-								<tr>
-									<td>Date:</td>
-									<td><b id="ticket_date"></b></td>
-								</tr>
-								<tr>
-									<td>Message:</td>
-									<td><b id="ticket_message"></b></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
+		
+		
+		
+	
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h4 style="text-align:center;">Ticket Responses</h4>
@@ -130,7 +135,9 @@
 						</div>
 						<div class="panel-footer">
 							<div class="input-group">
-								<p id="add_resp_msg"></p>
+								<div id="addResponseAlertMessage" class="alert alert-danger" role="alert" style="display:none; text-align:center; width:200px;" >
+									<strong> Please add a response!</strong>
+								</div>
 								<textarea class="responseMessage" rows="9" cols="80" maxlength="500" id="ticket_response_msg"></textarea>	
 					         	<br><span class="responseMessageCountdown"></span>
 								<span class="input-group">
