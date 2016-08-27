@@ -232,6 +232,7 @@ function getUser(userID) {
       $("#selectedPersonName").val(user.name);
       $("#selectedPersonPassword").val(user.password);
       $("#selectedPersonCompany").val(user.company.id);
+      $("#selectedPersonEmail").val(selectedUserEmail);
 
 
       $("#selectedPersonRoleAdmin").prop("checked", false);
