@@ -18,6 +18,8 @@ function getTicket(ticketID) {
       $("#ticket_date").text(ticket.time);
       $("#ticket_sender").text(ticket.sender.name);
       $("#ticket_department").text(ticket.department.name);
+      $("#edit_ticket_dep").val(ticket.department.id);
+
 
       if (ticket.status == true) {
         $("#ticket_status").text("OPEN");
