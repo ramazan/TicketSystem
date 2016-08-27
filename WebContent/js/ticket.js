@@ -81,6 +81,7 @@ function sendTicketResponse() {
   if (responseMsg == "") {
     $("#add_resp_msg").text("Please add a response!");
   } else {
+    $("#sendTicketResponse").prop("disabled", true);
     var responseTicket = {
       message: responseMsg,
       ticketID: selectedTicketID,
@@ -99,6 +100,8 @@ function sendTicketResponse() {
       data: JSON.stringify(responseTicket),
       success: function(response) {
         $("#ticket_response_msg").val("");
+        jQuery('.responseMessageCountdown').text('500 characters remaining.');
+        $("#sendTicketResponse").prop("disabled", false);
         loadAllResponses();
       }
     });
@@ -353,6 +356,7 @@ function sendTicket() {
         $("#new_ticket_title").val("");
         $("#new_ticket_title").val("");
         $("#new_ticket_msg").val("");
+        jQuery('.ticketMessageCountdown').text('500 characters remaining.');
         setTimeout(function() {
           $('#add_ticket_modal').modal('hide');
           $("#ticket_add_msg").text("");
@@ -368,24 +372,27 @@ function sendTicket() {
 
 function editTicket() {}
 
-//TODO: bu kısımda hata var, düzenlenmeli
-//$('textarea').keypress(function() {
-//  if (this.value.length > 500) {
-//    return false;
-//  }
-//  $("#remainingC").text("Remaining characters : " + (500 - this.value.length));
-//});
-
-
-function updateCountdown() {
-    // 500 is the max message length
-    var remaining = 500 - jQuery('.response_message').val().length;
-    jQuery('.remainingC').text(remaining + ' characters remaining.');
+function updateCountdownTicketResponse() {
+    // 140 is the max message length
+    var remaining = 500 - jQuery('.responseMessage').val().length;
+    jQuery('.responseMessageCountdown').text(remaining + ' characters remaining.');
 }
 
+function updateCountdownTicket() {
+    // 140 is the max message length
+    var remaining = 500 - jQuery('#new_ticket_msg').val().length;
+    jQuery('.ticketMessageCountdown').text(remaining + ' characters remaining.');
+}
 
 jQuery(document).ready(function($) {
-    updateCountdown();
-    $('.response_message').change(updateCountdown);
-    $('.response_message').keyup(updateCountdown);
+    updateCountdownTicketResponse();
+    $('.responseMessage').change(updateCountdownTicketResponse);
+    $('.responseMessage').keyup(updateCountdownTicketResponse);
+    
+    updateCountdownTicket();
+    $('#new_ticket_msg').change(updateCountdownTicket);
+    $('#new_ticket_msg').keyup(updateCountdownTicket);
 });
+
+
+
