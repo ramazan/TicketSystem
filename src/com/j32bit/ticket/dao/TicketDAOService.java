@@ -577,7 +577,7 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("deleteTicket is finished");
 	}
 
-	public void editTicket(Ticket newTicket) throws Exception {
+	public void editTicket(Ticket newTicket, long ID) throws Exception {
 
 		logger.debug("editTicket started.");
 
@@ -586,21 +586,29 @@ public class TicketDAOService extends ConnectionHelper {
 		StringBuilder query = new StringBuilder();
 
 		try {
-			//TODO: duruma göre devamı gelicek, query bastan yazilmalı
-			query.append("UPDATE FROM tickets ");
-			query.append("SET column1=value1,column2=value2,...");
-			query.append("WHERE TICKET_ID=?");
+			query.append("UPDATE tickets ");
+			query.append("SET DEPARTMENT_ID=? ");
+			query.append("WHERE ID=?");
 			String queryString = query.toString();
 			logger.debug("sql query created : " + queryString);
 
 			con = getConnection();
 			pst = con.prepareStatement(queryString);
+
+			pst.setLong(1, newTicket.getDepartment().getId());
+			pst.setLong(2, ID);
+
+			logger.debug("Edit Ticket query created  : " + pst.toString());
+			
+			pst.executeUpdate();
 			
 		} catch (Exception e) {
 			logger.debug("error :" + e.getMessage());
 		} finally {
 			closePreparedStatement(pst);
 			closeConnection(con);
+			logger.debug("editTicket finished.");
+
 		}
 	}
 }
