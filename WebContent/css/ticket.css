@@ -57,7 +57,7 @@ body {
 	display: none;
 }
 
-#remainingC {
+.responseMessageCountdown,.ticketMessageCountdown {
 	color: red;
 	font-weight: italic;
 }
