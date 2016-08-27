@@ -72,9 +72,8 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<br>
-				
 					<!-- Ticket Details Div -->	
-					<div class="panel panel-primary" style="width:850px;">
+					<div class="panel panel-info" style="width:850px;">
 						<div class="panel-heading">
 							<h4 style="text-align:center;">Ticket Detail</h4>
 						</div>
@@ -108,28 +107,7 @@
 								</li>
 							</ul>
 						</div>
-					</div>
-
-					<!-- ticket detail response page-->
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h4 style="text-align:center;">Ticket Responses</h4>
-						</div>
-						<div class="panel-body">
-							<ul class="media-list" id="response_list">
-							</ul>
-						</div>
-						<div class="panel-footer">
-							<div class="input-group">
-								<div id="addResponseAlertMessage" class="alert alert-danger" role="alert" style="display:none; text-align:center; width:200px;">
-									<strong> Please add a response!</strong>
-								</div>
-								<textarea class="responseMessage" rows="9" cols="80" maxlength="500" id="ticket_response_msg"></textarea>
-								<br><span class="responseMessageCountdown"></span>
-								<span class="input-group">
-									<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse()">Send Response</button>
-								</span>
-							</div>
+							<!-- Responses Başlangıcı -->
 								<div class="panel-heading panel panel-primary" align="center">
 									<h4>Responses</h4>
 								</div>
@@ -149,8 +127,8 @@
 										</span>
 									</div>
 								</div>
+						<!-- Responses Bitişi -->		
 					</div>
-					<!-- ticket detaild response page end -->
 				</div>
 			</div>
 		</div>
