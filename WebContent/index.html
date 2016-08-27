@@ -71,6 +71,8 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<br>
+				
+					<!-- Ticket Details Div -->	
 					<div class="panel panel-info" style="width:590px;">
 						<div class="panel-heading">
 							<h4 style="text-align:center;">Ticket Detail</h4>
@@ -79,10 +81,10 @@
 							<ul class="media-list" id="">
 								<li class="media">
 									<div class="media-body">
-										<div class="media">
+									  <div class="media">
 											<div class="media-body">
 												<strong>Title :</strong> <span class="response_message" id="ticket_title"></span>
-										      <span style="float:right; "><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
+										        <span style="float:right; "><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
 												<hr>
 												<strong>Status : </strong><span class="response_message" id="ticket_status"></span>
 												<span style="float:right; "><strong>Department : </strong><span class="response_message" id="ticket_department"></span></span>
@@ -100,31 +102,17 @@
 														
 												 </span>
 											</div> 
-										</div>
+									   </div>
 									</div> 
 								</li>
 							</ul>
 						</div>
-<!-- 							<div class="panel-footer"> -->
-<!-- 									<div class="row"> -->
-<!-- 										<div class="col-md-8"> -->
-<!-- 											<button class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button> -->
-<!-- 										</div> -->
-<!-- 										<div class="col-md-8"> -->
-<!-- 											<button id="edit_ticket_btn" class="btn btn-success" data-target="#edit_ticket_modal" data-toggle="modal">Edit</button> -->
-<!-- 										</div> -->
-<!-- 										<div class="col-md-8"> -->
-<!-- 											<button id="close_ticket_btn" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-									
-									
-<!-- 							</div> -->
 					</div>
+							<!-- Ticket Details Div -->	
 		
 		
 		
-	
+				<!-- Ticket Responses Div -->	
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h4 style="text-align:center;">Ticket Responses</h4>
@@ -146,6 +134,8 @@
 							</div>
 						</div>
 					</div>
+				<!-- Ticket Responses Div -->
+				
 				</div>
 			</div>
 		</div>
@@ -353,7 +343,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="editTicketButton" type="button" onclick="deleteTicket()" class="btn btn-danger">Edit</button>
+					<button id="editTicketButton" type="button" onclick="editTicket()" class="btn btn-danger">Edit</button>
 				</div>
 			</div>
 		</div>

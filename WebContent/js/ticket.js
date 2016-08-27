@@ -372,7 +372,13 @@ function sendTicket() {
   }
 }
 
-function editTicket() {}
+function editTicket() {
+	
+	alert("edit ticket called!");
+	
+
+	
+}
 
 function updateCountdownTicketResponse() {
     // 140 is the max message length
@@ -394,6 +400,9 @@ jQuery(document).ready(function($) {
     updateCountdownTicket();
     $('#new_ticket_msg').change(updateCountdownTicket);
     $('#new_ticket_msg').keyup(updateCountdownTicket);
+    
+	  loadAllDeparments("edit_ticket_dep");
+
 });
 
 

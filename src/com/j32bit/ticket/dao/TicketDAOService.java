@@ -151,8 +151,6 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("closeTicket is started. ticketID:"+ticketID);
 		Connection con = null;
 		PreparedStatement pst = null;
-		ResultSet rs = null;
-
 		StringBuilder query = new StringBuilder();
 
 		try {
@@ -163,7 +161,7 @@ public class TicketDAOService extends ConnectionHelper {
 			logger.debug("sql query created : " + queryString);
 
 			con = getConnection();
-			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+			pst = con.prepareStatement(queryString);
 
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
@@ -178,7 +176,6 @@ public class TicketDAOService extends ConnectionHelper {
 		} catch (Exception e) {
 			logger.error("addResponse error :" + e.getMessage());
 		} finally {
-			closeResultSet(rs);
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
@@ -590,7 +587,7 @@ public class TicketDAOService extends ConnectionHelper {
 
 		try {
 			//TODO: duruma göre devamı gelicek, query bastan yazilmalı
-			query.append("UPDATE FROM ticket_responses ");
+			query.append("UPDATE FROM tickets ");
 			query.append("SET column1=value1,column2=value2,...");
 			query.append("WHERE TICKET_ID=?");
 			String queryString = query.toString();
