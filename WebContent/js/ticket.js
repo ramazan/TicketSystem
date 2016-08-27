@@ -13,7 +13,8 @@ function getTicket(ticketID) {
     data: JSON.stringify(ticketID),
     success: function(ticket) {
       $("#ticket_title").text(ticket.title);
-      $("#ticket_message").text(ticket.message);
+      var msg = ticket.message.replace(/\n/g, "<br />");
+      $("#ticket_message").html(msg);
       $("#ticket_date").text(ticket.time);
       $("#ticket_sender").text(ticket.sender.name);
       $("#ticket_department").text(ticket.department.name);
@@ -192,29 +193,34 @@ function loadAllTickets(status) {
     colModel: [{
       label: "ID",
       name: 'id',
-      width: 50,
+      align: "center",
+      width: 30,
       formatter: addLink
     }, {
       label: "Date",
       name: 'time',
-      width: 90,
+      width: 70,
       formatter: 'date',
       formatoptions: {
         srcformat: 'Y-m-d H:i:s',
         newformat: 'd/m/Y  H:i'
-      }
+      },
+      align: "center"
     }, {
       label: "Title",
       name: 'title',
-      width: 100
+      width: 130,
+      align: "center"
     }, {
       label: "From",
       name: 'sender.name',
-      width: 100
+      width: 80,
+      align: "center"
     }, {
       label: "Department",
       name: 'department.name',
-      width: 80
+      width: 70,
+      align: "center"
     }],
     responsive: true,
     multiselect: true,
@@ -252,29 +258,33 @@ function loadPostedTickets(status) {
     colModel: [{
       label: "ID",
       name: 'id',
-      width: 50,
+      width: 30,
+      align: "center",
       formatter: addLink
     }, {
       label: "Date",
       name: 'time',
-      width: 90,
+      width: 70,
       formatter: 'date',
       formatoptions: {
         srcformat: 'Y-m-d H:i:s',
         newformat: 'd/m/Y  H:i'
-      }
+      },
+      align: "center"
     }, {
       label: "Title",
       name: 'title',
-      width: 100
+      width: 130
     }, {
       label: "From",
       name: 'sender.name',
-      width: 100
+      width: 100,
+      align: "center"
     }, {
       label: "Department",
       name: 'department.name',
-      width: 80
+      width: 70,
+      align: "center"
     }],
     responsive: true,
     multiselect: true,
@@ -344,7 +354,7 @@ function sendTicket() {
         $("#new_ticket_title").val("");
         $("#new_ticket_msg").val("");
         setTimeout(function() {
-          $('#ticket_add_modal').modal('hide');
+          $('#add_ticket_modal').modal('hide');
           $("#ticket_add_msg").text("");
           $("#sendTicketButton").prop("disabled", false);
         }, 2000);
@@ -359,9 +369,23 @@ function sendTicket() {
 function editTicket() {}
 
 //TODO: bu kısımda hata var, düzenlenmeli
-$('textarea').keypress(function() {
-  if (this.value.length > 500) {
-    return false;
-  }
-  $("#remainingC").text("Remaining characters : " + (500 - this.value.length));
+//$('textarea').keypress(function() {
+//  if (this.value.length > 500) {
+//    return false;
+//  }
+//  $("#remainingC").text("Remaining characters : " + (500 - this.value.length));
+//});
+
+
+function updateCountdown() {
+    // 500 is the max message length
+    var remaining = 500 - jQuery('.response_message').val().length;
+    jQuery('.remainingC').text(remaining + ' characters remaining.');
+}
+
+
+jQuery(document).ready(function($) {
+    updateCountdown();
+    $('.response_message').change(updateCountdown);
+    $('.response_message').keyup(updateCountdown);
 });

@@ -131,8 +131,10 @@
 						<div class="panel-footer">
 							<div class="input-group">
 								<p id="add_resp_msg"></p>
-								<textarea class="form-control" rows="9" cols="80" maxlength="500" id="ticket_response_msg"></textarea>
-								<p id="remainingC">Remaining characters : 500</p>
+								<textarea class="response_message" rows="9" cols="80" maxlength="500" id="ticket_response_msg"></textarea>
+<!-- 								<p id="remainingC">Remaining characters : 500</p> -->
+		
+					         	<br><span class="remainingC"></span>
 								<span class="input-group">
 									<button id="sendTicketResponse" class="btn btn-success" onclick="sendTicketResponse()">Send Response</button>
 								</span>
@@ -233,7 +235,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">New Ticket</h4>
 				</div>
-				<div class="modal-body" align="center">
+				<div class="modal-body">
 					<p id="ticket_add_msg" class="label label-success"></p>
 					<br>
 					<br>
@@ -251,7 +253,7 @@
 
 					<label>Title:</label>
 					<div class="form-group">
-						<input type="text" size="40" id="new_ticket_title">
+						<input type="text" size="40" maxlength="45"  id="new_ticket_title">
 					</div>
 
 					<label>Message:</label>
