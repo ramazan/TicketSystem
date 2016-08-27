@@ -220,7 +220,7 @@ function getUser(userID) {
   loadAllCompanies("selectedPersonCompany");
 
   selectedUserID = userID;
-  $('#user-detail-modal').modal('show');
+  $('#user_modal_detail').modal('show');
 
   $.ajax({
     type: "GET",
@@ -230,7 +230,6 @@ function getUser(userID) {
     success: function(user) {
       selectedUserEmail = user.email;
       $("#selectedPersonName").val(user.name);
-      $("#selectedPersonEmail").val(user.email);
       $("#selectedPersonPassword").val(user.password);
       $("#selectedPersonCompany").val(user.company.id);
 

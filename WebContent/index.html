@@ -364,7 +364,7 @@
 					<br>
 					<div class="form-group">
 						<label>Full Name:</label>
-						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" required />
+						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" />
 					</div>
 					<div class="form-group">
 						<label>E-Mail:</label>
@@ -372,7 +372,7 @@
 					</div>
 					<div class="form-group">
 						<label>Password:</label>
-						<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" required />
+						<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" />
 					</div>
 					<div class="form-group">
 						<label>Company:</label>
@@ -433,11 +433,11 @@
 					<br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="new_company_name" required />
+						<input class="form-control" type="text" id="new_company_name" />
 					</div>
 					<div class="form-group">
 						<label>E-Mail:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="new_company_email" required />
+						<input class="form-control" type="text" id="new_company_email" />
 					</div>
 					<div class="form-group">
 						<label>Phone:</label>
@@ -478,7 +478,7 @@
 					<br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*Required</span></label>
-						<input class="form-control" type="text" id="new_dep_name" required />
+						<input class="form-control" type="text" id="new_dep_name" />
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -491,79 +491,77 @@
 	<!-- Add Department Modal end -->
 
 	<!-- user detail modal -->
-	<div id="user_modal_detail">
-		<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header" align="center">
-						<button class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">User Details</h4>
-					</div>
-
-					<!-- Begin # DIV Form -->
-					<div id="div-forms">
-						<!-- Begin | Register Form -->
-						<form id="register-form" method="post">
-							<div class="modal-body">
-								<p id="user_detail_msg" class="label label-success"></p>
-								<br>
-								<br>
-								<div>
-									<label>Full Name:</label>
-									<input class="form-control" type="text" id="selectedPersonName" required>
-								</div>
-								<br>
-								<div>
-									<label>Email:</label>
-									<input class="form-control" type="text" id="selectedPersonEmail" required>
-								</div>
-								<br>
-								<div>
-									<label>Password:</label>
-									<div class="row">
-										<div class="col-md-6">
-											<input class="form-control" type="password" id="selectedPersonPassword" required>
-										</div>
-										<div class="col-md-6">
-											<button id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
-										</div>
-									</div>
-								</div>
-								<br>
-								<div>
-									<label>Company:</label>
-									<select class="form-control" id="selectedPersonCompany"></select>
-								</div>
-								<br>
-								<div>
-									<b>Roles:</b>
-									<div class="checkbox form-control">
-										<label class="checkbox-inline">
-											<input type="checkbox" name="userRole" id="selectedPersonRoleAdmin">Admin</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="userRole" id="selectedPersonRoleSup">Supporter</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="userRole" id="selectedPersonRoleClient">Client</label>
-									</div>
-								</div>
-								<br>
-								<div id="departmentInput">
-									<b>Department:</b>
-									<select class="form-control" id="selectedPersonDepartment"></select>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<div>
-									<button class="btn btn-primary" data-dismiss="modal">İptal</button>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
-								</div>
-							</div>
-						</form>
-						<!-- End | Register Form -->
-					</div>
-					<!-- End # DIV Form -->
+	<div class="modal fade" id="user_modal_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">User Details</h4>
 				</div>
+
+				<!-- Begin # DIV Form -->
+				<div id="div-forms">
+					<!-- Begin | Register Form -->
+					<form id="register-form" method="post">
+						<div class="modal-body">
+							<p id="user_detail_msg" class="label label-success"></p>
+							<br>
+							<br>
+							<div>
+								<label>Full Name:<span class="text-danger lead">*: Required</span></label>
+								<input class="form-control" type="text" id="selectedPersonName">
+							</div>
+							<br>
+							<div>
+								<label>Email:<span class="text-danger lead">*: Required</span></label>
+								<input class="form-control" type="text" id="selectedPersonEmail">
+							</div>
+							<br>
+							<div>
+								<label>Password:<span class="text-danger lead">*: Required</span></label>
+								<div class="row">
+									<div class="col-md-6">
+										<input class="form-control" type="password" id="selectedPersonPassword">
+									</div>
+									<div class="col-md-6">
+										<button id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div>
+								<label>Company:</label>
+								<select class="form-control" id="selectedPersonCompany"></select>
+							</div>
+							<br>
+							<div>
+								<b>Roles:</b>
+								<div class="checkbox form-control">
+									<label class="checkbox-inline">
+										<input type="checkbox" name="userRole" id="selectedPersonRoleAdmin">Admin</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="userRole" id="selectedPersonRoleSup">Supporter</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="userRole" id="selectedPersonRoleClient">Client</label>
+								</div>
+							</div>
+							<br>
+							<div id="departmentInput">
+								<b>Department:</b>
+								<select class="form-control" id="selectedPersonDepartment"></select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button class="btn btn-primary" data-dismiss="modal">İptal</button>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | Register Form -->
+				</div>
+				<!-- End # DIV Form -->
 			</div>
 		</div>
 	</div>
