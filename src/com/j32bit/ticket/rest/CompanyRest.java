@@ -23,7 +23,7 @@ public class CompanyRest {
 		return ServiceFacade.getInstance().addCompany(company);
 	}
 
-	@POST
+	@GET
 	@Path("/getAllCompanies")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Company> getAllCompanies() {

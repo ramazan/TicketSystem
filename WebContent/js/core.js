@@ -110,6 +110,8 @@ function showDepartments() {
 }
 
 function showCompanies() {
+	loadCompaniesPage();
+	
   $("#navs li").removeClass("active");
   $("#nav_companies").addClass("active");
 
