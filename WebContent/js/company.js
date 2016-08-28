@@ -5,7 +5,7 @@ function loadAllCompanies(selectID) {
   $(compSelectID).html(" "); // kutucugu temizle
 
   $.ajax({
-    type: "POST",
+    type: "GET",
     url: '/Ticket_System/rest/company/getAllCompanies',
     contentType: "application/json",
     mimeType: "application/json",
@@ -77,52 +77,51 @@ function addCompany() {
       }
     });
   }
-  
-  function loadCompaniesPage() {
-	  $("#deps_jqGrid").GridUnload();
-	  $("#deps_jqGrid").jqGrid({
-	    caption: "COMPANIES LIST",
-	    url: "/Ticket_System/rest/company/getAllCompanies",
-	    mtype: "GET",
-	    datatype: "json",
-	    colModel: [{
-	      label: "ID",
-	      name: 'id',
-	      width: 35,
-	      sortable: true,
-	      sorttype: "int",
-	      search: true,
-	      align: "center"
-	    }, {
-	        label: "Company Name",
-	        name: 'company.name',
-	        width: 85
-	      }, {
-	        label: "Address",
-	        name: 'address',
-	        width: 140
-	      }, {
-	        label: "E-Mail",
-	        name: 'email',
-	        width: 85
-	      }, {
-	        label: "Phone",
-	        name: 'phone',
-	        width: 85
-	      }, {
-	        label: "Fax",
-	        name: 'fax',
-	        width: 85
-	      }],
-	    viewrecords: true,
-	    height: 400,
-	    width: 890,
-	    //    loadonce: true,
-	    rowNum: 100,
-	    styleUI: 'Bootstrap',
-	    pager: "#deps_jqGridPager",
-	    emptyrecords: "Nothing to display"
-	  });
-	  
-  }
+}
+
+function loadCompaniesPage() {
+  $("#comp_jqGrid").GridUnload();
+  $("#comp_jqGrid").jqGrid({
+    caption: "COMPANIES LIST",
+    url: "/Ticket_System/rest/company/getAllCompanies",
+    mtype: "GET",
+    datatype: "json",
+    colModel: [{
+      label: "ID",
+      name: 'id',
+      width: 35,
+      sortable: true,
+      sorttype: "int",
+      search: true,
+      align: "center"
+    }, {
+      label: "Company Name",
+      name: 'name',
+      width: 85
+    }, {
+      label: "Address",
+      name: 'address',
+      width: 140
+    }, {
+      label: "E-Mail",
+      name: 'email',
+      width: 85
+    }, {
+      label: "Phone",
+      name: 'phone',
+      width: 85
+    }, {
+      label: "Fax",
+      name: 'fax',
+      width: 85
+    }],
+    viewrecords: true,
+    height: 400,
+    width: 890,
+    //    loadonce: true,
+    rowNum: 100,
+    styleUI: 'Bootstrap',
+    pager: "#comp_jqGridPager",
+    emptyrecords: "Nothing to display"
+  });
 }

@@ -89,6 +89,15 @@ function showTickets() {
   $('#tickets_page').show();
 }
 
+function showCompanies() {
+  loadCompaniesPage();
+  $("#navs li").removeClass("active");
+  $("#nav_companies").addClass("active");
+
+  $("#pages > div").hide();
+  $('#companies_page').show();
+}
+
 function showUsers() {
   loadAllUsers();
 
@@ -110,12 +119,13 @@ function showDepartments() {
 }
 
 function showCompanies() {
-	loadCompaniesPage();
-	
+  loadCompaniesPage();
+
   $("#navs li").removeClass("active");
   $("#nav_companies").addClass("active");
 
   $("#pages > div").hide();
+  $("#companies_page").show();
 }
 
 $('.dropdown').hover(function() {
