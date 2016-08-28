@@ -41,7 +41,7 @@
 		</nav>
 	</header>
 
-	<!-- tickets page -->
+	<!-- pages div -->
 	<div id="pages" class="container-fluid">
 		<div id="tickets_page">
 			<div class="navbar navbar-default navbar-fixed-left">
@@ -629,6 +629,30 @@
 		</div>
 	</div>
 	<!-- update user modal -->
+
+	<!-- delete deparment modal -->
+	<div id="delete_department_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete Department</h4>
+				</div>
+				<div class="modal-body">
+					<p id="delete_department_modal_msg" class="label label-info"></p>
+					<br>
+					<br>
+					<p id="delete_deparment_msg" class="label label-danger">Are you sure want to delete deparment?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button id="delete_user_modal_btn" onclick="deleteDepartment()" class="btn btn-danger">Delete deparment</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- deparment user modal -->
+	
 
 	<!-- JAVASCRIPT SOURCES -->
 	<script type="text/javascript" src="./js/jquery-3.1.0.min.js"></script>

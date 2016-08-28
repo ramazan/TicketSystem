@@ -164,4 +164,9 @@ public class ServiceFacade {
 		userService.updateUserData(user);
 	}
 
+
+	public void deleteDepartment(long ID) {
+		departmentDAOService.deleteDepartment(ID);
+	}
+
 }
