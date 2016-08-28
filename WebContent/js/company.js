@@ -26,9 +26,14 @@ var selectedCompanyAreaID;
 
 function prepareAddCompanyArea(areaID) {
   selectedCompanyAreaID = areaID;
+  $('#add_company_modal_msg').text('');
+  $('#new_company_fax').val('');
+  $('#new_company_phone').val('');
+  $('#new_company_email').val('');
+  $('#new_company_name').val('');
+  $('#new_company_address').val('');
+  $("#add_company_modal_btn").prop("disabled", false);
   $("#add_company_modal").modal("show");
-  console.log("selectedCompanyAreaID: " + selectedCompanyAreaID);
-  console.log("test" + $("add_company_modal").data("id"));
 }
 
 function addCompany() {
@@ -40,7 +45,7 @@ function addCompany() {
   var cAddress = $("#new_company_address").val();
 
   if (cEmail == "" || cName == "") {
-    $("#add_company_msg").text("You have to fill required places");
+    $("#add_company_modal_msg").text("You have to fill required(*) places");
   } else {
 
     var company = {
@@ -58,23 +63,17 @@ function addCompany() {
       mimeType: "application/json",
       data: JSON.stringify(company),
       success: function(result) {
-        $("#add_company_msg").text("Company added. Closing Window..");
+        $("#add_company_modal_btn").prop("disabled", true);
+        $("#add_company_modal_msg").text("Company added. Closing Window in 2sec..");
         $('#' + selectedCompanyAreaID).append(
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
-        $('#add_company_msg').val('');
-        $('#new_company_fax').val('');
-        $('#new_company_phone').val('');
-        $('#new_company_email').val('');
-        $('#new_company_name').val('');
-        $('#new_company_address').val('');
         setTimeout(function() {
           $('#add_company_modal').modal('hide');
-          $("#add_company_msg").text("");
         }, 2000);
       },
       error: function() {
-        $("#add_company_msg").text("Company can't added. Please try again..");
+        $("#add_company_modal_msg").text("Add Company | An Error Occured!");
       }
     });
   }

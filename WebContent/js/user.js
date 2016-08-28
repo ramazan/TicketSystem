@@ -1,11 +1,4 @@
-var selectedUserID, selectedUserEmail;
-
-function prepareAddUserArea() {
-  loadAllDeparments("new_user_dep");
-  loadAllCompanies("new_user_company");
-  $("#add_user_modal").modal("show");
-}
-
+var selectedUser;
 
 //users tablosu için tüm kullanıcıları getirme işlemi
 function loadAllUsers() {
@@ -80,6 +73,21 @@ function loadAllUsers() {
 
 }
 
+function prepareAddUserArea() {
+  loadAllDeparments("new_user_dep");
+  loadAllCompanies("new_user_company");
+  $("#departmentFade").hide();
+  $("#add_user_modal_btn").prop("disabled", false);
+  $("#add_user_modal_msg").text("");
+  $('#add_user_roles input').prop('checked', false);
+  $('#new_user_name').val('');
+  $('#new_user_email').val('');
+  $('#new_user_password').val(''); // inputları temizle.
+
+  $("#add_user_modal").modal("show");
+}
+
+
 //yeni kullanıcı ekleme işlemi
 function addUser() {
 
@@ -104,10 +112,8 @@ function addUser() {
   if (newRoles.length == 0 || newName == "" || newEmail == "" ||
     newCompanyID == "" || newPassword == "") {
     console.log("error: fill all boxes");
-    $("#add_user_msg").html("Please fill all boxes");
+    $("#add_user_modal_msg").text("Please fill required(*) boxes");
   } else {
-
-    $("#addUserButton").prop("disabled", true);
 
     var person = {
       name: newName,
@@ -129,23 +135,18 @@ function addUser() {
       mimeType: "application/json",
       data: JSON.stringify(person),
       success: function() {
-        $("#add_user_msg").text("User added. Closing Window..");
+        $("#add_user_modal_btn").prop("disabled", true);
+
+        $("#add_user_modal_msg").text("User added. Closing Window in 2sec..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
-        // clear boxes
-        $('input:checkbox').removeAttr('checked');
-        $('#new_user_name').val('');
-        $('#new_user_email').val('');
-        $('#new_user_password').val(''); // inputları temizle.
+
         setTimeout(function() {
           $('#add_user_modal').modal('hide');
-          $("#add_user_msg").text("");
-          $("#addUserButton").prop("disabled", false);
-
         }, 2000);
       },
       error: function() {
-        alert("User cannot added please try again. ");
+        $("#add_user_modal_msg").text("addUser | An Error Occured!");
       }
     });
   }
@@ -201,26 +202,24 @@ function updateProfile() {
         "An error occured!");
     }
   });
-
 }
-
 
 //users tablosundaki detail butonlarının hazırlanması
 function addUserLink(cellvalue, options, rowObject) {
   var userID = rowObject.id;
-  var clickLink = "<a style='width:50px;' type='button' title='User Details'";
-  clickLink += " onclick='getUser(" + userID + ")' ><button class='btn btn-warning btn-xs'>Detail</button></a>"
+  var clickLink = "<button onclick='getUser(" + userID + ")'" +
+    "class='btn btn-warning btn-xs'>Detail</button>"
   return clickLink;
 }
 
 //detail buutonuna tıklandıgında ilgili kullanıcının bilgilerinin getirilmesi
 function getUser(userID) {
-
   loadAllDeparments("selectedPersonDepartment");
   loadAllCompanies("selectedPersonCompany");
 
-  selectedUserID = userID;
-  $('#user_modal_detail').modal('show');
+  $("#selectedPersonPassword").prop("type", "password");
+  $("#selectedUserRoles input").prop("checked", false);
+  $("#departmentInput").hide();
 
   $.ajax({
     type: "GET",
@@ -228,17 +227,11 @@ function getUser(userID) {
     contentType: "application/json",
     mimeType: "application/json",
     success: function(user) {
-      selectedUserEmail = user.email;
+      selectedUser = user;
       $("#selectedPersonName").val(user.name);
       $("#selectedPersonPassword").val(user.password);
       $("#selectedPersonCompany").val(user.company.id);
-      $("#selectedPersonEmail").val(selectedUserEmail);
-
-
-      $("#selectedPersonRoleAdmin").prop("checked", false);
-      $("#selectedPersonRoleSup").prop("checked", false);
-      $("#selectedPersonRoleClient").prop("checked", false);
-      $("#departmentInput").hide();
+      $("#selectedPersonEmail").val(user.email);
 
       $.each(user.userRoles, function(key, value) {
         if (value == "admin") {
@@ -250,9 +243,8 @@ function getUser(userID) {
         } else if (value == "client") {
           $("#selectedPersonRoleClient").prop("checked", true);
         }
-
       });
-
+      $('#user_modal_detail').modal('show');
     },
     error: function() {
       alert("user details cannot get please try again. userID:  " +
@@ -261,39 +253,49 @@ function getUser(userID) {
   });
 }
 
+function prepareDeleteUserArea() {
+  $("#delete_user_modal_msg").text("");
+  $("#delete_user_modal_btn").prop("disabled", false);
+  $("#delete_user_modal").modal("show");
+}
+
+
 //user detail modaldeki seçilen kullanıcının silinmesi
 function deleteUserData() {
 
-  console.log("started to delete userID:" + selectedUserID +
-    " selected user mail : " + selectedUserEmail);
-
+  var deletedUser = {
+    id: selectedUser.id,
+    email: selectedUser.email
+  }
   $.ajax({
-    url: "/Ticket_System/rest/user/deleteUser/" + selectedUserEmail,
+    url: "/Ticket_System/rest/user/deleteUser/",
     type: "POST",
     mimeType: "application/json",
     contentType: "application/json",
-    data: JSON.stringify(selectedUserID),
+    data: JSON.stringify(deletedUser),
     success: function() {
-      console.log("user deleted!");
+      $("#delete_user_modal_btn").prop("disabled", false);
+      $("#delete_user_modal_msg").text("User deleted. Closing Window in 2sec..");
       $('#users_jqGrid').trigger('reloadGrid');
-      $("#delete_user_status").text("User deleted. Closing Window..");
       setTimeout(function() {
         $('#user_modal_detail').modal('hide');
         $('#delete_user_modal').modal('hide');
-        $("#delete_user_status").text("");
       }, 2000);
-
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log("error :" + errorThrown);
     }
   });
-
 }
 
+
+function prepareUpdateUserArea() {
+  $("#update_user_modal_btn").prop("disable", false);
+  $("#update_user_modal_msg").text("");
+  $("#update_user_modal").modal("show");
+}
 //user detail update kısmı
 function updateUserData() {
-
 
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
@@ -316,16 +318,14 @@ function updateUserData() {
   if (newRoles.length == 0 || newName == "" || newEmail == "" ||
     newCompanyID == "" || newPassword == "") {
     console.log("error: fill all boxes");
-    $("#update_user_label").html("Please fill all boxes");
+    $("#update_user_label").html("Please fill required(*) boxes");
     setTimeout(function() {
       $("#update_user_label").text("");
     }, 2000);
   } else {
 
-    $("#updateUserDataButton").prop("disabled", true);
-
     var person = {
-      id: selectedUserID,
+      id: selectedUser.id,
       name: newName,
       email: newEmail,
       password: newPassword,
@@ -340,20 +340,18 @@ function updateUserData() {
 
     $.ajax({
       type: "POST",
-      url: '/Ticket_System/rest/user/updateUserData/' + selectedUserEmail,
+      url: '/Ticket_System/rest/user/updateUserData/',
       contentType: "application/json",
       mimeType: "application/json",
       data: JSON.stringify(person),
       success: function() {
-        $("#update_user_label").text("User updated. Closing Window..");
+        $("#update_user_modal_btn").prop("disable", true);
+        $("#update_user_modal_msg").text("User updated. Closing Window in 2sec..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
         setTimeout(function() {
           $('#user_modal_detail').modal('hide');
           $('#update_user_modal').modal('hide');
-          $("#update_user_label").text("");
-          $("#updateUserDataButton").prop("disabled", false);
-
         }, 2000);
       },
       error: function() {
@@ -364,13 +362,12 @@ function updateUserData() {
 }
 
 
-//user detail modaldeki password show/hide işlemi
-document.getElementById("showHideButton").addEventListener("click", function(e) {
-  var pwd = document.getElementById("selectedPersonPassword");
-  if (pwd.getAttribute("type") == "password") {
-    pwd.setAttribute("type", "text");
+function togglePasswordArea() {
+  var pass = $("#selectedPersonPassword");
+  console.log(pass.prop("type"));
+  if (pass.prop("type") == "password") {
+    pass.prop("type", "text");
   } else {
-    pwd.setAttribute("type", "password");
-
+    pass.prop("type", "password");
   }
-});
+}

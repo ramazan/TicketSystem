@@ -84,10 +84,10 @@
 										<div class="media">
 											<div class="media-body">
 												<strong>Title :</strong> <span class="response_message" id="ticket_title"></span>
-												<span style="float:right; "><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
+												<span style="float:right;"><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
 												<hr>
 												<strong>Status : </strong><span class="response_message" id="ticket_status"></span>
-												<span style="float:right; "><strong>Department : </strong><span class="response_message" id="ticket_department"></span></span>
+												<span style="float:right;"><strong>Department : </strong><span class="response_message" id="ticket_department"></span></span>
 												<hr>
 												<strong>Date : </strong><span class="response_message" id="ticket_date"></span>
 												<hr>
@@ -263,7 +263,7 @@
 
 	<!-- delete ticket modal -->
 	<div id="delete_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -288,7 +288,7 @@
 
 	<!-- close ticket modal -->
 	<div id="close_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -312,7 +312,7 @@
 
 	<!-- edit ticket modal -->
 	<div id="edit_ticket_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -345,26 +345,26 @@
 
 	<!-- Add User Modal -->
 	<div id="add_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add New User</h4>
 				</div>
 				<div class="modal-body">
-					<p id="add_user_msg" class="label label-success"></p>
+					<p id="add_user_modal_msg" class="label label-info"></p>
 					<br>
 					<br>
 					<div class="form-group">
-						<label>Full Name:</label>
-						<input class="form-control" type="text" placeholder="Enter Your Full Name" id="new_user_name" />
+						<label>Full Name:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" placeholder="Enter Full Name" id="new_user_name" />
 					</div>
 					<div class="form-group">
-						<label>E-Mail:</label>
+						<label>E-Mail:<span class="text-danger">*</span></label>
 						<input type="email" class="form-control" placeholder="Enter Email" id="new_user_email" />
 					</div>
 					<div class="form-group">
-						<label>Password:</label>
+						<label>Password:<span class="text-danger">*</span></label>
 						<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" />
 					</div>
 					<div class="form-group">
@@ -379,16 +379,17 @@
 						</div>
 					</div>
 					<div class="from-group">
-						<div class="checkbox form-control">
+						<label>User Role:<span class="text-danger">*</span></label>
+						<div id="add_user_roles" class="checkbox form-control">
 							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="adminRole" checked>Admin</label>
+								<input type="checkbox" name="userRole" id="adminRole">Admin</label>
 							<label class="checkbox-inline">
 								<input type="checkbox" name="userRole" id="supporterRole">Supporter</label>
 							<label class="checkbox-inline">
 								<input type="checkbox" name="userRole" id="clientRole">Client</label>
 						</div>
 					</div>
-					<div class="form-group" style="display: none;" id="departmentFade">
+					<div class="form-group" id="departmentFade">
 						<label for="userDepartment">Department:</label>
 						<div class="row">
 							<div class="col-md-6">
@@ -403,7 +404,7 @@
 					</div>
 				</div>
 				<div class=" modal-footer">
-					<button id="addUserButton" class="btn btn-success" onclick="addUser()">Add User
+					<button id="add_user_modal_btn" class="btn btn-success" onclick="addUser()">Add User
 					</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
@@ -412,44 +413,122 @@
 	</div>
 	<!-- Add User Modal end -->
 
+	<!-- user detail modal -->
+	<div id="user_modal_detail" tabindex="-1" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">User Details</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<label>Full Name:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" id="selectedPersonName">
+					</div>
+					<br>
+					<div>
+						<label>Email:<span class="text-danger">*</span></label>
+						<input class="form-control" type="text" id="selectedPersonEmail">
+					</div>
+					<br>
+					<div>
+						<label>Password:<span class="text-danger">*</span></label>
+						<div class="row">
+							<div class="col-md-6">
+								<input class="form-control" type="password" id="selectedPersonPassword">
+							</div>
+							<div class="col-md-6">
+								<button onclick="togglePasswordArea()" id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="form-group">
+						<label>Company:</label>
+						<div class="row">
+							<div class="col-md-6">
+								<select class="form-control" id="selectedPersonCompany"></select>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('selectedPersonCompany')"> New Company</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div>
+						<b>Roles:</b>
+						<div id="selectedUserRoles" class="checkbox form-control">
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="selectedPersonRoleAdmin">Admin</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="selectedPersonRoleSup">Supporter</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" name="userRole" id="selectedPersonRoleClient">Client</label>
+						</div>
+					</div>
+					<br>
+					<div id="departmentInput">
+						<b>Department:</b>
+						<div class="row">
+							<div class="col-md-6">
+								<select class="form-control" id="selectedPersonDepartment">
+									<!-- departmanlar db den yuklenir -->
+								</select>
+							</div>
+							<div class="col-md-6">
+								<button id="add_user_dep_btn2" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('selectedPersonDepartment')"> New Department</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div>
+						<button class="btn btn-primary" data-dismiss="modal">Close</button>
+						<button class="btn btn-primary" onclick="prepareDeleteUserArea()">Delete</button>
+						<button class="btn btn-primary" onclick="prepareUpdateUserArea()">Update</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- user detail modal end -->
+
 	<!-- Add Company Modal -->
 	<div id="add_company_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add New Company</h4>
 				</div>
 				<div class="modal-body">
-					<p id="add_company_msg" class="label label-success"></p>
+					<p id="add_company_modal_msg" class="label label-info"></p>
 					<br>
 					<br>
 					<div class="form-group">
 						<label>Name:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="new_company_name" />
+						<input maxlength="45" class="form-control" type="text" id="new_company_name" />
 					</div>
 					<div class="form-group">
 						<label>E-Mail:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="new_company_email" />
+						<input maxlength="45" class="form-control" type="text" id="new_company_email" />
 					</div>
 					<div class="form-group">
 						<label>Phone:</label>
-						<input class="form-control" type="text" id="new_company_phone" />
+						<input maxlength="45" class="form-control" type="text" id="new_company_phone" />
 					</div>
 					<div class="form-group">
 						<label>Fax:</label>
-						<input class="form-control" type="text" id="new_company_fax" />
+						<input maxlength="45" class="form-control" type="text" id="new_company_fax" />
 					</div>
 					<div class="form-group">
 						<label>Address:</label>
-						<input class="form-control" type="text" id="new_company_address" />
+						<input maxlength="500" class="form-control" type="text" id="new_company_address" />
 					</div>
-					<p>
-						<span class="text-danger lead">*: Required</span>
-					</p>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" onclick="addCompany()">Add</button>
+					<button id="add_company_modal_btn" class="btn btn-success" onclick="addCompany()">Add</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -458,129 +537,48 @@
 	<!-- Add Company Modal end -->
 
 	<!-- Add Department Modal -->
-	<div id="add_dep_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+	<div id="add_dep_modal" tabindex="-1" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add New Department</h4>
 				</div>
 				<div class="modal-body">
-					<p id="add_dep_msg" class="label label-success"></p>
+					<p id="add_dep_modal_msg" class="label label-info"></p>
 					<br>
 					<br>
 					<div class="form-group">
-						<label>Name:<span class="text-danger">*Required</span></label>
-						<input class="form-control" type="text" id="new_dep_name" />
+						<label>Name:<span class="text-danger">*</span></label>
+						<input maxlength="45" class="form-control" type="text" id="new_dep_name" />
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" onclick="addDepartment()">Add</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button id="add_dep_modal_btn" class="btn btn-success" onclick="addDepartment()">Add</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Add Department Modal end -->
 
-	<!-- user detail modal -->
-	<div id="user_modal_detail" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header" align="center">
-					<button class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">User Details</h4>
-				</div>
-						<div class="modal-body">
-							<div>
-								<label>Full Name:<span class="text-danger lead"></span></label>
-								<input class="form-control" type="text" id="selectedPersonName">
-							</div>
-							<br>
-							<div>
-								<label>Email:<span class="text-danger lead"></span></label>
-								<input class="form-control" type="text" id="selectedPersonEmail">
-							</div>
-							<br>
-							<div>
-								<label>Password:<span class="text-danger lead"></span></label>
-								<div class="row">
-									<div class="col-md-6">
-										<input class="form-control" type="password" id="selectedPersonPassword">
-									</div>
-									<div class="col-md-6">
-										<button id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
-									</div>
-								</div>
-							</div>
-							<br>
-							<div class="form-group">
-								<label>Company:</label>
-								<div class="row">
-									<div class="col-md-6">
-										<select class="form-control" id="selectedPersonCompany"></select>
-									</div>
-									<div class="col-md-6">
-										<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('selectedPersonCompany')"> New Company</button>
-									</div>
-								</div>
-							</div>
-							<br>
-							<div>
-								<b>Roles:</b>
-								<div class="checkbox form-control">
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="selectedPersonRoleAdmin">Admin</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="selectedPersonRoleSup">Supporter</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="userRole" id="selectedPersonRoleClient">Client</label>
-								</div>
-							</div>
-							<br>
-							<div id="departmentInput">
-								<b>Department:</b>
-								<div class="row">
-									<div class="col-md-6">
-										<select class="form-control" id="selectedPersonDepartment">
-											<!-- departmanlar db den yuklenir -->
-										</select>
-									</div>
-									<div class="col-md-6">
-										<button id="add_user_dep_btn" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('selectedPersonDepartment')"> New Department</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<div>
-								<button class="btn btn-primary" data-dismiss="modal">İptal</button>
-								<button class="btn btn-primary" data-toggle="modal" data-target="#delete_user_modal">Sil</button>
-								<button class="btn btn-primary" data-toggle="modal" data-target="#update_user_modal">Güncelle</button>
-							</div>
-						</div>
-			</div>
-		</div>
-	</div>
-	<!-- user detail modal end -->
-
 	<!-- delete user modal -->
 	<div id="delete_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Delete User</h4>
 				</div>
 				<div class="modal-body">
-					<p id="delete_user_status" class="label label-success"></p>
+					<p id="delete_user_modal_msg" class="label label-info"></p>
 					<br>
 					<br>
 					<p id="delete_user_msg" class="label label-danger">Are you sure want to delete user?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button onclick="deleteUserData()" class="btn btn-danger">Delete user</button>
+					<button id="delete_user_modal_btn" onclick="deleteUserData()" class="btn btn-danger">Delete user</button>
 				</div>
 			</div>
 		</div>
@@ -589,21 +587,21 @@
 
 	<!-- update user modal -->
 	<div id="update_user_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Update User</h4>
 				</div>
 				<div class="modal-body">
-					<p id="update_user_label" class="label label-success"></p>
+					<p id="update_user_modal_msg" class="label label-info"></p>
 					<br>
 					<br>
 					<p id="update_user_msg" class="label label-danger">Are you sure want to update user?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="updateUserDataButton" onclick="updateUserData()" class="btn btn-danger">Update user</button>
+					<button id="update_user_modal_btn" onclick="updateUserData()" class="btn btn-danger">Update user</button>
 				</div>
 			</div>
 		</div>

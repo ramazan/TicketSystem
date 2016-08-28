@@ -69,25 +69,24 @@ public class ServiceFacade {
 		return users;
 	}
 
-	public ArrayList<Ticket> getAllTickets(int status,User user) {
+	public ArrayList<Ticket> getAllTickets(int status, User user) {
 		ArrayList<Ticket> tickets = new ArrayList<>();
-		if(user.checkRole("admin"))
+		if (user.checkRole("admin"))
 			tickets = ticketService.getAllTickets(status);
-		else if(user.checkRole("supporter"))
-			tickets= ticketService.getAllDepartmentTickets(status,user);
-		else if(user.checkRole("client"))
+		else if (user.checkRole("supporter"))
+			tickets = ticketService.getAllDepartmentTickets(status, user);
+		else if (user.checkRole("client"))
 			tickets = ticketService.getAllTickets(status);
 		return tickets;
 	}
-	
-	public ArrayList<Ticket> getPostedTickets(int status,long userID){
-		return ticketService.getPostedTickets(status,userID);
+
+	public ArrayList<Ticket> getPostedTickets(int status, long userID) {
+		return ticketService.getPostedTickets(status, userID);
 	}
-	
-	public void closeTicket(long ticketID) throws Exception{
+
+	public void closeTicket(long ticketID) throws Exception {
 		ticketService.closeTicket(ticketID);
 	}
-	
 
 	public User getUserDetailWithEmail(String userEmail) {
 		return userService.getUser(userEmail);
@@ -157,16 +156,12 @@ public class ServiceFacade {
 		return ticketService.getAllResponses(ticketID);
 	}
 
-	public void deleteUser(long userID, String email) throws Exception {
-		userService.deleteUser(userID, email);
+	public void deleteUser(User user) throws Exception {
+		userService.deleteUser(user);
 	}
 
-	public void updateUserData(User user, String email) {
-		try {
-			userService.updateUserData(user, email);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void updateUserData(User user) throws Exception {
+		userService.updateUserData(user);
 	}
 
 }

@@ -415,9 +415,9 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("Update profile completed");
 	}
 
-	public void deleteUser(long userID, String email) {
+	public void deleteUser(User user) {
 
-		logger.debug("deleteUser started. Param: userID=" + userID + "   userEmail:" + email);
+		logger.debug("deleteUser started. Param: userID=" + user.getId() + "   userEmail:" + user.getEmail());
 
 		Connection con = null;
 		PreparedStatement pstRoles = null;
@@ -439,11 +439,11 @@ public class UserDAOService extends ConnectionHelper {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
-				queryLog.append("USER_ID : ").append(userID).append("\n");
+				queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
 				logger.trace(queryLog.toString());
 			}
 
-			pstRoles.setString(1, email);
+			pstRoles.setString(1, user.getEmail());
 
 			pstRoles.executeUpdate();
 
@@ -458,11 +458,11 @@ public class UserDAOService extends ConnectionHelper {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
-				queryLog.append("ID : ").append(userID).append("\n");
+				queryLog.append("ID : ").append(user.getId()).append("\n");
 				logger.trace(queryLog.toString());
 			}
 
-			pstUser.setLong(1, userID);
+			pstUser.setLong(1, user.getId());
 			pstUser.executeUpdate();
 		} catch (Exception e) {
 			logger.error("error:" + e.getMessage());
@@ -474,7 +474,7 @@ public class UserDAOService extends ConnectionHelper {
 		logger.debug("deleteUser is finished");
 	}
 
-	public void updateUserData(User user, String email) throws Exception {
+	public void updateUserData(User user) throws Exception {
 
 		logger.debug("updateUserData started");
 
@@ -526,7 +526,7 @@ public class UserDAOService extends ConnectionHelper {
 
 			pstDeleteRole = con.prepareStatement(queryString);
 
-			pstDeleteRole.setString(1, email);
+			pstDeleteRole.setString(1, user.getEmail());
 
 			logger.debug("pstDeleteRole : " + pstDeleteRole.toString());
 

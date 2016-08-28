@@ -74,21 +74,21 @@ public class UserRest {
 	}
 	
 	
-	@Path("/deleteUser/{mail}")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@PermitAll
-	public void deleteUser(long userID , @PathParam("mail") String email) throws Exception{
-		ServiceFacade.getInstance().deleteUser(userID,email);
-	}
-	
-	
-	@Path("/updateUserData/{mail}")
+	@Path("/deleteUser")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void updateUserData(User user,@PathParam("mail") String email) {
-		ServiceFacade.getInstance().updateUserData(user,email);
+	public void deleteUser(User user) throws Exception{
+		ServiceFacade.getInstance().deleteUser(user);
+	}
+	
+	
+	@Path("/updateUserData")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
+	public void updateUserData(User user) throws Exception{
+		ServiceFacade.getInstance().updateUserData(user);
 	}
 	
 	

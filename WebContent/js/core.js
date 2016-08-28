@@ -34,7 +34,7 @@ $.get("/Ticket_System/rest/session/login", function() {
       }
     });
 
-    loadAllTickets(1);
+    showTickets();
 
 
     $('#supporterRole').change(function() {

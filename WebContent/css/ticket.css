@@ -66,14 +66,15 @@ body {
 	word-break: break-all;
 }
 
-#user_detail_msg, #add_user_msg, #add_ticket_modal_msg
+#user_detail_msg, #add_user_modal_msg, #add_ticket_modal_msg
 	{
 	font-size: 18px;
 }
-#delete_ticket_msg,#add_company_msg,
-	#delete_user_msg, #delete_user_status, #update_user_label,
+
+#delete_ticket_msg,#add_company_modal_msg,
+	#delete_user_msg, #delete_user_modal_msg, #update_user_modal_msg,
 	#update_user_msg,#edit_ticket_modal_msg,#close_ticket_modal_msg,
-	#close_ticket_msg, #delete_ticket_modal_msg,#add_dep_msg {
+	#close_ticket_msg, #delete_ticket_modal_msg,#add_dep_modal_msg {
 		font-size:15px;
 	}
 
