@@ -3,6 +3,7 @@ package com.j32bit.ticket.rest;
 import java.util.ArrayList;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -87,7 +88,7 @@ public class TicketRest {
 	@Path("/deleteTicket")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed("admin")
 	public void deleteTicket(long ticketID) throws Exception {
 		ServiceFacade.getInstance().deleteTicket(ticketID);
 	}
@@ -95,7 +96,7 @@ public class TicketRest {
 	@Path("/editTicket")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed("admin")
 	public void editTicket(Ticket editedTicket) throws Exception {
 		ServiceFacade.getInstance().editTicket(editedTicket);
 	}

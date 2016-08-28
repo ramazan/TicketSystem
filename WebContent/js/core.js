@@ -76,8 +76,24 @@ function showProfile() {
   $('#profile_page').show();
 }
 
-function showTicketDetails() {
+function showTicketDetails(selectedTicket) {
   $('#ticket_details_page').show();
+
+  // ticket benim degilse kapatamam
+  if (selectedTicket.sender.id != authenticatedUser.id) {
+    $("#ticket_detail_close_btn").hide();
+  }
+
+  // admin degilsem editleyemem
+  if (isAdmin == false) {
+    $("#ticket_detail_delete_btn").hide();
+    $("#ticket_detail_edit_btn").hide();
+  }
+
+  // kapaliysa kapalidir!
+  if (selectedTicket.status == false) {
+    $("#ticket_detail_close_btn").hide();
+  }
 }
 
 function showTickets() {

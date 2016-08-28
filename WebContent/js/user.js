@@ -172,7 +172,7 @@ function validate() {
 
   } else if (password1 == password2 && password1 != "" && password2 != "") {
     $("#profile_update_alert").show();
-    $("#profile_update_alert").css("display","none");
+    $("#profile_update_alert").css("display", "none");
     $("#user_update_btn").removeAttr('disabled');
 
   } else {

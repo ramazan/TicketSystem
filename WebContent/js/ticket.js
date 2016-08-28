@@ -1,9 +1,15 @@
 var selectedTicket;
 
+
+function prepareTicketDetailArea() {
+  $("#ticket_detail_edit_btn").show();
+  $("#ticket_detail_delete_btn").show();
+  $("#ticket_detail_close_btn").show();
+}
+
 function getTicket(ticketID) {
 
-  showTicketDetails();
-
+  prepareTicketDetailArea();
   $.ajax({
     type: "POST",
     url: '/Ticket_System/rest/ticket/getTicketDetails',
@@ -12,6 +18,9 @@ function getTicket(ticketID) {
     data: JSON.stringify(ticketID),
     success: function(ticket) {
       selectedTicket = ticket;
+
+      showTicketDetails(selectedTicket);
+
       $("#ticket_title").text(ticket.title);
       var msg = ticket.message.replace(/\n/g, "<br />");
       $("#ticket_message").html(msg);
@@ -72,7 +81,7 @@ function deleteTicket() {
       showTickets();
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      console.log("error :" + errorThrown);
+      $("#delete_ticket_modal_msg").text("You are not authorized to delete tickets");
     }
   });
 }
@@ -231,13 +240,11 @@ function loadAllTickets(status) {
       align: "center"
     }],
     responsive: true,
-    multiselect: true,
     viewrecords: true,
     height: 450,
     width: 850,
     styleUI: 'Bootstrap',
     rowNum: 10,
-    //    loadonce: true,
     rowNum: 100,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
