@@ -172,12 +172,12 @@ function validate() {
 
   } else if (password1 == password2 && password1 != "" && password2 != "") {
     $("#profile_update_alert").show();
-    $("#pass_validate").text("Şifreler eşleşti!");
+    $("#profile_update_alert").css("display","none");
     $("#user_update_btn").removeAttr('disabled');
 
   } else {
     $("#profile_update_alert").show();
-    $("#pass_validate").text("Şifreler eşleşmiyor!");
+    $("#pass_validate").text("Passwords don't match!");
     $("#user_update_btn").prop("disabled", true);
   }
 }

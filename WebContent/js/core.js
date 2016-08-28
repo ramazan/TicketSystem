@@ -30,6 +30,8 @@ $.get("/Ticket_System/rest/session/login", function() {
         if (isAdmin == false) {
           console.log("nav-user is hided");
           $("#nav_users").hide();
+          $("#nav_companies").hide();
+          $("#nav_deps").hide();
         }
       }
     });
