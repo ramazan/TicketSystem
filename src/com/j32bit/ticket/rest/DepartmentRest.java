@@ -30,5 +30,14 @@ public class DepartmentRest {
 	public Department addDepartment(Department department) throws Exception {
 		return ServiceFacade.getInstance().addDeparment(department);
 	}
-
+	
+	@POST
+	@Path("/getDepartmentDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Department getDepartmentDetails(long ID) throws Exception {
+		System.out.println("  getDepartmentDetails id : " + ID);
+		return ServiceFacade.getInstance().getDepartment(ID);
+	}
+	
 }
