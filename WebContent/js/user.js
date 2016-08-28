@@ -76,6 +76,7 @@ function loadAllUsers() {
 function prepareAddUserArea() {
   loadAllDeparments("new_user_dep");
   loadAllCompanies("new_user_company");
+
   $("#departmentFade").hide();
   $("#add_user_modal_btn").prop("disabled", false);
   $("#add_user_modal_msg").text("");

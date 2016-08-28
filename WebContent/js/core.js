@@ -67,65 +67,52 @@ function showProfile() {
   $("#user_new_pass_c").keyup(validate).val("");
   $("#profile_update_alert").hide();
 
+  $("#navs li").removeClass("active");
+  $("#nav_profile").addClass("active");
 
-  $('#nav_users').removeClass("active");
-  $("#nav_tickets").removeClass("active");
-
-  $('#users_page').hide();
-  $('#tickets_page').hide();
-  $('#ticket_details_page').hide();
+  $("#navs > div").hide();
   $('#profile_page').show();
 }
 
 function showTicketDetails() {
-
-  $("#nav_users").removeClass("active");
-  $('#nav_tickets').removeClass("active");
-  $("#nav_profile").addClass("active");
-
   $('#ticket_details_page').show();
-
 }
 
 function showTickets() {
 
   loadAllTickets(1);
 
-  $("#nav_profile").removeClass("active");
-  $('#nav_users').removeClass("active");
+  $("#navs li").removeClass("active");
   $("#nav_tickets").addClass("active");
-  $('#users_page').hide();
-  $('#ticket_details_page').hide();
-  $('#profile_page').hide();
+
+  $("#pages > div").hide();
   $('#tickets_page').show();
 }
 
 function showUsers() {
   loadAllUsers();
 
-  $("#nav_profile").removeClass("active");
-  $('#nav_tickets').removeClass("active");
+  $("#navs li").removeClass("active");
   $("#nav_users").addClass("active");
+
+  $("#pages > div").hide(); // atasi pages olan divleri gizle
   $('#users_page').show();
-  $('#ticket_details_page').hide();
-  $('#profile_page').hide();
-  $('#tickets_page').hide();
 }
 
 function showDepartments() {
-	  loadAllDepartments();
+  $("#navs li").removeClass("active");
+  $("#nav_deps").addClass("active");
 
-	  $("#nav_profile").removeClass("active");
-	  $('#nav_tickets').removeClass("active");
-	  $("#nav_users").addClass("active");
-	  $('#users_page').hide();
-	  $('#ticket_details_page').hide();
-	  $('#profile_page').hide();
-	  $('#tickets_page').hide();
-	  $('#departments_page').show();
+  $("#pages > div").hide();
+  $('#departments_page').show();
+}
 
-	  
-	}
+function showCompanies() {
+  $("#navs li").removeClass("active");
+  $("#nav_companies").addClass("active");
+
+  $("#pages > div").hide();
+}
 
 $('.dropdown').hover(function() {
   $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
