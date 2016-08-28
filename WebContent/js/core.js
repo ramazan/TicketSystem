@@ -70,7 +70,7 @@ function showProfile() {
   $("#navs li").removeClass("active");
   $("#nav_profile").addClass("active");
 
-  $("#navs > div").hide();
+  $("#pages > div").hide();
   $('#profile_page').show();
 }
 
@@ -100,6 +100,8 @@ function showUsers() {
 }
 
 function showDepartments() {
+  loadDepartmentsPage();
+
   $("#navs li").removeClass("active");
   $("#nav_deps").addClass("active");
 

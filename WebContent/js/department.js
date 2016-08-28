@@ -1,43 +1,46 @@
+function loadDepartmentsPage() {
+  /* deneme */
+
+  $("#deps_jqGrid").GridUnload();
+  $("#deps_jqGrid").jqGrid({
+    caption: "DEPARTMENTS LIST",
+    url: "/Ticket_System/rest/department/getAllDepartments",
+    mtype: "GET",
+    datatype: "json",
+    colModel: [{
+      label: "ID",
+      name: 'id',
+      width: 35,
+      sortable: true,
+      sorttype: "int",
+      search: true,
+      align: "center"
+    }, {
+      label: "Department",
+      name: 'name',
+      width: 95
+    }],
+    viewrecords: true,
+    height: 400,
+    width: 890,
+    //    loadonce: true,
+    rowNum: 100,
+    styleUI: 'Bootstrap',
+    pager: "#deps_jqGridPager",
+    emptyrecords: "Nothing to display"
+  });
+}
+
 /*
   addPlaceID: departmanlarin ekleneceği select tag idsi
   selectVal: girilmesi durumunda eşleşen value default seçilir
 */
 function loadAllDeparments(addPlaceID, selectVal) {
-	/* deneme */
-	
-	  $("#users_jqGrid").GridUnload();
-	  $("#users_jqGrid").jqGrid({
-	    caption: "DEPARTMENTS LIST",
-	    url: "/Ticket_System/rest/department/getAllDepartments",
-	    mtype: "GET",
-	    datatype: "json",
-	    colModel: [{
-	      label: "ID",
-	      name: 'id',
-	      width: 35,
-	      sortable: true,
-	      sorttype: "int",
-	      search: true,
-	      align: "center"
-	    }, {
-	      label: "Department",
-	      name: 'department.name',
-	      width: 95
-	    }],
-	    viewrecords: true,
-	    height: 400,
-	    width: 890,
-	    //    loadonce: true,
-	    rowNum: 100,
-	    styleUI: 'Bootstrap',
-	    pager: "#users_jqGridPager",
-	    emptyrecords: "Nothing to display"
-	  });
-	
+
   var selectBoxId = "#" + addPlaceID;
   $(selectBoxId).html(" ");
   $.ajax({
-    type: "POST",
+    type: "GET",
     url: '/Ticket_System/rest/department/getAllDepartments',
     contentType: "application/json",
     mimeType: "application/json",
