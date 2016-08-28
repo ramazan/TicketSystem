@@ -112,6 +112,21 @@ function showUsers() {
   $('#tickets_page').hide();
 }
 
+function showDepartments() {
+	  loadAllDepartments();
+
+	  $("#nav_profile").removeClass("active");
+	  $('#nav_tickets').removeClass("active");
+	  $("#nav_users").addClass("active");
+	  $('#users_page').hide();
+	  $('#ticket_details_page').hide();
+	  $('#profile_page').hide();
+	  $('#tickets_page').hide();
+	  $('#departments_page').show();
+
+	  
+	}
+
 $('.dropdown').hover(function() {
   $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
 }, function() {
