@@ -3,10 +3,31 @@ var isAdmin = false;
 var isSupporter = false;
 var isClient = false;
 
-// login to system
-$.get("/Ticket_System/rest/session/login", function() {
+$("#navLinks > li").hide();
+$("#nav_tickets").show();
 
-  $(document).ready(function() {
+$(document).ready(function() {
+  showTickets();
+  authenticateUser();
+});
+
+$('#supporterRole').change(function() {
+  if (this.checked)
+    $('#departmentFade').fadeIn();
+  else
+    $('#departmentFade').fadeOut();
+});
+
+$('#selectedPersonRoleSup').change(function() {
+  if (this.checked)
+    $('#departmentInput').fadeIn();
+  else
+    $('#departmentInput').fadeOut();
+});
+
+function authenticateUser() {
+  // login to system
+  $.get("/Ticket_System/rest/session/login", function() {
     $.ajax({
       type: "POST",
       url: '/Ticket_System/rest/session/getAuthenticatedUser',
@@ -15,10 +36,8 @@ $.get("/Ticket_System/rest/session/login", function() {
       success: function(data) {
         authenticatedUser = data;
         $("#nav_nickname").text(authenticatedUser.email);
-
         // sayfayi izinlere gore hazirla
         $.each(authenticatedUser.userRoles, function(key, value) {
-          console.log(value);
           if (value == "admin")
             isAdmin = true;
           else if (value == "supporter")
@@ -26,35 +45,15 @@ $.get("/Ticket_System/rest/session/login", function() {
           else
             isClient = true;
         });
-
-        if (isAdmin == false) {
-          console.log("nav-user is hided");
-          $("#nav_users").hide();
-          $("#nav_companies").hide();
-          $("#nav_deps").hide();
+        if (isAdmin == true) {
+          $("#nav_users").show();
+          $("#nav_companies").show();
+          $("#nav_deps").show();
         }
       }
     });
-
-    showTickets();
-
-
-    $('#supporterRole').change(function() {
-      if (this.checked)
-        $('#departmentFade').fadeIn();
-      else
-        $('#departmentFade').fadeOut();
-    });
-
-    $('#selectedPersonRoleSup').change(function() {
-      if (this.checked)
-        $('#departmentInput').fadeIn();
-      else
-        $('#departmentInput').fadeOut();
-    });
-
   });
-});
+}
 
 
 function logout() {
