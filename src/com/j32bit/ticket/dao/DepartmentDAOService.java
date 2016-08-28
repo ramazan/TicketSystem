@@ -155,4 +155,46 @@ public class DepartmentDAOService extends ConnectionHelper {
 		return department;
 	}
 
+	
+	public void deleteDepartment(long ID) {
+		
+		logger.debug("deleteDepartment started. Param: ticketID=" + ID);
+
+		// TO-DO departmana ait kullanıcı ya da ticket kontrolü yapılacak....
+		
+		Connection con = null;
+		PreparedStatement pstDepartment = null;
+		StringBuilder queryDeleteDepartment = new StringBuilder();
+
+		try {
+			queryDeleteDepartment.append("DELETE FROM departments ");
+			queryDeleteDepartment.append("WHERE ID=?");
+			String queryString = queryDeleteDepartment.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pstDepartment = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("Department_ID : ").append(ID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+			
+			pstDepartment.setLong(1,ID);
+
+			pstDepartment.executeUpdate();
+
+		} catch (Exception e) {
+			logger.error("error:" + e.getMessage());
+		} finally {
+			closePreparedStatement(pstDepartment);
+			closeConnection(con);
+		}
+		logger.debug("deleteDepartment is finished");
+		
+	}
+
 }

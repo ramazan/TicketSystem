@@ -112,25 +112,25 @@ function addDepartment() {
 
 function addDepartmentLink(cellvalue, options, rowObject) {
 	var departmentID = rowObject.id;
-	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
-	clickLink += " onclick=\"getDepartment(" + departmentID + ")\" >"
+	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Delete'";
+	clickLink += " onclick=\"deleteDepartment(" + departmentID + ")\" >"
 			+ departmentID + "</a>"
 	return clickLink;
 }
 
 
 
-function getDepartment(departmentID) {
+function deleteDepartment(departmentID) {
 
 	  $.ajax({
 	    type: "POST",
-	    url: '/Ticket_System/rest/department/getDepartmentDetails',
+	    url: '/Ticket_System/rest/department/deleteDepartment',
 	    contentType: "application/json",
 	    mimeType: "application/json",
 	    data: JSON.stringify(departmentID),
 	    success: function(department) {	    
 	    	
-	    	console.log("dep : " + department.id + "    " + department.name)
+	        $('#deps_jqGrid').trigger('reloadGrid');
 
 	    },
 	    error: function() {

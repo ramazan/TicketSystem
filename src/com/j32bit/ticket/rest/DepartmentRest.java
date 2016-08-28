@@ -40,4 +40,12 @@ public class DepartmentRest {
 		return ServiceFacade.getInstance().getDepartment(ID);
 	}
 	
+	@POST
+	@Path("/deleteDepartment")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteDepartment(long ID) throws Exception {
+		 ServiceFacade.getInstance().deleteDepartment(ID);
+	}
+	
 }
