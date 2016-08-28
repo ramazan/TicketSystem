@@ -343,7 +343,7 @@ public class TicketDAOService extends ConnectionHelper {
 		Ticket ticket = null;
 
 		try {
-			query.append("SELECT tickets.*, departments.DEPARTMENT_NAME, users.FULL_NAME, users.EMAIL FROM tickets ");
+			query.append("SELECT tickets.*, DATE_FORMAT(tickets.DATE,'%d/%m/%Y %k:%i') AS TICKETDATE, departments.DEPARTMENT_NAME, users.FULL_NAME, users.EMAIL FROM tickets ");
 			query.append("INNER JOIN departments ON tickets.DEPARTMENT_ID=departments.ID ");
 			query.append("INNER JOIN users ON users.id=tickets.SENDER_ID ");
 			query.append("WHERE tickets.ID=?");
@@ -365,15 +365,16 @@ public class TicketDAOService extends ConnectionHelper {
 			pst.setLong(1, ticketID);
 
 			rs = pst.executeQuery();
-
+			
 			if (rs.next()) {
 				ticket = new Ticket();
 				ticket.setId(ticketID);
 				ticket.setMessage(rs.getString("MESSAGE"));
 				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setTitle(rs.getString("TITLE"));
-				ticket.setTime(rs.getTimestamp("DATE").toString());
-				
+				ticket.setTime(rs.getString("TICKETDATE").toString());
+				logger.debug("rs.getTimestamp : " + rs.getString("TICKETDATE").toString());
+
 				if(rs.getInt("STATUS")==1){
 					ticket.setStatus(true);
 				}else{
@@ -467,7 +468,7 @@ public class TicketDAOService extends ConnectionHelper {
 		StringBuilder query = new StringBuilder();
 
 		try {
-			query.append("SELECT ticket_responses.*, users.FULL_NAME, users.EMAIL FROM ticket_responses ");
+			query.append("SELECT ticket_responses.*,DATE_FORMAT(ticket_responses.DATE,'%d/%m/%Y %k:%i') AS RESPONSEDATE, users.FULL_NAME, users.EMAIL FROM ticket_responses ");
 			query.append("INNER JOIN users ON ticket_responses.SENDER_ID=users.ID ");
 			query.append("WHERE ticket_responses.TICKET_ID=? ORDER BY ticket_responses.ID ASC ");
 
@@ -492,7 +493,7 @@ public class TicketDAOService extends ConnectionHelper {
 			while (rs.next()) {
 
 				TicketResponse response = new TicketResponse();
-				response.setDate(rs.getTimestamp("DATE").toString());
+				response.setDate(rs.getString("RESPONSEDATE").toString());
 				response.setId(rs.getLong("ID"));
 				response.setMessage(rs.getString("RESPONSE"));
 				response.setTicketID(ticketID);

@@ -318,9 +318,9 @@ function updateUserData() {
   if (newRoles.length == 0 || newName == "" || newEmail == "" ||
     newCompanyID == "" || newPassword == "") {
     console.log("error: fill all boxes");
-    $("#update_user_label").html("Please fill required(*) boxes");
+    $("#update_user_modal_msg").text("Please fill required(*) boxes");
     setTimeout(function() {
-      $("#update_user_label").text("");
+      $("#update_user_modal_msg").text("");
     }, 2000);
   } else {
 
@@ -352,6 +352,7 @@ function updateUserData() {
         setTimeout(function() {
           $('#user_modal_detail').modal('hide');
           $('#update_user_modal').modal('hide');
+          $("#update_user_modal_msg").text("");
         }, 2000);
       },
       error: function() {
