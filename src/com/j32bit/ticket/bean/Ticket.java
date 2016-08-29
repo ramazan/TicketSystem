@@ -8,8 +8,7 @@ public class Ticket {
 	private Department department;
 	private String message;
 	private String title;
-	private int priority;
-	private boolean status;
+	private int status;
 
 	public Ticket() {
 	}
@@ -30,19 +29,13 @@ public class Ticket {
 		this.department = department;
 	}
 
-	public int getPriority() {
-		return priority;
-	}
 
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
 
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

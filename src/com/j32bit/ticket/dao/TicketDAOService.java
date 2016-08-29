@@ -38,8 +38,8 @@ public class TicketDAOService extends ConnectionHelper {
 		StringBuilder querylog = new StringBuilder();
 		try {
 			query.append("INSERT INTO tickets ");
-			query.append("(SENDER_ID, TITLE,DEPARTMENT_ID,MESSAGE,PRIORITY) ");
-			query.append("VALUES(?,?,?,?,?)");
+			query.append("(SENDER_ID, TITLE,DEPARTMENT_ID,MESSAGE) ");
+			query.append("VALUES(?,?,?,?)");
 			String queryString = query.toString();
 			logger.debug("Sql query Created : " + queryString);
 
@@ -52,7 +52,6 @@ public class TicketDAOService extends ConnectionHelper {
 				querylog.append("TITLE : ").append(ticket.getTitle()).append("\n");
 				querylog.append("MESSAGE : ").append(ticket.getMessage()).append("\n");
 				querylog.append("SENDER_ID : ").append(ticket.getSender().getId()).append("\n");
-				querylog.append("PRIORITY : ").append(ticket.getPriority()).append("\n");
 				querylog.append("DEPARTMENT_ID : ").append(ticket.getDepartment().getId()).append("\n");
 				logger.trace(querylog.toString());
 			}
@@ -61,7 +60,6 @@ public class TicketDAOService extends ConnectionHelper {
 			pStmt.setString(2, ticket.getTitle());
 			pStmt.setLong(3, ticket.getDepartment().getId());
 			pStmt.setString(4, ticket.getMessage());
-			pStmt.setInt(5, ticket.getPriority());
 
 			pStmt.execute();
 
@@ -117,14 +115,8 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setId(rs.getLong("ID"));
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setMessage(rs.getString("MESSAGE"));
-				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setTime(rs.getTimestamp("DATE").toString());
-				
-				if(rs.getInt("STATUS")==1){
-					ticket.setStatus(true);
-				}else{
-					ticket.setStatus(false);
-				}
+				ticket.setStatus(rs.getInt("STATUS"));
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));
@@ -227,14 +219,8 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setId(rs.getLong("ID"));
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setMessage(rs.getString("MESSAGE"));
-				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setTime(rs.getTimestamp("DATE").toString());
-				
-				if(rs.getInt("STATUS")==1){
-					ticket.setStatus(true);
-				}else{
-					ticket.setStatus(false);
-				}
+				ticket.setStatus(rs.getInt("STATUS"));
 
 				User ticketSender = new User();
 				ticketSender.setName(rs.getString("FULL_NAME"));
@@ -302,14 +288,8 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket.setId(rs.getLong("ID"));
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setMessage(rs.getString("MESSAGE"));
-				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setTime(rs.getTimestamp("DATE").toString());
-				
-				if(rs.getInt("STATUS")==1){
-					ticket.setStatus(true);
-				}else{
-					ticket.setStatus(false);
-				}
+				ticket.setStatus(rs.getInt("STATUS"));
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));
@@ -374,16 +354,11 @@ public class TicketDAOService extends ConnectionHelper {
 				ticket = new Ticket();
 				ticket.setId(ticketID);
 				ticket.setMessage(rs.getString("MESSAGE"));
-				ticket.setPriority(rs.getInt("PRIORITY"));
 				ticket.setTitle(rs.getString("TITLE"));
 				ticket.setTime(rs.getString("TICKETDATE").toString());
+				ticket.setStatus(rs.getInt("STATUS"));
 				logger.debug("rs.getTimestamp : " + rs.getString("TICKETDATE").toString());
 
-				if(rs.getInt("STATUS")==1){
-					ticket.setStatus(true);
-				}else{
-					ticket.setStatus(false);
-				}
 
 				User user = new User();
 				user.setName(rs.getString("FULL_NAME"));
