@@ -129,17 +129,23 @@ function loadAllResponses() {
     data: JSON.stringify(selectedTicket.id),
     success: function(responses) {
 
-
-      $("#response_list").html("");
-      $.each(responses, function(key, value) {
-        var msg = value.message.replace(/\n/g, "<br />");
-        $('#response_list').append("<li class='media'>" +
-          "<div class='media-body'><div class='media'>" +
-          "<div class='media-body'><p class='response_message'>" + msg +
-          "</p><p class = 'text-muted' >" + value.sender.name +
-          "  |  " + value.date + " </p><hr>" +
-          "</div> </div > </div> </li>");
-      });
+	    	if(!$.trim(responses)){
+	    	    $('#ResponseAlertMessage').show();	    
+	    	    $('#response_list').text("");
+	    	}
+	       else{
+	    	    $('#ResponseAlertMessage').hide();	    	
+			      $("#response_list").html("");
+			      $.each(responses, function(key, value) {
+			        var msg = value.message.replace(/\n/g, "<br />");
+			        $('#response_list').append("<li class='media'>" +
+			          "<div class='media-body'><div class='media'>" +
+			          "<div class='media-body'><p class='response_message'>" + msg +
+			          "</p><p class = 'text-muted' >" + value.sender.name +
+			          "  |  " + value.date + " </p><hr>" +
+			          "</div> </div > </div> </li>");
+			      });
+	    	}
     }
   });
 }
