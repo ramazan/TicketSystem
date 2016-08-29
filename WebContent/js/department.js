@@ -14,13 +14,17 @@ function loadDepartmentsPage() {
 			sortable : true,
 			sorttype : "int",
 			search : true,
-			align : "center",
-			formatter : addDepartmentLink
+			align : "center"
 		}, {
 			label : "Department",
 			name : 'name',
 			width : 95
-		} ],
+		}, {
+		    label: "Delete",
+		    name: 'id',
+		    width: 40,
+			formatter : addDepartmentLink
+		    } ],
 		viewrecords : true,
 		height : 400,
 		width : 890,
@@ -112,29 +116,34 @@ function addDepartment() {
 
 function addDepartmentLink(cellvalue, options, rowObject) {
 	var departmentID = rowObject.id;
-	var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Delete'";
-	clickLink += " onclick=\"deleteDepartment(" + departmentID + ")\" >"
-			+ departmentID + "</a>"
-	return clickLink;
+	  var clickLink = "<button onclick='deleteDepartment(" + departmentID + ")'" +
+	    "class='btn btn-warning btn-xs'>Delete</button>"
+	  return clickLink;
 }
 
 
-
 function deleteDepartment(departmentID) {
+		
+    $('#delete_department_modal').modal('show');
 
-	  $.ajax({
-	    type: "POST",
-	    url: '/Ticket_System/rest/department/deleteDepartment',
-	    contentType: "application/json",
-	    mimeType: "application/json",
-	    data: JSON.stringify(departmentID),
-	    success: function(department) {	    
-	    	
-	        $('#deps_jqGrid').trigger('reloadGrid');
-
-	    },
-	    error: function() {
-	      alert("Department details cannot get please try again. departmentID:  " + departmentID);
-	    }
-	  });
+	
+	if($("#delete_user_modal_btn" ).click(function( event ) {})){
+		
+		alert("tıklandı.");
+//	  $.ajax({
+//	    type: "POST",
+//	    url: '/Ticket_System/rest/department/deleteDepartment',
+//	    contentType: "application/json",
+//	    mimeType: "application/json",
+//	    data: JSON.stringify(departmentID),
+//	    success: function(department) {	    
+//	    	
+//	        $('#deps_jqGrid').trigger('reloadGrid');
+//
+//	    },
+//	    error: function() {
+//	      alert("Department details cannot get please try again. departmentID:  " + departmentID);
+//	    }
+//	  });
 	}
+}
