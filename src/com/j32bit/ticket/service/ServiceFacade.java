@@ -113,6 +113,7 @@ public class ServiceFacade {
 	}
 
 	public Company getCompany(long id) {
+		logger.debug("get comp : " +id);
 		return companyService.getCompany(id);
 	}
 

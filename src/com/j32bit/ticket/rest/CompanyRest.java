@@ -30,7 +30,7 @@ public class CompanyRest {
 		return ServiceFacade.getInstance().getAllCompanies();
 	}
 
-	@GET
+	@POST
 	@Path("/getCompany")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

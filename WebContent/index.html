@@ -114,7 +114,7 @@
 						</div>
 						<div class="panel-body" align="center">
 							<div id="ResponseAlertMessage" class="alert alert-danger" role="alert" style="display:none; text-align:center; width:400px;">
-								<strong> No answer yet!</strong>
+								<strong> No responses yet!</strong>
 							</div>
 							<ul class="media-list" id="response_list"></ul>
 						</div>
@@ -552,6 +552,51 @@
 		</div>
 	</div>
 	<!-- Add Company Modal end -->
+	
+	<!-- Company Detail Modal -->
+	<div id="detail_company_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"> Company Details</h4>
+				</div>
+				<div class="modal-body">
+					<p id="add_company_modal_msg" class="label label-info"></p>
+					<br>
+					<br>
+					<div class="form-group">
+						<label>Name:<span class="text-danger">*</span></label>
+						<input maxlength="45" class="form-control" type="text" id="selected_company_name" />
+					</div>
+					<div class="form-group">
+						<label>E-Mail:<span class="text-danger">*</span></label>
+						<input maxlength="45" class="form-control" type="text" id="selected_company_email" />
+					</div>
+					<div class="form-group">
+						<label>Phone:</label>
+						<input maxlength="45" class="form-control" type="text" id="selected_company_phone" />
+					</div>
+					<div class="form-group">
+						<label>Fax:</label>
+						<input maxlength="45" class="form-control" type="text" id="selected_company_fax" />
+					</div>
+					<div class="form-group">
+						<label>Address:</label>
+						<input maxlength="500" class="form-control" type="text" id="selected_company_address" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="selected_company_update_btn" class="btn btn-success" onclick="updateCompanyData()">Update</button>
+					<button id="selected_company_delete_btn" class="btn btn-danger" onclick="DeleteCompany()">Delete</button>
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Company Detail Modal end -->
+	
+	
 
 	<!-- Add Department Modal -->
 	<div id="add_dep_modal" tabindex="-1" class="modal fade" role="dialog">
