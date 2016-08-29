@@ -331,7 +331,6 @@ function prepareAddTicketArea() {
   $("#sendTicketButton").prop("disabled", false);
   $('input:checkbox').removeAttr('checked');
   $("#new_ticket_title").val("");
-  $("#new_ticket_title").val("");
   $("#new_ticket_msg").val("");
   $('.ticketMessageCountdown').text('500 characters remaining.');
   loadAllDeparments("new_ticket_dep");
@@ -347,7 +346,6 @@ function sendTicket() {
   } else {
     $("#sendTicketButton").prop("disabled", true);
     var ticketDepartmentID = $("#new_ticket_dep").val();
-    var ticketPriority = $("#new_ticket_prio").val();
 
     var ticket = {
       sender: {
@@ -357,8 +355,7 @@ function sendTicket() {
       message: ticketMessage,
       department: {
         id: ticketDepartmentID
-      },
-      priority: ticketPriority
+      }
     };
     $.ajax({
       type: "POST",
