@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TicketExceptionUtils extends ExceptionUtils {
 
-	private static Logger log =  LogManager.getLogger();
+	private static Logger log = LogManager.getLogger();
 
 	public static Exception handleException(Exception exception, String job) {
 
@@ -23,12 +23,12 @@ public class TicketExceptionUtils extends ExceptionUtils {
 				errMsg = "Access denied";
 			} else if (response.getStatus() == 404 && response.getEntity() == null) {
 				errMsg = "Resource not found";
-			} else if(response.getStatus() == 409 && response.getEntity() == null){
+			} else if (response.getStatus() == 409 && response.getEntity() == null) {
 				errMsg = "Resource Conflict";
 			}
 			newException = new Exception(errMsg);
 		} else {
-			errMsg = "\nAn error occured. ("+ exception.getMessage()+")";
+			errMsg = "\nAn error occured. (" + exception.getMessage() + ")";
 			newException = new Exception(errMsg);
 		}
 

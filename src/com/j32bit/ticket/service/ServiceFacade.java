@@ -76,7 +76,7 @@ public class ServiceFacade {
 		else if (user.checkRole("supporter"))
 			tickets = ticketService.getAllDepartmentTickets(status, user);
 		else if (user.checkRole("client"))
-			tickets = ticketService.getAllUserTickets(status,user);
+			tickets = ticketService.getAllUserTickets(status, user);
 		return tickets;
 	}
 
@@ -108,7 +108,7 @@ public class ServiceFacade {
 		ticketService.editTicket(editedTicket);
 	}
 
-	public Company addCompany(Company company) throws Exception{
+	public Company addCompany(Company company) throws Exception {
 		return companyService.addCompany(company);
 	}
 
@@ -128,7 +128,7 @@ public class ServiceFacade {
 		return departmentDAOService.getDepartment(departmentID);
 	}
 
-	public Department addDeparment(Department department) {
+	public Department addDeparment(Department department) throws Exception {
 		return departmentDAOService.addDepartment(department);
 	}
 
@@ -164,8 +164,7 @@ public class ServiceFacade {
 		userService.updateUserData(user);
 	}
 
-
-	public void deleteDepartment(long ID) {
+	public void deleteDepartment(long ID) throws Exception {
 		departmentDAOService.deleteDepartment(ID);
 	}
 

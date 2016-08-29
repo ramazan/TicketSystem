@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.ws.rs.WebApplicationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -109,14 +111,47 @@ public class DepartmentDAOService extends ConnectionHelper {
 		return department;
 	}
 
-	public Department addDepartment(Department department) {
+	public void checkSimilarDepartmentRecord(Department department) throws Exception {
+		logger.debug("checkSimilarDepartmentRecord is started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		String query = "SELECT DEPARTMENT_NAME FROM departments WHERE DEPARTMENT_NAME=?";
+
+		try {
+			con = getConnection();
+			pst = con.prepareStatement(query);
+			pst.setString(1, department.getName());
+
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				throw new WebApplicationException(409);
+			}
+		} catch (Exception e) {
+			if (e instanceof WebApplicationException) {
+				logger.error("checkSimilarDepartmentRecord similar company founded!");
+				throw e;
+			} else {
+				logger.error("checkSimilarDepartmentRecord error:" + e.getMessage());
+			}
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+			logger.debug("checkSimilarDepartmentRecord finished");
+		}
+	}
+
+	public Department addDepartment(Department department) throws Exception {
 		logger.debug("adddepartment started");
 
 		Connection con = null;
 		ResultSet rs = null;
 		PreparedStatement pst = null;
 		StringBuilder query = new StringBuilder();
-		StringBuilder queryLog = new StringBuilder();
+
+		checkSimilarDepartmentRecord(department);
 
 		try {
 
@@ -130,6 +165,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
 
 			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
 				queryLog.append("Name : ").append(department.getName()).append("\n");
@@ -151,17 +187,16 @@ public class DepartmentDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		logger.debug("adddepartment finished");
+		logger.debug("adddepartment is finished");
 		return department;
 	}
 
-	
-	public void deleteDepartment(long ID) {
-		
+	public void deleteDepartment(long ID) throws Exception {
+
 		logger.debug("deleteDepartment started. Param: ticketID=" + ID);
 
-		// TO-DO departmana ait kullanıcı ya da ticket kontrolü yapılacak....
-		
+		// TODO: departmana ait kullanıcı ya da ticket kontrolü yapılacak....
+
 		Connection con = null;
 		PreparedStatement pstDepartment = null;
 		StringBuilder queryDeleteDepartment = new StringBuilder();
@@ -182,8 +217,8 @@ public class DepartmentDAOService extends ConnectionHelper {
 				queryLog.append("Department_ID : ").append(ID).append("\n");
 				logger.trace(queryLog.toString());
 			}
-			
-			pstDepartment.setLong(1,ID);
+
+			pstDepartment.setLong(1, ID);
 
 			pstDepartment.executeUpdate();
 
@@ -194,7 +229,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 			closeConnection(con);
 		}
 		logger.debug("deleteDepartment is finished");
-		
+
 	}
 
 }

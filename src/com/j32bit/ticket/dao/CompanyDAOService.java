@@ -106,11 +106,11 @@ public class CompanyDAOService extends ConnectionHelper {
 				throw new WebApplicationException(409);
 			}
 		} catch (Exception e) {
-			if(e instanceof WebApplicationException){
+			if (e instanceof WebApplicationException) {
 				logger.error("checkSimilarCompanyRecord similar company founded!");
 				throw e;
-			}else{
-				logger.error("checkSimilarCompanyRecord error:"+e.getMessage());
+			} else {
+				logger.error("checkSimilarCompanyRecord error:" + e.getMessage());
 			}
 		} finally {
 			closeResultSet(rs);
@@ -196,7 +196,7 @@ public class CompanyDAOService extends ConnectionHelper {
 				throw new Exception("Company not found!!!");
 			}
 		} catch (Exception e) {
-			logger.error("getCompany error : "+e.getMessage());
+			logger.error("getCompany error : " + e.getMessage());
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
