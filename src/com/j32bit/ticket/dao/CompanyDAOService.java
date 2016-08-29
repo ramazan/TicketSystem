@@ -129,7 +129,6 @@ public class CompanyDAOService extends ConnectionHelper {
 		Company company;
 
 		try {
-
 			String query = "SELECT * FROM companies";
 			logger.debug("sql query created : " + query);
 			con = getConnection();
