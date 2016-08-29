@@ -121,6 +121,8 @@ function addDepartmentLink(cellvalue, options, rowObject) {
 	  return clickLink;
 }
 
+var selectedDep;
+
 function deleteDepartment(departmentID) {
 
 	$("#delete_department_modal").modal('show');
