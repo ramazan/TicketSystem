@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.ws.rs.WebApplicationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +28,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		logger.info("CompanyDAOService initialize finished");
 	}
 
-	public Company addCompany(Company company) {
+	public Company addCompany(Company company) throws Exception {
 		logger.debug("addCompany started");
 
 		Connection con = null;
@@ -36,8 +38,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		StringBuilder queryLog = new StringBuilder();
 		long recordId = 0;
 
-		checkSimilarCompanyRecord(company); // TODO : ?????? EXCEPTIONLARDAN
-											// SONRA TEKRAR BAKILACAK
+		checkSimilarCompanyRecord(company);
 
 		try {
 
@@ -87,7 +88,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		return company;
 	}
 
-	private void checkSimilarCompanyRecord(Company company) {
+	private void checkSimilarCompanyRecord(Company company) throws Exception {
 		logger.debug("checkSimilarCompanyRecord started");
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -102,16 +103,21 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				throw new Exception("Similar record founds. Company Name :" + rs.getString("COMPANY_NAME"));
+				throw new WebApplicationException(409);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(e instanceof WebApplicationException){
+				logger.error("checkSimilarCompanyRecord similar company founded!");
+				throw e;
+			}else{
+				logger.error("checkSimilarCompanyRecord error:"+e.getMessage());
+			}
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
 			closeConnection(con);
+			logger.debug("checkSimilarCompanyRecord finished");
 		}
-		logger.debug("checkSimilarCompanyRecord finished");
 	}
 
 	public ArrayList<Company> getAllcompanies() {

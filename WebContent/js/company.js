@@ -57,7 +57,7 @@ function addCompany() {
     };
 
     $.ajax({
-      type: "POST",
+      method: "POST",
       url: '/Ticket_System/rest/company/addCompany',
       contentType: "application/json",
       mimeType: "application/json",
@@ -72,8 +72,15 @@ function addCompany() {
           $('#add_company_modal').modal('hide');
         }, 2000);
       },
-      error: function() {
-        $("#add_company_modal_msg").text("Add Company | An Error Occured!");
+      error: function(jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status = 409) {
+          $("#add_company_modal_msg").text("Similar company name exist in system!");
+        } else {
+          $("#add_company_modal_msg").text("AddCompany Error Occured!");
+        }
+        console.log("test AddCompany");
+        console.log(jqXHR);
+        console.log("testend AddCompany");
       }
     });
   }

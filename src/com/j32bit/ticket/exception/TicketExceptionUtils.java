@@ -23,6 +23,8 @@ public class TicketExceptionUtils extends ExceptionUtils {
 				errMsg = "Access denied";
 			} else if (response.getStatus() == 404 && response.getEntity() == null) {
 				errMsg = "Resource not found";
+			} else if(response.getStatus() == 409 && response.getEntity() == null){
+				errMsg = "Resource Conflict";
 			}
 			newException = new Exception(errMsg);
 		} else {
