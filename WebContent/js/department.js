@@ -49,7 +49,7 @@ function loadDepartmentsPage() {
 			    caption: "Add",
 			    buttonicon: "ui-icon-add",
 			    onClickButton: function() {
-			    	prepareAddDepArea();
+			      $("#add_dep_modal").modal("show");
 			    }
 		  });
 }

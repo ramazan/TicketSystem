@@ -68,6 +68,7 @@ function addCompany() {
         $('#' + selectedCompanyAreaID).append(
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
+        $('#comp_jqGrid').trigger('reloadGrid');
         setTimeout(function() {
           $('#add_company_modal').modal('hide');
         }, 2000);
@@ -131,4 +132,23 @@ function loadCompaniesPage() {
     pager: "#comp_jqGridPager",
     emptyrecords: "Nothing to display"
   });
+  
+  $('#comp_jqGrid').navGrid('#comp_jqGridPager', {
+	    edit: false,
+	    add: false,
+	    del: false,
+	    search: true,
+	    refresh: true,
+	    view: false,
+	    position: "left",
+	    cloneToTop: false
+	  }).navButtonAdd('#comp_jqGridPager', {
+		    caption: "Add",
+		    buttonicon: "ui-icon-add",
+		    onClickButton: function() {
+		    	$("#add_company_modal").modal("show");
+		    }
+	  });
+  
+  
 }
