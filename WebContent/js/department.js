@@ -116,34 +116,36 @@ function addDepartment() {
 
 function addDepartmentLink(cellvalue, options, rowObject) {
 	var departmentID = rowObject.id;
-	  var clickLink = "<button onclick='deleteDepartment(" + departmentID + ")'" +
+	  var clickLink = "<button id='DepartmentRowButton'  onclick='deleteDepartment(" + departmentID + ")'" +
 	    "class='btn btn-warning btn-xs'>Delete</button>"
 	  return clickLink;
 }
 
-
 function deleteDepartment(departmentID) {
-		
-    $('#delete_department_modal').modal('show');
 
-	
-	if($("#delete_user_modal_btn" ).click(function( event ) {})){
+	$("#delete_department_modal").modal('show');
 		
-		alert("tıklandı.");
-//	  $.ajax({
-//	    type: "POST",
-//	    url: '/Ticket_System/rest/department/deleteDepartment',
-//	    contentType: "application/json",
-//	    mimeType: "application/json",
-//	    data: JSON.stringify(departmentID),
-//	    success: function(department) {	    
-//	    	
-//	        $('#deps_jqGrid').trigger('reloadGrid');
+	$("#delete_user_modal_btn" ).click(function( event ) {
+		
+		alert("tıklandı." + departmentID);
+//		  $.ajax({
+//		    type: "POST",
+//		    url: '/Ticket_System/rest/department/deleteDepartment',
+//		    contentType: "application/json",
+//		    mimeType: "application/json",
+//		    data: JSON.stringify(departmentID),
+//		    success: function(department) {	    
+//		    	
+//		        $('#deps_jqGrid').trigger('reloadGrid');
 //
-//	    },
-//	    error: function() {
-//	      alert("Department details cannot get please try again. departmentID:  " + departmentID);
-//	    }
-//	  });
-	}
+//		    },
+//		    error: function() {
+//		      alert("Department details cannot get please try again. departmentID:  " + departmentID);
+//		    }
+//		  });
+		
+	});
+		
+	console.log("bitti..");
+	
 }
