@@ -34,6 +34,24 @@ function loadDepartmentsPage() {
 		pager : "#deps_jqGridPager",
 		emptyrecords : "Nothing to display"
 	});
+	
+	
+	 $('#deps_jqGrid').navGrid('#deps_jqGridPager', {
+		    edit: false,
+		    add: false,
+		    del: false,
+		    search: true,
+		    refresh: true,
+		    view: false,
+		    position: "left",
+		    cloneToTop: false
+		  }).navButtonAdd('#deps_jqGridPager', {
+			    caption: "Add",
+			    buttonicon: "ui-icon-add",
+			    onClickButton: function() {
+			    	prepareAddDepArea();
+			    }
+		  });
 }
 
 /*
@@ -102,6 +120,7 @@ function addDepartment() {
 				$("#" + selectedDeparmentAreaID).append(
 						$("<option></option>").attr("value", result.id).attr(
 								"selected", true).text(result.name));
+		        $('#deps_jqGrid').trigger('reloadGrid');
 				setTimeout(function() {
 					$('#add_dep_modal').modal('hide');
 				}, 2000);
