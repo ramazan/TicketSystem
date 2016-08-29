@@ -74,6 +74,10 @@ public class TicketDAOService extends ConnectionHelper {
 		logger.debug("addTicket is finished");
 	}
 	
+	public ArrayList<Ticket> getAllUserTickets(int status,User user) {
+		return new ArrayList<>();
+	}
+	
 	public ArrayList<Ticket> getPostedTickets(int status, long userID){
 		logger.debug("getPostedTickets started");
 		Connection conn = null;

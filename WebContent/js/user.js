@@ -260,7 +260,6 @@ function prepareDeleteUserArea() {
   $("#delete_user_modal").modal("show");
 }
 
-
 //user detail modaldeki seçilen kullanıcının silinmesi
 function deleteUserData() {
 

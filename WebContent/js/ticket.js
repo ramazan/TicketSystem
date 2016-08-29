@@ -328,6 +328,7 @@ function loadPostedTickets(status) {
 
 function prepareAddTicketArea() {
   $("#add_ticket_modal_msg").text("");
+  $("#sendTicketButton").prop("disabled", false);
   $('input:checkbox').removeAttr('checked');
   $("#new_ticket_title").val("");
   $("#new_ticket_title").val("");
@@ -370,7 +371,6 @@ function sendTicket() {
           "Ticket sended. Closing Window in 2sec..");
         setTimeout(function() {
           $('#add_ticket_modal').modal('hide');
-          $("#sendTicketButton").prop("disabled", false);
         }, 2000);
         // reload jqgrid
         $('#tickets_jqGrid').trigger('reloadGrid');

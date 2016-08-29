@@ -7,7 +7,6 @@ $("#navLinks > li").hide();
 $("#nav_tickets").show();
 
 $(document).ready(function() {
-  showTickets();
   authenticateUser();
 });
 
@@ -36,6 +35,7 @@ function authenticateUser() {
       success: function(data) {
         authenticatedUser = data;
         $("#nav_nickname").text(authenticatedUser.email);
+        showTickets();
         // sayfayi izinlere gore hazirla
         $.each(authenticatedUser.userRoles, function(key, value) {
           if (value == "admin")

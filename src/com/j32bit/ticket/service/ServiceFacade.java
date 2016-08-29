@@ -76,7 +76,7 @@ public class ServiceFacade {
 		else if (user.checkRole("supporter"))
 			tickets = ticketService.getAllDepartmentTickets(status, user);
 		else if (user.checkRole("client"))
-			tickets = ticketService.getAllTickets(status);
+			tickets = ticketService.getAllUserTickets(status,user);
 		return tickets;
 	}
 
