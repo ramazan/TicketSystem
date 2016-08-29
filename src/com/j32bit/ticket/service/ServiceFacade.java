@@ -108,7 +108,7 @@ public class ServiceFacade {
 		ticketService.editTicket(editedTicket);
 	}
 
-	public Company addCompany(Company company) {
+	public Company addCompany(Company company) throws Exception{
 		return companyService.addCompany(company);
 	}
 
