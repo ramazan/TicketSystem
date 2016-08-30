@@ -35,11 +35,10 @@ public class CompanyRest {
 	@Path("/getCompany")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Company getCompany(long companyID) {
+	public Company getCompany(long companyID) throws Exception {
 		return ServiceFacade.getInstance().getCompany(companyID);
 	}
-	
-	
+
 	@POST
 	@Path("/deleteCompanyData")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -47,12 +46,12 @@ public class CompanyRest {
 	public void deleteCompany(long companyID) throws Exception {
 		ServiceFacade.getInstance().deleteCompany(companyID);
 	}
-	
+
 	@Path("/updateCompanyData")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void updateUserData(Company company) throws Exception{
+	public void updateUserData(Company company) throws Exception {
 		ServiceFacade.getInstance().updateCompanyData(company);
 	}
 

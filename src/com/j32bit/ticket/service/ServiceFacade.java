@@ -108,7 +108,7 @@ public class ServiceFacade {
 		return companyService.addCompany(company);
 	}
 
-	public Company getCompany(long id) {
+	public Company getCompany(long id) throws Exception {
 		logger.debug("get comp : " + id);
 		return companyService.getCompany(id);
 	}

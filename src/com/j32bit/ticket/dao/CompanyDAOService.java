@@ -50,20 +50,15 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
-			pst = con.prepareStatement(queryString,
-					Statement.RETURN_GENERATED_KEYS);
+			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
 
 			if (logger.isTraceEnabled()) { // trace bas sonra calistir
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
-				queryLog.append("Name : ").append(company.getName())
-						.append("\n");
-				queryLog.append("Address : ").append(company.getAddress())
-						.append("\n");
-				queryLog.append("Email : ").append(company.getEmail())
-						.append("\n");
-				queryLog.append("Phone : ").append(company.getPhone())
-						.append("\n");
+				queryLog.append("Name : ").append(company.getName()).append("\n");
+				queryLog.append("Address : ").append(company.getAddress()).append("\n");
+				queryLog.append("Email : ").append(company.getEmail()).append("\n");
+				queryLog.append("Phone : ").append(company.getPhone()).append("\n");
 				queryLog.append("Fax : ").append(company.getFax()).append("\n");
 				logger.trace(queryLog.toString());
 			}
@@ -99,7 +94,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		String query = "SELECT COMPANY_NAME , ID FROM companies WHERE COMPANY_NAME=?";
+		String query = "SELECT COMPANY_NAME, ID FROM companies WHERE COMPANY_NAME=?";
 
 		try {
 			con = getConnection();
@@ -108,7 +103,8 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				if(!(rs.getLong("ID")==company.getId()))
+				// user bulduysa zaten esittir
+				// if (rs.getLong("ID") != company.getId())
 				throw new WebApplicationException(409);
 			}
 		} catch (Exception e) {
@@ -116,8 +112,7 @@ public class CompanyDAOService extends ConnectionHelper {
 				logger.error("checkSimilarCompanyRecord similar company founded!");
 				throw e;
 			} else {
-				logger.error("checkSimilarCompanyRecord error:"
-						+ e.getMessage());
+				logger.error("checkSimilarCompanyRecord error:" + e.getMessage());
 			}
 		} finally {
 			closeResultSet(rs);
@@ -128,12 +123,14 @@ public class CompanyDAOService extends ConnectionHelper {
 	}
 
 	public ArrayList<Company> getAllcompanies() {
-		logger.debug("getAllcompany started");
-		ArrayList<Company> companies = new ArrayList<Company>();
+		logger.debug("getAllcompanies is started");
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+
 		Company company;
+		ArrayList<Company> companies = new ArrayList<Company>();
 
 		try {
 			String query = "SELECT * FROM companies";
@@ -159,12 +156,12 @@ public class CompanyDAOService extends ConnectionHelper {
 			closePreparedStatement(pst);
 			closeConnection(con);
 		}
-		logger.debug("getAllcompany finished. company#: " + companies.size());
+		logger.debug("getAllcompany finished. company # is " + companies.size());
 		return companies;
 	}
 
-	public Company getCompany(long companyID) {
-		logger.debug("getCompany started");
+	public Company getCompany(long companyID) throws Exception {
+		logger.debug("getCompany is started");
 
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -179,7 +176,6 @@ public class CompanyDAOService extends ConnectionHelper {
 			con = getConnection();
 
 			pst = con.prepareStatement(query);
-			pst.setLong(1, companyID);
 
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
@@ -188,7 +184,7 @@ public class CompanyDAOService extends ConnectionHelper {
 				queryLog.append("ID : ").append(companyID).append("\n");
 				logger.trace(queryLog.toString());
 			}
-
+			pst.setLong(1, companyID);
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
@@ -200,10 +196,12 @@ public class CompanyDAOService extends ConnectionHelper {
 				company.setPhone(rs.getString("PHONE"));
 				company.setAddress(rs.getString("ADDRESS"));
 			} else {
-				throw new Exception("Company not found!!!");
+				throw new WebApplicationException(405);
 			}
 		} catch (Exception e) {
 			logger.error("getCompany error : " + e.getMessage());
+			if (e instanceof WebApplicationException)
+				throw e;
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
@@ -214,19 +212,17 @@ public class CompanyDAOService extends ConnectionHelper {
 	}
 
 	public void deleteCompany(long companyID) throws Exception {
-
 		logger.debug("deleteCompanyData selectedCompanyID : " + companyID);
 
-		// Company'e ait user olup olmadığı check ediliyor
-		// eğer bu company'e ait kullanıcı var ise silmiyorum.!!
-		checkUsersCompany(companyID);
-
+		// company de member varsa silme!
+		if (isCompanyHasMember(companyID) == true) {
+			throw new WebApplicationException(409);
+		}
 		Connection con = null;
 		PreparedStatement pstCompany = null;
 		StringBuilder queryDeleteCompany = new StringBuilder();
 
 		try {
-
 			queryDeleteCompany.append("DELETE FROM companies ");
 			queryDeleteCompany.append("WHERE ID=?");
 			String queryString = queryDeleteCompany.toString();
@@ -244,8 +240,8 @@ public class CompanyDAOService extends ConnectionHelper {
 			}
 
 			pstCompany.setLong(1, companyID);
-
 			pstCompany.executeUpdate();
+
 		} catch (Exception e) {
 			logger.error("error:" + e.getMessage());
 		} finally {
@@ -255,12 +251,13 @@ public class CompanyDAOService extends ConnectionHelper {
 		logger.debug("deleteCompany is finished");
 	}
 
-	private void checkUsersCompany(long companyID) throws Exception {
-
-		logger.debug("checkUsersCompany started");
+	// eger uye yoksa true, varsa false return edecek
+	private boolean isCompanyHasMember(long companyID) throws Exception {
+		logger.debug("isCompanyHasMember started");
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		boolean result = false;
 
 		String query = "SELECT * FROM users WHERE COMPANY_ID=?";
 
@@ -271,39 +268,33 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				throw new WebApplicationException(409);
+				result = true;
 			}
 		} catch (Exception e) {
-			if (e instanceof WebApplicationException) {
-				logger.error("checkUsersCompany used from some users founded!");
-				throw e;
-			} else {
-				logger.error("checkUsersCompany error:" + e.getMessage());
-			}
+			logger.error("isCompanyHasMember error:" + e.getMessage());
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
 			closeConnection(con);
-			logger.debug("checkUsersCompany finished");
+			logger.debug("isCompanyHasMember finished");
 		}
+		return result;
 	}
 
 	public void updateCompanyData(Company company) throws Exception {
-		
-		logger.debug("updateCompanyData started");
-		
-		//güncellerken kendisi hariç aynı isimdeki başka bir company adı olmaması engellendi!!
+		logger.debug("updateCompanyData is started");
+
+		// ayni isimli company olamaz!
 		checkSimilarCompanyRecord(company);
-		
-		
+
 		Connection con = null;
 		PreparedStatement pstUpdateUser = null;
 		StringBuilder queryUpdateCompany = new StringBuilder();
-		try {
 
+		try {
 			queryUpdateCompany.append("UPDATE companies SET ");
-			queryUpdateCompany.append("COMPANY_NAME=? , ADDRESS=? , PHONE=? , FAX=? , EMAIL=? ");
-			queryUpdateCompany.append(" WHERE ID=? ;");
+			queryUpdateCompany.append("COMPANY_NAME=?, ADDRESS=?, PHONE=?, FAX=?, EMAIL=? ");
+			queryUpdateCompany.append("WHERE ID=? ;");
 			String queryString = queryUpdateCompany.toString();
 			logger.debug("sql query created : " + queryString);
 
@@ -319,7 +310,7 @@ public class CompanyDAOService extends ConnectionHelper {
 			pstUpdateUser.executeUpdate();
 
 		} catch (Exception e) {
-			logger.debug("updateCompanyData error");
+			logger.error("updateCompanyData error");
 			e.printStackTrace();
 		} finally {
 			closePreparedStatement(pstUpdateUser);
@@ -327,6 +318,4 @@ public class CompanyDAOService extends ConnectionHelper {
 		}
 		logger.debug("updateCompanyData completed");
 	}
-		
-	
 }

@@ -75,10 +75,10 @@ public class UserDAOService extends ConnectionHelper {
 	public void addUser(User user) throws Exception {
 		logger.debug("addUser started");
 		Connection con = null;
-		
+
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
-		
+
 		StringBuilder query = new StringBuilder();
 
 		String userEmail = user.getEmail();
@@ -120,11 +120,11 @@ public class UserDAOService extends ConnectionHelper {
 
 				if (rs.next()) {
 					user.setId(rs.getLong(1));
-					logger.debug("addUser newUserID:"+user.getId());
+					logger.debug("addUser newUserID:" + user.getId());
 				}
 				storeUserRoles(user);
 			} catch (Exception e) {
-				logger.error("addUser error:"+e.getMessage());
+				logger.error("addUser error:" + e.getMessage());
 				e.printStackTrace();
 			} finally {
 				closePreparedStatement(pStmt);
@@ -204,7 +204,7 @@ public class UserDAOService extends ConnectionHelper {
 	}
 
 	public User getUser(String userEmail) {
-		logger.debug("getUser started. Param_userEmail:"+userEmail);
+		logger.debug("getUser started. Param_userEmail:" + userEmail);
 
 		Connection con = null;
 		PreparedStatement pstUser = null;
@@ -283,7 +283,7 @@ public class UserDAOService extends ConnectionHelper {
 				user.setUserRoles(roles);
 			}
 		} catch (Exception e) {
-			logger.error("getUser with email error occured:"+e.getMessage());
+			logger.error("getUser with email error occured:" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			closeResultSet(rsRole);
@@ -360,7 +360,7 @@ public class UserDAOService extends ConnectionHelper {
 				user.setUserRoles(roles);
 			}
 		} catch (Exception e) {
-			logger.error("getUser with ID  error occured:"+e.getMessage());
+			logger.error("getUser with ID  error occured:" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			closeResultSet(rsRole);
