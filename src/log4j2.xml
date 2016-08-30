@@ -9,16 +9,18 @@
     </Console>
 	
 	<!-- PRINT LOGS TO FILE -->
-	<RollingFile name="FileWriter" fileName="log4j2Test.log" filePattern="log4j2Test-%d{MM-dd-yyyy}-%i.log" >
+	<!-- log dosyaları /opt/eclipse/logs/ dizini altında"
+	<RollingFile name="FileWriter" fileName="./logs/ticket32.log" 
+				filePattern="./logs/ticket32-%d{MM-dd-yyyy}-%i.log" 
+				ignoreExcetions="false">
 		<PatternLayout>
         	<Pattern>%d %p %c{3} %m%n</Pattern>
         </PatternLayout>
         <Policies>
         	<TimeBasedTriggeringPolicy />
-            <SizeBasedTriggeringPolicy size="1 MB"/>
+            <SizeBasedTriggeringPolicy size="5 MB"/>
         </Policies>
         <DefaultRolloverStrategy max="2000"/>
-
 	</RollingFile>
   </Appenders>
 
@@ -31,6 +33,7 @@
 
     <Root level="DEBUG">
       <AppenderRef ref="Console"/>
+		<AppenderRef ref="FileWriter"/>
     </Root>
   </Loggers>
 

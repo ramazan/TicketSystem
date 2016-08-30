@@ -6,8 +6,6 @@ public class Department {
 
 	public Department() {
 	}
-	
-	
 
 	public Department(long id, String name) {
 		this.name = name;
