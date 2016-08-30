@@ -9,7 +9,7 @@
     </Console>
 	
 	<!-- PRINT LOGS TO FILE -->
-	<!-- log dosyaları /opt/eclipse/logs/ dizini altında"
+	<!-- log dosyaları /opt/eclipse/logs/ dizini altında" -->
 	<RollingFile name="FileWriter" fileName="./logs/ticket32.log" 
 				filePattern="./logs/ticket32-%d{MM-dd-yyyy}-%i.log" 
 				ignoreExcetions="false">
