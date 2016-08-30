@@ -88,3 +88,18 @@ body {
 #brand_img {
 	height: 35px;
 }
+
+#ResponseAlertMessage{
+	display: none;
+	width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+#addResponseAlertMessage{
+	display: none;
+	margin: 0 auto;
+	text-align: center;
+	width: 400px;
+}
