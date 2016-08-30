@@ -92,6 +92,7 @@ function prepareAddDepArea(depAddAreaID) {
 }
 
 function addDepartment() {
+  $("#add_dep_modal_btn").prop("disabled", true);
   var dName = $("#new_dep_name").val();
   if (dName == "") {
     $("#add_dep_modal_msg").text("You have to fill required(*) places");
@@ -108,7 +109,6 @@ function addDepartment() {
       mimeType: "application/json",
       data: JSON.stringify(department),
       success: function(result) {
-        $("#add_dep_modal_btn").prop("disabled", false);
         $("#add_dep_modal_msg").text(
           "Department added. Closing Window in 2sec..");
         $("#" + selectedDeparmentAreaID).append(
@@ -120,6 +120,7 @@ function addDepartment() {
         }, 2000);
       },
       error: function(jqXHR, textStatus, errorThrown) {
+        $("#add_dep_modal_btn").prop("disabled", false);
         if (jqXHR.status == 409) {
           $("#add_dep_modal_msg").text("Department exist!");
         } else {
