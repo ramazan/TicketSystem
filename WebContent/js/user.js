@@ -137,7 +137,6 @@ function addUser() {
       data: JSON.stringify(person),
       success: function() {
         $("#add_user_modal_btn").prop("disabled", true);
-
         $("#add_user_modal_msg").text("User added. Closing Window in 2sec..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
@@ -146,18 +145,17 @@ function addUser() {
           $('#add_user_modal').modal('hide');
         }, 2000);
       },
-      error : function(jqXHR, textStatus, errorThrown) {
-			if (jqXHR.status == 409) {
-				$("#add_user_modal_msg").text("There is an existing account associated with this mail");	
-				setTimeout(function() {
-					$("#add_user_modal_msg").text("");
-					$('#add_user_modal').modal('hide');
-				}, 4000);
-			} else {
-				$("#add_user_modal_msg").text(
-						"Unresolved error! Send ticket!");
-			}
-		}
+      error: function(jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == 409) {
+          $("#add_user_modal_msg").text("There is an existing account associated with this mail");
+          // hatali user varsa modal kapanmadan bilgi guncellemesi yapilmalı
+          // NOT: modal acilmadan once tum veriler zaten temizleniyor
+          // tekrar temizlemeye gerek yok!
+        } else {
+          $("#add_user_modal_msg").text(
+            "Unresolved error! Send ticket!");
+        }
+      }
     });
   }
 }
@@ -166,6 +164,7 @@ function addUser() {
 function loadProfileInf() {
   var user = authenticatedUser;
   $("#user_email").text(user.email);
+  $("#user_department").text(user.department.name);
   $("#user_name").text(user.name);
   $("#user_roles").text(user.userRoles);
   $("#user_company").text(user.company.name);

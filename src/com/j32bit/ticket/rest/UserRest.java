@@ -42,7 +42,7 @@ public class UserRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void addUser(User user) throws Exception{
+	public void addUser(User user) throws Exception {
 		ServiceFacade.getInstance().addUser(user);
 	}
 
@@ -53,7 +53,7 @@ public class UserRest {
 	public ArrayList<User> getAllUsers() {
 		return ServiceFacade.getInstance().getAllUsers();
 	}
-	
+
 	@Path("/getUserInfo/{id}")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -61,7 +61,6 @@ public class UserRest {
 	public User getUserInfo(@PathParam("id") long ID) {
 		return ServiceFacade.getInstance().getUserDetailWithID(ID);
 	}
-	
 
 	@Path("/updateProfile")
 	@PUT
@@ -72,25 +71,21 @@ public class UserRest {
 		String email = authenticatedUserDetails.getEmail();
 		ServiceFacade.getInstance().updateProfile(password, email);
 	}
-	
-	
+
 	@Path("/deleteUser")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void deleteUser(User user) throws Exception{
+	public void deleteUser(User user) throws Exception {
 		ServiceFacade.getInstance().deleteUser(user);
 	}
-	
-	
+
 	@Path("/updateUserData")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void updateUserData(User user) throws Exception{
+	public void updateUserData(User user) throws Exception {
 		ServiceFacade.getInstance().updateUserData(user);
 	}
-	
-	
 
 }

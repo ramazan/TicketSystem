@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.j32bit.ticket.bean.Company;
-import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("company")
