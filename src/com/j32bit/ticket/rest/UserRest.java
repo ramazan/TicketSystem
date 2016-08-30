@@ -42,7 +42,7 @@ public class UserRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public void addUser(User user) {
+	public void addUser(User user) throws Exception{
 		ServiceFacade.getInstance().addUser(user);
 	}
 

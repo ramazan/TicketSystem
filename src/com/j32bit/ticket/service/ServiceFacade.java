@@ -55,12 +55,8 @@ public class ServiceFacade {
 		logger.info("initialize finished");
 	}
 
-	public void addUser(User user) {
-		try {
-			userService.addUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void addUser(User user) throws Exception {
+		userService.addUser(user);
 	}
 
 	public ArrayList<User> getAllUsers() {
@@ -113,7 +109,7 @@ public class ServiceFacade {
 	}
 
 	public Company getCompany(long id) {
-		logger.debug("get comp : " +id);
+		logger.debug("get comp : " + id);
 		return companyService.getCompany(id);
 	}
 

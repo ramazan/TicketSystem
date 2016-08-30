@@ -112,25 +112,26 @@ function loadCompaniesPage() {
 			search : true,
 			align : "center"
 		}, {
-			label : "Company Name",
+			label : "Name",
 			name : 'name',
-			width : 85
+			width : 65,
+			align: "center"
 		}, {
 			label : "Address",
 			name : 'address',
-			width : 140
+			width : 160
 		}, {
 			label : "E-Mail",
 			name : 'email',
-			width : 85
+			width : 125
 		}, {
 			label : "Phone",
 			name : 'phone',
-			width : 85
+			width : 80
 		}, {
 			label : "Fax",
 			name : 'fax',
-			width : 85
+			width : 80
 		}, {
 			label : "Detail",
 			name : 'id',

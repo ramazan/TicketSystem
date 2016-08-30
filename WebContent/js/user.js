@@ -146,9 +146,18 @@ function addUser() {
           $('#add_user_modal').modal('hide');
         }, 2000);
       },
-      error: function() {
-        $("#add_user_modal_msg").text("addUser | An Error Occured!");
-      }
+      error : function(jqXHR, textStatus, errorThrown) {
+			if (jqXHR.status == 409) {
+				$("#add_user_modal_msg").text("There is an existing account associated with this mail");	
+				setTimeout(function() {
+					$("#add_user_modal_msg").text("");
+					$('#add_user_modal').modal('hide');
+				}, 4000);
+			} else {
+				$("#add_user_modal_msg").text(
+						"Unresolved error! Send ticket!");
+			}
+		}
     });
   }
 }
