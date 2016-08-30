@@ -169,7 +169,7 @@ public class ServiceFacade {
 		departmentDAOService.deleteDepartment(ID);
 	}
 
-	public void deleteCompany(long companyID) {
+	public void deleteCompany(long companyID) throws Exception {
 		companyService.deleteCompany(companyID);
 	}
 

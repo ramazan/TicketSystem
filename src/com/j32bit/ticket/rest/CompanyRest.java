@@ -43,7 +43,7 @@ public class CompanyRest {
 	@Path("/deleteCompanyData")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void deleteCompany(long companyID) {
+	public void deleteCompany(long companyID) throws Exception {
 		ServiceFacade.getInstance().deleteCompany(companyID);
 	}
 

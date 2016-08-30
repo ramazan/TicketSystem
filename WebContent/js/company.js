@@ -220,25 +220,37 @@ function deleteCompanyData() {
 
 	console.log("deleteCompanyData selectedCompanyID : " + selectedCompanyID);
 
-	$.ajax({
-		url : "/Ticket_System/rest/company/deleteCompanyData/",
-		type : "POST",
-		mimeType : "application/json",
-		contentType : "application/json",
-		data : JSON.stringify(selectedCompanyID),
-		success : function() {
-			$("#delete_company_modal_btn").prop("disabled", false);
-			$("#delete_company_modal_msg").text(
-					"Company deleted. Closing Window in 2sec..");
-			$('#comp_jqGrid').trigger('reloadGrid');
-			setTimeout(function() {
-				$('#detail_company_modal').modal('hide');
-				$('#delete_company_modal').modal('hide');
-			}, 2000);
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("error :" + errorThrown);
-		}
-	});
+	$
+			.ajax({
+				url : "/Ticket_System/rest/company/deleteCompanyData/",
+				type : "POST",
+				mimeType : "application/json",
+				contentType : "application/json",
+				data : JSON.stringify(selectedCompanyID),
+				success : function() {
+					$("#delete_company_modal_btn").prop("disabled", false);
+					$("#delete_company_modal_msg").text(
+							"Company deleted. Closing Window in 2sec..");
+					$('#comp_jqGrid').trigger('reloadGrid');
+					setTimeout(function() {
+						$('#detail_company_modal').modal('hide');
+						$('#delete_company_modal').modal('hide');
+					}, 2000);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					$("#delete_company_modal_btn").prop("disabled", false);
+					if (jqXHR.status = 409) {
+						$("#delete_company_modal_msg")
+								.text(
+										"You can't delete this company because some users using this!");
+					} else {
+						$("#delete_company_modal_msg").text(
+								"DeleteCompany Error Occured!");
+					}
+					console.log("test DeleteCompany");
+					console.log(jqXHR);
+					console.log("testend DeleteCompany");
+				}
+			});
 
 }

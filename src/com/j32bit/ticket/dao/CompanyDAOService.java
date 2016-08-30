@@ -50,15 +50,20 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			con = getConnection();
 			// auto incremenet index leri almak icin 2.parametre lazim
-			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+			pst = con.prepareStatement(queryString,
+					Statement.RETURN_GENERATED_KEYS);
 
 			if (logger.isTraceEnabled()) { // trace bas sonra calistir
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
-				queryLog.append("Name : ").append(company.getName()).append("\n");
-				queryLog.append("Address : ").append(company.getAddress()).append("\n");
-				queryLog.append("Email : ").append(company.getEmail()).append("\n");
-				queryLog.append("Phone : ").append(company.getPhone()).append("\n");
+				queryLog.append("Name : ").append(company.getName())
+						.append("\n");
+				queryLog.append("Address : ").append(company.getAddress())
+						.append("\n");
+				queryLog.append("Email : ").append(company.getEmail())
+						.append("\n");
+				queryLog.append("Phone : ").append(company.getPhone())
+						.append("\n");
 				queryLog.append("Fax : ").append(company.getFax()).append("\n");
 				logger.trace(queryLog.toString());
 			}
@@ -110,7 +115,8 @@ public class CompanyDAOService extends ConnectionHelper {
 				logger.error("checkSimilarCompanyRecord similar company founded!");
 				throw e;
 			} else {
-				logger.error("checkSimilarCompanyRecord error:" + e.getMessage());
+				logger.error("checkSimilarCompanyRecord error:"
+						+ e.getMessage());
 			}
 		} finally {
 			closeResultSet(rs);
@@ -206,62 +212,78 @@ public class CompanyDAOService extends ConnectionHelper {
 		return company;
 	}
 
-	public void deleteCompany(long companyID) {
+	public void deleteCompany(long companyID) throws Exception {
 
 		logger.debug("deleteCompanyData selectedCompanyID : " + companyID);
-		
-//		Connection con = null;
-//		PreparedStatement pstRoles = null;
-//		PreparedStatement pstUser = null;
-//		StringBuilder queryDeleteRole = new StringBuilder();
-//		StringBuilder queryDeleteUser = new StringBuilder();
-//
-//		try {
-//
-//			queryDeleteRole.append("DELETE FROM user_roles ");
-//			queryDeleteRole.append("WHERE EMAIL=?");
-//			String queryString = queryDeleteRole.toString();
-//			logger.debug("sql query created : " + queryString);
-//
-//			con = getConnection();
-//			pstRoles = con.prepareStatement(queryString);
-//
-//			if (logger.isTraceEnabled()) {
-//				StringBuilder queryLog = new StringBuilder();
-//				queryLog.append("Query : ").append(queryString).append("\n");
-//				queryLog.append("Parameters : ").append("\n");
-//				queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
-//				logger.trace(queryLog.toString());
-//			}
-//
-//			pstRoles.setString(1, user.getEmail());
-//
-//			pstRoles.executeUpdate();
-//
-//			queryDeleteUser.append("DELETE FROM users ");
-//			queryDeleteUser.append("WHERE ID=?");
-//			queryString = queryDeleteUser.toString();
-//			logger.debug("sql query created :" + queryString);
-//
-//			pstUser = con.prepareStatement(queryString);
-//
-//			if (logger.isTraceEnabled()) {
-//				StringBuilder queryLog = new StringBuilder();
-//				queryLog.append("Query : ").append(queryString).append("\n");
-//				queryLog.append("Parameters : ").append("\n");
-//				queryLog.append("ID : ").append(user.getId()).append("\n");
-//				logger.trace(queryLog.toString());
-//			}
-//
-//			pstUser.setLong(1, user.getId());
-//			pstUser.executeUpdate();
-//		} catch (Exception e) {
-//			logger.error("error:" + e.getMessage());
-//		} finally {
-//			closePreparedStatement(pstRoles);
-//			closePreparedStatement(pstUser);
-//			closeConnection(con);
-//		}
-//		logger.debug("deleteUser is finished");
+
+		// Company'e ait user olup olmadığı check ediliyor
+		// eğer bu company'e ait kullanıcı var ise silmiyorum.!!
+		checkUsersCompany(companyID);
+
+		Connection con = null;
+		PreparedStatement pstCompany = null;
+		StringBuilder queryDeleteCompany = new StringBuilder();
+
+		try {
+
+			queryDeleteCompany.append("DELETE FROM companies ");
+			queryDeleteCompany.append("WHERE ID=?");
+			String queryString = queryDeleteCompany.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pstCompany = con.prepareStatement(queryString);
+
+			if (logger.isTraceEnabled()) {
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query : ").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("ID : ").append(companyID).append("\n");
+				logger.trace(queryLog.toString());
+			}
+
+			pstCompany.setLong(1, companyID);
+
+			pstCompany.executeUpdate();
+		} catch (Exception e) {
+			logger.error("error:" + e.getMessage());
+		} finally {
+			closePreparedStatement(pstCompany);
+			closeConnection(con);
+		}
+		logger.debug("deleteCompany is finished");
+	}
+
+	private void checkUsersCompany(long companyID) throws Exception {
+
+		logger.debug("checkUsersCompany started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM users WHERE COMPANY_ID=?";
+
+		try {
+			con = getConnection();
+			pst = con.prepareStatement(query);
+			pst.setLong(1, companyID);
+
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				throw new WebApplicationException(409);
+			}
+		} catch (Exception e) {
+			if (e instanceof WebApplicationException) {
+				logger.error("checkUsersCompany used from some users founded!");
+				throw e;
+			} else {
+				logger.error("checkUsersCompany error:" + e.getMessage());
+			}
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+			logger.debug("checkUsersCompany finished");
+		}
 	}
 }
