@@ -2,6 +2,7 @@ package com.j32bit.ticket.rest;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.j32bit.ticket.bean.Company;
+import com.j32bit.ticket.bean.User;
 import com.j32bit.ticket.service.ServiceFacade;
 
 @Path("company")
@@ -45,6 +47,14 @@ public class CompanyRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteCompany(long companyID) throws Exception {
 		ServiceFacade.getInstance().deleteCompany(companyID);
+	}
+	
+	@Path("/updateCompanyData")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
+	public void updateUserData(Company company) throws Exception{
+		ServiceFacade.getInstance().updateCompanyData(company);
 	}
 
 }

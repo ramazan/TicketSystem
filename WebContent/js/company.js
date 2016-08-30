@@ -214,6 +214,13 @@ function prepareDeleteCompanyArea() {
 	$("#delete_company_modal_btn").prop("disabled", false);
 	$("#delete_company_modal").modal("show");
 }
+
+function prepareUpdateCompanyArea() {
+	$("#update_company_modal_btn").prop("disable", false);
+	$("#update_company_modal_msg").text("");
+	$("#update_company_modal").modal("show");
+}
+
 function deleteCompanyData() {
 
 	$("#delete_company_modal_btn").prop("disabled", true);
@@ -247,10 +254,67 @@ function deleteCompanyData() {
 						$("#delete_company_modal_msg").text(
 								"DeleteCompany Error Occured!");
 					}
-					console.log("test DeleteCompany");
-					console.log(jqXHR);
-					console.log("testend DeleteCompany");
 				}
 			});
 
+}
+
+function updateCompanyData() {
+
+	var newName = $("#selected_company_name").val();
+	var newEmail = $("#selected_company_email").val();
+	var newPhone = $("#selected_company_phone").val();
+	var newAddress = $("#selected_company_address").val();
+	var newFax = $("#selected_company_fax").val();
+
+	console.log("update start with id : " + selectedCompanyID);
+	if (newName == "" || newEmail == "") {
+		console.log("error: fill all boxes");
+		$("#update_company_modal_msg").text("Please fill required(*) boxes");
+		setTimeout(function() {
+			$("#update_company_modal_msg").text("");
+			$('#update_company_modal').modal('hide');
+		}, 2500);
+	} else {
+
+		var company = {
+			id : selectedCompanyID,
+			name : newName,
+			email : newEmail,
+			phone : newPhone,
+			address : newAddress,
+			fax : newFax
+		}
+
+		$.ajax({
+			type : "POST",
+			url : '/Ticket_System/rest/company/updateCompanyData/',
+			contentType : "application/json",
+			mimeType : "application/json",
+			data : JSON.stringify(company),
+			success : function() {
+				$("#update_company_modal_btn").prop("disable", true);
+				$("#update_company_modal_msg").text(
+						"Company updated. Closing Window in 2sec..");
+				// reload jqgrid
+				$('#comp_jqGrid').trigger('reloadGrid');
+				setTimeout(function() {
+					$('#detail_company_modal').modal('hide');
+					$('#update_company_modal').modal('hide');
+					$("#update_company_modal_msg").text("");
+				}, 2000);
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				$("#update_company_modal_btn").prop("disabled", false);
+				if (jqXHR.status = 409) {
+					$("#update_company_modal_msg")
+							.text(
+									"You can't update this company");
+				} else {
+					$("#update_company_modal_msg").text(
+							"UpdateCompany Error Occured!");
+				}
+			}
+		});
+	}
 }

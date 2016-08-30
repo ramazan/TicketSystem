@@ -173,4 +173,8 @@ public class ServiceFacade {
 		companyService.deleteCompany(companyID);
 	}
 
+	public void updateCompanyData(Company company) throws Exception {
+		companyService.updateCompanyData(company);
+	}
+
 }

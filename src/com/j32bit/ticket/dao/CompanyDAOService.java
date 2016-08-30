@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.WebApplicationException;
@@ -286,4 +287,46 @@ public class CompanyDAOService extends ConnectionHelper {
 			logger.debug("checkUsersCompany finished");
 		}
 	}
+
+	public void updateCompanyData(Company company) throws Exception {
+		
+		logger.debug("updateCompanyData started");
+		
+		//TODO güncellerken kendisi hariç aynı isimdeki bir company adı olmaması engellenmeli!!
+//		checkSimilarCompanyRecord(company);
+		
+		
+		Connection con = null;
+		PreparedStatement pstUpdateUser = null;
+		StringBuilder queryUpdateCompany = new StringBuilder();
+		try {
+
+			queryUpdateCompany.append("UPDATE companies SET ");
+			queryUpdateCompany.append("COMPANY_NAME=? , ADDRESS=? , PHONE=? , FAX=? , EMAIL=? ");
+			queryUpdateCompany.append(" WHERE ID=? ;");
+			String queryString = queryUpdateCompany.toString();
+			logger.debug("sql query created : " + queryString);
+
+			con = getConnection();
+			pstUpdateUser = con.prepareStatement(queryString);
+
+			pstUpdateUser.setString(1, company.getName());
+			pstUpdateUser.setString(2, company.getAddress());
+			pstUpdateUser.setString(3, company.getPhone());
+			pstUpdateUser.setString(4, company.getFax());
+			pstUpdateUser.setString(5, company.getEmail());
+			pstUpdateUser.setLong(6, company.getId());
+			pstUpdateUser.executeUpdate();
+
+		} catch (Exception e) {
+			logger.debug("updateCompanyData error");
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement(pstUpdateUser);
+			closeConnection(con);
+		}
+		logger.debug("updateCompanyData completed");
+	}
+		
+	
 }

@@ -587,7 +587,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="selected_company_update_btn" class="btn btn-success" onclick="updateCompanyData()">Update</button>
+					<button id="selected_company_update_btn" class="btn btn-success" onclick="prepareUpdateCompanyArea()">Update</button>
 					<button id="selected_company_delete_btn" class="btn btn-danger" onclick="prepareDeleteCompanyArea()">Delete</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
@@ -618,6 +618,30 @@
 		</div>
 	</div>
 	<!-- delete company modal -->
+	
+	<!-- update user modal -->
+	<div id="update_company_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update Company</h4>
+				</div>
+				<div class="modal-body">
+					<p id="update_company_modal_msg" class="label label-info"></p>
+					<br>
+					<br>
+					<p id="update_company_msg" class="label label-danger">Are you sure want to update company?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button id="update_company_modal_btn" onclick="updateCompanyData()" class="btn btn-danger">Update user</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- update user modal -->
+	
 	
 	
 
