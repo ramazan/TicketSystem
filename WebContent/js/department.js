@@ -1,5 +1,5 @@
 function loadDepartmentsPage() {
-  /* deneme */
+
   $("#deps_jqGrid").GridUnload();
   $("#deps_jqGrid").jqGrid({
     caption: "DEPARTMENTS LIST",
@@ -92,13 +92,12 @@ function prepareAddDepArea(depAddAreaID) {
 }
 
 function addDepartment() {
-  $("#add_dep_modal_btn").prop("disabled", true);
   var dName = $("#new_dep_name").val();
   if (dName == "") {
     $("#add_dep_modal_msg").text("You have to fill required(*) places");
   } else {
 
-    var company = {
+    var department = {
       name: dName,
     };
 
@@ -107,8 +106,9 @@ function addDepartment() {
       url: '/Ticket_System/rest/department/addDepartment',
       contentType: "application/json",
       mimeType: "application/json",
-      data: JSON.stringify(company),
+      data: JSON.stringify(department),
       success: function(result) {
+        $("#add_dep_modal_btn").prop("disabled", false);
         $("#add_dep_modal_msg").text(
           "Department added. Closing Window in 2sec..");
         $("#" + selectedDeparmentAreaID).append(
@@ -116,18 +116,12 @@ function addDepartment() {
             "selected", true).text(result.name));
         $('#deps_jqGrid').trigger('reloadGrid');
         setTimeout(function() {
-          $("#add_dep_modal_btn").prop("disabled", false);
           $('#add_dep_modal').modal('hide');
-          $("#add_dep_modal_msg").text("");
         }, 2000);
       },
       error: function(jqXHR, textStatus, errorThrown) {
         if (jqXHR.status == 409) {
           $("#add_dep_modal_msg").text("Department exist!");
-          setTimeout(function() {
-            $("#add_dep_modal_msg").text("");
-            $('#add_dep_modal').modal('hide');
-          }, 4000);
         } else {
           $("#add_dep_modal_msg").text(
             "Unresolved error! Send ticket!");
@@ -146,11 +140,18 @@ function addDepartmentLink(cellvalue, options, rowObject) {
   return clickLink;
 }
 
+
+function prepareDeleteDepartmentArea(depDeleteAreaID) {
+  selectedDeparmentAreaID = depDeleteAreaID;
+  $("#delete_dep_modal_btn").prop("disabled", false);
+  $("#delete_department_modal_msg").text("");
+  $("#delete_department_modal").modal('show');
+}
+
+
 function deleteDepartment(selectedDeparmentAreaID) {
 
   console.log("delete dep id: " + selectedDeparmentAreaID);
-  $("#delete_dep_modal_btn").prop("disabled", true);
-
 
   $.ajax({
     type: "POST",
@@ -159,13 +160,12 @@ function deleteDepartment(selectedDeparmentAreaID) {
     mimeType: "application/json",
     data: JSON.stringify(selectedDeparmentAreaID),
     success: function(department) {
-      $("#delete_dep_modal_btn").prop("disabled", false);
+      $("#delete_dep_modal_btn").prop("disabled", true);
       $('#deps_jqGrid').trigger('reloadGrid');
       $('#delete_department_modal_msg').text("Department deleted Closing Window in 2sec..")
 
       setTimeout(function() {
         $('#delete_department_modal').modal('hide');
-        $("#delete_department_modal_msg").text("");
       }, 2000);
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -174,8 +174,6 @@ function deleteDepartment(selectedDeparmentAreaID) {
         $("#delete_dep_modal_btn").prop("disabled", true);
         setTimeout(function() {
           $('#delete_department_modal').modal('hide');
-          $("#delete_department_modal_msg").text("");
-          $("#delete_dep_modal_btn").prop("disabled", false);
         }, 4000);
       } else {
         $("#delete_department_modal_msg").text(
@@ -183,11 +181,5 @@ function deleteDepartment(selectedDeparmentAreaID) {
       }
     }
   });
-
-}
-
-function prepareDeleteDepartmentArea(depDeleteAreaID) {
-  selectedDeparmentAreaID = depDeleteAreaID;
-  $("#delete_department_modal").modal('show');
 
 }

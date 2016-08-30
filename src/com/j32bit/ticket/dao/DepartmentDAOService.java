@@ -98,10 +98,10 @@ public class DepartmentDAOService extends ConnectionHelper {
 				department.setName(rs.getString("DEPARTMENT_NAME"));
 				department.setId(rs.getLong("ID"));
 			} else {
-				throw new Exception("Not found department");
+				throw new WebApplicationException(404);
 			}
 		} catch (Exception e) {
-			// e.printStackTrace();
+			logger.error("getDepartment error:"+e.getMessage());
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
@@ -198,8 +198,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 		checkDepartmentUser(ID);
 		checkDepartmentTicket(ID); 
 
-		// TODO: departmana ait kullanıcı ya da ticket kontrolü yapılacak....
-	
+		// departman user ve ticket kontrolu
 		Connection con = null;
 		PreparedStatement pstDepartment = null;
 		StringBuilder queryDeleteDepartment = new StringBuilder();
@@ -222,7 +221,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 			}
 
 			pstDepartment.setLong(1, ID);
-
 			pstDepartment.executeUpdate();
 
 		} catch (Exception e) {
@@ -232,7 +230,6 @@ public class DepartmentDAOService extends ConnectionHelper {
 			closeConnection(con);
 		}
 		logger.debug("deleteDepartment is finished");
-
 	}
 
 	public void checkDepartmentUser(long ID) throws Exception {
@@ -254,7 +251,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 			}
 		} catch (Exception e) {
 			if (e instanceof WebApplicationException) {
-				logger.error("checkDepartmentUser error");
+				logger.error("checkDepartmentUser : users uses this dep");
 				throw e;
 			} else {
 				logger.error("checkDepartmentUser error:" + e.getMessage());
