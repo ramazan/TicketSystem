@@ -264,13 +264,12 @@ function getUser(userID) {
 
 function prepareDeleteUserArea() {
   $("#delete_user_modal_msg").text("");
-  $("#delete_user_modal_btn").prop("disabled", false);
   $("#delete_user_modal").modal("show");
 }
 
 //user detail modaldeki seçilen kullanıcının silinmesi
 function deleteUserData() {
-
+  $("#delete_user_modal_btn").prop("disabled", true);
   var deletedUser = {
     id: selectedUser.id,
     email: selectedUser.email
@@ -282,28 +281,29 @@ function deleteUserData() {
     contentType: "application/json",
     data: JSON.stringify(deletedUser),
     success: function() {
-      $("#delete_user_modal_btn").prop("disabled", false);
       $("#delete_user_modal_msg").text("User deleted. Closing Window in 2sec..");
       $('#users_jqGrid').trigger('reloadGrid');
       setTimeout(function() {
         $('#user_modal_detail').modal('hide');
         $('#delete_user_modal').modal('hide');
+        $("#delete_user_modal_btn").prop("disabled", false);
       }, 2000);
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      console.log("error :" + errorThrown);
+      $("#delete_user_modal_msg").text("Error! Try Later!");
+      $("#delete_user_modal_btn").prop("disabled", false);
     }
   });
 }
 
 
 function prepareUpdateUserArea() {
-  $("#update_user_modal_btn").prop("disable", false);
   $("#update_user_modal_msg").text("");
   $("#update_user_modal").modal("show");
 }
 //user detail update kısmı
 function updateUserData() {
+  $("#update_user_modal_btn").prop("disabled", true);
 
   var newName = $("#selectedPersonName").val();
   var newEmail = $('#selectedPersonEmail').val();
@@ -353,17 +353,17 @@ function updateUserData() {
       mimeType: "application/json",
       data: JSON.stringify(person),
       success: function() {
-        $("#update_user_modal_btn").prop("disable", true);
         $("#update_user_modal_msg").text("User updated. Closing Window in 2sec..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
         setTimeout(function() {
           $('#user_modal_detail').modal('hide');
           $('#update_user_modal').modal('hide');
-          $("#update_user_modal_msg").text("");
+          $("#update_user_modal_btn").prop("disabled", false);
         }, 2000);
       },
       error: function() {
+        $("#update_user_modal_btn").prop("disabled", false);
         alert("User cannot updated please try again. ");
       }
     });

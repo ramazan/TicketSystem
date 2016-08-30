@@ -475,8 +475,7 @@ public class UserDAOService extends ConnectionHelper {
 
 	public void updateUserData(User user) throws Exception {
 
-		// TODO daha iyi bir yöntem ile iyileştirilmeli.
-
+		// TODO simdilik iyi gibi duruyor! iyilestirilebilir
 		logger.debug("updateUserData started");
 
 		Connection con = null;
@@ -487,26 +486,28 @@ public class UserDAOService extends ConnectionHelper {
 		StringBuilder queryUpdateRole = new StringBuilder();
 		StringBuilder queryDeleteRole = new StringBuilder();
 
-		StringBuilder queryLog = new StringBuilder();
-		queryLog.append("Parameters : ").append("\n");
-		queryLog.append("ID : ").append(user.getId()).append("\n");
-		queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
-		queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
-		queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
-		queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
-		queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
-		logger.debug(queryLog.toString());
 
 		try {
 			// yeni bilgileri set et
 			queryUpdateUser.append("UPDATE users SET ");
-			queryUpdateUser.append("PASSWORD=? , EMAIL=? , FULL_NAME=? , COMPANY_ID=? , DEPARTMENT_ID=? ");
-			queryUpdateUser.append(" WHERE ID=? ;");
+			queryUpdateUser.append("PASSWORD=?, EMAIL=?, FULL_NAME=?, COMPANY_ID=?, DEPARTMENT_ID=? ");
+			queryUpdateUser.append("WHERE ID=? ;");
 			String queryString = queryUpdateUser.toString();
 			logger.debug("sql query created : " + queryString);
 
 			con = getConnection();
 			pstUpdateUser = con.prepareStatement(queryString);
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query :").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("FULL_NAME : ").append(user.getName()).append("\n");
+				queryLog.append("EMAIL : ").append(user.getEmail()).append("\n");
+				queryLog.append("PASSWORD : ").append(user.getPassword()).append("\n");
+				queryLog.append("COMPANY_ID : ").append(user.getCompany().getId()).append("\n");
+				queryLog.append("DEPARTMENT_ID : ").append(user.getDepartment().getId()).append("\n");
+				logger.trace(queryLog.toString());
+			}
 
 			pstUpdateUser.setString(1, user.getPassword());
 			pstUpdateUser.setString(2, user.getEmail());
@@ -518,13 +519,19 @@ public class UserDAOService extends ConnectionHelper {
 			pstUpdateUser.executeUpdate();
 
 			// eski rolleri sil
-			queryDeleteRole.append("DELETE FROM user_roles WHERE EMAIL=? ; ");
+			queryDeleteRole.append("DELETE FROM user_roles WHERE EMAIL=?");
 			queryString = queryDeleteRole.toString();
 
 			pstDeleteRole = con.prepareStatement(queryString);
-
+			
+			if(logger.isTraceEnabled()){
+				StringBuilder queryLog = new StringBuilder();
+				queryLog.append("Query :").append(queryString).append("\n");
+				queryLog.append("Parameters : ").append("\n");
+				queryLog.append("EMAIL :").append(user.getEmail()).append("\n");
+				logger.trace(queryLog.toString());
+			}
 			pstDeleteRole.setString(1, user.getEmail());
-
 			pstDeleteRole.executeUpdate();
 
 			// yeni rolleri set et
@@ -542,14 +549,14 @@ public class UserDAOService extends ConnectionHelper {
 				pstUpdateRole.executeUpdate();
 			}
 		} catch (Exception e) {
-			logger.debug("updateUserData error");
+			logger.debug("updateUserData error:"+e.getMessage());
 			e.printStackTrace();
 		} finally {
 			closePreparedStatement(pstUpdateUser);
 			closePreparedStatement(pstDeleteRole);
 			closePreparedStatement(pstUpdateRole);
 			closeConnection(con);
+			logger.debug("updateUserData completed");
 		}
-		logger.debug("updateUserData completed");
 	}
 }
