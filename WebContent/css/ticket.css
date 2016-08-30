@@ -76,7 +76,8 @@ body {
 	#edit_ticket_modal_msg, #close_ticket_modal_msg, #close_ticket_msg,
 	#delete_ticket_modal_msg, #add_dep_modal_msg,
 	#selected_company_modal_msg, #delete_company_modal_msg,
-	#delete_company_msg, #update_company_modal_msg, #update_company_msg {
+	#delete_company_msg, #update_company_modal_msg, #update_company_msg,
+	#delete_department_modal_msg,#delete_deparment_msg {
 	font-size: 18px;
 }
 
