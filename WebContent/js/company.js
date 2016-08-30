@@ -73,12 +73,17 @@ function addCompany() {
 				$('#comp_jqGrid').trigger('reloadGrid');
 				setTimeout(function() {
 					$('#add_company_modal').modal('hide');
+					$("#add_company_modal_msg").text("");
 				}, 2000);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				if (jqXHR.status = 409) {
 					$("#add_company_modal_msg").text(
-							"Similar company name exist in system!");
+							"Similar company name existing in system!");
+					setTimeout(function() {
+						$("#add_company_modal_msg").text("");
+						$('#add_company_modal').modal('hide');
+					}, 4000);
 				} else {
 					$("#add_company_modal_msg").text(
 							"AddCompany Error Occured!");
@@ -197,7 +202,7 @@ function getCompany(companyID) {
 		error : function(jqXHR, textStatus, errorThrown) {
 			if (jqXHR.status = 409) {
 				$("#add_company_modal_msg").text(
-						"Similar company name exist in system!");
+						"Similar company name existing in system!");
 			} else {
 				$("#add_company_modal_msg").text("AddCompany Error Occured!");
 			}
@@ -242,6 +247,7 @@ function deleteCompanyData() {
 					setTimeout(function() {
 						$('#detail_company_modal').modal('hide');
 						$('#delete_company_modal').modal('hide');
+						$("#delete_company_modal_msg").text("");
 					}, 2000);
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -249,7 +255,11 @@ function deleteCompanyData() {
 					if (jqXHR.status = 409) {
 						$("#delete_company_modal_msg")
 								.text(
-										"You can't delete this company because some users using this!");
+										"You can't delete this company, some users using this!");
+						setTimeout(function() {
+							$("#delete_company_modal_msg").text("");
+							$('#delete_company_modal').modal('hide');
+						}, 4000);
 					} else {
 						$("#delete_company_modal_msg").text(
 								"DeleteCompany Error Occured!");
@@ -309,7 +319,11 @@ function updateCompanyData() {
 				if (jqXHR.status = 409) {
 					$("#update_company_modal_msg")
 							.text(
-									"You can't update this company with exist company name!");
+									"You can't update, existing company name!");
+					setTimeout(function() {
+						$('#update_company_modal').modal('hide');
+						$("#update_company_modal_msg").text("");
+					}, 4000);
 				} else {
 					$("#update_company_modal_msg").text(
 							"UpdateCompany Error Occured!");

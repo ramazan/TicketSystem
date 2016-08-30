@@ -93,6 +93,7 @@ function prepareAddDepArea(depAddAreaID) {
 }
 
 function addDepartment() {
+	$("#add_dep_modal_btn").prop("disabled", true);
 	var dName = $("#new_dep_name").val();
 	if (dName == "") {
 		$("#add_dep_modal_msg").text("You have to fill required(*) places");
@@ -109,7 +110,6 @@ function addDepartment() {
 			mimeType : "application/json",
 			data : JSON.stringify(company),
 			success : function(result) {
-				$("#add_dep_modal_btn").prop("disabled", true);
 				$("#add_dep_modal_msg").text(
 						"Department added. Closing Window in 2sec..");
 				$("#" + selectedDeparmentAreaID).append(
@@ -117,13 +117,18 @@ function addDepartment() {
 								"selected", true).text(result.name));
 				$('#deps_jqGrid').trigger('reloadGrid');
 				setTimeout(function() {
+					$("#add_dep_modal_btn").prop("disabled", false);
 					$('#add_dep_modal').modal('hide');
-					$("#add_dep_modal_msg").text();
+					$("#add_dep_modal_msg").text("");
 				}, 2000);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				if (jqXHR.status == 409) {
-					$("#add_dep_modal_msg").text("Department exist!");
+					$("#add_dep_modal_msg").text("Department exist!");	
+					setTimeout(function() {
+						$("#add_dep_modal_msg").text("");
+						$('#add_dep_modal').modal('hide');
+					}, 4000);
 				} else {
 					$("#add_dep_modal_msg").text(
 							"Unresolved error! Send ticket!");
@@ -145,6 +150,7 @@ function addDepartmentLink(cellvalue, options, rowObject) {
 function deleteDepartment(selectedDeparmentAreaID) {
 
 	console.log("delete dep id: " + selectedDeparmentAreaID);
+	$("#delete_dep_modal_btn").prop("disabled", true);
 
 	
 			$.ajax({
@@ -154,18 +160,28 @@ function deleteDepartment(selectedDeparmentAreaID) {
 				mimeType : "application/json",
 				data : JSON.stringify(selectedDeparmentAreaID),
 				success : function(department) {
-
+					$("#delete_dep_modal_btn").prop("disabled", false);
 					$('#deps_jqGrid').trigger('reloadGrid');
 					$('#delete_department_modal_msg').text("Department deleted Closing Window in 2sec..")
 					
 					setTimeout(function() {
 						$('#delete_department_modal').modal('hide');
-						$("#delete_department_modal_msg").text();
+						$("#delete_department_modal_msg").text("");
 					}, 2000);
 				},
-				error : function() {
-					alert("Department details cannot get please try again. departmentID:  "
-							+ selectedDeparmentAreaID);
+				error : function(jqXHR, textStatus, errorThrown) {
+					if (jqXHR.status == 409) {
+						$("#delete_department_modal_msg").text("You can't delete this department, users using this !");
+						$("#delete_dep_modal_btn").prop("disabled", true);
+						setTimeout(function() {
+							$('#delete_department_modal').modal('hide');
+							$("#delete_department_modal_msg").text("");
+							$("#delete_dep_modal_btn").prop("disabled", false);
+						}, 4000);
+					} else {
+						$("#delete_department_modal_msg").text(
+								"Unresolved error! Send ticket!");
+					}
 				}
 			});
 

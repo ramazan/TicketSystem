@@ -194,9 +194,11 @@ public class DepartmentDAOService extends ConnectionHelper {
 	public void deleteDepartment(long ID) throws Exception {
 
 		logger.debug("deleteDepartment started. Param: ticketID=" + ID);
+		
+		checkDepartmentUser(ID);
 
 		// TODO: departmana ait kullanıcı ya da ticket kontrolü yapılacak....
-
+	
 		Connection con = null;
 		PreparedStatement pstDepartment = null;
 		StringBuilder queryDeleteDepartment = new StringBuilder();
@@ -231,5 +233,38 @@ public class DepartmentDAOService extends ConnectionHelper {
 		logger.debug("deleteDepartment is finished");
 
 	}
+
+	public void checkDepartmentUser(long ID) throws Exception {
+		logger.debug("checkDepartmentUser is started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		String query = "SELECT DISTINCT DEPARTMENT_ID FROM users WHERE DEPARTMENT_ID=?";
+
+		try {
+			con = getConnection();
+			pst = con.prepareStatement(query);
+			pst.setLong(1, ID);
+
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				throw new WebApplicationException(409);
+			}
+		} catch (Exception e) {
+			if (e instanceof WebApplicationException) {
+				logger.error("checkDepartmentUser error");
+				throw e;
+			} else {
+				logger.error("checkDepartmentUser error:" + e.getMessage());
+			}
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+			logger.debug("checkDepartmentUser finished");
+		}
+	}
+
 
 }
