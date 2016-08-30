@@ -121,6 +121,7 @@ function sendTicketResponse() {
 }
 
 function loadAllResponses() {
+	$("#addResponseAlertMessage").hide();
   $.ajax({
     type: "POST",
     url: '/Ticket_System/rest/ticket/getAllResponses',

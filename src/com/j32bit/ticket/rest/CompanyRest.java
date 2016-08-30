@@ -37,5 +37,14 @@ public class CompanyRest {
 	public Company getCompany(long companyID) {
 		return ServiceFacade.getInstance().getCompany(companyID);
 	}
+	
+	
+	@POST
+	@Path("/deleteCompanyData")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void deleteCompany(long companyID) {
+		ServiceFacade.getInstance().deleteCompany(companyID);
+	}
 
 }

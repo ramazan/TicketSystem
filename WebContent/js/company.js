@@ -168,42 +168,77 @@ function addCompanyLink(cellvalue, options, rowObject) {
 	return clickLink;
 }
 
+var selectedCompanyID;
 function getCompany(companyID) {
 
-	console.log("company id : " +companyID);
-		$.ajax({
-			method : "POST",
-			url : '/Ticket_System/rest/company/getCompany',
-			contentType : "application/json",
-			mimeType : "application/json",
-			data : JSON.stringify(companyID),
-			success : function(result) {
-				
-//				console.log("id: "+ result.id + "result.name:  " + result.name +" result.email :  " +result.email);
-				$("#selected_company_name").val(result.name);
-				$("#selected_company_email").val(result.email);
-				$("#selected_company_phone").val(result.phone);
-				$("#selected_company_address").val(result.address);
-				$("#selected_company_fax").val(result.fax);			
-//				
-				$("#detail_company_modal").modal('show');
-//				setTimeout(function() {
-//					$('#add_company_modal').modal('hide');
-//				}, 2000);
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				if (jqXHR.status = 409) {
-					$("#add_company_modal_msg").text(
-							"Similar company name exist in system!");
-				} else {
-					$("#add_company_modal_msg").text(
-							"AddCompany Error Occured!");
-				}
-				console.log("test getCompany");
-				console.log(jqXHR);
-				console.log("testend getCompany");
+	console.log("company id : " + companyID);
+	$.ajax({
+		method : "POST",
+		url : '/Ticket_System/rest/company/getCompany',
+		contentType : "application/json",
+		mimeType : "application/json",
+		data : JSON.stringify(companyID),
+		success : function(company) {
+			selectedCompanyID = company.id;
+
+			// console.log("id: "+ result.id + "result.name: " + result.name +"
+			// result.email : " +result.email);
+			$("#selected_company_name").val(company.name);
+			$("#selected_company_email").val(company.email);
+			$("#selected_company_phone").val(company.phone);
+			$("#selected_company_address").val(company.address);
+			$("#selected_company_fax").val(company.fax);
+			//				
+			$("#detail_company_modal").modal('show');
+			// setTimeout(function() {
+			// $('#add_company_modal').modal('hide');
+			// }, 2000);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			if (jqXHR.status = 409) {
+				$("#add_company_modal_msg").text(
+						"Similar company name exist in system!");
+			} else {
+				$("#add_company_modal_msg").text("AddCompany Error Occured!");
 			}
-		});
-	
+			console.log("test getCompany");
+			console.log(jqXHR);
+			console.log("testend getCompany");
+		}
+	});
+
+}
+
+function prepareDeleteCompanyArea() {
+	$("#delete_company_modal_msg").text("");
+	$("#delete_company_modal_btn").prop("disabled", false);
+	$("#delete_company_modal").modal("show");
+}
+function deleteCompanyData() {
+
+	$("#delete_company_modal_btn").prop("disabled", true);
+
+	console.log("deleteCompanyData selectedCompanyID : " + selectedCompanyID);
+
+	$.ajax({
+		url : "/Ticket_System/rest/company/deleteCompanyData/",
+		type : "POST",
+		mimeType : "application/json",
+		contentType : "application/json",
+		data : JSON.stringify(selectedCompanyID),
+		success : function() {
+			$("#delete_company_modal_btn").prop("disabled", false);
+			$("#delete_company_modal_msg").text(
+					"Company deleted. Closing Window in 2sec..");
+			$('#comp_jqGrid').trigger('reloadGrid');
+			setTimeout(function() {
+				$('#detail_company_modal').modal('hide');
+				$('#delete_company_modal').modal('hide');
+			}, 2000);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error :" + errorThrown);
+		}
+	});
 
 }
