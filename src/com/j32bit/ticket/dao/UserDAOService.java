@@ -488,7 +488,9 @@ public class UserDAOService extends ConnectionHelper {
 	}
 
 	public void updateUserData(User user) throws Exception {
-
+		
+		//TODO  daha iyi bir yöntem ile iyileştirilmeli.
+		
 		logger.debug("updateUserData started");
 
 		Connection con = null;
@@ -511,11 +513,8 @@ public class UserDAOService extends ConnectionHelper {
 				.append(user.getDepartment().getId()).append("\n");
 		logger.debug(queryLog.toString());
 
-		// UPDATE users SET PASSWORD='?' , EMAIL='?' , FULL_NAME='?' ,
-		// COMPANY_ID='?' , DEPARTMENT_ID='?' WHERE ID='?';
-
 		try {
-
+			//yeni bilgileri set et
 			queryUpdateUser.append("UPDATE users SET ");
 			queryUpdateUser
 					.append("PASSWORD=? , EMAIL=? , FULL_NAME=? , COMPANY_ID=? , DEPARTMENT_ID=? ");
@@ -534,9 +533,8 @@ public class UserDAOService extends ConnectionHelper {
 			pstUpdateUser.setLong(6, user.getId());
 
 			pstUpdateUser.executeUpdate();
-
-			logger.debug("pstUpdateUser :  " + pstUpdateUser.toString());
-
+			
+			//eski rolleri sil
 			queryDeleteRole.append("DELETE FROM user_roles WHERE EMAIL=? ; ");
 			queryString = queryDeleteRole.toString();
 
@@ -544,10 +542,9 @@ public class UserDAOService extends ConnectionHelper {
 
 			pstDeleteRole.setString(1, user.getEmail());
 
-			logger.debug("pstDeleteRole : " + pstDeleteRole.toString());
-
 			pstDeleteRole.executeUpdate();
-
+			
+			//yeni rolleri set et
 			queryUpdateRole.append("INSERT INTO user_roles ");
 			queryUpdateRole.append("(EMAIL,ROLE) values (?,?)");
 			queryString = queryUpdateRole.toString();
@@ -559,9 +556,6 @@ public class UserDAOService extends ConnectionHelper {
 			for (String role : userRoles) {
 				pstUpdateRole.setString(1, user.getEmail());
 				pstUpdateRole.setString(2, role);
-
-				logger.debug("pstUpdateRole : " + pstUpdateRole.toString());
-
 				pstUpdateRole.executeUpdate();
 			}
 		} catch (Exception e) {

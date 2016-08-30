@@ -1,4 +1,3 @@
 /********************************************************************/
-Hata durumlarında exceptionlar fırlatılıp map edilecek
+Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama tekrar kontrol edelim)
 
--Admin departman ve company güncelleme işlemleri yapacak mı? Departman company silme olacak mı?
