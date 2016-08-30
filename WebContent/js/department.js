@@ -171,7 +171,7 @@ function deleteDepartment(selectedDeparmentAreaID) {
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					if (jqXHR.status == 409) {
-						$("#delete_department_modal_msg").text("You can't delete this department, users using this !");
+						$("#delete_department_modal_msg").text("You can't delete this department, users or tickets using this !");
 						$("#delete_dep_modal_btn").prop("disabled", true);
 						setTimeout(function() {
 							$('#delete_department_modal').modal('hide');
