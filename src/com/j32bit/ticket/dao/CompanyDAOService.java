@@ -100,7 +100,7 @@ public class CompanyDAOService extends ConnectionHelper {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		String query = "SELECT COMPANY_NAME FROM companies WHERE COMPANY_NAME=?";
+		String query = "SELECT COMPANY_NAME , ID FROM companies WHERE COMPANY_NAME=?";
 
 		try {
 			con = getConnection();
@@ -109,6 +109,7 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if (rs.next()) {
+				if(!(rs.getLong("ID")==company.getId()))
 				throw new WebApplicationException(409);
 			}
 		} catch (Exception e) {
@@ -292,8 +293,8 @@ public class CompanyDAOService extends ConnectionHelper {
 		
 		logger.debug("updateCompanyData started");
 		
-		//TODO güncellerken kendisi hariç aynı isimdeki bir company adı olmaması engellenmeli!!
-//		checkSimilarCompanyRecord(company);
+		//güncellerken kendisi hariç aynı isimdeki başka bir company adı olmaması engellendi!!
+		checkSimilarCompanyRecord(company);
 		
 		
 		Connection con = null;

@@ -309,7 +309,7 @@ function updateCompanyData() {
 				if (jqXHR.status = 409) {
 					$("#update_company_modal_msg")
 							.text(
-									"You can't update this company");
+									"You can't update this company with exist company name!");
 				} else {
 					$("#update_company_modal_msg").text(
 							"UpdateCompany Error Occured!");
