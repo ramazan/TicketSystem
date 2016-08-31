@@ -152,11 +152,11 @@ function getBadges(){
 	      url: '/Ticket_System/rest/department/getBadges',
 	      contentType: "application/json",
 	      mimeType: "application/json",
-	      success: function(count) {
-	    	  $("#usersBadge").text(count[0]);
-	    	  $("#ticketsBadge").text(count[1]);
-	    	  $("#depBadge").text(count[2]-1);
-	    	  $("#companiesBadge").text(count[3]);
+	      success: function(Badge) {
+	    	  $("#usersBadge").text(Badge[0]);
+	    	  $("#ticketsBadge").text(Badge[1]);
+	    	  $("#depBadge").text(Badge[2]-1);
+	    	  $("#companiesBadge").text(Badge[3]);
 	      },
 	      error:{
 	      }
