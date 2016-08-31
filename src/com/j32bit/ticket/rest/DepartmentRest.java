@@ -36,7 +36,6 @@ public class DepartmentRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Department getDepartmentDetails(long ID) throws Exception {
-		System.out.println("  getDepartmentDetails id : " + ID);
 		return ServiceFacade.getInstance().getDepartment(ID);
 	}
 	
@@ -48,4 +47,11 @@ public class DepartmentRest {
 		 ServiceFacade.getInstance().deleteDepartment(ID);
 	}
 	
+	@POST
+	@Path("/getBadges")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Integer>  getBadges(){
+		return ServiceFacade.getInstance().getBadges();
+	}
 }

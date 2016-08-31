@@ -72,6 +72,7 @@ function addCompany() {
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
         $('#comp_jqGrid').trigger('reloadGrid');
+        getBadges();
         setTimeout(function() {
           $('#add_company_modal').modal('hide');
         }, 2000);
@@ -219,6 +220,7 @@ function deleteCompanyData() {
       $("#delete_company_modal_msg").text(
         "Company deleted. Window closing in 2sec..");
       $('#comp_jqGrid').trigger('reloadGrid');
+      getBadges();
       setTimeout(function() {
         $('#detail_company_modal').modal('hide');
         $('#delete_company_modal').modal('hide');

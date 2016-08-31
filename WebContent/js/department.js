@@ -115,6 +115,7 @@ function addDepartment() {
           $("<option></option>").attr("value", result.id).attr(
             "selected", true).text(result.name));
         $('#deps_jqGrid').trigger('reloadGrid');
+        getBadges();
         setTimeout(function() {
           $('#add_dep_modal').modal('hide');
         }, 2000);
@@ -164,7 +165,7 @@ function deleteDepartment(selectedDeparmentAreaID) {
       $("#delete_dep_modal_btn").prop("disabled", true);
       $('#deps_jqGrid').trigger('reloadGrid');
       $('#delete_department_modal_msg').text("Department deleted Closing Window in 2sec..")
-
+      getBadges();
       setTimeout(function() {
         $('#delete_department_modal').modal('hide');
       }, 2000);

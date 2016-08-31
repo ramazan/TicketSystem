@@ -145,6 +145,25 @@ function showCompanies() {
   $("#companies_page").show();
 }
 
+function getBadges(){
+	
+	$.ajax({
+	      type: "POST",
+	      url: '/Ticket_System/rest/department/getBadges',
+	      contentType: "application/json",
+	      mimeType: "application/json",
+	      success: function(count) {
+	    	  $("#usersBadge").text(count[0]);
+	    	  $("#ticketsBadge").text(count[1]);
+	    	  $("#depBadge").text(count[2]-1);
+	    	  $("#companiesBadge").text(count[3]);
+	      },
+	      error:{
+	      }
+	    });
+}
+
+
 $('.dropdown').hover(function() {
   $(this).find('.dropdown-menu').first().stop(true, true).slideDown(350);
 }, function() {

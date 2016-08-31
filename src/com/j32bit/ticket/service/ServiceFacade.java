@@ -173,4 +173,8 @@ public class ServiceFacade {
 		companyService.updateCompanyData(company);
 	}
 
+	public ArrayList<Integer> getBadges() {
+		return departmentDAOService.getBadges();
+	}
+
 }

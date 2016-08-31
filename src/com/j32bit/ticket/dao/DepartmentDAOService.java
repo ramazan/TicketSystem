@@ -101,7 +101,7 @@ public class DepartmentDAOService extends ConnectionHelper {
 				throw new WebApplicationException(404);
 			}
 		} catch (Exception e) {
-			logger.error("getDepartment error:"+e.getMessage());
+			logger.error("getDepartment error:" + e.getMessage());
 		} finally {
 			closeResultSet(rs);
 			closePreparedStatement(pst);
@@ -111,7 +111,8 @@ public class DepartmentDAOService extends ConnectionHelper {
 		return department;
 	}
 
-	public void checkSimilarDepartmentRecord(Department department) throws Exception {
+	public void checkSimilarDepartmentRecord(Department department)
+			throws Exception {
 		logger.debug("checkSimilarDepartmentRecord is started");
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -133,7 +134,8 @@ public class DepartmentDAOService extends ConnectionHelper {
 				logger.error("checkSimilarDepartmentRecord similar company founded!");
 				throw e;
 			} else {
-				logger.error("checkSimilarDepartmentRecord error:" + e.getMessage());
+				logger.error("checkSimilarDepartmentRecord error:"
+						+ e.getMessage());
 			}
 		} finally {
 			closeResultSet(rs);
@@ -162,13 +164,15 @@ public class DepartmentDAOService extends ConnectionHelper {
 			logger.debug("sql query created :" + queryString);
 
 			con = getConnection();
-			pst = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+			pst = con.prepareStatement(queryString,
+					Statement.RETURN_GENERATED_KEYS);
 
 			if (logger.isTraceEnabled()) {
 				StringBuilder queryLog = new StringBuilder();
 				queryLog.append("Query : ").append(queryString).append("\n");
 				queryLog.append("Parameters : ").append("\n");
-				queryLog.append("Name : ").append(department.getName()).append("\n");
+				queryLog.append("Name : ").append(department.getName())
+						.append("\n");
 				logger.trace(queryLog.toString());
 			}
 
@@ -194,9 +198,9 @@ public class DepartmentDAOService extends ConnectionHelper {
 	public void deleteDepartment(long ID) throws Exception {
 
 		logger.debug("deleteDepartment started. Param: ticketID=" + ID);
-		
+
 		checkDepartmentUser(ID);
-		checkDepartmentTicket(ID); 
+		checkDepartmentTicket(ID);
 
 		// departman user ve ticket kontrolu
 		Connection con = null;
@@ -265,34 +269,78 @@ public class DepartmentDAOService extends ConnectionHelper {
 	}
 
 	public void checkDepartmentTicket(long ID) throws Exception {
-	logger.debug("checkDepartmentTicket is started");
-	Connection con = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
+		logger.debug("checkDepartmentTicket is started");
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 
-	String query = "SELECT DISTINCT DEPARTMENT_ID FROM tickets WHERE DEPARTMENT_ID=?";
+		String query = "SELECT DISTINCT DEPARTMENT_ID FROM tickets WHERE DEPARTMENT_ID=?";
 
-	try {
-		con = getConnection();
-		pst = con.prepareStatement(query);
-		pst.setLong(1, ID);
+		try {
+			con = getConnection();
+			pst = con.prepareStatement(query);
+			pst.setLong(1, ID);
 
-		rs = pst.executeQuery();
-		if (rs.next()) {
-			throw new WebApplicationException(409);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				throw new WebApplicationException(409);
+			}
+		} catch (Exception e) {
+			if (e instanceof WebApplicationException) {
+				logger.error("checkDepartmentTicket error");
+				throw e;
+			} else {
+				logger.error("checkDepartmentTicket error:" + e.getMessage());
+			}
+		} finally {
+			closeResultSet(rs);
+			closePreparedStatement(pst);
+			closeConnection(con);
+			logger.debug("checkDepartmentTicket finished");
 		}
-	} catch (Exception e) {
-		if (e instanceof WebApplicationException) {
-			logger.error("checkDepartmentTicket error");
-			throw e;
-		} else {
-			logger.error("checkDepartmentTicket error:" + e.getMessage());
-		}
-	} finally {
-		closeResultSet(rs);
-		closePreparedStatement(pst);
-		closeConnection(con);
-		logger.debug("checkDepartmentTicket finished");
 	}
-}
+
+	public ArrayList<Integer> getBadges() {
+
+		logger.debug("getBadges started");
+
+		ArrayList<Integer> badges = new ArrayList<Integer>();
+		ArrayList<String> queries = new ArrayList<String>();
+		queries.add("SELECT COUNT(*) AS COUNT FROM users;");
+		queries.add("SELECT COUNT(*) AS COUNT FROM tickets;");
+		queries.add("SELECT COUNT(*) AS COUNT FROM departments;");
+		queries.add("SELECT COUNT(*) AS COUNT FROM companies;");
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		String query = "";
+
+		for (int i = 0; i < queries.size(); i++) {
+			query = queries.get(i);
+
+			logger.debug("sql query created : " + query);
+			try {
+				con = getConnection();
+
+				pst = con.prepareStatement(query);
+
+				rs = pst.executeQuery();
+
+				if (rs.next()) {
+					badges.add(rs.getInt("COUNT"));
+				} else {
+					throw new WebApplicationException(404);
+				}
+			} catch (Exception e) {
+				logger.error("getBadges error:" + e.getMessage());
+			} finally {
+				closeResultSet(rs);
+				closePreparedStatement(pst);
+				closeConnection(con);
+			}
+		}
+		return badges;
+
+	}
 }

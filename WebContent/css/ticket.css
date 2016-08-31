@@ -4,6 +4,12 @@ body {
 	font-family: "Calibri", "Roboto", sans-serif;
 }
 
+.badge{
+	color:#edeff2;
+	background-color:#AC2323;
+	font-weight:bold;
+}
+
 .btn-xs:hover {
 	color: #edeff2;
 	background-color: #AC2323;

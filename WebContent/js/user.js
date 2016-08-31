@@ -140,7 +140,7 @@ function addUser() {
         $("#add_user_modal_msg").text("User added. Closing Window in 2sec..");
         // reload jqgrid
         $('#users_jqGrid').trigger('reloadGrid');
-
+        getBadges();
         setTimeout(function() {
           $('#add_user_modal').modal('hide');
         }, 2000);
@@ -283,6 +283,7 @@ function deleteUserData() {
     success: function() {
       $("#delete_user_modal_msg").text("User deleted. Closing Window in 2sec..");
       $('#users_jqGrid').trigger('reloadGrid');
+      getBadges();
       setTimeout(function() {
         $('#user_modal_detail').modal('hide');
         $('#delete_user_modal').modal('hide');
