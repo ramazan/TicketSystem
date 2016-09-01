@@ -103,9 +103,8 @@ public class CompanyDAOService extends ConnectionHelper {
 
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				// user bulduysa zaten esittir
-				// if (rs.getLong("ID") != company.getId())
-				throw new WebApplicationException(409);
+				if (rs.getLong("ID") != company.getId())
+					throw new WebApplicationException(409);
 			}
 		} catch (Exception e) {
 			if (e instanceof WebApplicationException) {
