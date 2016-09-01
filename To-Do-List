@@ -1,3 +1,5 @@
 /********************************************************************/
 Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama tekrar kontrol edelim)
 
+- input girişlerinde girişlerin istenilen değere uygunluğunu kontrol edelim örn : e-posta  gibi  ( @) 
+

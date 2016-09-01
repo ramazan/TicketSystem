@@ -17,11 +17,13 @@ function loadDepartmentsPage() {
     }, {
       label: "Department",
       name: 'name',
-      width: 95
+      width: 95,
+      align: "center"
     }, {
       label: "Delete",
       name: 'id',
       width: 40,
+      align: "center",
       formatter: addDepartmentLink
     }],
     viewrecords: true,
