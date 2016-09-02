@@ -8,5 +8,3 @@ Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama
 -- ticket response design tarafı düzenlenecek mi ? mesajlar ortalanacak mı ?  
     yoksa farklı bi tasarım mı yapalım ? sağ taraf çok boş kalıyor..
     
--- ticket kapanacak ama bir mesaj atılması durumunda tekrar aktif olacak ticket?
--- yada direk olarak kapansın, cok gerekliyse yenisi açılır?
