@@ -237,7 +237,6 @@ function loadAllTickets(status) {
     height: 450,
     width: 850,
     styleUI: 'Bootstrap',
-    rowNum: 10,
     rowNum: 100,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",

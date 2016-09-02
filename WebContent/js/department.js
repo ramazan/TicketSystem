@@ -29,7 +29,6 @@ function loadDepartmentsPage() {
     viewrecords: true,
     height: 400,
     width: 890,
-    // loadonce: true,
     rowNum: 100,
     styleUI: 'Bootstrap',
     pager: "#deps_jqGridPager",
