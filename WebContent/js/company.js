@@ -52,6 +52,10 @@ function addCompany() {
     $("#add_company_modal_msg").text("You have to fill required(*) places");
   } else if (!pattern.test(cEmail)) {
 	$("#add_company_modal_msg").text("Invalid e-mail address!");
+  }else if((cPhone.length > 13) || (!intRegex.test(cPhone)) && $("#new_company_phone").val().length != 0)	{
+	$("#add_company_modal_msg").text("Invalid phone number!");   
+  } else if((cFax.length > 13) || (!intRegex.test(cFax)) && $("#new_company_fax").val().length != 0) {	
+	$("#add_company_modal_msg").text("Invalid fax number!"); 
   }  else {
 
     var company = {
@@ -255,13 +259,20 @@ function updateCompanyData() {
   var newPhone = $("#selected_company_phone").val();
   var newAddress = $("#selected_company_address").val();
   var newFax = $("#selected_company_fax").val();
-	var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+		 
+	intRegex = /^[0-9 ]+$/;
+ 
 
   if (newName == "" || newEmail == "") {
     $("#update_company_modal_msg").text("Please fill required(*) boxes");
   } else if (!pattern.test(newEmail)) {
 	$("#update_company_modal_msg").text("Invalid e-mail address!");
-  } else {
+  } else if((newPhone.length > 13) || (!intRegex.test(newPhone)) && $("#selected_company_phone").val().length != 0)	{
+	$("#update_company_modal_msg").text("Invalid phone number!");   
+  } else if((newFax.length > 13) || (!intRegex.test(newFax)) && $("#selected_company_fax").val().length != 0) {	
+	$("#update_company_modal_msg").text("Invalid fax number!"); 
+  }else {
 
     var company = {
       id: selectedCompanyID,
