@@ -46,9 +46,13 @@ function addCompany() {
   var cFax = $("#new_company_fax").val();
   var cAddress = $("#new_company_address").val();
 
+  var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  
   if (cEmail == "" || cName == "") {
     $("#add_company_modal_msg").text("You have to fill required(*) places");
-  } else {
+  } else if (!pattern.test(cEmail)) {
+	$("#add_company_modal_msg").text("Invalid e-mail address!");
+  }  else {
 
     var company = {
       email: cEmail,
@@ -146,7 +150,7 @@ function loadCompaniesPage() {
     edit: false,
     add: false,
     del: false,
-    search: true,
+    search: false,
     refresh: true,
     view: false,
     position: "left",
@@ -251,9 +255,12 @@ function updateCompanyData() {
   var newPhone = $("#selected_company_phone").val();
   var newAddress = $("#selected_company_address").val();
   var newFax = $("#selected_company_fax").val();
+	var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
 
   if (newName == "" || newEmail == "") {
     $("#update_company_modal_msg").text("Please fill required(*) boxes");
+  } else if (!pattern.test(newEmail)) {
+	$("#update_company_modal_msg").text("Invalid e-mail address!");
   } else {
 
     var company = {

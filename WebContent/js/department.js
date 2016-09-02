@@ -40,7 +40,7 @@ function loadDepartmentsPage() {
     edit: false,
     add: false,
     del: false,
-    search: true,
+    search: false,
     refresh: true,
     view: false,
     position: "left",
