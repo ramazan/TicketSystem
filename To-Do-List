@@ -7,4 +7,6 @@ Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama
 
 -- ticket response design tarafı düzenlenecek mi ? mesajlar ortalanacak mı ?  
     yoksa farklı bi tasarım mı yapalım ? sağ taraf çok boş kalıyor..
+    
+-- ticket.js ,  openTicket olayına devam edilecek mi iptal mi?
 
