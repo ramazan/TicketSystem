@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE XML>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -38,17 +37,17 @@
          UserDatabaseRealm to authenticate users
     -->
 	<Resource type="javax.sql.DataSource"
-				auth="Container"
-	            name="jdbc/TicketDB"
-	            driverClassName="com.mysql.jdbc.Driver"
-				factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-	            url="jdbc:mysql://188.213.175.52:3306/TICKET?useUnicode=true&amp;characterEncoding=utf8"
-	            username="ticket"
-	            password="Ticket32++"
-				initialSize="2"
-	            maxActive="20"
-	            maxIdle="10"
-	            minIdle="5"/>
+			auth="Container"
+            name="jdbc/TicketDB"
+            driverClassName="com.mysql.jdbc.Driver"
+			factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            url="jdbc:mysql://188.213.175.52:3306/TICKET?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8"
+            username="ticket"
+            password="Ticket32++"
+			initialSize="10"
+            maxActive="20"
+            maxIdle="10"
+            minIdle="5"/>
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
   </GlobalNamingResources>
 
@@ -127,10 +126,10 @@
 			connectionURL="jdbc:mysql://188.213.175.52:3306/TICKET"  
 			driverName="org.gjt.mm.mysql.Driver"  
 			userTable="users"  
-			userCredCol="password"  
-			userNameCol="email"  
+			userCredCol="PASSWORD"  
+			userNameCol="EMAIL"  
 			userRoleTable="user_roles"  
-			roleNameCol="role"  />
+			roleNameCol="ROLE"  />
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
       </Realm>
 
@@ -147,7 +146,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      </Host>
+      <Context docBase="ticket-system" path="/Ticket_System" reloadable="true" source="org.eclipse.jst.jee.server:ticket-system"/></Host>
     </Engine>
   </Service>
 </Server>
