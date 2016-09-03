@@ -2,16 +2,18 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
+<meta charset="utf-8" />
 
-	<title>32Bit Ticket System</title>
-	<link rel="stylesheet" href="./css/bootstrap.min.css" />
-	<link rel="stylesheet" href="./css/ui.jqgrid-bootstrap.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/overcast/jquery-ui.css">
-	<link rel="stylesheet" href="./css/jqGrid.bootstrap.css">
-	<link rel="stylesheet" href="./css/ui.jqgrid.css" />
-	<link rel="stylesheet" href="./css/ticket.css" />
-	<link href="./images/favicon.ico" sizes="16x16 32x32" rel="shortcut icon" type="image/x-icon">
+<title>32Bit Ticket System</title>
+<link rel="stylesheet" href="./css/bootstrap.min.css" />
+<link rel="stylesheet" href="./css/ui.jqgrid-bootstrap.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.12.0/themes/overcast/jquery-ui.css">
+<link rel="stylesheet" href="./css/jqGrid.bootstrap.css">
+<link rel="stylesheet" href="./css/ui.jqgrid.css" />
+<link rel="stylesheet" href="./css/ticket.css" />
+<link href="./images/favicon.ico" sizes="16x16 32x32"
+	rel="shortcut icon" type="image/x-icon">
 
 </head>
 
@@ -20,22 +22,31 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href=".">
-						<img id="brand_img" alt="Brand" src="./images/32bit.jpg">
+					<a class="navbar-brand" href="."> <img id="brand_img"
+						alt="Brand" src="./images/32bit.jpg">
 					</a>
 				</div>
 				<div id="navs" class="collapse navbar-collapse">
 					<ul id="navLinks" class="nav navbar-nav">
-						<li id="nav_tickets"><a href="#" onclick="showTickets()"><span class="glyphicon glyphicon-inbox"></span> Tickets <span id="ticketsBadge" class="badge"></span></a></li>
-						<li id="nav_users"><a href="#" onclick="showUsers()"><span class="glyphicon glyphicon-user"></span> Users <span id="usersBadge" class="badge"></span></a></li>
-						<li id="nav_companies"><a href="#" onclick="showCompanies()"><span class="glyphicon glyphicon-home"></span> Companies <span id="companiesBadge" class="badge"></span></a></li>
-						<li id="nav_deps"><a href="#" onclick="showDepartments()"><span class="glyphicon glyphicon-briefcase"></span> Departments <span id="depBadge" class="badge"></span></a></li>
+						<li id="nav_tickets"><a href="#" onclick="showTickets()"><span
+								class="glyphicon glyphicon-inbox"></span> Tickets <span
+								id="ticketsBadge" class="badge"></span></a></li>
+						<li id="nav_users"><a href="#" onclick="showUsers()"><span
+								class="glyphicon glyphicon-user"></span> Users <span
+								id="usersBadge" class="badge"></span></a></li>
+						<li id="nav_companies"><a href="#" onclick="showCompanies()"><span
+								class="glyphicon glyphicon-home"></span> Companies <span
+								id="companiesBadge" class="badge"></span></a></li>
+						<li id="nav_deps"><a href="#" onclick="showDepartments()"><span
+								class="glyphicon glyphicon-briefcase"></span> Departments <span
+								id="depBadge" class="badge"></span></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a>Welcome <b id="nav_nickname"></b></a></li>
-						<li id="nav_profile">
-							<a href="#" onclick="showProfile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-						<li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+						<li id="nav_profile"><a href="#" onclick="showProfile()"><span
+								class="glyphicon glyphicon-user"></span> My Profile</a></li>
+						<li><a href="#" onclick="logout()"><span
+								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -45,18 +56,27 @@
 	<!-- pages div -->
 	<div id="pages" class="container-fluid">
 		<div id="tickets_page" align="center">
-			<div class="navbar navbar-default" style="text-align: center; display: inline-block; float: 700px;">
+			<div class="navbar navbar-default"
+				style="text-align: center; display: inline-block; float: 700px;">
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> My Tickets <span class="caret"></span></a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+							My Tickets <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#" onclick="loadPostedTickets(1)">Open <span class="badge"> 12</span></a></li>
+							<li><a href="#" onclick="loadPostedTickets(1)">Open <span
+									class="badge"> 12</span></a></li>
 							<li class="divider"></li>
-							<li><a href="#" onclick="loadPostedTickets(0)"> Close  <span class="badge">1</span></a></li>
-						</ul>
-					</li>
-					<li><a href="#" onclick="loadAllTickets(1)"><span class="glyphicon glyphicon-folder-open"></span>  Open Tickets  <span id="loadAllTickets(1)Badge" class="badge"> </span></a></li>
-					<li><a href="#" onclick="loadAllTickets(0)"><span class="glyphicon glyphicon-folder-close"></span>  Closed Tickets  <span id="loadAllTickets(0)Badge" class="badge"> </span></a></li>
-					<li><a href="#" onclick="prepareAddTicketArea()"><span class="glyphicon glyphicon-send"></span> New Ticket</a></li>
+							<li><a href="#" onclick="loadPostedTickets(0)"> Close <span
+									class="badge">1</span></a></li>
+						</ul></li>
+					<li><a href="#" onclick="loadAllTickets(1)"><span
+							class="glyphicon glyphicon-folder-open"></span> Open Tickets <span
+							id="loadAllTickets(1)Badge" class="badge"> </span></a></li>
+					<li><a href="#" onclick="loadAllTickets(0)"><span
+							class="glyphicon glyphicon-folder-close"></span> Closed Tickets <span
+							id="loadAllTickets(0)Badge" class="badge"> </span></a></li>
+					<li><a href="#" onclick="prepareAddTicketArea()"><span
+							class="glyphicon glyphicon-send"></span> New Ticket</a></li>
 				</ul>
 			</div>
 			<div class="row">
@@ -76,30 +96,34 @@
 					<!-- Ticket Details Div -->
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h4 style="text-align:center;">Ticket Details</h4>
+							<h4 style="text-align: center;">Ticket Details</h4>
 						</div>
 						<div class="panel-body">
 							<ul class="media-list">
 								<li class="media">
 									<div class="media-body">
-										<strong>Title :</strong> <span class="response_message" id="ticket_title"></span>
-										<span style="float:right;"><strong>Sender :</strong> <span class="response_message" id="ticket_sender"></span></span>
+										<strong>Title :</strong> <span class="response_message"
+											id="ticket_title"></span> <span style="float: right;"><strong>Sender
+												:</strong> <span class="response_message" id="ticket_sender"></span></span>
 										<hr>
-										<strong>Status : </strong><span class="response_message" id="ticket_status"></span>
-										<span style="float:right;"><strong>E-mail : </strong><span class="response_message" id="ticket_sender_mail"></span></span>
+										<strong>Status : </strong><span class="response_message"
+											id="ticket_status"></span> <span style="float: right;"><strong>E-mail
+												: </strong><span class="response_message" id="ticket_sender_mail"></span></span>
 										<hr>
-										<strong>Date : </strong><span class="response_message" id="ticket_date"></span>
-										<span style="float:right;"><strong>Department : </strong><span class="response_message" id="ticket_department"></span></span>
+										<strong>Date : </strong><span class="response_message"
+											id="ticket_date"></span> <span style="float: right;"><strong>Department
+												: </strong><span class="response_message" id="ticket_department"></span></span>
 										<hr>
-										<strong>Message : </strong>
-										<br>
-										<br><span class="text-muted" id="ticket_message"></span>
-										<br>
+										<strong>Message : </strong> <br> <br>
+										<span class="text-muted" id="ticket_message"></span> <br>
 										<br>
 										<div class="btn-group" style="float: right">
-											<button id="ticket_detail_delete_btn" class="btn btn-danger" onclick="prepareDeleteTicketArea()">Delete</button>
-											<button id="ticket_detail_edit_btn" class="btn btn-success" onclick="prepareEditTicketArea()">Edit</button>
-											<button id="ticket_detail_close_btn" class="btn btn-primary" onclick="prepareCloseTicketArea()">Close</button>
+											<button id="ticket_detail_delete_btn" class="btn btn-danger"
+												onclick="prepareDeleteTicketArea()">Delete</button>
+											<button id="ticket_detail_edit_btn" class="btn btn-success"
+												onclick="prepareEditTicketArea()">Edit</button>
+											<button id="ticket_detail_close_btn" class="btn btn-primary"
+												onclick="prepareCloseTicketArea()">Close</button>
 										</div>
 									</div>
 								</li>
@@ -110,20 +134,26 @@
 							<h4>Responses</h4>
 						</div>
 						<div class="panel-body">
-							<div id="ResponseAlertMessage" class="alert alert-danger" role="alert">
+							<div id="ResponseAlertMessage" class="alert alert-danger"
+								role="alert">
 								<strong> No responses yet!</strong>
 							</div>
 							<ul class="media-list" id="response_list"></ul>
 						</div>
 						<div class="panel-footer" align="center">
 							<div class="input-group">
-								<div id="addResponseAlertMessage" class="alert alert-danger" role="alert">
+								<div id="addResponseAlertMessage" class="alert alert-danger"
+									role="alert">
 									<strong> Please add a response!</strong>
 								</div>
-								<textarea class="responseMessage" rows="9" cols="70" maxlength="500" id="ticket_response_msg"></textarea>
-								<br><span class="responseMessageCountdown"></span>
-								<span class="input-group">
-									<button id="sendTicketResponse" class="btn btn-block btn-success" onclick="sendTicketResponse()">Send Response</button>
+								<textarea class="responseMessage" rows="9" cols="70"
+									maxlength="500" id="ticket_response_msg"></textarea>
+								<br>
+								<span class="responseMessageCountdown"></span> <span
+									class="input-group">
+									<button id="sendTicketResponse"
+										class="btn btn-block btn-success"
+										onclick="sendTicketResponse()">Send Response</button>
 								</span>
 							</div>
 						</div>
@@ -171,14 +201,19 @@
 		<div id="profile_page" class="row" style="display: none;">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+					<div
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3 class="panel-title" id="user_name"></h3>
 							</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-3 col-lg-3" align="center"> <img alt="User Pic" src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png" class="img-circle img-responsive"> </div>
+									<div class="col-md-3 col-lg-3" align="center">
+										<img alt="User Pic"
+											src="https://taqyem.com/assets/rtl/projeler-front-end/images/icons/default_avatar.png"
+											class="img-circle img-responsive">
+									</div>
 									<div class=" col-md-9 col-lg-9">
 										<table class="table table-user-information">
 											<tbody>
@@ -200,20 +235,22 @@
 												</tr>
 												<tr>
 													<td>New Password:</td>
-													<td>
-														<input maxlength="45" id="user_new_pass" type="password">
-													</td>
+													<td><input maxlength="45" id="user_new_pass"
+														type="password"></td>
 												</tr>
 												<tr>
 													<td>Confirm New Password:</td>
-													<td>
-														<input maxlength="45" id="user_new_pass_c" type="password">
-													</td>
+													<td><input maxlength="45" id="user_new_pass_c"
+														type="password"></td>
 												</tr>
 											</tbody>
 										</table>
-										<div id="profile_update_alert" class="alert alert-info alert-dismissible" role="alert">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<div id="profile_update_alert"
+											class="alert alert-info alert-dismissible" role="alert">
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
 											<b id="pass_validate"></b>
 										</div>
 									</div>
@@ -222,14 +259,18 @@
 							<div class="panel-footer">
 								<div class="row">
 									<div class="pull-right">
-										<button id="user_update_btn" class="btn btn-success btn-lg" onclick="updateProfile()" disabled>
-											<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-											</span> Save
+										<button id="user_update_btn" class="btn btn-success btn-lg"
+											onclick="updateProfile()" disabled>
+											<span class="glyphicon glyphicon-floppy-disk"
+												aria-hidden="true"> </span> Save
 										</button>
 									</div>
 								</div>
-								<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-									<span class="sr-only">Info:</span> If further more information is needed to be changed, please send a ticket.</div>
+								<div class="alert alert-info" role="alert">
+									<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+									<span class="sr-only">Info:</span> If further more information
+									is needed to be changed, please send a ticket.
+								</div>
 							</div>
 						</div>
 					</div>
@@ -251,9 +292,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_ticket_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<label>Department:</label>
+					<br> <br> <label>Department:</label>
 					<div class="form-group">
 						<select id="new_ticket_dep"></select>
 					</div>
@@ -266,13 +305,14 @@
 					<label>Message:<span class="text-danger">*</span></label>
 					<div class="form-group">
 						<textarea rows="9" cols="50" maxlength="500" id="new_ticket_msg"></textarea>
-						<br><span class="ticketMessageCountdown"></span>
+						<br>
+						<span class="ticketMessageCountdown"></span>
 					</div>
 
 				</div>
 				<div class="modal-footer">
-					<button id="sendTicketButton" class="btn btn-success" onclick="sendTicket()">Send Ticket
-					</button>
+					<button id="sendTicketBgutton" class="btn btn-success"
+						onclick="sendTicket()">Send Ticket</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -291,14 +331,15 @@
 				<div class="modal-body">
 					<div>
 						<p id="delete_ticket_modal_msg" class="label label-success">sad</p>
-						<br>
-						<br>
+						<br> <br>
 					</div>
-					<p id="delete_ticket_msg" class="label label-danger">Are you sure want to delete ticket?</p>
+					<p id="delete_ticket_msg" class="label label-danger">Are you
+						sure want to delete ticket?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="deleteTicketButton" type="button" onclick="deleteTicket()" class="btn btn-danger">Delete</button>
+					<button id="deleteTicketButton" type="button"
+						onclick="deleteTicket()" class="btn btn-danger">Delete</button>
 				</div>
 			</div>
 		</div>
@@ -316,13 +357,15 @@
 				<div class="modal-body">
 					<div>
 						<p id="close_ticket_modal_msg" class="label label-success"></p>
-						<br>
-						<br>
+						<br> <br>
 					</div>
-					<p id="close_ticket_msg" class="label label-danger">Are you sure want to close ticket?</p>
+					<p id="close_ticket_msg" class="label label-danger">Are you
+						sure want to close ticket?</p>
 				</div>
 				<div class="modal-footer">
-					<button id="closeTicketButton" type="button" onclick="closeTicket()" class="btn btn-danger">Close Ticket</button>
+					<button id="closeTicketButton" type="button"
+						onclick="closeTicket()" class="btn btn-danger">Close
+						Ticket</button>
 				</div>
 			</div>
 		</div>
@@ -339,9 +382,7 @@
 				</div>
 				<div class="modal-body">
 					<p id="edit_ticket_modal_msg" class="label label-success"></p>
-					<br>
-					<br>
-					<label for="edit_ticket_dep">Department:</label>
+					<br> <br> <label for="edit_ticket_dep">Department:</label>
 					<div class="row">
 						<div class="col-md-6">
 							<select class="form-control" id="edit_ticket_dep">
@@ -349,13 +390,16 @@
 							</select>
 						</div>
 						<div class="col-md-6">
-							<button class="btn btn-primary" onclick="prepareAddDepArea('edit_ticket_dep')">Add Department</button>
+							<button class="btn btn-primary"
+								onclick="prepareAddDepArea('edit_ticket_dep')">Add
+								Department</button>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="editTicketButton" type="button" onclick="editTicket()" class="btn btn-danger">Edit</button>
+					<button id="editTicketButton" type="button" onclick="editTicket()"
+						class="btn btn-danger">Edit</button>
 				</div>
 			</div>
 		</div>
@@ -372,19 +416,21 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_user_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
+					<br> <br>
 					<div class="form-group">
-						<label>Full Name:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" placeholder="Enter Full Name" id="new_user_name" />
+						<label>Full Name:<span class="text-danger">*</span></label> <input
+							class="form-control" type="text" placeholder="Enter Full Name"
+							id="new_user_name" />
 					</div>
 					<div class="form-group">
-						<label>E-Mail:<span class="text-danger">*</span></label>
-						<input type="email" class="form-control" placeholder="Enter Email" id="new_user_email" />
+						<label>E-Mail:<span class="text-danger">*</span></label> <input
+							type="email" class="form-control" placeholder="Enter Email"
+							id="new_user_email" />
 					</div>
 					<div class="form-group">
-						<label>Password:<span class="text-danger">*</span></label>
-						<input class="form-control" type="password" placeholder="Enter Password" id="new_user_password" />
+						<label>Password:<span class="text-danger">*</span></label> <input
+							class="form-control" type="password" placeholder="Enter Password"
+							id="new_user_password" />
 					</div>
 					<div class="form-group">
 						<label>Company:</label>
@@ -393,19 +439,22 @@
 								<select class="form-control" id="new_user_company"></select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('new_user_company')"> New Company</button>
+								<button class="btn btn-primary btn-sm"
+									onclick="prepareAddCompanyArea('new_user_company')">
+									New Company</button>
 							</div>
 						</div>
 					</div>
 					<div class="from-group">
 						<label>User Role:<span class="text-danger">*</span></label>
 						<div id="add_user_roles" class="checkbox form-control">
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="adminRole">Admin</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="supporterRole">Supporter</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="clientRole">Client</label>
+							<label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="adminRole">Admin
+							</label> <label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="supporterRole">Supporter
+							</label> <label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="clientRole">Client
+							</label>
 						</div>
 					</div>
 					<div class="form-group" id="departmentFade">
@@ -417,13 +466,16 @@
 								</select>
 							</div>
 							<div class="col-md-6">
-								<button id="add_user_dep_btn" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('new_user_dep')"> New Department</button>
+								<button id="add_user_dep_btn" class="btn btn-primary btn-sm"
+									onclick="prepareAddDepArea('new_user_dep')">New
+									Department</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class=" modal-footer">
-					<button id="add_user_modal_btn" class="btn btn-success" onclick="addUser()">Add User</button>
+					<button id="add_user_modal_btn" class="btn btn-success"
+						onclick="addUser()">Add User</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -432,7 +484,8 @@
 	<!-- Add User Modal end -->
 
 	<!-- user detail modal -->
-	<div id="user_modal_detail" tabindex="-1" class="modal fade" role="dialog">
+	<div id="user_modal_detail" tabindex="-1" class="modal fade"
+		role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
@@ -441,23 +494,25 @@
 				</div>
 				<div class="modal-body">
 					<div>
-						<label>Full Name:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="selectedPersonName">
+						<label>Full Name:<span class="text-danger">*</span></label> <input
+							class="form-control" type="text" id="selectedPersonName">
 					</div>
 					<br>
 					<div>
-						<label>Email:<span class="text-danger">*</span></label>
-						<input class="form-control" type="text" id="selectedPersonEmail">
+						<label>Email:<span class="text-danger">*</span></label> <input
+							class="form-control" type="text" id="selectedPersonEmail">
 					</div>
 					<br>
 					<div>
 						<label>Password:<span class="text-danger">*</span></label>
 						<div class="row">
 							<div class="col-md-6">
-								<input class="form-control" type="password" id="selectedPersonPassword">
+								<input class="form-control" type="password"
+									id="selectedPersonPassword">
 							</div>
 							<div class="col-md-6">
-								<button onclick="togglePasswordArea()" id="showHideButton" class="btn btn-primary btn-sm">Show/Hide</button>
+								<button onclick="togglePasswordArea()" id="showHideButton"
+									class="btn btn-primary btn-sm">Show/Hide</button>
 							</div>
 						</div>
 					</div>
@@ -469,7 +524,9 @@
 								<select class="form-control" id="selectedPersonCompany"></select>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary btn-sm" onclick="prepareAddCompanyArea('selectedPersonCompany')"> New Company</button>
+								<button class="btn btn-primary btn-sm"
+									onclick="prepareAddCompanyArea('selectedPersonCompany')">
+									New Company</button>
 							</div>
 						</div>
 					</div>
@@ -477,12 +534,13 @@
 					<div>
 						<b>Roles:</b>
 						<div id="selectedUserRoles" class="checkbox form-control">
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="selectedPersonRoleAdmin">Admin</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="selectedPersonRoleSup">Supporter</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" name="userRole" id="selectedPersonRoleClient">Client</label>
+							<label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="selectedPersonRoleAdmin">Admin
+							</label> <label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="selectedPersonRoleSup">Supporter
+							</label> <label class="checkbox-inline"> <input type="checkbox"
+								name="userRole" id="selectedPersonRoleClient">Client
+							</label>
 						</div>
 					</div>
 					<br>
@@ -495,7 +553,9 @@
 								</select>
 							</div>
 							<div class="col-md-6">
-								<button id="add_user_dep_btn2" class="btn btn-primary btn-sm" onclick="prepareAddDepArea('selectedPersonDepartment')"> New Department</button>
+								<button id="add_user_dep_btn2" class="btn btn-primary btn-sm"
+									onclick="prepareAddDepArea('selectedPersonDepartment')">
+									New Department</button>
 							</div>
 						</div>
 					</div>
@@ -503,8 +563,10 @@
 				<div class="modal-footer">
 					<div>
 						<button class="btn btn-primary" data-dismiss="modal">Close</button>
-						<button class="btn btn-primary btn-danger" onclick="prepareDeleteUserArea()">Delete</button>
-						<button class="btn btn-primary btn-success" onclick="prepareUpdateUserArea()">Update</button>
+						<button class="btn btn-primary btn-danger"
+							onclick="prepareDeleteUserArea()">Delete</button>
+						<button class="btn btn-primary btn-success"
+							onclick="prepareUpdateUserArea()">Update</button>
 					</div>
 				</div>
 			</div>
@@ -522,31 +584,35 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_company_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
+					<br> <br>
 					<div class="form-group">
-						<label>Name:<span class="text-danger">*</span></label>
-						<input maxlength="45" class="form-control" type="text" id="new_company_name" placeholder="Enter Company Name"/>
+						<label>Name:<span class="text-danger">*</span></label> <input
+							maxlength="45" class="form-control" type="text"
+							id="new_company_name" placeholder="Enter Company Name" />
 					</div>
 					<div class="form-group">
-						<label>E-Mail:<span class="text-danger">*</span></label>
-						<input maxlength="45" class="form-control" type="text" id="new_company_email" placeholder="Enter Company E-mail" />
+						<label>E-Mail:<span class="text-danger">*</span></label> <input
+							maxlength="45" class="form-control" type="text"
+							id="new_company_email" placeholder="Enter Company E-mail" />
 					</div>
 					<div class="form-group">
-						<label>Phone:</label>
-						<input maxlength="45" class="form-control" type="text" id="new_company_phone" placeholder="ex : 212 645 34 57"  />
+						<label>Phone:</label> <input maxlength="45" class="form-control"
+							type="text" id="new_company_phone"
+							placeholder="ex : 212 645 34 57" />
 					</div>
 					<div class="form-group">
-						<label>Fax:</label>
-						<input maxlength="45" class="form-control" type="text" id="new_company_fax" placeholder="ex : 212 645 34 57" />
+						<label>Fax:</label> <input maxlength="45" class="form-control"
+							type="text" id="new_company_fax" placeholder="ex : 212 645 34 57" />
 					</div>
 					<div class="form-group">
-						<label>Address:</label>
-						<input maxlength="500" class="form-control" type="text" id="new_company_address" placeholder="Adress" />
+						<label>Address:</label> <input maxlength="500"
+							class="form-control" type="text" id="new_company_address"
+							placeholder="Adress" />
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="add_company_modal_btn" class="btn btn-success" onclick="addCompany()">Add</button>
+					<button id="add_company_modal_btn" class="btn btn-success"
+						onclick="addCompany()">Add</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -560,36 +626,42 @@
 			<div class="modal-content">
 				<div class="modal-header" align="center">
 					<button class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"> Company Details</h4>
+					<h4 class="modal-title">Company Details</h4>
 				</div>
 				<div class="modal-body">
 					<p id="selected_company_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
+					<br> <br>
 					<div class="form-group">
-						<label>Name:<span class="text-danger">*</span></label>
-						<input maxlength="45" class="form-control" type="text" id="selected_company_name" />
+						<label>Name:<span class="text-danger">*</span></label> <input
+							maxlength="45" class="form-control" type="text"
+							id="selected_company_name" />
 					</div>
 					<div class="form-group">
-						<label>E-Mail:<span class="text-danger">*</span></label>
-						<input maxlength="45" class="form-control" type="text" id="selected_company_email" />
+						<label>E-Mail:<span class="text-danger">*</span></label> <input
+							maxlength="45" class="form-control" type="text"
+							id="selected_company_email" />
 					</div>
 					<div class="form-group">
-						<label>Phone:</label>
-						<input maxlength="45" class="form-control" type="text" id="selected_company_phone" placeholder="ex : 212 645 34 57" />
+						<label>Phone:</label> <input maxlength="45" class="form-control"
+							type="text" id="selected_company_phone"
+							placeholder="ex : 212 645 34 57" />
 					</div>
 					<div class="form-group">
-						<label>Fax:</label>
-						<input maxlength="45" class="form-control" type="text" id="selected_company_fax"  placeholder="ex : 212 645 34 57"/>
+						<label>Fax:</label> <input maxlength="45" class="form-control"
+							type="text" id="selected_company_fax"
+							placeholder="ex : 212 645 34 57" />
 					</div>
 					<div class="form-group">
-						<label>Address:</label>
-						<input maxlength="500" class="form-control" type="text" id="selected_company_address" placeholder="Address" />
+						<label>Address:</label> <input maxlength="500"
+							class="form-control" type="text" id="selected_company_address"
+							placeholder="Address" />
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="selected_company_update_btn" class="btn btn-success" onclick="prepareUpdateCompanyArea()">Update</button>
-					<button id="selected_company_delete_btn" class="btn btn-danger" onclick="prepareDeleteCompanyArea()">Delete</button>
+					<button id="selected_company_update_btn" class="btn btn-success"
+						onclick="prepareUpdateCompanyArea()">Update</button>
+					<button id="selected_company_delete_btn" class="btn btn-danger"
+						onclick="prepareDeleteCompanyArea()">Delete</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -607,13 +679,14 @@
 				</div>
 				<div class="modal-body">
 					<p id="delete_company_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<p id="delete_company_msg" class="label label-danger">Are you sure want to delete company?</p>
+					<br> <br>
+					<p id="delete_company_msg" class="label label-danger">Are you
+						sure want to delete company?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="delete_company_modal_btn" onclick="deleteCompanyData()" class="btn btn-danger">Delete Company</button>
+					<button id="delete_company_modal_btn" onclick="deleteCompanyData()"
+						class="btn btn-danger">Delete Company</button>
 				</div>
 			</div>
 		</div>
@@ -630,13 +703,14 @@
 				</div>
 				<div class="modal-body">
 					<p id="update_company_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<p id="update_company_msg" class="label label-danger">Are you sure want to update company?</p>
+					<br> <br>
+					<p id="update_company_msg" class="label label-danger">Are you
+						sure want to update company?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="update_company_modal_btn" onclick="updateCompanyData()" class="btn btn-danger">Update Company</button>
+					<button id="update_company_modal_btn" onclick="updateCompanyData()"
+						class="btn btn-danger">Update Company</button>
 				</div>
 			</div>
 		</div>
@@ -654,15 +728,16 @@
 				</div>
 				<div class="modal-body">
 					<p id="add_dep_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
+					<br> <br>
 					<div class="form-group">
-						<label>Name:<span class="text-danger">*</span></label>
-						<input maxlength="45" class="form-control" type="text" id="new_dep_name" placeholder="Department Name" />
+						<label>Name:<span class="text-danger">*</span></label> <input
+							maxlength="45" class="form-control" type="text" id="new_dep_name"
+							placeholder="Department Name" />
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="add_dep_modal_btn" class="btn btn-success" onclick="addDepartment()">Add</button>
+					<button id="add_dep_modal_btn" class="btn btn-success"
+						onclick="addDepartment()">Add</button>
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -680,13 +755,14 @@
 				</div>
 				<div class="modal-body">
 					<p id="delete_user_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<p id="delete_user_msg" class="label label-danger">Are you sure want to delete user?</p>
+					<br> <br>
+					<p id="delete_user_msg" class="label label-danger">Are you sure
+						want to delete user?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="delete_user_modal_btn" onclick="deleteUserData()" class="btn btn-danger">Delete user</button>
+					<button id="delete_user_modal_btn" onclick="deleteUserData()"
+						class="btn btn-danger">Delete user</button>
 				</div>
 			</div>
 		</div>
@@ -703,13 +779,14 @@
 				</div>
 				<div class="modal-body">
 					<p id="update_user_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<p id="update_user_msg" class="label label-danger">Are you sure want to update user?</p>
+					<br> <br>
+					<p id="update_user_msg" class="label label-danger">Are you sure
+						want to update user?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="update_user_modal_btn" onclick="updateUserData()" class="btn btn-danger">Update user</button>
+					<button id="update_user_modal_btn" onclick="updateUserData()"
+						class="btn btn-danger">Update user</button>
 				</div>
 			</div>
 		</div>
@@ -726,13 +803,15 @@
 				</div>
 				<div class="modal-body">
 					<p id="delete_department_modal_msg" class="label label-info"></p>
-					<br>
-					<br>
-					<p id="delete_deparment_msg" class="label label-danger">Are you sure want to delete deparment?</p>
+					<br> <br>
+					<p id="delete_deparment_msg" class="label label-danger">Are you
+						sure want to delete deparment?</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary" data-dismiss="modal">Close</button>
-					<button id="delete_dep_modal_btn" onclick="deleteDepartment(selectedDeparmentAreaID)" class="btn btn-danger">Delete deparment</button>
+					<button id="delete_dep_modal_btn"
+						onclick="deleteDepartment(selectedDeparmentAreaID)"
+						class="btn btn-danger">Delete deparment</button>
 				</div>
 			</div>
 		</div>
