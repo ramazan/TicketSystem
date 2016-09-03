@@ -1,8 +1,6 @@
 /********************************************************************/
 Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama tekrar kontrol edelim)
 
-- input girişlerinde girişlerin istenilen değere uygunluğunu kontrol edelim örn : e-posta  gibi  ( @) 
-
 - role göre  ve usera özel ticket tarafının badgeleri düzenlenmeli..
 
 -- ticket response design tarafı düzenlenecek mi ? mesajlar ortalanacak mı ?  
