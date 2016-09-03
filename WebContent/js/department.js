@@ -97,6 +97,7 @@ function addDepartment() {
   var dName = $("#new_dep_name").val();
   if (dName == "") {
     $("#add_dep_modal_msg").text("You have to fill required(*) places");
+    $("#add_dep_modal_btn").prop("disabled", false);
   } else {
 
     var department = {

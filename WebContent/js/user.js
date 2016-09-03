@@ -118,6 +118,8 @@ function addUser() {
     $("#add_user_modal_msg").text("Invalid e-mail address!");
   } else {
 
+	  $("#add_user_modal_btn").prop("disabled", true);
+	  
     var person = {
       name: newName,
       email: newEmail,
@@ -145,6 +147,7 @@ function addUser() {
           // reload jqgrid
           $('#users_jqGrid').trigger('reloadGrid');
           getBadges();
+    	  $("#add_user_modal_btn").prop("disabled", false);
           setTimeout(function() {
             $('#add_user_modal').modal('hide');
           }, 2000);
