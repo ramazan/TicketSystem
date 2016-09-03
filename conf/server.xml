@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE XML>
-
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -38,18 +36,7 @@
     <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
     -->
-	<Resource type="javax.sql.DataSource"
-			auth="Container"
-            name="jdbc/TicketDB"
-            driverClassName="com.mysql.jdbc.Driver"
-			factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-            url="jdbc:mysql://188.213.175.52:3306/TICKET?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8"
-            username="ticket"
-            password="Ticket32++"
-			initialSize="10"
-            maxActive="20"
-            maxIdle="10"
-            minIdle="5"/>
+	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" initialSize="10" maxActive="20" maxIdle="10" minIdle="5" name="jdbc/TicketDB" password="Ticket32++" type="javax.sql.DataSource" url="jdbc:mysql://188.213.175.52:3306/TICKET?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8" username="ticket"/>
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
   </GlobalNamingResources>
 
@@ -122,16 +109,7 @@
              resources under the key "UserDatabase".  Any edits
              that are performed against this UserDatabase are immediately
              available for use by the Realm.  -->
-		<Realm className="org.apache.catalina.realm.JDBCRealm"  
-			connectionName="ticket"  
-			connectionPassword="Ticket32++"  
-			connectionURL="jdbc:mysql://188.213.175.52:3306/TICKET"  
-			driverName="org.gjt.mm.mysql.Driver"  
-			userTable="users"  
-			userCredCol="PASSWORD"  
-			userNameCol="EMAIL"  
-			userRoleTable="user_roles"  
-			roleNameCol="ROLE"  />
+		<Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="ticket" connectionPassword="Ticket32++" connectionURL="jdbc:mysql://188.213.175.52:3306/TICKET" driverName="org.gjt.mm.mysql.Driver" roleNameCol="ROLE" userCredCol="PASSWORD" userNameCol="EMAIL" userRoleTable="user_roles" userTable="users"/>
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
       </Realm>
 
