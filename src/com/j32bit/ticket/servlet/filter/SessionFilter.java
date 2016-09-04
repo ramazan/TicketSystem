@@ -14,16 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SessionFilter implements Filter {
+	private static Logger logger = LogManager.getLogger();
 
 	private ArrayList<String> urlList;
 
 	public void destroy() {
 	}
 
+	// yapilan tüm istekleri filtrele sessison bittiyse yönlendir
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		String url = request.getServletPath();
@@ -39,11 +43,11 @@ public class SessionFilter implements Filter {
 				response.sendRedirect("index.html");
 			}
 		}
-
 		chain.doFilter(req, res);
 	}
 
 	public void init(FilterConfig config) throws ServletException {
+		logger.info("SessionFilter initialize started");
 		String urls = config.getInitParameter("urls");
 		StringTokenizer token = new StringTokenizer(urls, ",");
 
@@ -51,7 +55,7 @@ public class SessionFilter implements Filter {
 
 		while (token.hasMoreTokens()) {
 			urlList.add(token.nextToken());
-
 		}
+		logger.info("SessionFilter is initialized");
 	}
 }

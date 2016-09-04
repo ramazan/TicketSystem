@@ -7,7 +7,6 @@ function prepareTicketDetailArea() {
 }
 
 function getTicket(ticketID) {
-
   prepareTicketDetailArea();
   $.ajax({
     type: "POST",

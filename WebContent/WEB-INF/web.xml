@@ -98,6 +98,17 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
+
+	<!-- error pages -->
+	<error-page>
+    	<error-code>404</error-code>
+    	<location>/errorPage.html?err=404</location>
+	</error-page>
+
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/errorPage.html?err=500</location>
+	</error-page>
 	
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
