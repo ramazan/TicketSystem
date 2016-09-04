@@ -55,7 +55,6 @@ function authenticateUser() {
           $("#nav_companies").show();
           $("#nav_deps").show();
         }
-        getBadges();
       }
     });
   });
