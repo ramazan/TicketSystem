@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>Ticket System</display-name>
+	<servlet>
+	  	<servlet-name>LoginServlet</servlet-name>
+	  	<servlet-class>com.j32bit.ticket.servlet.LoginServlet</servlet-class>
+	  	<load-on-startup>1</load-on-startup>
+	</servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+	<servlet>
+	  	<servlet-name>LogoutServlet</servlet-name>
+	  	<servlet-class>com.j32bit.ticket.servlet.LogoutServlet</servlet-class>
+	  	<load-on-startup>1</load-on-startup>
+	</servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 	    <filter-name>SessionFilter</filter-name> <!-- mandatory -->
 	    <filter-class>com.j32bit.ticket.servlet.filter.SessionFilter</filter-class> <!-- mandatory -->
-	    <init-param> <!-- optional -->
-	    <param-name>urls</param-name>
-	    <param-value>index.html</param-value>
-	    </init-param>
-	  </filter>
+	</filter>
 
   <filter-mapping>
     <filter-name>SessionFilter</filter-name> <!-- mandatory -->
     <url-pattern>/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
-    <servlet-name>LoginServlet</servlet-name>
   </filter-mapping>
-	
+
 	<!-- JERSEY -->
 	<servlet>
 	  	<servlet-name>Ticket System</servlet-name>
@@ -61,13 +77,13 @@
      	<role-name>supporter</role-name>
 	</security-role>
 
-	<!-- CONSTRAINT -->
+<!-- CONSTRAINT -->
   	<security-constraint>
     	<display-name>Ticket System</display-name>
     	<web-resource-collection>
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
-   	    	<url-pattern>/*</url-pattern>
+   	    	<url-pattern>/index.html</url-pattern>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>

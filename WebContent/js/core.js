@@ -8,25 +8,26 @@ $("#nav_tickets").show();
 
 $(document).ready(function() {
   authenticateUser();
+
+  $('#supporterRole').change(function() {
+    if (this.checked)
+      $('#departmentFade').fadeIn();
+    else
+      $('#departmentFade').fadeOut();
+  });
+
+  $('#selectedPersonRoleSup').change(function() {
+    if (this.checked)
+      $('#departmentInput').fadeIn();
+    else
+      $('#departmentInput').fadeOut();
+  });
 });
 
-$('#supporterRole').change(function() {
-  if (this.checked)
-    $('#departmentFade').fadeIn();
-  else
-    $('#departmentFade').fadeOut();
-});
-
-$('#selectedPersonRoleSup').change(function() {
-  if (this.checked)
-    $('#departmentInput').fadeIn();
-  else
-    $('#departmentInput').fadeOut();
-});
 
 function authenticateUser() {
   // login to system
-  $.get("/Ticket_System/rest/session/login", function() {
+  $.get("/Ticket_System/login", function() {
     $.ajax({
       type: "POST",
       url: '/Ticket_System/rest/session/getAuthenticatedUser',
@@ -50,6 +51,7 @@ function authenticateUser() {
           $("#nav_companies").show();
           $("#nav_deps").show();
         }
+        getBadges();
       }
     });
   });
@@ -57,7 +59,7 @@ function authenticateUser() {
 
 
 function logout() {
-  $.get("/Ticket_System/rest/session/logout");
+  $.get("/Ticket_System/logout");
   window.location = "/Ticket_System";
 }
 
@@ -145,22 +147,21 @@ function showCompanies() {
   $("#companies_page").show();
 }
 
-function getBadges(){
-	
-	$.ajax({
-	      type: "POST",
-	      url: '/Ticket_System/rest/department/getBadges',
-	      contentType: "application/json",
-	      mimeType: "application/json",
-	      success: function(Badge) {
-	    	  $("#usersBadge").text(Badge[0]);
-	    	  $("#ticketsBadge").text(Badge[1]);
-	    	  $("#depBadge").text(Badge[2]-1);
-	    	  $("#companiesBadge").text(Badge[3]);
-	      },
-	      error:{
-	      }
-	    });
+function getBadges() {
+
+  $.ajax({
+    type: "POST",
+    url: '/Ticket_System/rest/department/getBadges',
+    contentType: "application/json",
+    mimeType: "application/json",
+    success: function(Badge) {
+      $("#usersBadge").text(Badge[0]);
+      $("#ticketsBadge").text(Badge[1]);
+      $("#depBadge").text(Badge[2] - 1);
+      $("#companiesBadge").text(Badge[3]);
+    },
+    error: {}
+  });
 }
 
 

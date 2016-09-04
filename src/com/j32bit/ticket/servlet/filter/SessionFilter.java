@@ -1,12 +1,11 @@
 package com.j32bit.ticket.servlet.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -20,9 +19,8 @@ import org.apache.logging.log4j.Logger;
 public class SessionFilter implements Filter {
 	private static Logger logger = LogManager.getLogger();
 
-	private ArrayList<String> urlList;
-
 	public void destroy() {
+		logger.info("sessionFilter is destroyed");
 	}
 
 	// yapilan tüm istekleri filtrele sessison bittiyse yönlendir
@@ -30,32 +28,29 @@ public class SessionFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		String url = request.getServletPath();
-		boolean allowedRequest = false;
+		HttpSession session = request.getSession(false);
 
-		if (urlList.contains(url)) {
-			allowedRequest = true;
-		}	
+		logger.debug("url:" + request.getRequestURI());
 
-		if (!allowedRequest) {
-			HttpSession session = request.getSession(false);
-			if (null == session) {
-				response.sendRedirect("index.html");
+		// logine git
+		if (request.getRequestURI().startsWith("/Ticket_System/login")) {
+			logger.debug("goLogin");
+			chain.doFilter(request, response);
+		} else if (request.getRequestURI().startsWith("/Ticket_System/rest/")) {
+			if (session == null || session.isNew() || session.getAttribute("LOGIN_USER") == null) {
+				logger.debug("Has timed out");
+				response.sendRedirect(request.getContextPath());
+			} else {
+				chain.doFilter(request, response);
 			}
+		} else { // izin ver
+			logger.debug("url pass");
+			chain.doFilter(request, response);
 		}
-		chain.doFilter(req, res);
 	}
 
 	public void init(FilterConfig config) throws ServletException {
-		logger.info("SessionFilter initialize started");
-		String urls = config.getInitParameter("urls");
-		StringTokenizer token = new StringTokenizer(urls, ",");
-
-		urlList = new ArrayList<String>();
-
-		while (token.hasMoreTokens()) {
-			urlList.add(token.nextToken());
-		}
 		logger.info("SessionFilter is initialized");
+
 	}
 }
