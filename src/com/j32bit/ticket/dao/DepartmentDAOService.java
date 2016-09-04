@@ -300,16 +300,18 @@ public class DepartmentDAOService extends ConnectionHelper {
 		}
 	}
 
-	public ArrayList<Integer> getBadges() {
+	public ArrayList<Integer> getBadges(long userID) {
 
 		logger.debug("getBadges started");
 
 		ArrayList<Integer> badges = new ArrayList<Integer>();
 		ArrayList<String> queries = new ArrayList<String>();
 		queries.add("SELECT COUNT(*) AS COUNT FROM users;");
-		queries.add("SELECT COUNT(*) AS COUNT FROM tickets;");
+//		queries.add("SELECT COUNT(*) AS COUNT FROM tickets;");
 		queries.add("SELECT COUNT(*) AS COUNT FROM departments;");
 		queries.add("SELECT COUNT(*) AS COUNT FROM companies;");
+		queries.add("SELECT Count(*) AS COUNT FROM tickets INNER JOIN users ON users.ID = tickets.SENDER_ID  WHERE STATUS=0 AND tickets.SENDER_ID="+userID+";");
+		queries.add("SELECT Count(*) AS COUNT FROM tickets INNER JOIN users ON users.ID = tickets.SENDER_ID  WHERE STATUS=1 AND tickets.SENDER_ID="+userID+";");
 
 		Connection con = null;
 		PreparedStatement pst = null;

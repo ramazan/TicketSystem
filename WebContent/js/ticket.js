@@ -49,13 +49,21 @@ function getTicket(ticketID) {
   });
 }
 
-function addLink(cellvalue, options, rowObject) {
+function addTitleLink(cellvalue, options, rowObject) {
   var ticketID = rowObject.id;
-  var clickLink = "<a href='#' style='height:25px;width:120px;' type='button' title='Select'";
-  clickLink += " onclick=\"getTicket(" + ticketID + ")\" >" + ticketID +
-    "</a>"
+  var ticketTitle = rowObject.title;
+  var clickLink = "<a href='#' style='height:25px;width:120px; color:#AC2323;' type='button' title='Select'";
+  clickLink += " onclick=\"getTicket(" + ticketID + ")\" >" + ticketTitle + "</a>"
   return clickLink;
 }
+
+function addIDLink(cellvalue, options, rowObject) {
+	  var ticketID = rowObject.id;
+	  var clickLink = "<a href='#' style='height:25px;width:120px; color:#AC2323;' type='button' title='Select'";
+	  clickLink += " onclick=\"getTicket(" + ticketID + ")\" >" + ticketID + "</a>"
+	  return clickLink;
+	}
+
 
 function prepareDeleteTicketArea() {
   $("#delete_ticket_modal_msg").text("");
@@ -204,7 +212,7 @@ function loadAllTickets(status) {
       name: 'id',
       align: "center",
       width: 30,
-      formatter: addLink
+      formatter: addIDLink
     }, {
       label: "Date",
       name: 'time',
@@ -219,7 +227,8 @@ function loadAllTickets(status) {
       label: "Title",
       name: 'title',
       width: 150,
-      align: "center"
+      align: "center",
+      formatter: addTitleLink
     }, {
       label: "From",
       name: 'sender.name',
@@ -267,7 +276,7 @@ function loadPostedTickets(status) {
       name: 'id',
       width: 30,
       align: "center",
-      formatter: addLink
+      formatter: addIDLink
     }, {
       label: "Date",
       name: 'time',
@@ -281,11 +290,12 @@ function loadPostedTickets(status) {
     }, {
       label: "Title",
       name: 'title',
-      width: 130
+      width: 150,
+      formatter: addTitleLink
     }, {
       label: "From",
       name: 'sender.name',
-      width: 100,
+      width: 70,
       align: "center"
     }, {
       label: "Department",
@@ -426,6 +436,9 @@ function updateCountdownTicket() {
 }
 
 jQuery(document).ready(function($) {
+
+ 
+
   updateCountdownTicketResponse();
   $('.responseMessage').change(updateCountdownTicketResponse);
   $('.responseMessage').keyup(updateCountdownTicketResponse);
