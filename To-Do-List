@@ -1,8 +1,8 @@
-/********************************************************************/
-Hata durumlarında exceptionlar fırlatılıp map edilecek ( Tamam sayılır ama tekrar kontrol edelim)
-
 - role göre  ve usera özel ticket tarafının badgeleri düzenlenmeli..
 
--- ticket response design tarafı düzenlenecek mi ? mesajlar ortalanacak mı ?  
-    yoksa farklı bi tasarım mı yapalım ? sağ taraf çok boş kalıyor..
-    
+-- error page eklendi - sekillendirilecek
+
+-- ticke tablosunda title tıklanıncada ticket acılabilsin yada id ye renk verilsin
+
+-- ticket badge düzenlenecek
+..
