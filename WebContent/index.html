@@ -30,8 +30,7 @@
 				<div id="navs" class="collapse navbar-collapse">
 					<ul id="navLinks" class="nav navbar-nav">
 						<li id="nav_tickets"><a href="#" onclick="showTickets()"><span
-								class="glyphicon glyphicon-inbox"></span> Tickets <span
-								id="ticketsBadge" class="badge"></span></a></li>
+								class="glyphicon glyphicon-inbox"></span> Tickets</a></li>
 						<li id="nav_users"><a href="#" onclick="showUsers()"><i class="fa fa-users" aria-hidden="true"></i> Users <span
 								id="usersBadge" class="badge"></span></a></li>
 						<li id="nav_companies"><a href="#" onclick="showCompanies()"><span
@@ -59,23 +58,21 @@
 				style="text-align: center; display: inline-block; float: 700px;">
 				<ul class="nav navbar-nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i></span>
-							My Tickets <span class="caret"></span></a>
+						data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
+							My Tickets <span id="MyTicketBadge"	class="badge"></span><span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#" onclick="loadPostedTickets(1)"><span
 							class="glyphicon glyphicon-folder-open"></span>  Open <span
-									class="badge"> 12</span></a></li>
+								id="openedTicketBadge"	class="badge"></span></a></li>
 							<li class="divider"></li>
 							<li><a href="#" onclick="loadPostedTickets(0)"><span
 							class="glyphicon glyphicon-folder-close"></span> Close <span
-									class="badge">1</span></a></li>
+								id="closedTicketBadge"	class="badge"></span></a></li>
 						</ul></li>
 					<li><a href="#" onclick="loadAllTickets(1)"><span
-							class="glyphicon glyphicon-folder-open"></span> Open Tickets <span
-							id="loadAllTickets(1)Badge" class="badge"> </span></a></li>
+							class="glyphicon glyphicon-folder-open"></span> Open Tickets</a></li>
 					<li><a href="#" onclick="loadAllTickets(0)"><span
-							class="glyphicon glyphicon-folder-close"></span> Closed Tickets <span
-							id="loadAllTickets(0)Badge" class="badge"> </span></a></li>
+							class="glyphicon glyphicon-folder-close"></span> Closed Tickets</a></li>
 					<li><a href="#" onclick="prepareAddTicketArea()"><span
 							class="glyphicon glyphicon-send"></span> New Ticket</a></li>
 				</ul>

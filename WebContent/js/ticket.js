@@ -428,7 +428,7 @@ function updateCountdownTicket() {
 
 jQuery(document).ready(function($) {
 
-  getBadges();
+ 
 
   updateCountdownTicketResponse();
   $('.responseMessage').change(updateCountdownTicketResponse);

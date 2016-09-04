@@ -8,6 +8,10 @@ $("#nav_tickets").show();
 
 $(document).ready(function() {
   authenticateUser();
+  
+  setTimeout(function() {
+	  getBadges();
+    }, 1300);
 });
 
 $('#supporterRole').change(function() {
@@ -145,6 +149,7 @@ function showCompanies() {
   $("#companies_page").show();
 }
 
+//Sayıların getirilip set edilmesi
 function getBadges(){
 	
 	$.ajax({
@@ -153,10 +158,14 @@ function getBadges(){
 	      contentType: "application/json",
 	      mimeType: "application/json",
 	      success: function(Badge) {
-	    	  $("#usersBadge").text(Badge[0]);
-	    	  $("#ticketsBadge").text(Badge[1]);
-	    	  $("#depBadge").text(Badge[2]-1);
-	    	  $("#companiesBadge").text(Badge[3]);
+	    	  $("#usersBadge").text(Badge[0]);  //gelen listedeki indexe  göre set etme işlemi
+//	    	  $("#ticketsBadge").text(Badge[1]);  // tickets olayını iptal ettim
+	    	  $("#depBadge").text(Badge[1]-1);    // Db'de ilk olarak no department seçenegini tuttugumuz için her zaman bir fazla oldugu için 1 eksilttim
+	    	  $("#companiesBadge").text(Badge[2]);
+	    	  $("#closedTicketBadge").text(Badge[3]);
+	    	  $("#openedTicketBadge").text(Badge[4]);
+	    	  $("#MyTicketBadge").text(Badge[3]+Badge[4]);  // myTicket olayı  open + closed oldugu için ekstra sorgu yapmadan böyle halletim.
+
 	      },
 	      error:{
 	      }
