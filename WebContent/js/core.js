@@ -27,7 +27,6 @@ $(document).ready(function() {
     else
       $('#departmentInput').fadeOut();
   });
-});
 
 
 function authenticateUser() {
