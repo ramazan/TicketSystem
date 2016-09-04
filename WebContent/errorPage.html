@@ -2,16 +2,17 @@
 <html>
 <head>
 <title>404 Not Found</title>
-<link href="css/ErrorStyle.css" rel="stylesheet" type="text/css"	media="all" />
+<link href="css/ErrorStyle.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 	<!--start-wrap--->
 	<div class="wrap">
-		<br>
-		<br>
+		<br> <br>
 		<div class="header">
 			<img src="images/32bit.jpg" title="error" />
 			<h1>Computer Services</h1>
+			<br>
+			<h2>Redirecting.. wait <span id="count">5</span></h2>
 		</div>
 		<div class="content">
 			<img src="images/error-img.png" title="error" />
@@ -19,11 +20,28 @@
 				<span><label>O</label>hh... </span>The page you requested could not
 				be found.
 			</p>
-
 			<div class="copy-right">
 				<p>32Bit Bilgisayar Hizmetleri Ltd. Sti. 2016</p>
 			</div>
 		</div>
 	</div>
+	<script>
+		setTimeout(function() {
+			window.location = "/Ticket_System/";
+		}, 5000);
+		
+		//yönlendirme geri sayım
+		var counter = 5;
+		var interval = setInterval(function() {
+		    counter--;
+		    document.getElementById("count").innerHTML = counter;
+		    if (counter == 0) {
+		        clearInterval(interval);
+		    }
+		}, 1000);
+		
+		
+		
+	</script>
 </body>
 </html>
