@@ -24,17 +24,23 @@ public class LoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-		String userEmail = request.getParameter("email");
+		logger.debug("login is started");
+		
+		String userEmail = request.getUserPrincipal().getName();
+		logger.debug("login email:"+userEmail);
 		User authenticatedUser = ServiceFacade.getInstance().getUserDetailWithEmail(userEmail);
 
 		HttpSession session = request.getSession();
+		logger.debug("session ID:"+session.getId());
 		session.setAttribute("LOGIN_USER", authenticatedUser);
+		session.setMaxInactiveInterval(60); // 60dk
 
 		try {
-			response.sendRedirect("/Ticket_System/pages/dashboard.html");
+			response.sendRedirect("/Ticket_System/index.html");
+			
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-		logger.debug("user saved in session:" + authenticatedUser);
+		logger.debug("login completed. userEmail:" + authenticatedUser.getEmail());
 	}
 }
