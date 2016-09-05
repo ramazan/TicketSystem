@@ -19,10 +19,15 @@ body {
 	font-weight: bold;
 }
 
-.text-muted {
-	font-weight: bold;
-	color: #d20d1b;
+#ticket_message {
+  font-weight: bold;  
+  color: #d20d1b; 
 }
+
+.text-muted { 
+  font-weight: bold; 
+  color: #d20d1b; 
+ }
 
 .response_message {
 	color: black;

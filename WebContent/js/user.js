@@ -385,7 +385,6 @@ function updateUserData() {
 
 function togglePasswordArea() {
   var pass = $("#selectedPersonPassword");
-  console.log(pass.prop("type"));
   if (pass.prop("type") == "password") {
     pass.prop("type", "text");
   } else {

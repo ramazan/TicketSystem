@@ -46,6 +46,7 @@ function addCompany() {
   var cFax = $("#new_company_fax").val();
   var cAddress = $("#new_company_address").val();
 
+  intRegex = /^[0-9 ]+$/;
   var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   
   if (cEmail == "" || cName == "") {
@@ -179,7 +180,6 @@ var selectedCompanyID;
 
 function getCompany(companyID) {
 
-  console.log("company id : " + companyID);
   $.ajax({
     method: "POST",
     url: '/Ticket_System/rest/company/getCompany',
@@ -215,7 +215,6 @@ function prepareDeleteCompanyArea() {
 }
 
 function deleteCompanyData() {
-  console.log("deleteCompanyData selectedCompanyID : " + selectedCompanyID);
   $.ajax({
     url: "/Ticket_System/rest/company/deleteCompanyData/",
     method: "POST",
@@ -252,7 +251,6 @@ function prepareUpdateCompanyArea() {
 }
 
 function updateCompanyData() {
-  console.log("update start with id : " + selectedCompanyID);
   var newName = $("#selected_company_name").val();
   var newEmail = $("#selected_company_email").val();
   var newPhone = $("#selected_company_phone").val();
