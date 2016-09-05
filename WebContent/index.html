@@ -65,9 +65,9 @@
 								id="closedTicketBadge"	class="badge"></span></a></li>
 						</ul>
 					</li>
-					<li><a href="#" onclick="loadAllTickets(1)"><span
+					<li id="loadAllTicketsLink1"><a href="#" onclick="loadAllTickets(1)"><span
 							class="glyphicon glyphicon-folder-open"></span> Open Tickets</a></li>
-					<li><a href="#" onclick="loadAllTickets(0)"><span
+					<li id="loadAllTicketsLink0"><a href="#" onclick="loadAllTickets(0)"><span
 							class="glyphicon glyphicon-folder-close"></span> Closed Tickets</a></li>
 					<li><a href="#" onclick="prepareAddTicketArea()"><span
 							class="glyphicon glyphicon-send"></span> New Ticket</a></li>
@@ -112,9 +112,9 @@
 										<br>
 										<br>
 										<div class="btn-group" style="float: right">
-											<button id="ticket_detail_delete_btn" class="btn btn-danger" onclick="prepareDeleteTicketArea()">Delete</button>
+											<button id="ticket_detail_delete_btn" class="btn btn-danger" data-toggle="modal" data-target="#delete_ticket_modal">Delete</button>
 											<button id="ticket_detail_edit_btn" class="btn btn-success" onclick="prepareEditTicketArea()">Edit</button>
-											<button id="ticket_detail_close_btn" class="btn btn-primary" onclick="prepareCloseTicketArea()">Close</button>
+											<button id="ticket_detail_close_btn" class="btn btn-primary" data-toggle="modal" data-target="#close_ticket_modal">Close</button>
 										</div>
 									</div>
 								</li>
@@ -131,7 +131,7 @@
 							<ul class="media-list" id="response_list"></ul>
 						</div>
 						<div class="panel-footer" align="center">
-							<div class="input-group">
+							<div id="respArea" class="input-group">
 								<div id="addResponseAlertMessage" class="alert alert-danger" role="alert">
 									<strong> Please add a response!</strong>
 								</div>
@@ -298,7 +298,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button id="sendTicketBgutton" class="btn btn-success" onclick="sendTicket()">Send Ticket</button>
+					<button id="sendTicketButton" class="btn btn-success" onclick="sendTicket()">Send Ticket</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -316,7 +316,7 @@
 				</div>
 				<div class="modal-body">
 					<div>
-						<p id="delete_ticket_modal_msg" class="label label-success">sad</p>
+						<p id="delete_ticket_modal_msg" class="label label-success"></p>
 						<br>
 						<br>
 					</div>

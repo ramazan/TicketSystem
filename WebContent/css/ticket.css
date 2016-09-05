@@ -109,3 +109,7 @@ body {
 	text-align: center;
 	width: 400px;
 }
+
+#loadAllTicketsLink1, #loadAllTicketsLink0{
+	display: none;
+}

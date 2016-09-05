@@ -35,6 +35,7 @@ function getTicket(ticketID) {
         $("#ticket_status").text("CLOSED");
         $("#ticket_status").css("color", "red");
         $("#close_ticket_btn").hide();
+        $("#respArea").hide();
       }
 
       loadAllResponses(selectedTicket.id);
@@ -58,20 +59,14 @@ function addTitleLink(cellvalue, options, rowObject) {
 }
 
 function addIDLink(cellvalue, options, rowObject) {
-	  var ticketID = rowObject.id;
-	  var clickLink = "<a href='#' style='height:25px;width:120px; color:#AC2323;' type='button' title='Select'";
-	  clickLink += " onclick=\"getTicket(" + ticketID + ")\" >" + ticketID + "</a>"
-	  return clickLink;
-	}
-
-
-function prepareDeleteTicketArea() {
-  $("#delete_ticket_modal_msg").text("");
-  $("#deleteTicketButton").prop("disabled", false);
-  $("#delete_ticket_modal").modal("show");
+  var ticketID = rowObject.id;
+  var clickLink = "<a href='#' style='height:25px;width:120px; color:#AC2323;' type='button' title='Select'";
+  clickLink += " onclick=\"getTicket(" + ticketID + ")\" >" + ticketID + "</a>"
+  return clickLink;
 }
 
 function deleteTicket() {
+  $("#deleteTicketButton").prop("disabled", true);
   $.ajax({
     url: "/Ticket_System/rest/ticket/deleteTicket",
     type: "POST",
@@ -79,18 +74,20 @@ function deleteTicket() {
     contentType: "application/json",
     data: JSON.stringify(selectedTicket.id),
     success: function() {
-      $("#deleteTicketButton").prop("disabled", true);
+      getBadges();
+      $("#deleteTicketButton").prop("disabled", false);
       $('#tickets_jqGrid').trigger('reloadGrid');
       $("#delete_ticket_modal_msg")
         .text("Ticket Deleted. Window closing");
       $('#ticket_details_page').hide();
-      getBadges();
       setTimeout(function() {
+        $("#delete_ticket_modal_msg").text("");
         $('#delete_ticket_modal').modal('hide');
       }, 2000);
       showTickets();
     },
     error: function(jqXHR, textStatus, errorThrown) {
+      $("#deleteTicketButton").prop("disabled", false);
       $("#delete_ticket_modal_msg").text(
         "You are not authorized to delete tickets");
     }
@@ -123,7 +120,7 @@ function sendTicketResponse() {
       data: JSON.stringify(responseTicket),
       success: function(response) {
         $("#ticket_response_msg").val("");
-        jQuery('.responseMessageCountdown').text(
+        $('.responseMessageCountdown').text(
           '500 characters remaining.');
         $("#sendTicketResponse").prop("disabled", false);
         loadAllResponses();
@@ -134,48 +131,42 @@ function sendTicketResponse() {
 
 function loadAllResponses() {
   $("#addResponseAlertMessage").hide();
-  $
-    .ajax({
-      type: "POST",
-      url: '/Ticket_System/rest/ticket/getAllResponses',
-      contentType: "application/json",
-      mimeType: "application/json",
-      data: JSON.stringify(selectedTicket.id),
-      success: function(responses) {
+  $.ajax({
+    type: "POST",
+    url: '/Ticket_System/rest/ticket/getAllResponses',
+    contentType: "application/json",
+    mimeType: "application/json",
+    data: JSON.stringify(selectedTicket.id),
+    success: function(responses) {
 
-        if (responses.length == 0) {
-          $('#ResponseAlertMessage').show();
-          $('#response_list').text("");
-        } else {
-          $('#ResponseAlertMessage').hide();
-          $("#response_list").html("");
-          $.each(responses, function(key, value) {
-            var msg = value.message.replace(
-              /\n/g, "<br />");
-            $('#response_list').append(
-              "<li class='media'>" +
-              "<div class='media-body'><div class='media'>" +
-              "<div class='media-body'><p class='response_message'>" +
-              msg +
-              "</p><p class = 'text-muted' >" +
-              value.sender.name +
-              "  |  " +
-              value.date +
-              " </p><hr>" +
-              "</div> </div > </div> </li>");
-          });
-        }
+      if (responses.length == 0) {
+        $('#ResponseAlertMessage').show();
+        $('#response_list').text("");
+      } else {
+        $('#ResponseAlertMessage').hide();
+        $("#response_list").html("");
+        $.each(responses, function(key, value) {
+          var msg = value.message.replace(
+            /\n/g, "<br />");
+          $('#response_list').append(
+            "<li class='media'>" +
+            "<div class='media-body'><div class='media'>" +
+            "<div class='media-body'><p class='response_message'>" +
+            msg +
+            "</p><p class = 'text-muted' >" +
+            value.sender.name +
+            "  |  " +
+            value.date +
+            " </p><hr>" +
+            "</div> </div > </div> </li>");
+        });
       }
-    });
-}
-
-function prepareCloseTicketArea() {
-  $("#closeTicketButton").prop("disabled", false);
-  $("#close_ticket_modal_msg").text("");
-  $("#close_ticket_modal").modal("show");
+    }
+  });
 }
 
 function closeTicket() {
+  $("#closeTicketButton").prop("disabled", true);
   $.ajax({
     type: "POST",
     url: "/Ticket_System/rest/ticket/closeTicket",
@@ -183,17 +174,24 @@ function closeTicket() {
     mimeType: "application/json",
     data: JSON.stringify(selectedTicket.id),
     success: function() {
+      getBadges();
       $("#close_ticket_modal_msg").text("Ticket Closed. Window closing");
-      $("#tickets_jqGrid").trigger("reloadGrid");
+      loadPostedTickets(1);
       $('#ticket_details_page').hide();
-      $("#closeTicketButton").prop("disabled", true);
 
       setTimeout(function() {
+        $("#close_ticket_modal_msg").text("");
         $('#close_ticket_modal').modal('hide');
+        $("#closeTicketButton").prop("disabled", false);
       }, 2000);
     },
     error: function() {
-      $("close_ticket_modal_msg").text("An Error Occured!");
+      $("close_ticket_modal_msg").text("An Error Occured! Try Later");
+      setTimeout(function() {
+        $("#close_ticket_modal_msg").text("");
+        $("#closeTicketButton").prop("disabled", false);
+        $('#close_ticket_modal').modal('hide');
+      }, 2000);
     }
   });
 }
@@ -339,13 +337,14 @@ function prepareAddTicketArea() {
 }
 
 function sendTicket() {
+  $("#sendTicketButton").prop("disabled", true);
   var ticketTitle = $("#new_ticket_title").val();
   var ticketMessage = $("#new_ticket_msg").val();
 
   if (ticketTitle == "" || ticketMessage == "") {
+    $("#sendTicketButton").prop("disabled", false);
     $("#add_ticket_modal_msg").text("Please fill required inputs");
   } else {
-    $("#sendTicketButton").prop("disabled", true);
     var ticketDepartmentID = $("#new_ticket_dep").val();
 
     var ticket = {
@@ -370,11 +369,15 @@ function sendTicket() {
         getBadges();
         setTimeout(function() {
           $('#add_ticket_modal').modal('hide');
+          $("#sendTicketButton").prop("disabled", false);
         }, 2000);
         // reload jqgrid
-        $('#tickets_jqGrid').trigger('reloadGrid');
+        if (isClient == true)
+          loadPostedTickets(1);
+        else loadAllTickets(1);
       },
       error: function() {
+        $("#sendTicketButton").prop("disabled", false);
         $("#add_ticket_modal_msg").text("An Error Occured!");
       }
     });
@@ -435,10 +438,7 @@ function updateCountdownTicket() {
     .text(remaining + ' characters remaining.');
 }
 
-jQuery(document).ready(function($) {
-
- 
-
+$(document).ready(function($) {
   updateCountdownTicketResponse();
   $('.responseMessage').change(updateCountdownTicketResponse);
   $('.responseMessage').keyup(updateCountdownTicketResponse);

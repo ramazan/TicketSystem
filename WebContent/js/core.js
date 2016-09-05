@@ -104,13 +104,21 @@ function showTicketDetails(selectedTicket) {
 
 function showTickets() {
 
-  loadAllTickets(1);
+  if (isAdmin == true || isSupporter == true) {
+    $("#loadAllTicketsLink1").show();
+    $("#loadAllTicketsLink0").show();
+    loadAllTickets(1);
+  } else {
+    loadPostedTickets(1);
+  }
 
   $("#navs li").removeClass("active");
   $("#nav_tickets").addClass("active");
 
   $("#pages > div").hide();
   $('#tickets_page').show();
+
+
 }
 
 function showCompanies() {
