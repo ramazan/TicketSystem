@@ -196,6 +196,7 @@ function validate() {
 function updateProfile() {
 
   var password = $("#user_new_pass").val();
+  $("#user_update_btn").prop("disabled", true);
 
   $.ajax({
     type: "PUT",
@@ -204,8 +205,12 @@ function updateProfile() {
     mimeType: "application/json",
     data: password,
     success: function() {
+      $("#profile_update_alert").show();
       $("#pass_validate").text("Password changed!");
-      $("#user_update_btn").prop("disabled", true);
+      $("#user_update_btn").prop("disabled", false);
+      setTimeout(function() {
+          $("#profile_update_alert").hide();
+        }, 2000);
     },
     error: function() {
       $("#pass_validate").text("An error occured!");
