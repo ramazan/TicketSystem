@@ -10,8 +10,9 @@ $(document).ready(function() {
   authenticateUser();
 
   setTimeout(function() {
+    showTickets();
     getBadges();
-  }, 1300);
+  }, 1500);
 });
 
 $('#supporterRole').change(function() {
@@ -54,7 +55,6 @@ function authenticateUser() {
           $("#nav_companies").show();
           $("#nav_deps").show();
         }
-        showTickets();
       }
     });
   });
