@@ -31,6 +31,7 @@ function getTicket(ticketID) {
         $("#ticket_status").text("OPEN");
         $("#ticket_status").css("color", "green");
         $("#close_ticket_btn").show();
+        $("#respArea").show();
       } else {
         $("#ticket_status").text("CLOSED");
         $("#ticket_status").css("color", "red");
@@ -77,14 +78,13 @@ function deleteTicket() {
       getBadges();
       $("#deleteTicketButton").prop("disabled", false);
       $('#tickets_jqGrid').trigger('reloadGrid');
+      $("#ticket_details_page").hide();
       $("#delete_ticket_modal_msg")
         .text("Ticket Deleted. Window closing");
-      $('#ticket_details_page').hide();
       setTimeout(function() {
         $("#delete_ticket_modal_msg").text("");
         $('#delete_ticket_modal').modal('hide');
       }, 2000);
-      showTickets();
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $("#deleteTicketButton").prop("disabled", false);

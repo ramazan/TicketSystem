@@ -173,7 +173,7 @@ public class ServiceFacade {
 		companyService.updateCompanyData(company);
 	}
 
-	public ArrayList<Integer> getBadges(long userID) {
+	public ArrayList<Integer> getBadges(long userID) throws Exception {
 		return departmentDAOService.getBadges(userID);
 	}
 

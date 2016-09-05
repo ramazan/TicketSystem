@@ -30,6 +30,7 @@ public class UserRest {
 	private static Logger logger = LogManager.getLogger();
 
 	@GET
+	@PermitAll
 	public User getUserDetails(@Context HttpServletRequest request) throws Exception {
 		String userId = request.getUserPrincipal().getName();
 		logger.debug("UserRest - getUserDetails . userId : " + userId);

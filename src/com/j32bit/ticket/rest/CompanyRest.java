@@ -2,6 +2,7 @@ package com.j32bit.ticket.rest;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ public class CompanyRest {
 
 	@POST
 	@Path("/addCompany")
+	@RolesAllowed("admin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Company addCompany(Company company) throws Exception {
@@ -26,6 +28,7 @@ public class CompanyRest {
 
 	@GET
 	@Path("/getAllCompanies")
+	@PermitAll
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Company> getAllCompanies() {
 		return ServiceFacade.getInstance().getAllCompanies();
@@ -33,6 +36,7 @@ public class CompanyRest {
 
 	@POST
 	@Path("/getCompany")
+	@RolesAllowed("admin")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Company getCompany(long companyID) throws Exception {
@@ -40,6 +44,7 @@ public class CompanyRest {
 	}
 
 	@POST
+	@RolesAllowed("admin")
 	@Path("/deleteCompanyData")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -2,6 +2,8 @@ package com.j32bit.ticket.rest;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,9 +20,9 @@ import com.j32bit.ticket.service.ServiceFacade;
 @Path("department")
 public class DepartmentRest {
 
-	
 	@Path("/getAllDepartments")
 	@GET
+	@PermitAll
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Department> getAllDepartments() {
 		return ServiceFacade.getInstance().getAllDepartments();
@@ -28,6 +30,7 @@ public class DepartmentRest {
 	
 	@POST
 	@Path("/addDepartment")
+	@RolesAllowed("admin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Department addDepartment(Department department) throws Exception {
@@ -36,6 +39,7 @@ public class DepartmentRest {
 	
 	@POST
 	@Path("/getDepartmentDetails")
+	@RolesAllowed("admin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Department getDepartmentDetails(long ID) throws Exception {
@@ -44,6 +48,7 @@ public class DepartmentRest {
 	
 	@POST
 	@Path("/deleteDepartment")
+	@RolesAllowed("admin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void deleteDepartment(long ID) throws Exception {
@@ -52,9 +57,9 @@ public class DepartmentRest {
 	
 	@POST
 	@Path("/getBadges")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@PermitAll
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Integer>  getBadges(@Context HttpServletRequest request){
+	public ArrayList<Integer>  getBadges(@Context HttpServletRequest request) throws Exception{
 		User user = (User) request.getSession().getAttribute("LOGIN_USER");
 		long userID = user.getId();
 		return ServiceFacade.getInstance().getBadges(userID);

@@ -40,7 +40,6 @@ function authenticateUser() {
       success: function(data) {
         authenticatedUser = data;
         $("#nav_nickname").text(authenticatedUser.email);
-        showTickets();
         // sayfayi izinlere gore hazirla
         $.each(authenticatedUser.userRoles, function(key, value) {
           if (value == "admin")
@@ -55,6 +54,7 @@ function authenticateUser() {
           $("#nav_companies").show();
           $("#nav_deps").show();
         }
+        showTickets();
       }
     });
   });
