@@ -20,23 +20,28 @@ function loadAllUsers() {
     }, {
       label: "Name",
       name: 'name',
-      width: 85
+      width: 95,
+      align: "center"
     }, {
       label: "E-Mail",
       name: 'email',
-      width: 140
+      width: 155,
+      align: "center"
     }, {
       label: "Company",
       name: 'company.name',
-      width: 85
+      width: 65,
+      align: "center"
     }, {
       label: "Department",
       name: 'department.name',
-      width: 95
+      width: 90,
+      align: "center"
     }, {
       label: "Roles",
       name: 'userRoles',
-      width: 125
+      width: 125,
+      align: "center"
     }, {
       label: "Detail",
       name: 'id',

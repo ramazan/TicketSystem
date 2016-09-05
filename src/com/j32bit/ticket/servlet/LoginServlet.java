@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		logger.debug("session ID:"+session.getId());
 		session.setAttribute("LOGIN_USER", authenticatedUser);
-		session.setMaxInactiveInterval(3600); // 60dk - 60*60
+		session.setMaxInactiveInterval(36000); // 60dk - 60*60*10
 
 		try {
 			response.sendRedirect("/Ticket_System/index.html");
