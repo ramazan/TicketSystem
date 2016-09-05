@@ -8,25 +8,25 @@ $("#nav_tickets").show();
 
 $(document).ready(function() {
   authenticateUser();
-  
+
   setTimeout(function() {
-	  getBadges();
-    }, 1300);
+    getBadges();
+  }, 1300);
 });
 
-  $('#supporterRole').change(function() {
-    if (this.checked)
-      $('#departmentFade').fadeIn();
-    else
-      $('#departmentFade').fadeOut();
-  });
+$('#supporterRole').change(function() {
+  if (this.checked)
+    $('#departmentFade').fadeIn();
+  else
+    $('#departmentFade').fadeOut();
+});
 
-  $('#selectedPersonRoleSup').change(function() {
-    if (this.checked)
-      $('#departmentInput').fadeIn();
-    else
-      $('#departmentInput').fadeOut();
-  });
+$('#selectedPersonRoleSup').change(function() {
+  if (this.checked)
+    $('#departmentInput').fadeIn();
+  else
+    $('#departmentInput').fadeOut();
+});
 
 
 function authenticateUser() {
@@ -62,8 +62,10 @@ function authenticateUser() {
 
 
 function logout() {
-  $.get("/Ticket_System/logout");
-  window.location = "/Ticket_System";
+  $.get("/Ticket_System/logout", function() {
+    window.location = "/Ticket_System";
+  });
+
 }
 
 function showProfile() {
@@ -151,26 +153,25 @@ function showCompanies() {
 }
 
 //Sayıların getirilip set edilmesi
-function getBadges(){
-	
-	$.ajax({
-	      type: "POST",
-	      url: '/Ticket_System/rest/department/getBadges',
-	      contentType: "application/json",
-	      mimeType: "application/json",
-	      success: function(Badge) {
-	    	  $("#usersBadge").text(Badge[0]);  //gelen listedeki indexe  göre set etme işlemi
-//	    	  $("#ticketsBadge").text(Badge[1]);  // tickets olayını iptal ettim
-	    	  $("#depBadge").text(Badge[1]-1);    // Db'de ilk olarak no department seçenegini tuttugumuz için her zaman bir fazla oldugu için 1 eksilttim
-	    	  $("#companiesBadge").text(Badge[2]);
-	    	  $("#closedTicketBadge").text(Badge[3]);
-	    	  $("#openedTicketBadge").text(Badge[4]);
-	    	  $("#MyTicketBadge").text(Badge[3]+Badge[4]);  // myTicket olayı  open + closed oldugu için ekstra sorgu yapmadan böyle halletim.
+function getBadges() {
 
-	      },
-	      error:{
-	      }
-	    });
+  $.ajax({
+    type: "POST",
+    url: '/Ticket_System/rest/department/getBadges',
+    contentType: "application/json",
+    mimeType: "application/json",
+    success: function(Badge) {
+      $("#usersBadge").text(Badge[0]); //gelen listedeki indexe  göre set etme işlemi
+      //	    	  $("#ticketsBadge").text(Badge[1]);  // tickets olayını iptal ettim
+      $("#depBadge").text(Badge[1] - 1); // Db'de ilk olarak no department seçenegini tuttugumuz için her zaman bir fazla oldugu için 1 eksilttim
+      $("#companiesBadge").text(Badge[2]);
+      $("#closedTicketBadge").text(Badge[3]);
+      $("#openedTicketBadge").text(Badge[4]);
+      $("#MyTicketBadge").text(Badge[3] + Badge[4]); // myTicket olayı  open + closed oldugu için ekstra sorgu yapmadan böyle halletim.
+
+    },
+    error: {}
+  });
 }
 
 

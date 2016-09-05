@@ -23,15 +23,7 @@
   	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
 
-	<filter>
-	    <filter-name>SessionFilter</filter-name> <!-- mandatory -->
-	    <filter-class>com.j32bit.ticket.servlet.filter.SessionFilter</filter-class> <!-- mandatory -->
-	</filter>
-
-  <filter-mapping>
-    <filter-name>SessionFilter</filter-name> <!-- mandatory -->
-    <url-pattern>/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
-  </filter-mapping>
+	
 
 	<!-- JERSEY -->
 	<servlet>
@@ -83,7 +75,7 @@
     	<web-resource-collection>
         	<web-resource-name>Ticket System</web-resource-name>
 			<!-- Restricting access only to this URL for the GET method -->
-   	    	<url-pattern>/index.html</url-pattern>
+   	    	<url-pattern>/*</url-pattern>
   		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
@@ -91,12 +83,6 @@
 			<role-name>supporter</role-name>
     	</auth-constraint>
 	</security-constraint>
-
-	<!-- ContextListener -->
-	<listener>
-		<listener-class>com.j32bit.ticket.listener.ContextListener</listener-class>
-	</listener>
-
 	<!-- Using Basic authentication -->
 	<login-config>
  		<auth-method>FORM</auth-method>  
@@ -105,6 +91,13 @@
 			<form-error-page>/login.html</form-error-page>
  		</form-login-config>
 	</login-config> 
+
+	<!-- ContextListener -->
+	<listener>
+		<listener-class>com.j32bit.ticket.listener.ContextListener</listener-class>
+	</listener>
+
+
 
 
 	<!-- CONNECTION POOL JNDI -->
@@ -118,12 +111,17 @@
 	<!-- error pages -->
 	<error-page>
     	<error-code>404</error-code>
-    	<location>/errorPage.html?err=404</location>
+    	<location>/errorPage.html</location>
+	</error-page>
+
+	<error-page>
+    	<error-code>403</error-code>
+    	<location>/errorPage.html</location>
 	</error-page>
 
 	<error-page>
     	<error-code>500</error-code>
-    	<location>/errorPage.html?err=500</location>
+    	<location>/errorPage.html</location>
 	</error-page>
 	
   <welcome-file-list>

@@ -1,7 +1,5 @@
 package com.j32bit.ticket.servlet;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +35,7 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			response.sendRedirect("/Ticket_System/index.html");
-			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		logger.debug("login completed. userEmail:" + authenticatedUser.getEmail());
