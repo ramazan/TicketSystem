@@ -77,18 +77,17 @@ function prepareAddUserArea() {
   loadAllCompanies("new_user_company");
 
   $("#departmentFade").hide();
-  $("#add_user_modal_btn").prop("disabled", false);
   $("#add_user_modal_msg").text("");
   $('#add_user_roles input').prop('checked', false);
   $('#new_user_name').val('');
   $('#new_user_email').val('');
   $('#new_user_password').val(''); // inputları temizle.
-
   $("#add_user_modal").modal("show");
 }
 
 // yeni kullanıcı ekleme işlemi
 function addUser() {
+  $("#add_user_modal_btn").prop("disabled", true);
 
   var newName = $("#new_user_name").val();
   var newEmail = $('#new_user_email').val();
@@ -112,14 +111,12 @@ function addUser() {
 
   if (newRoles.length == 0 || newName == "" || newEmail == "" ||
     newCompanyID == "" || newPassword == "") {
-    console.log("error: fill all boxes");
+    $("#add_user_modal_btn").prop("disabled", false);
     $("#add_user_modal_msg").text("Please fill required(*) boxes");
   } else if (!pattern.test(newEmail)) {
+    $("#add_user_modal_btn").prop("disabled", false);
     $("#add_user_modal_msg").text("Invalid e-mail address!");
   } else {
-
-	  $("#add_user_modal_btn").prop("disabled", true);
-	  
     var person = {
       name: newName,
       email: newEmail,
@@ -133,41 +130,35 @@ function addUser() {
       }
     };
 
-    $
-      .ajax({
-        type: "POST",
-        url: '/Ticket_System/rest/user/addUser',
-        contentType: "application/json",
-        mimeType: "application/json",
-        data: JSON.stringify(person),
-        success: function() {
-          $("#add_user_modal_btn").prop("disabled", true);
+    $.ajax({
+      type: "POST",
+      url: '/Ticket_System/rest/user/addUser',
+      contentType: "application/json",
+      mimeType: "application/json",
+      data: JSON.stringify(person),
+      success: function() {
+        $("#add_user_modal_msg").text(
+          "User added. Closing Window in 2sec..");
+        // reload jqgrid
+        $('#users_jqGrid').trigger('reloadGrid');
+        getBadges();
+
+        setTimeout(function() {
+          $('#add_user_modal').modal('hide');
+          $("#add_user_modal_btn").prop("disabled", false);
+        }, 2000);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        $("#add_user_modal_btn").prop("disabled", false);
+        if (jqXHR.status == 409) {
+          $("#add_user_modal_msg")
+            .text("There is an existing account associated with this mail");
+        } else {
           $("#add_user_modal_msg").text(
-            "User added. Closing Window in 2sec..");
-          // reload jqgrid
-          $('#users_jqGrid').trigger('reloadGrid');
-          getBadges();
-    	  $("#add_user_modal_btn").prop("disabled", false);
-          setTimeout(function() {
-            $('#add_user_modal').modal('hide');
-          }, 2000);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          if (jqXHR.status == 409) {
-            $("#add_user_modal_msg")
-              .text(
-                "There is an existing account associated with this mail");
-            // hatali user varsa modal kapanmadan bilgi
-            // guncellemesi yapilmalı
-            // NOT: modal acilmadan once tum veriler zaten
-            // temizleniyor
-            // tekrar temizlemeye gerek yok!
-          } else {
-            $("#add_user_modal_msg").text(
-              "Unresolved error! Send ticket!");
-          }
+            "Unresolved error! Send ticket!");
         }
-      });
+      }
+    });
   }
 }
 
