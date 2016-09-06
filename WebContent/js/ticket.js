@@ -166,6 +166,7 @@ function loadAllResponses() {
 }
 
 function closeTicket() {
+
   $("#closeTicketButton").prop("disabled", true);
   $.ajax({
     type: "POST",
@@ -176,8 +177,8 @@ function closeTicket() {
     success: function() {
       getBadges();
       $("#close_ticket_modal_msg").text("Ticket Closed. Window closing");
-      loadPostedTickets(1);
       $('#ticket_details_page').hide();
+      $('#tickets_jqGrid').trigger('reloadGrid');
 
       setTimeout(function() {
         $("#close_ticket_modal_msg").text("");
@@ -243,7 +244,7 @@ function loadAllTickets(status) {
     height: 450,
     width: 850,
     styleUI: 'Bootstrap',
-    rowNum: 100,
+    rowNum: 1000,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
   });
@@ -307,8 +308,7 @@ function loadPostedTickets(status) {
     height: 450,
     width: 850,
     styleUI: 'Bootstrap',
-    loadonce: true,
-    rowNum: 100,
+    rowNum: 1000,
     pager: "#tickets_jqGridPager",
     emptyrecords: "Nothing to display",
   });
@@ -372,9 +372,7 @@ function sendTicket() {
           $("#sendTicketButton").prop("disabled", false);
         }, 2000);
         // reload jqgrid
-        if (isClient == true)
-          loadPostedTickets(1);
-        else loadAllTickets(1);
+        loadPostedTickets(1);
       },
       error: function() {
         $("#sendTicketButton").prop("disabled", false);

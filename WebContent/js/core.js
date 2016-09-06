@@ -12,7 +12,7 @@ $(document).ready(function() {
   setTimeout(function() {
     showTickets();
     getBadges();
-  }, 1500);
+  }, 1000);
 });
 
 $('#supporterRole').change(function() {
